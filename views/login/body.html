@@ -1,0 +1,73 @@
+<!--
+<div ng-controller="LoginCtrl1">
+  IsAuthenticated:
+    <input type="checkbox" ng-model="auth.isLoggedIn" />
+    <a ui-sref="dashboard">dashboard</a>
+
+</div>
+ -->
+
+ <div class="container">
+   <div class="row">
+     <div class="col-md-4 col-md-offset-4">
+       <div class="login-panel panel panel-default">
+         <div class="panel-heading">
+           <h3 class="panel-title">Login</h3>
+         </div>
+         <div class="panel-body">
+           <form role="form" ng-controller="loginCtrl" ng-submit="login()">
+             <fieldset>
+               <div class="form-group">
+                 <input type="username" class="form-control" id="username" ng-model="username" placeholder="Username" autofocus>
+               </div>
+               <div class="form-group">
+                 <input type="password" class="form-control" id="pwd" ng-model="password" placeholder="Password">
+               </div>
+
+               <div class="form-group">
+
+                 <label>Don't have an account? <a ui-sref="sign-up">Sign Up</a> now!</label>
+               </div>
+
+               <!-- Change this to a button or input when using this as a form -->
+               <center><button type="submit" class="btn btn-default">Submit</button></center>
+               <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
+             </fieldset>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+ <!-- <div class="container-fluid wrap2">
+   <div class="container">
+     <div class="auth-form">
+       <form role="form" ng-controller="loginCtrl" ng-submit="login()">
+         <div class="auth-form-header">
+           <h2>Login</h2>
+         </div>
+
+         <div class="auth-form-body">
+           <div class="form-group">
+             <label for="username">Username:</label>
+             <input type="username" class="form-control" id="username" ng-model="username" placeholder="Enter email">
+           </div>
+           <div class="form-group">
+             <label for="pwd">Password:</label>
+             <input type="password" class="form-control" id="pwd" ng-model="password" placeholder="Enter password">
+           </div>
+           <div class="form-group">
+
+             <label>Don't have an account? <a ui-sref="signUp">Sign Up</a> now!</label>
+           </div>
+           <div class="form-group">
+
+             <button type="submit" class="btn btn-default">Submit</button>
+           </div>
+         </div>
+       </form>
+     </div>
+   </div>
+ </div> -->

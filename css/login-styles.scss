@@ -1,0 +1,48 @@
+@import url('http://fonts.googleapis.com/css?family=Raleway');
+@import url('http://fonts.googleapis.com/css?family=Josefin+Slab');
+@import url('http://fonts.googleapis.com/css?family=Lobster');
+
+$header-font:"Raleway";
+$body-font:$header-font;
+
+.auth-form {
+  width: 400px;
+  margin: 60px auto;
+  padding-top: 60px;
+  //margin-right: auto;
+  padding-bottom: 60px;
+  //margin-left: auto;
+  .auth-form-header {
+    position: relative;
+    padding: 10px 20px;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+    background-color: #386075;
+    border: 1px solid #D5D5D5;
+    border-radius: 3px 3px 0 0;
+    h2 {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+    }
+  }
+}
+
+.auth-form-body {
+  padding: 20px;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #d8dee2;
+  border-top: 0;
+  border-radius: 0 0 3px 3px;
+  label {
+    font-size: 13px;
+    font-weight: bold;
+    font-family: $body-font;
+  }
+  input {
+    font-family: $body-font;
+    font-size: 13px;
+  }
+}

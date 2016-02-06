@@ -1,0 +1,254 @@
+/*
+ * Base structure
+ */
+
+//@import url('http://fonts.googleapis.com/css?family=Roboto');
+$primary-background-color: #F1F1F1;
+$secondary-background-color: #E8E8E8;
+$background-color-3: #DDD;
+$inverse-background-color: #fff;
+$primary-font-color: #000;
+$hyperlink-font-color: #fff;
+$primary-border-color: #999;
+$primary-font: Roboto, Helvetica;
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+
+body {
+    padding-top: 50px;
+    background-color: $primary-background-color;
+    font-family: $primary-font;
+    color: $primary-font-color
+}
+
+.panel {
+    width: 90%;
+    height: 100%;
+    border-color: $primary-border-color;
+    .panel-body {
+        padding: none;
+        background-color: $secondary-background-color;
+        border-color: $primary-border-color;
+        .btn {
+            background-image: linear-gradient(#fcfcfc, #eee);
+            border: 1px solid #d5d5d5;
+            border-radius: 3px;
+            &:active {
+                background-image: linear-gradient(#eee, #fcfcfc);
+                outline: 0;
+            }
+            &:focus {
+                outline: 0;
+            }
+            // &:disabled {
+
+            // }
+        }
+    }
+    .panel-scroll {
+        @extend .panel-body;
+        height: 500px;
+        overflow-y: scroll;
+    }
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.vis-network {
+    background-color: $secondary-background-color;
+    width: 100%;
+    height: 100%;
+}
+
+.vis-network .item {
+    /*background-color: #008CBA;*/
+    /*border-color: #008CBA;*/
+    /*color: #ffffff;*/
+    /*font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;*/
+    /*font-kerning: auto;*/
+    /*font-size: 13px;*/
+    /*font-style: normal;*/
+    /*font-variant: normal;*/
+    /*font-variant-ligatures: normal;*/
+    /*font-weight: normal;*/
+}
+
+.vis-network .item.green {
+    background-color: green;
+    border-color: green;
+    color: #ffffff;
+}
+
+.vis-network .item.red {
+    background-color: red;
+    border-color: red;
+    color: #ffffff;
+}
+
+.vis-network .item.orange {
+    background-color: orange;
+    border-color: orange;
+}
+
+.vis-network .item.magenta {
+    background-color: magenta;
+    border-color: magenta;
+    color: #ffffff;
+}
+
+.vis-network .item.past {
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+
+.navbar-fixed-top {
+    border: 0;
+    background-color: $secondary-background-color;
+    color: $primary-font-color;
+    .navbar-header .navbar-brand {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+        color: $primary-font-color
+    }
+    .navbar-collapse .nav li {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+        @include border-radius(10px);
+        &:hover {
+            background-color: $background-color-3;
+        }
+        a {
+            color: $primary-font-color
+        }
+    }
+}
+
+
+/*
+ * Sidebar
+ */
+
+
+/* Hide for mobile, show later */
+
+.sidebar {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        /* Scrollable contents if viewport is shorter than content. */
+        background-color: $primary-background-color;
+        border-right: 1px solid #eee;
+    }
+}
+
+
+/* Sidebar navigation */
+
+.nav-sidebar {
+    li {
+        h1 {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 18px
+        }
+        a {
+            color: $primary-font-color;
+            font-weight: 300;
+            &:hover {
+                background-color: $secondary-background-color;
+                @include border-radius(10px);
+            }
+            &:active {
+                background-color: $secondary-background-color;
+                color: $primary-font-color
+            }
+        }
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+.main .page-header {
+    margin-top: 20px;
+    font-weight: 400;
+    border-color: $primary-border-color
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.placeholders h4 {
+    margin-bottom: 0;
+}
+
+.placeholder {
+    margin-bottom: 20px;
+}
+
+.placeholder img {
+    display: inline-block;
+    border-radius: 50%;
+}

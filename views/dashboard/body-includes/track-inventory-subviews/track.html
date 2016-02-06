@@ -1,0 +1,91 @@
+<script type="text/ng-template" id="addModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Add a Stage</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset class="form-group">
+                <label>Name of Supply Chain Stage</label>
+                <input class="form-control" ng-model="name" placeholder="i.e. Processing Plant 1">
+                <small class="text-muted">Maximum 30 characters.</small>
+            </fieldset>
+            <fieldset class="form-group">
+                <label>Previous Stage</label>
+                <select ng-model="prev" ng-options="stage as stage.name for stage in stages" class="form-control">
+                </select>
+            </fieldset>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+<script type="text/ng-template" id="editModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Add a Stage</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset class="form-group">
+                <label>New Name</label>
+                <input class="form-control" ng-model="name" placeholder="i.e. Processing Plant 1">
+                <small class="text-muted">Maximum 30 characters.</small>
+            </fieldset>
+            <fieldset class="form-group">
+                <label>Previous Stage</label>
+                <select ng-model="selectedStage" ng-options="stage as stage.name for stage in getStages()" class="form-control"></select>
+            </fieldset>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+<script type="text/ng-template" id="exitSupplyChain.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Save and Exit?</h3>
+    </div>
+    <div class="modal-body">
+        
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+<div ng-controller="SupplyChainDisplayCtrl">
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h2 class="page-header light-text">Track Inventory</h2>
+        <div class="row placeholders">
+            <div class="col-lg-8">
+                <div class="container">
+                    <div class="panel-container">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <button ng-click="addStage()" class="btn btn-default">Add</button>
+                                <button ng-click="editStage()" class="btn btn-default">Edit</button>
+                                <button class="btn btn-default">Delete</button>
+                                <button class="btn btn-default">Link</button>
+                                <button class="btn btn-default">Unlink</button>
+                                <button ng-click="saveSupplyChain()" class="btn btn-default">Save</button>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <!-- <div class="panel-heading">
+                                <h3 class="panel-title">Supply Chain Representation</h3>
+                            </div> -->
+                            <div class="panel-body" style="height:500px">
+                                <vis-network-track data="data" options="options" events="events" height="500px"></vis-network-track>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
