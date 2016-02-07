@@ -23,62 +23,24 @@ app.controller('NavTopCtrl', ['$scope', 'Fishery', 'AuthService', '$state',
 }]);
 
 
-app.controller('SideNavCtrl', ['$scope', 'DashboardNavigation',
-    function ($scope, DashboardNavigation) {
-
-      $scope.setView = function (view) {
-        console.log("view " + view);
-        var nocheck = DashboardNavigation.checkForUnsavedChanges(view);
-        console.log(nocheck);
-        if (nocheck) {
-          DashboardNavigation.setView(view);
-        }
-      };
-
-}]);
-
-
-
-
-app.controller('DashboardDisplayCtrl', ['$scope', 'DashboardNavigation',
-    function ($scope, DashboardNavigation) {
-
-      $scope.getView = function (view) {
-        return DashboardNavigation.getView();
-      };
-
-
-      $scope.change = function() {
-        console.log("change");
-      }
-
-}]);
-
 
 // SUPPLY CHAINS TAB
 
-app.controller('SupplyChainMenuCtrl', ['$scope', 'SupplyChainMenuNavigation', 'SupplyChainData', 'Fishery',
-    function ($scope, SupplyChainMenuNavigation, SupplyChainData, Fishery) {
-        SupplyChainMenuNavigation.setView('menu');
-
-        $scope.getView = function (view) {
-            return SupplyChainMenuNavigation.getView();
-        };
+app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'SupplyChainData', 'Fishery',
+    function ($scope, $state, SupplyChainMenu, SupplyChainData, Fishery) {
 
         $scope.createNewSupplyChain = function () {
-            SupplyChainMenuNavigation.setView('create');
+            $state.go('dashboard.default.supply-chain.create');
         };
 
         $scope.editSupplyChain = function (supplyChain) {
-            SupplyChainData.setSupplyChain(supplyChain);
-            SupplyChainMenuNavigation.setView('builder');
+            $state.go('dashboard.default.supply-chain.builder');
         };
 
         $scope.getSupplyChains = function () {
             Fishery.getFishery(function (fishery) {
-                SupplyChainMenuNavigation.getSupplyChains(fishery._id, function (res) {
+                SupplyChainMenu.getSupplyChains(fishery._id, function (res) {
                     $scope.supplyChains = res;
-                    console.log("FDSFAS " + $scope.supplyChains);
                 }, function (error) {
                   console.log("Error creating supplyChain.");
                       console.log(error);
@@ -91,8 +53,8 @@ app.controller('SupplyChainMenuCtrl', ['$scope', 'SupplyChainMenuNavigation', 'S
 
 }]);
 
-app.controller('SupplyChainCreateCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenuNavigation', 'Fishery', '$localStorage',
-    function ($scope, VisDataSet, SupplyChainData, SupplyChainMenuNavigation, Fishery, $localStorage) {
+app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'Fishery', '$localStorage',
+    function ($scope, $state, VisDataSet, SupplyChainData, SupplyChainMenu, Fishery, $localStorage) {
 
         // get stages - for option display
         $scope.createSupplyChain = function () {
@@ -105,9 +67,10 @@ app.controller('SupplyChainCreateCtrl', ['$scope', 'VisDataSet', 'SupplyChainDat
 
                 SupplyChainData.postSupplyChain(fisheryId, data, function (res) {
                     console.log(res);
-                    //SupplyChainMenuNavigation.setView('builder');
+                    //SupplyChainMenu.setView('builder');
                     SupplyChainData.setSupplyChain(res);
-                    SupplyChainMenuNavigation.setView('builder');
+                    $state.go('dashboard.default.supply-chain.builder');
+
 
                 }, function (error) {
                     console.log("Error creating supplyChain.");
@@ -121,8 +84,8 @@ app.controller('SupplyChainCreateCtrl', ['$scope', 'VisDataSet', 'SupplyChainDat
 }]);
 
 
-app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenuNavigation', 'DashboardNavigation',
-  function ($scope, $uibModal, VisDataSet, SupplyChainData, SupplyChainMenuNavigation, DashboardNavigation) {
+app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'DashboardNavigation',
+  function ($scope, $uibModal, VisDataSet, SupplyChainData, SupplyChainMenu, DashboardNavigation) {
 
     // $scope.$on("dashboardSwitch", function (event, newView) {
     //   console.log(newView);

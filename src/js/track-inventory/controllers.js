@@ -34,7 +34,7 @@ app.controller('TrackInventoryMenuCtrl', ['$scope', 'TrackInventoryMenuNavigatio
         $scope.setSupplyChain = function (supplyChain) {
             TrackInventoryManager.setSupplyChain(supplyChain);
             SupplyChainData.setSupplyChain(supplyChain);
-            TrackInventoryMenuNavigation.setView('supply-chain');
+            $state.go('dashboard.default.inventory.track');
         };
 
 }]);

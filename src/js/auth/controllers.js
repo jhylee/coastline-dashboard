@@ -50,7 +50,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
 
     AuthService.createFishery(formData, function (res) {
         console.log(res);
-        $state.go('dashboard');
+        $state.go('dashboard.default');
       },
       function (err) {
         $rootScope.error = 'Failed to createFishery';
@@ -65,7 +65,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
     };
 
     AuthService.login(formData, function (res) {
-        $state.go('dashboard');
+        $state.go('dashboard.default');
       },
       function (err) {
         $rootScope.error = 'Failed to signin';

@@ -17,166 +17,110 @@ var app = angular.module('coastlineWebApp', ['ui.router',
 
 app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
 
-  $urlRouterProvider.otherwise('/redirect');
-  //$locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('/login');
 
-  $stateProvider
+    $stateProvider
 
-  .state('create-supply-chain', {
-    url: '/create-supply-chain',
-    //  templateUrl: '/views/dashboard.html',
-    data: {
-      requireLogin: true
-    },
-    views: {
-      'nav-top': {
-        templateUrl: '/views/create-supply-chain/nav-top.html'
-      },
-      'nav-side': {
-        templateUrl: '/views/create-supply-chain/nav-side.html'
-      },
-      'body': {
-        templateUrl: '/views/create-supply-chain/body.html'
-      },
-      'footer': {
-        templateUrl: '/views/create-supply-chain/footer.html'
-      },
-    }
-  })
+    .state('login', {
+        url: '/login',
+        templateUrl: '/views/login.html'
+    })
+    
+    .state('fishery-setup', {
+        url: '/fishery-setup',
+        templateUrl: '/views/fishery-setup.html'
+    })
+    
+    .state('sign-up', {
+        url: '/sign-up',
+        templateUrl: '/views/sign-up.html'
+    })
 
-  .state('dashboard', {
-    url: '/dashboard',
-    //  templateUrl: '/views/dashboard.html',
-    data: {
-      requireLogin: true
-    },
-    views: {
-      'nav-top': {
-        templateUrl: '/views/dashboard/nav-top.html'
-      },
-      'nav-side': {
-        templateUrl: '/views/dashboard/nav-side.html'
-      },
-      'body': {
-        templateUrl: '/views/dashboard/body.html'
-      },
-      'footer': {
-        templateUrl: '/views/dashboard/footer.html'
-      },
-    }
-  })
+    .state('dashboard', {
+        url: '/auth',
+        templateUrl: '/views/dashboard.html'
+    })
+  
+    .state('dashboard.default', {
+        url: '/home',
+        templateUrl: '/views/dashboard.default.html'        
+    })
+    
+    .state('dashboard.default.overview', {
+        url: '/overview',
+        templateUrl: '/views/dashboard.default.overview.html'        
+    })
+ 
+    .state('dashboard.default.products', {
+        url: '/products',
+        templateUrl: '/views/dashboard.default.products.html'        
+    })
+    
+    .state('dashboard.default.supply-chain', {
+        url: '/supply-chain',
+        templateUrl: '/views/dashboard.default.supply-chain.html'
+    })
+    
+    .state('dashboard.default.supply-chain.menu', {
+        url: '/supply-chain.menu',
+        templateUrl: '/views/dashboard.default.supply-chain.menu.html'        
+    })
+    
+    .state('dashboard.default.supply-chain.builder', {
+        url: '/supply-chain.builder',
+        templateUrl: '/views/dashboard.default.supply-chain.builder.html'        
+    })
+    
+    .state('dashboard.default.supply-chain.create', {
+        url: '/supply-chain.create',
+        templateUrl: '/views/dashboard.default.supply-chain.create.html'        
+    })
+    
+    .state('dashboard.default.inventory', {
+        url: '/inventory',
+        templateUrl: '/views/dashboard.default.inventory.html'        
+    })
+    
+    .state('dashboard.default.inventory.menu', {
+        url: '/menu',
+        templateUrl: '/views/dashboard.default.inventory.menu.html'        
+    })
+    
+    .state('dashboard.default.inventory.track', {
+        url: '/inventory.track',
+        templateUrl: '/views/dashboard.default.inventory.track.html'        
+    })
+    
+    
+    .state('dashboard.default.orders', {
+        url: '/orders',
+        templateUrl: '/views/dashboard.default.orders.html'        
+    })
+    
 
-  .state('fishery-setup', {
-    url: '/fishery-setup',
-    //  templateUrl: '/views/dashboard.html',
-    data: {
-      requireLogin: true
-    },
-    views: {
-      'nav-top': {
-        templateUrl: '/views/fishery-setup/nav-top.html'
-      },
-      'nav-side': {
-        templateUrl: '/views/fishery-setup/nav-side.html'
-      },
-      'body': {
-        templateUrl: '/views/fishery-setup/body.html'
-      },
-      'footer': {
-        templateUrl: '/views/fishery-setup/footer.html'
-      },
-    }
-  })
-
-
-  .state('login', {
-    url: '/login',
-
-    views: {
-
-      'nav-top': {
-        templateUrl: '/views/login/nav-top.html'
-      },
-      'nav-side': {
-        templateUrl: '/views/login/nav-side.html'
-      },
-      'body': {
-        templateUrl: '/views/login/body.html'
-      },
-      'footer': {
-        templateUrl: '/views/login/footer.html'
-      },
-
-    }
-
-  })
-
-  .state('sign-up', {
-    url: '/sign-up',
-
-    views: {
-
-      'nav-top': {
-        templateUrl: '/views/sign-up/nav-top.html'
-      },
-      'nav-side': {
-        templateUrl: '/views/sign-up/nav-side.html'
-      },
-      'body': {
-        templateUrl: '/views/sign-up/body.html'
-      },
-      'footer': {
-        templateUrl: '/views/sign-up/footer.html'
-      },
-
-    }
-
-  })
-
-  .state('redirect', {
-    url: '/redirect',
-
-    views: {
-
-      'nav-top': {
-        templateUrl: '/views/login/nav-top.html'
-      },
-      'nav-side': {
-        templateUrl: '/views/login/nav-side.html'
-      },
-      'body': {
-        templateUrl: '/views/redirect/redirect.html'
-      },
-      'footer': {
-        templateUrl: '/views/login/footer.html'
-      },
-    }
-
-  })
-
+ 
+    
+    .state('redirect', {
+        url: '/redirect',
+        views: {
+            'nav-top': {
+                templateUrl: '/views/login/nav-top.html'
+            },
+            'nav-side': {
+                templateUrl: '/views/login/nav-side.html'
+            },
+            'body': {
+                templateUrl: '/views/redirect/redirect.html'
+            },
+            'footer': {
+                templateUrl: '/views/login/footer.html'
+            },
+        }
+    })
+    
 
 
   $httpProvider.interceptors.push('HttpInterceptorForToken');
-
-
-  //  $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
-  //    return {
-  //      'request': function (config) {
-  //        config.headers = config.headers || {};
-  //        if ($localStorage.token) {
-  //          config.headers.Authorization = 'Bearer ' + $localStorage.token;
-  //        }
-  //        return config;
-  //      },
-  //      'responseError': function (response) {
-  //        if (response.status === 401 || response.status === 403) {
-  //          $location.path('/signin');
-  //        }
-  //        return $q.reject(response);
-  //      }
-  //    }
-  //    }]);
-
 
 });
 

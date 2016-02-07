@@ -38,47 +38,8 @@ angular.module('coastlineWebApp.dashboard.services', ['ngStorage'])
     };
 }])
 
-.factory('DashboardNavigation', ['$rootScope', 'SupplyChainMenuNavigation', function($rootScope, SupplyChainMenuNavigation) {
-    var view = 'home';
 
-    return {
-        getView: function () {
-            return view;
-        },
-        setView: function (newView) {
-            view = newView;
-        },
-        checkForUnsavedChanges: function (newView) {
-            return true;
-        //     if (view == "home") {
-        //         return true;
-        //     } else if (view == "products") {
-        //         return true;
-        //     } else if (view == "supply-chain") {
-        //         if (SupplyChainMenuNavigation.getView() == "builder") {
-        //             var switchEvent = {
-        //                 type: "dashboardSwitch",
-        //                 to: newView
-        //             }
-        //             $rootScope.$broadcast("dashboardSwitch", newView);
-        //             return false;
-        //         // on home of SC component and trying to go home
-        //         } else {
-        //             return true;
-        //         }
-        //     } else if (view == "inventory") {
-        //         return true;
-        //     } else if (view == "orders") {
-        //         return true;
-        //     } else if (view == "e-commerce") {
-        //         return true;
-        //     }
-        }
-    }
-}])
-
-
-.factory('SupplyChainMenuNavigation', ['$http', 'apiUrl', function($http, apiUrl) {
+.factory('SupplyChainMenu', ['$http', 'apiUrl', function($http, apiUrl) {
     var view = 'home';
     var baseUrl = apiUrl;
 
