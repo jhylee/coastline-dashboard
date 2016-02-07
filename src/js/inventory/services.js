@@ -1,5 +1,6 @@
-var app = angular.module('coastlineWebApp.trackInventory.services', ['ui.bootstrap', 'ngStorage',
+var app = angular.module('coastlineWebApp.inventory.services', ['ui.bootstrap', 'ngStorage',
   'coastlineWebApp.auth.services',
+  'coastlineConstants',
   'ui.router']);
 
 app.factory('TrackInventoryMenuNavigation', ['$http', 'apiUrl', '$localStorage', function($http, apiUrl, $localStorage) {
@@ -23,6 +24,7 @@ app.factory('TrackInventoryManager', ['$http', 'apiUrl', '$localStorage', functi
     var view = 'menu';
     var baseUrl = apiUrl;
     var _supplyChain;
+
 
     return {
         getSupplyChain: function () {

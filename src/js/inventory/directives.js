@@ -1,4 +1,4 @@
-angular.module('coastlineWebApp.trackInventory.directives', [])
+angular.module('coastlineWebApp.inventory.directives', [])
 
 
 
