@@ -1,0 +1,23 @@
+<div ng-controller="SupplyChainCreateCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header light-text">Supply Chains</h2>
+    <div class="row placeholders">
+        <div class="col-lg-8">
+            <div class="container">
+                <div class="panel-container">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form ng-submit="createSupplyChain()">
+                                <fieldset class="form-group">
+                                    <label>Name of Supply Chain</label>
+                                    <input class="form-control" ng-model="name" placeholder="i.e. Processing Plant 1">
+                                    <small class="text-muted">Maximum 30 characters.</small>
+                                </fieldset>
+                                <button type="submit" class="btn-dashboard">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

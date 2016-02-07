@@ -1,0 +1,41 @@
+{
+  "name": "coastline-frontend",
+  "version": "1.0.0",
+  "description": "Inventory Management and E-Commerce App",
+  "main": "gulpfile.js",
+   "engines": {
+    "node": "4.1.1"
+  },
+
+  "scripts": {
+    "test": "npm install; gulp",
+
+    "start": "npm install; gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/abdu1khan/coastline-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdu1khan/coastline-frontend/issues"
+  },
+  "homepage": "https://github.com/abdu1khan/coastline-frontend",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-replace-task": "^0.2.1",
+    "gulp-sass": "^2.0.3",
+    "yargs": "^3.15.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-replace-task": "^0.2.1",
+    "gulp-sass": "^2.0.3",
+    "yargs": "^3.15.0"
+  }
+}

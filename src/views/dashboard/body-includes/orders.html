@@ -1,0 +1,152 @@
+
+<div ng-controller="SupplyChainCtrl">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header light-text">Manage Orders</h2>
+    <div class="row placeholders">
+      <div class="col-lg-8">
+        <div class="container">
+          <div class="panel-container">
+
+            <div class="panel panel-default">
+              <div class="panel-body alignleft">
+                <button ng-click="addStage()" class="btn-dashboard">Print Invoice</button>
+                <button ng-click="editStage()" class="btn-dashboard">Edit Order</button>
+                <button class="btn-dashboard">View Details</button>
+                <button class="btn-dashboard"><i class = "fa fa-filter"></i></button>
+                <input type="text" name="search" placeholder="Search for an item" class="search">
+              </div>
+            </div>
+            <div class="panel panel-body">
+              <!-- <div class="panel-heading">
+                                <h3 class="panel-title">Supply Chain Representation</h3>
+                            </div> -->
+              <div class="panel-scroll">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Invoice #</th>
+                        <th>Payment Method</th>
+                        <th>Status</th>
+                        <th>Date (MM/DD/YYYY)</th>
+                        <th>Total Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,012</td>
+                        <td>Credit Card</td>
+                        <td>Outstanding</td>
+                        <td>1/13/2016</td>
+                        <td>$67.99</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,011</td>
+                        <td>Credit Card</td>
+                        <td>Completed</td>
+                        <td>1/12/2016</td>
+                        <td>$125.15</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,010</td>
+                        <td>Subscription Pickup</td>
+                        <td>Completed</td>
+                        <td>1/12/2016</td>
+                        <td>N/A</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,009</td>
+                        <td>Credit Card</td>
+                        <td>Outstanding</td>
+                        <td>1/12/2016</td>
+                        <td>$225.59</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,008</td>
+                        <td>Paypal</td>
+                        <td>Completed</td>
+                        <td>1/12/2016</td>
+                        <td>$416.25</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,007</td>
+                        <td>Credit Card</td>
+                        <td>Completed</td>
+                        <td>1/12/2016</td>
+                        <td>$27.35</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,006</td>
+                        <td>Subscription Pickup</td>
+                        <td>Completed</td>
+                        <td>1/12/2016</td>
+                        <td>N/A</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,005</td>
+                        <td>Credit Card</td>
+                        <td>Outstanding</td>
+                        <td>1/11/2016</td>
+                        <td>$144.43</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,004</td>
+                        <td>Paypal</td>
+                        <td>Completed</td>
+                        <td>1/11/2016</td>
+                        <td>$25.94</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,003</td>
+                        <td>Paypal</td>
+                        <td>Completed</td>
+                        <td>1/11/2016</td>
+                        <td>$364.99</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,002</td>
+                        <td>Paypal</td>
+                        <td>Completed</td>
+                        <td>1/11/2016</td>
+                        <td>$364.99</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,001</td>
+                        <td>Paypal</td>
+                        <td>Completed</td>
+                        <td>1/11/2016</td>
+                        <td>$364.99</td>
+                      </tr>
+                      <tr>
+                        <td><input type ="checkbox"></td>
+                        <td>1,000</td>
+                        <td>Paypal</td>
+                        <td>Completed</td>
+                        <td>1/11/2016</td>
+                        <td>$364.99</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

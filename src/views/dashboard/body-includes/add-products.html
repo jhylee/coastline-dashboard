@@ -1,0 +1,309 @@
+<div ng-controller="productEditCtrl" id="page-wrapper">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">Add a Product</h1>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Product Addition Form</h4>
+          </div>
+          <!-- /.panel-heading -->
+          <form class='modal2' ng-submit="addProduct()">
+            <div class='content'>
+              <div class='form' role="form" ng-submit="addProduct()">
+
+                <div class="row">
+                  <div class="col-lg-6 form-group">
+                    <div class="large-padded-row">
+                      <h5>Seafood Types:</h5>
+
+                      <style>
+                        .form-control {
+                          outline: 0;
+                          border-color: #000;
+                          border-style: solid;
+                          border-width: 2px;
+                          width: 95%;
+                          background-color: #ffffff;
+                          padding: 6px;
+                          border-radius: 2px;
+                          margin-bottom: 5px;
+                          font-size: 14px;
+                        }
+
+                        .form-control-small {
+                          -webkit-transition: width .5s ease-in-out;
+                          -moz-transition: width .5s ease-in-out;
+                          -o-transition: width .5s ease-in-out;
+                          -ms-transition: width .5s ease-in-out;
+                          transition: width .5s ease-in-out;
+                          width: 72%;
+                        }
+
+                        .form-control:-webkit-autofill {
+                          background-color: #fff !important;
+                        }
+
+                        .form-control-fill {
+                          width: 96%;
+                        }
+
+                        #types_dropdown {
+                          overflow-y: hidden;
+                          max-height: 150px;
+                          border: 2px;
+                        }
+
+                        input:-webkit-autofill {
+                          -webkit-box-shadow: 0 0 0px 1000px white inset;
+                        }
+                      </style>
+                      <div angucomplete-alt id="types" placeholder="Cod, Tilapia, etc." pause="400" local-data="seafoodTypes" title-field="name" search-fields="name" minlength="0" input-class="form-control form-control-small" input-changed="inputChanged" selected-object="selectedSeafood"
+                      match-class="highlight" />
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 form-group">
+                    <div class="large-padded-row">
+                      <h5>Unit Price:</h5>
+                      <input ng-model="unitPrice" type="unitPrice" class="form-control" id="exampleInputEmail1" placeholder="i.e. 4.50">
+                    </div>
+                  </div>
+                </div>
+
+                <div class='col-lg-6 form-group' margin-bottom="0px">
+                  <div class="form-group">
+                    <img class="fishphoto" ng-src="{{imageUrl}}" />
+                  </div>
+                </div>
+
+
+
+                <div class='col-lg-2 form-group droppad'>
+                  <div class="large-padded-row">
+                    <h5>Featured?</h5>
+                    <select ng-model="featured" name="mydropdown" class="dropdown">
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class='col-lg-2 form-group droppad'>
+                  <div class="large-padded-row">
+                    <h5>Availability</h5>
+                    <select ng-model="availability" name="mydropdown" class="dropdown">
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
+
+                  </div>
+                </div>
+
+                <div class='col-lg-2 form-group droppad'>
+                  <div class="large-padded-row">
+                    <h5>Units</h5>
+                    <select ng-model="units" name="mydropdown" class="dropdown">
+                      <option value="lb">Pound</option>
+                      <option value="kg">Kilogram</option>
+                      <option value="unit">Unit</option>
+                    </select>
+                  </div>
+                </div>
+
+
+                 <div class='col-md-3 form-group alignright dropdown'>
+                   <div class='form-group'>
+                     <label for=''>Upload Picture</label>
+                     <div>
+                         <input type="file" class="upload" />
+                     </div>
+                   </div>
+                 </div>
+
+
+                <footer class='footer'>
+
+                  <div class='col-md-12 form-group'>
+
+                    <button class='button' type="submit" name="submit" required="required">Add Product</button>
+
+                  </div>
+
+                </footer>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Product Addition Form
+            </div>
+            <div class="panel-body">
+              <form role="form" ng-submit="addProduct()">
+
+                <div class="contact-form">
+                  <div class="container">
+
+
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <div class="form-group">
+                          <h4>Seafood Types:</h4>
+
+                          <style>
+                            .form-control {
+                              outline: 0;
+                              border-color: #ECECEC;
+                              border-style: solid;
+                              border-width: 1px;
+                              width: 95%;
+                              background-color: #ffffff;
+                              padding: 6px;
+                              border-radius: 2px;
+                              margin-bottom: 5px;
+                              font-size: 14px;
+                            }
+
+                            .form-control-small {
+                              -webkit-transition: width .5s ease-in-out;
+                              -moz-transition: width .5s ease-in-out;
+                              -o-transition: width .5s ease-in-out;
+                              -ms-transition: width .5s ease-in-out;
+                              transition: width .5s ease-in-out;
+                              width: 72%;
+                            }
+
+                            .form-control:-webkit-autofill {
+                              background-color: #fff !important;
+                            }
+
+                            .form-control-fill {
+                              width: 96%;
+                            }
+
+                            #types_dropdown {
+                              overflow-y: auto;
+                              max-height: 150px;
+                              border: 2px;
+                            }
+
+                            input:-webkit-autofill {
+                              -webkit-box-shadow: 0 0 0px 1000px white inset;
+                            }
+                          </style>
+
+                          <angucomplete-alt id="types" placeholder="Cod, Tilapia, etc." pause="400" local-data="seafoodTypes" title-field="name" search-fields="name" minlength="0" input-class="form-control" input-changed="inputChanged" selected-object="selectedSeafood" />
+                        </div>
+                      </div>
+
+
+
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <div class="form-group">
+                          <h4>Unit Price:</h4>
+                          <input ng-model="unitPrice" type="unitPrice" class="form-control" id="exampleInputEmail1" placeholder="i.e. 4.50">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <h4>Units:
+                            <select ng-model="units" name="mydropdown">
+                              <option value="lb">Pound</option>
+                              <option value="kg">Kilogram</option>
+                              <option value="unit">Unit</option>
+                            </select>
+                          </h4>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <h4>Availability:
+                            <select ng-model="availability" name="mydropdown">
+                              <option value="None">None</option>
+                              <option value="Low">Low</option>
+                              <option value="High">High</option>
+                            </select>
+                          </h4>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <h4>Featured:
+                            <select ng-model="featured" name="mydropdown">
+                              <option value="true">Yes</option>
+                              <option value="false">No</option>
+                            </select>
+                          </h4>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="container">
+                      <div class="col-lg-10">
+                        <br>
+                        <div class="form-group">
+                          <br>
+                          <button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Add Product</button>
+                          <br>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+  </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+-->
