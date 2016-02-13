@@ -36,7 +36,7 @@ app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$sta
 	      // modal setup and preferences
 	      var modalInstance = $uibModal.open({
 	        animation: true,
-	        templateUrl: 'addModalContent.html',
+	        templateUrl: 'addProductModal.html',
 	        controller: 'AddProductCtrl',
 	        size: 'lg',
 	        resolve: {}
