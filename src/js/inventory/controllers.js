@@ -1,7 +1,7 @@
 var app = angular.module('coastlineWebApp.inventory.controllers', ['ui.bootstrap', 
   'coastlineWebApp.dashboard.services',
   'coastlineWebApp.inventory.services',
-  'coastlineWebApp.supplyChain.services',
+  'coastlineWebApp.common.services',
   'ui.router']);
 
 

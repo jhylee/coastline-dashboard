@@ -1,4 +1,4 @@
-var app = angular.module('coastlineWebApp.supplyChain.services', ['ui.bootstrap', 'ngStorage',
+var app = angular.module('coastlineWebApp.common.services', ['ui.bootstrap', 'ngStorage',
   'ui.router']);
   
   app.factory('SupplyChainMenu', ['$http', 'apiUrl', function($http, apiUrl) {

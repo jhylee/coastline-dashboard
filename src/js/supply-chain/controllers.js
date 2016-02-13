@@ -1,6 +1,6 @@
 var app = angular.module('coastlineWebApp.supplyChain.controllers', ['ui.bootstrap',
-  'coastlineWebApp.supplyChain.services',
-  'coastlineWebApp.supplyChain.directives',  
+  'coastlineWebApp.common.services',
+  'coastlineWebApp.common.directives',  
   'ui.router']);
   
   // SUPPLY CHAINS TAB

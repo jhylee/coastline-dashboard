@@ -11,11 +11,13 @@ var app = angular.module('coastlineWebApp', ['ui.router',
   'coastlineWebApp.orders.services',
   'coastlineWebApp.products.controllers',
   'coastlineWebApp.products.services',
+  'coastlineWebApp.salesManagement.controllers',
+  'coastlineWebApp.salesManagement.services',
   'coastlineWebApp.redirect.controllers',
   'coastlineWebApp.redirect.services',
   'coastlineWebApp.supplyChain.controllers',
-  'coastlineWebApp.supplyChain.directives',    
-  'coastlineWebApp.supplyChain.services',
+  'coastlineWebApp.common.directives',    
+  'coastlineWebApp.common.services',
 ]);
 
 
@@ -63,6 +65,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
     .state('dashboard.default.supply-chain', {
         url: '/supply-chain',
         templateUrl: '/views/dashboard.default.supply-chain.html'
+    })
+    
+    .state('dashboard.default.sales-management', {
+        url: '/sales-management',
+        templateUrl: '/views/dashboard.default.sales-management.html'
     })
     
     .state('dashboard.default.supply-chain.menu', {
