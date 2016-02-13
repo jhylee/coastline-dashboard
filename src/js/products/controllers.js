@@ -81,7 +81,7 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state',
 
     // tied to cancel button
     $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 
     

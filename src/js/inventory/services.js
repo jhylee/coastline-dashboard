@@ -20,6 +20,22 @@ app.factory('TrackInventoryMenuNavigation', ['$http', 'apiUrl', '$localStorage',
     }
 }]);
 
+app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', function($http, apiUrl, $localStorage) {
+    var baseUrl = apiUrl;
+    
+    return {
+        getBlocks: function (supplyChainId, stageId, success, error) {
+            console.log(supplyChainId);
+            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/stages/' + stageId + '/blocks').success(success).error(error);
+        },
+        addBlock: function (supplyChainId ,data, success, error) {
+            $http.post(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/blocks', data).success(success).error(error);
+        }
+    }
+
+}]);
+
+
 app.factory('TrackInventoryManager', ['$http', 'apiUrl', '$localStorage', function($http, apiUrl, $localStorage) {
     var view = 'menu';
     var baseUrl = apiUrl;
