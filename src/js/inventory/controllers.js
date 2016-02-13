@@ -130,8 +130,6 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
             console.log(res);
             $scope.blocks = res;
             $scope.selectedBlock = 0;
-            
-            
         }, function (err) {
             console.log(err);
         })
@@ -142,7 +140,7 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
         };
         
         $scope.printSelected = function () {
-            console.log($scope.selectedBlock);
+            console.log($scope.blocks[$scope.selectedBlock]);
         };
         
         $scope.moveBlock = function () {
@@ -165,23 +163,27 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
             // };
             
             
-            SupplyChainData.setSelectedBlock($scope.selectedBlock);
+            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
             console.log(SupplyChainData.getSelectedBlock());
             
             console.log(modalInstance);
             
             // called when modal is closed
-            modalInstance.result.then(
-                // OK callback
-                function (block) {
-                    // add the stage to the supply chain
-                    console.log("then");
+            modalInstance.result.then(function (block) {
+                // add the stage to the supply chain
+                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function (res) {
+                    console.log(res);
+                    $scope.blocks = res;
+                    $scope.selectedBlock = 0;
+                }, function (err) {
+                    console.log(err);
+                });
                 
-
-                // CANCEL callback
-            }, function () {});
-            
-        };
+                console.log("then");
+            });
+        } 
+                
+                  
         
 }]);
 
@@ -193,6 +195,7 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
         
         $scope.stages = SupplyChainData.getStages();
         var selectedBlock = SupplyChainData.getSelectedBlock();
+        console.log(selectedBlock);
         var supplyChainId = SupplyChainData.getSupplyChainId();
         
         
@@ -200,16 +203,16 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
         
         
         $scope.ok = function () {
+            console.log("moveBlock ok()");
             var data = {
-                name: $scope.name,
-                stageId: SupplyChainData.getSelectedStageId(),
+                stageId: $scope.toStage.self,
                 quantity: $scope.quantity,
                 units: $scope.units
             };
             
+            console.log($scope.toStage.self);
             
-            
-            InventoryData.addBlock(SupplyChainData.getSupplyChainId(), data, function (res) {
+            InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, data, function (res) {
                 console.log(res);
                 $uibModalInstance.close(res);
             }, function (err) {

@@ -30,6 +30,9 @@ app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', function($http
         },
         addBlock: function (supplyChainId ,data, success, error) {
             $http.post(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/blocks', data).success(success).error(error);
+        },
+        moveBlock(supplyChainId, blockId, data, success, error) {
+            $http.put(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/blocks/' + blockId, data).success(success).error(error);            
         }
     }
 
