@@ -1,4 +1,4 @@
-angular.module('coastlineWebApp.common.directives', ['coastlineWebApp.supplyChain.services'])
+angular.module('coastlineWebApp.common.directives', ['coastlineWebApp.common.services'])
 
 
 /**

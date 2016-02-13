@@ -5,40 +5,75 @@ var app = angular.module('coastlineWebApp.salesManagement.controllers', ['ui.boo
   'ui.router']);
 
 
-app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$state', '$uibModal',
-    function ($scope, Products, AuthService, $state, $uibModal) {
+
+app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainData', 'AuthService', '$state', '$uibModal',
+    function ($scope, SupplyChainData, AuthService, $state, $uibModal) {
+
+        SupplyChainData.getSupplyChains(function (res) {
+            console.log(res);
+            $scope.supplyChains = res;
+        }, function (error) {
+            console.log(error);
+        })
+
+
+        var refreshSupplyChains = function () {
+            SupplyChainData.getSupplyChains(function (res) {
+                console.log(res);
+                $scope.supplyChains = res;
+            }, function (error) {
+                console.log(error);
+            })
+        };
+
+        refreshSupplyChains();
+        
+        
+        $scope.setSupplyChain = function (supplyChain) {
+            SupplyChainData.setSupplyChain(supplyChain);
+            $state.go('dashboard.default.sales-management.track');
+        };
+
+        // $scope.setSupplyChain = function (supplyChain) {
+        //     SupplyChainData.setSupplyChain(supplyChain);
+        //     $state.go('dashboard.default.inventory.track');
+        // };
+
+}]);
+
+
+app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointData', 'AuthService', '$state', '$uibModal',
+    function ($scope, SupplyChainData, SellingPointData, AuthService, $state, $uibModal) {
+        
+        $scope.selectedSellingPoint = 0;
+        
+        
+        var refreshSellingPoints = function () {
+          	SellingPointData.getSellingPoints(function (res) {
+                  $scope.sellingPoints = res;
+              }, function (err) {
+                  console.log(err);
+              })
+        };
+        
+        refreshSellingPoints();
+        
+        
         $scope.fisheryName = "";
         
-
-        var updateProducts = function () {
-			Products.getProducts(function (products) {
-	            console.log("getProducts");
-	            $scope.products = products;
-	            console.log($scope.products);
-	        }, function (err) {
-	        	console.log(err);
-	        });
-        };
-
-        updateProducts();
-
+        console.log(SupplyChainData.getSupplyChain());
         
-        $scope.logout = function () {
-            AuthService.logout(function () {
-                $state.go('login');
-            });
-        };
-
-
+        
+        
         // add a stage - linked to the add button    
-	    $scope.addProduct = function() {
-	      console.log("addProduct");
+	    $scope.addSellingPoint = function () {
+	      console.log("addSellingPoint");
 
 	      // modal setup and preferences
 	      var modalInstance = $uibModal.open({
 	        animation: true,
-	        templateUrl: 'addProductModal.html',
-	        controller: 'AddProductCtrl',
+	        templateUrl: 'addSellingPointModal.html',
+	        controller: 'AddSellingPoint',
 	        size: 'lg',
 	        resolve: {}
 	      });
@@ -46,44 +81,63 @@ app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$sta
 	      // called when modal is closed
 	      modalInstance.result.then(
 	        // OK callback
-	        function (product) {
-				// add the stage to the supply chain
-				console.log(product);
-				updateProducts();
-	          
-
-	          // CANCEL callback
+	        function (sellingPoint) {
+                console.log("sellingPoint");
+                console.log(sellingPoint);
+                refreshSellingPoints();
 	      }, function () {});
 	    };
+        
+        $scope.viewBlocks = function () {
+            SellingPointData.setSelectedSellingPoint($scope.sellingPoints[$scope.selectedSellingPoint]);
+            // modal setup and preferences
+	        var modalInstance = $uibModal.open({
+	           animation: true,
+	           templateUrl: 'viewSellingPointBlocksModal.html',
+	           controller: 'ViewSellingPointBlocksCtrl',
+	           size: 'lg',
+	           resolve: {}
+	        });
 
+            // called when modal is closed
+            modalInstance.result.then(
+                // OK callback
+                function (sellingPoint) {
+                    console.log("sellingPoint");
+                    console.log(sellingPoint);
+                    refreshSellingPoints();
+            }, function () {});
+
+            
+            
+        };
+
+        // tied to cancel button
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+        
+
+    
 }]);
 
 
-app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state', '$uibModalInstance',
-    function ($scope, Products, AuthService, $state, $uibModalInstance) {
-        $scope.fisheryName = "";
-        
-        Products.getProducts(function (products) {
-            console.log("getProducts");
-        }, function (err) {
-        	console.log(err);
-        });
-
-
-    // tied to ok button
-    $scope.ok = function () {
-    	Products.addProduct({name: $scope.name, description: $scope.description}, function (res) {
-    		$uibModalInstance.close(res);
-    	}, function (err) {
-    		$uibModalInstance.close(err);
-    	})
-      	
-    };
-
-    // tied to cancel button
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-
+app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
+    function ($scope, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
     
+    
+        $scope.ok = function () {
+            $uibModalInstance.dismiss('ok');
+        };
+        
+        
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+        
+        
+        $scope.getBlocks = function () {
+            
+        };
+                 
 }]);

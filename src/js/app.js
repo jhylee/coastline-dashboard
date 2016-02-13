@@ -72,6 +72,16 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/dashboard.default.sales-management.html'
     })
     
+    .state('dashboard.default.sales-management.menu', {
+        url: '/menu',
+        templateUrl: '/views/dashboard.default.sales-management.menu.html'
+    })
+    
+    .state('dashboard.default.sales-management.track', {
+        url: '/track',
+        templateUrl: '/views/dashboard.default.sales-management.track.html'
+    })
+    
     .state('dashboard.default.supply-chain.menu', {
         url: '/supply-chain.menu',
         templateUrl: '/views/dashboard.default.supply-chain.menu.html'        

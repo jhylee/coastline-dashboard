@@ -73,11 +73,21 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
 
     // public methods
     return {
+        
+        getSupplyChains: function (success, error) {
+            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains').success(success).error(error);            
+        },
 
         // get all stages
         getStages: function () {
             if (supplyChain) {
                 return supplyChain.stages;
+            }
+        },
+        
+        getSellingPoints: function () {
+            if (supplyChain) {
+                return supplyChain.sellingPoints;
             }
         },
 
@@ -119,6 +129,8 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
                 return stages[findStage(id)];
             }
         },
+        
+        
 
         // select stage by id
         selectStage: function (stageId) {
