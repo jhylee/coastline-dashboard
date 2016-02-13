@@ -523,7 +523,7 @@ table th {
 
 /* PAYMENT FORM */
 
-.modal2 {
+.modal {
     background: #ffffff;
     -webkit-border-radius: 3px;
     -webkit-background-clip: padding-box;
@@ -534,7 +534,7 @@ table th {
     overflow: hidden;
 }
 
-.modal2 .form .form-row {
+.modal .form .form-row {
     display: -webkit-box;
     display: -moz-box;
     display: -webkit-flex;
@@ -550,25 +550,25 @@ table th {
     margin: 0 0 30px;
 }
 
-.modal2 .form .form-row:last-child {
+.modal .form .form-row:last-child {
     margin: 0;
 }
 
-.modal2 .form .form-row:last-child .input-group {
+.modal .form .form-row:last-child .input-group {
     width: 75%;
     margin: 0 15px 0 0;
 }
 
-.modal2 .form .form-row:last-child .input-group:last-child {
+.modal .form .form-row:last-child .input-group:last-child {
     width: 25%;
     margin: 0 0 0 15px;
 }
 
-.modal2 .form .input-group {
+.modal .form .input-group {
     width: 100%;
 }
 
-.modal2 .form label {
+.modal .form label {
     display: block;
     width: 100%;
     margin: 0 0 10px;
