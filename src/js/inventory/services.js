@@ -33,7 +33,11 @@ app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', function($http
         },
         moveBlock(supplyChainId, blockId, data, success, error) {
             $http.put(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/blocks/' + blockId, data).success(success).error(error);            
-        }
+        },
+        deleteBlock(supplyChainId, blockId, success, error) {
+            $http.delete(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/blocks/' + blockId).success(success).error(error);            
+        },
+        
     }
 
 }]);

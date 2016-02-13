@@ -86,35 +86,6 @@ app.controller('InventoryCtrl', ['$scope', 'InventoryData', 'SupplyChainData', '
             
         };
         
-        $scope.addBlock = function () {
-            
-            console.log('addBlock');
-
-            
-            // modal setup and preferences
-            var modalInstance1 = $uibModal.open({
-                animation: true,
-                templateUrl: 'addModalContent.html',
-                controller: 'AddBlockCtrl',
-                size: 'lg',
-                resolve: {}
-            });
-            
-            console.log(modalInstance1);
-            
-            // called when modal is closed
-            modalInstance1.result.then(
-                // OK callback
-                function (block) {
-                    // add the stage to the supply chain
-                    console.log("then");
-                
-
-                // CANCEL callback
-            }, function () {});
-                
-        }
-        
         
 
         $scope.saveSupplyChain = function (supplyChain) {
@@ -143,7 +114,47 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
             console.log($scope.blocks[$scope.selectedBlock]);
         };
         
+        $scope.addBlock = function () {
+            
+            console.log('addBlock');
+
+            
+            // modal setup and preferences
+            var modalInstance1 = $uibModal.open({
+                animation: true,
+                templateUrl: 'addBlockModal.html',
+                controller: 'AddBlockCtrl',
+                size: 'lg',
+                resolve: {}
+            });
+            
+            console.log(modalInstance1);
+            
+            // called when modal is closed
+            modalInstance1.result.then(function (block) {
+                // add the stage to the supply chain
+                console.log("then");
+                
+                // add the stage to the supply chain
+                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function (res) {
+                    console.log(res);
+                    $scope.blocks = res;
+                    $scope.selectedBlock = 0;
+                }, function (err) {
+                    console.log(err);
+                });
+                    
+            }, function () {});
+                
+        };
+        
         $scope.moveBlock = function () {
+            
+            
+            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            console.log(SupplyChainData.getSelectedBlock());
+            
+            console.log(modalInstance);
             
             // modal setup and preferences
             var modalInstance = $uibModal.open({
@@ -163,10 +174,48 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
             // };
             
             
+            
+            // called when modal is closed
+            modalInstance.result.then(function (block) {
+                // add the stage to the supply chain
+                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function (res) {
+                    console.log(res);
+                    $scope.blocks = res;
+                    $scope.selectedBlock = 0;
+                }, function (err) {
+                    console.log(err);
+                });
+                
+                console.log("then");
+            });
+        };
+            
+        $scope.deleteBlock = function () {
+            
+            
             SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
             console.log(SupplyChainData.getSelectedBlock());
             
             console.log(modalInstance);
+            
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'deleteBlockModal.html',
+                controller: 'DeleteBlockCtrl',
+                size: 'lg',
+                resolve: {}
+            });
+            
+            // var blocksToMove = [];
+            
+            // for (var i = 0; i < $scope.blocks.length; i ++) {
+            //     if ($scope.selectedBlocks[i]) {
+            //         blocksToMove.push($scope.blocks[i]);
+            //     }
+            // };
+            
+            
             
             // called when modal is closed
             modalInstance.result.then(function (block) {
@@ -182,9 +231,7 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
                 console.log("then");
             });
         } 
-                
-                  
-        
+                 
 }]);
 
 
@@ -197,10 +244,6 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
         var selectedBlock = SupplyChainData.getSelectedBlock();
         console.log(selectedBlock);
         var supplyChainId = SupplyChainData.getSupplyChainId();
-        
-        
-        
-        
         
         $scope.ok = function () {
             console.log("moveBlock ok()");
@@ -227,6 +270,32 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
 }]);
 
 
+app.controller('DeleteBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
+    function ($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
+        
+        $scope.fromStage = SupplyChainData.getSelectedStage();
+        
+        $scope.stages = SupplyChainData.getStages();
+        var selectedBlock = SupplyChainData.getSelectedBlock();
+        console.log(selectedBlock);
+        var supplyChainId = SupplyChainData.getSupplyChainId();
+        
+        $scope.ok = function () {
+            console.log("deleteBlock ok()");
+            
+            InventoryData.deleteBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, function (res) {
+                console.log(res);
+                $uibModalInstance.close(res);
+            }, function (err) {
+                $uibModalInstance.close(err);
+            });
+        };
+        
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+}]);
 
 
 app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
