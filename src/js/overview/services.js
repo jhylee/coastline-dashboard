@@ -1,2 +1,2 @@
-var app = angular.module('coastlineWebApp.orders.services', ['ui.bootstrap', 'ngStorage',
+var app = angular.module('coastlineWebApp.overview.services', ['ui.bootstrap', 'ngStorage',
   'ui.router']);
