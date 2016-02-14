@@ -320,6 +320,10 @@ th {
   -webkit-transition: all 0.5s ease-in-out;
 }
 
+.alignright {
+	float: right;
+}
+
 input.search {
   border-radius: 4px;
   padding-left: 15px;
@@ -366,7 +370,22 @@ div.modal-text {
   width: 80%;
 }
 
-
+select {
+    padding: 6px 10px;
+    border: 1px solid #bfbfbf;
+    /*
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    */
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
 
 /*
  * Placeholder dashboard ideas
