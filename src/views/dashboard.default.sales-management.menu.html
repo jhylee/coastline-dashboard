@@ -22,7 +22,7 @@
                                             <tr ng-repeat="supplyChain in supplyChains track by $index">
                                                 <td>{{$index + 1}}</td>
                                                 <td>{{supplyChain.name}}</td>
-                                                <td>{{supplyChain.dateCreated}}</td>
+                                                <td>{{supplyChain.dateCreated.substring(0,10)}}</td>
                                                 <td><button ng-click="setSupplyChain(supplyChain)" class="btn btn-default">View/Edit</button></td>
                                             </tr>
                                         </tbody>

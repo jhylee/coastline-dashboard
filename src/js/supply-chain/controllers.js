@@ -102,6 +102,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
 
     // get initial supply chain data
     $scope.data = SupplyChainData.getDisplayData();
+    console.log(SupplyChainData.getSupplyChain());
 
     // callback for selectNode events
     $scope.events.selectNode = function (items) {

@@ -73,7 +73,7 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
 	      var modalInstance = $uibModal.open({
 	        animation: true,
 	        templateUrl: 'addSellingPointModal.html',
-	        controller: 'AddSellingPoint',
+	        controller: 'AddSellingPointCtrl',
 	        size: 'lg',
 	        resolve: {}
 	      });
@@ -107,10 +107,8 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
                     console.log(sellingPoint);
                     refreshSellingPoints();
             }, function () {});
-
-            
-            
         };
+        
 
         // tied to cancel button
         $scope.cancel = function () {
@@ -141,3 +139,25 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'SupplyChainData', 'Sell
         };
                  
 }]);
+
+
+app.controller('AddSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
+    function ($scope, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
+    
+    
+        $scope.ok = function () {
+            $uibModalInstance.dismiss('ok');
+        };
+        
+        
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+        
+        
+        $scope.getBlocks = function () {
+            
+        };
+                 
+}]);
+
