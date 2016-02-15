@@ -2,7 +2,9 @@
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header light-text">Products</h2>
     <div class="row placeholders">
-      <div class="col-lg-8">
+        <!--
+          <div class="col-lg-8">  CENTER ON COMPUTER SCREEN
+          -->
         <div class="container">
           <div class="panel-container">
             <div class="panel panel-default">
@@ -10,7 +12,7 @@
                 <button ng-click="addProduct()" class="btn-dashboard">Add Product</button>
                 <button ng-click="editProduct()" class="btn-dashboard">Edit</button>
                 <!--TODO-->
-                <button ng-click= "deleteProduct(product._id)"class="btn-dashboard">Delete</button>
+                <button ng-click= "deleteProduct(product._id)"class="btn-dashboard-red">Delete</button>
                 <input type="text" name="search" placeholder="Search for an item" class="search">
               </div>
             </div>
@@ -47,7 +49,7 @@
             </div>
           </div>
         </div>
-      </div>
+      <!--</div>-->
     </div>
   </div>
 </div>
@@ -77,11 +79,6 @@
       </fieldset>
 
       <fieldset class="form-group">
-      <div class='col-lg-6 form-group' margin-bottom="0px">
-        <div class="form-group">
-          <img class="fishphoto" ng-src="{{imageUrl}}" />
-        </div>
-      </div>
 
         <div class ="col-lg-3">
               <label>Units</label><br>
@@ -100,15 +97,11 @@
                 <option value="High">High: 600lbs+</option>
               </select>
             </div>
-      </fieldset>
-
-      <fieldset class="form-group">
-      <div class ="col-lg-6"></div>
-      <div class ="col-lg-6">
-        <label>Attach Product Photo</label>
-        <input class="form-control" type="file" ng-model="file" size ="chars">
-        <small class="text-muted">Attach a picture</small>
-      </div>
+        <div class ="col-lg-6">
+              <label>Attach Product Photo</label>
+              <input class="form-control" type="file" ng-model="file" size ="chars">
+              <small class="text-muted">Attach a picture</small>
+            </div>
       </fieldset>
 
       <fieldset class="form-group">

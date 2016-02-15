@@ -10,8 +10,8 @@
                 <button ng-click="addSellingPoint()" class="btn-dashboard">Add Sales Channel</button>
                 <button ng-click="editSellingPoint()" class="btn-dashboard">Edit Sales Channel</button>
                 <button ng-click="viewBlocks()" class="btn-dashboard">View Blocks</button>
-                
-                
+
+
               </div>
             </div>
             <div class="panel panel-default">
@@ -56,20 +56,23 @@
     <div class="modal-body">
         <form>
             <fieldset class="form-group">
+            <div class="col-lg-9">
                 <label>Name</label>
                 <input class="form-control" ng-model="name" placeholder="Name of sales channel...">
                 <small class="text-muted">Maximum 30 characters.</small>
-                
-                <div class="checkbox">
-    	            <label><input type="checkbox" ng-model="isEcommerceStage"> Sell on e-commerce</label>
                 </div>
-            
+                <div class="col-lg-3">
+                <br>
+                <div class="checkbox">
+    	            <label><input type="checkbox" ng-model="isEcommerceStage">Sell on e-commerce</label>
+                </div>
+                </div>
             </fieldset>
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </script>
 
@@ -84,11 +87,11 @@
                 <label>Name</label>
                 <input class="form-control" ng-model="sellingPoint.name" placeholder="Name of sales channel...">
                 <small class="text-muted">Maximum 30 characters.</small>
-                
+
                 <div class="checkbox">
     	            <label><input type="checkbox" ng-model="isEcommerceStage"> Sell on e-commerce</label>
                 </div>
-            
+
             </fieldset>
         </form>
     </div>
