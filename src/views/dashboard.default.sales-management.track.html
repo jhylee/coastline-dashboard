@@ -9,6 +9,8 @@
               <div class="panel-body">
                 <button ng-click="addSellingPoint()" class="btn-dashboard">Add Sales Channel</button>
                 <button ng-click="editSellingPoint()" class="btn-dashboard">Edit Sales Channel</button>
+                <button ng-click="viewBlocks()" class="btn-dashboard">View Blocks</button>
+                
                 
               </div>
             </div>
@@ -124,7 +126,7 @@
 </script>
 
 
-<script type="text/ng-template" id="viewBlocksModal.html">
+<script type="text/ng-template" id="viewSellingPointBlocksModal.html">
   <div class="modal-header">
     <h3 class="modal-title">Blocks</h3>
   </div>
@@ -162,6 +164,6 @@
   </div>
 
   <div class="modal-footer">
-    <button class="btn-dashboard" type="button" ng-click="ok()">Dismiss</button>
+    <button class="btn-dashboard" type="button" ng-click="cancel()">Dismiss</button>
   </div>
 </script>

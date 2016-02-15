@@ -28,8 +28,8 @@ app.factory('SellingPointData', ['$http', '$localStorage', 'apiUrl', function($h
         getSelectedSellingPoint: function () {
             return selectedSellingPoint;
         },
-        getBlocks: function (supplyChainId, success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages/selling').success(success).error(error);
+        getBlocks: function (supplyChainId, stageId, success, error) {
+            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplyChains/' + supplyChainId + '/sellingPoints/' + stageId + '/blocks').success(success).error(error);
         }
     };
 }]);
