@@ -14,17 +14,16 @@
                 <select ng-model="prev" ng-options="stage as stage.name for stage in stages" class="form-control">
                 </select>
             </fieldset>
-            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </script>
 <script type="text/ng-template" id="editModalContent.html">
     <div class="modal-header">
-        <h3 class="modal-title">Add a Stage</h3>
+        <h3 class="modal-title">Edit Stage</h3>
     </div>
     <div class="modal-body">
         <form>
@@ -37,12 +36,11 @@
                 <label>Previous Stage</label>
                 <select ng-model="selectedStage" ng-options="stage as stage.name for stage in getStages()" class="form-control"></select>
             </fieldset>
-            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </script>
 <script type="text/ng-template" id="exitSupplyChain.html">
@@ -50,7 +48,7 @@
         <h3 class="modal-title">Save and Exit?</h3>
     </div>
     <div class="modal-body">
-        
+
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
@@ -61,17 +59,19 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h2 class="page-header light-text">Supply Chain Builder</h2>
         <div class="row placeholders">
-            <div class="col-lg-8">
+          <!--
+            <div class="col-lg-8">  CENTER ON COMPUTER SCREEN
+            -->
                 <div class="container">
                     <div class="panel-container">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <button ng-click="addStage()" class="btn btn-default">Add</button>
-                                <button ng-click="editStage()" class="btn btn-default">Edit</button>
-                                <button class="btn btn-default">Delete</button>
-                                <button class="btn btn-default">Link</button>
-                                <button class="btn btn-default">Unlink</button>
-                                <button ng-click="saveSupplyChain()" class="btn btn-default">Save</button>
+                                <button ng-click="addStage()" class="btn-dashboard">Add</button>
+                                <button ng-click="editStage()" class="btn-dashboard">Edit</button>
+                                <button class="btn-dashboard">Delete</button>
+                                <button class="btn-dashboard">Link</button>
+                                <button class="btn-dashboard">Unlink</button>
+                                <button ng-click="saveSupplyChain()" class="btn-dashboard-green">Save</button>
                             </div>
                         </div>
                         <div class="panel panel-default">
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+              <!--  </div>-->
             </div>
         </div>
     </div>
