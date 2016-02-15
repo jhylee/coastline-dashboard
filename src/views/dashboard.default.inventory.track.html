@@ -121,8 +121,13 @@
   <div class="modal-body">
     <form>
       <fieldset class="form-group">
-        <label>Name</label>
-        <input class="form-control" ng-model="name" placeholder="">
+        <label>Product Type</label><br>
+        
+        <select class="dropdown" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
+
+        <!--<select ng-model="selectedProduct" name="mydropdown" class="dropdown">
+            <option ng-value="{{product}}" ng-repeat="product in products track by $index">{{product.name}}</option>
+        </select>-->
       </fieldset>
 
       <fieldset class="form-group">

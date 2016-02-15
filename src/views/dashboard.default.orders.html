@@ -1,5 +1,5 @@
 
-<div ng-controller="SupplyChainCtrl">
+<div ng-controller="OrderDisplayCtrl">
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header light-text">Manage Orders</h2>
     <div class="row placeholders">
@@ -25,120 +25,27 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th></th>
                         <th>Invoice #</th>
                         <th>Payment Method</th>
                         <th>Status</th>
-                        <th>Date (MM/DD/YYYY)</th>
+                        <!-- <th>Date (MM/DD/YYYY)</th> -->
                         <th>Total Amount</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,012</td>
-                        <td>Credit Card</td>
+                      <tr ng-repeat="order in orders track by $index">
+                        <td>{{$index+1}}</td>
+                        <td>Cash</td>
                         <td>Outstanding</td>
-                        <td>1/13/2016</td>
-                        <td>$67.99</td>
+                        <!-- <td>1/13/2016</td> -->
+                        <td>${{totals[$index]}}</td>
+                        <td>
+                          <div class="alignright">
+                            <button ng-click="viewOrderDetail(order)" class="btn-dashboard">View Details</button>
+                          </div>
+                        </td>
                       </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,011</td>
-                        <td>Credit Card</td>
-                        <td>Completed</td>
-                        <td>1/12/2016</td>
-                        <td>$125.15</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,010</td>
-                        <td>Subscription Pickup</td>
-                        <td>Completed</td>
-                        <td>1/12/2016</td>
-                        <td>N/A</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,009</td>
-                        <td>Credit Card</td>
-                        <td>Outstanding</td>
-                        <td>1/12/2016</td>
-                        <td>$225.59</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,008</td>
-                        <td>Paypal</td>
-                        <td>Completed</td>
-                        <td>1/12/2016</td>
-                        <td>$416.25</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,007</td>
-                        <td>Credit Card</td>
-                        <td>Completed</td>
-                        <td>1/12/2016</td>
-                        <td>$27.35</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,006</td>
-                        <td>Subscription Pickup</td>
-                        <td>Completed</td>
-                        <td>1/12/2016</td>
-                        <td>N/A</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,005</td>
-                        <td>Credit Card</td>
-                        <td>Outstanding</td>
-                        <td>1/11/2016</td>
-                        <td>$144.43</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,004</td>
-                        <td>Paypal</td>
-                        <td>Completed</td>
-                        <td>1/11/2016</td>
-                        <td>$25.94</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,003</td>
-                        <td>Paypal</td>
-                        <td>Completed</td>
-                        <td>1/11/2016</td>
-                        <td>$364.99</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,002</td>
-                        <td>Paypal</td>
-                        <td>Completed</td>
-                        <td>1/11/2016</td>
-                        <td>$364.99</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,001</td>
-                        <td>Paypal</td>
-                        <td>Completed</td>
-                        <td>1/11/2016</td>
-                        <td>$364.99</td>
-                      </tr>
-                      <tr>
-                        <td><input type ="checkbox"></td>
-                        <td>1,000</td>
-                        <td>Paypal</td>
-                        <td>Completed</td>
-                        <td>1/11/2016</td>
-                        <td>$364.99</td>
-                      </tr>
-
                     </tbody>
                   </table>
                 </div>
@@ -150,3 +57,50 @@
     </div>
   </div>
 </div>
+
+
+
+<script type="text/ng-template" id="viewOrderDetailModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Order Detail - {{order.date.substring(0,10)}}</h3>
+    </div>
+
+    <div class="modal-body">
+        <p>Name: {{order.firstName}} {{order.lastName}}, {{order.phone}}</p>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Item Summary</h3>
+      </div>
+
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total Cost</th>
+              </tr>
+            </thead>
+            <tbody ng-repeat="item in order.items track by $index">
+              <tr>
+                <td>{{$index + 1}}</td>
+                <td>{{item.product.name}}</td>
+                <td>${{item.product.unitPrice}} / {{item.product.unit}}</td>
+                <td>{{item.product.unitPrice * item.quantity}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <div class="modal-footer">
+        <button class="btn-dashboard-green" type="button" ng-click="dismiss()">OK</button>
+    </div>
+</script>

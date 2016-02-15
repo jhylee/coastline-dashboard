@@ -1,4 +1,4 @@
-var app = angular.module('coastlineWebApp.products.services', ['ui.bootstrap', 
+var app = angular.module('coastlineWebApp.products.services', ['ui.bootstrap',
   'coastlineWebApp.auth.services',
   'ui.router']);
 
