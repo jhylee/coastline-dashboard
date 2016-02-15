@@ -37,6 +37,9 @@ app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', function($http
         deleteBlock(supplyChainId, blockId, success, error) {
             $http.delete(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/blocks/' + blockId).success(success).error(error);            
         },
+        getSellingPoints: function (success, error) {
+            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages/selling').success(success).error(error);            
+        }
         
     }
 

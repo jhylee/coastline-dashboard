@@ -92,12 +92,35 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
 
     // parameters for the graph display
     $scope.options = {
-      autoResize: true,
-      height: '100%',
-      width: '100%',
-      physics: {enabled: false},
-      edges: {arrows: {to: {enabled: true, scaleFactor: 1}},
-              smooth: {enabled: false}}
+        autoResize: true,
+        height: '100%',
+        width: '100%',
+        // nodes: { 
+        //     color: {
+        //         border: '#455A64',
+        //         background: '#97C2FC',
+        //         highlight: {
+        //             border: '#455A64',
+        //             background: '#CFD8DC'
+        //         },
+        //         hover: {
+        //             border: '#455A64',
+        //             background: '#CFD8DC'
+        //         }
+        //     }
+        // },
+        physics: { enabled: false},
+        edges: { 
+            arrows: { 
+                to: { enabled: true, scaleFactor: 1}
+            },
+            // color: {
+            //     color: '#455A64'
+            // },
+            smooth: { 
+                enabled: false
+            }
+        }
     };
 
     // get initial supply chain data

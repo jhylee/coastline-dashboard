@@ -189,6 +189,48 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
                 console.log("then");
             });
         };
+        
+        $scope.moveBlockToSales = function () {
+
+
+            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            console.log(SupplyChainData.getSelectedBlock());
+
+            console.log(modalInstance);
+
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'moveBlockToSalesModal.html',
+                controller: 'MoveBlockToSalesCtrl',
+                size: 'lg',
+                resolve: {}
+            });
+
+            // var blocksToMove = [];
+
+            // for (var i = 0; i < $scope.blocks.length; i ++) {
+            //     if ($scope.selectedBlocks[i]) {
+            //         blocksToMove.push($scope.blocks[i]);
+            //     }
+            // };
+
+
+
+            // called when modal is closed
+            modalInstance.result.then(function (block) {
+                // add the stage to the supply chain
+                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function (res) {
+                    console.log(res);
+                    $scope.blocks = res;
+                    $scope.selectedBlock = 0;
+                }, function (err) {
+                    console.log(err);
+                });
+
+                console.log("then");
+            });
+        };
 
         $scope.deleteBlock = function () {
 
@@ -290,6 +332,48 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
             };
 
             console.log($scope.toStage.self);
+
+            InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, data, function (res) {
+                console.log(res);
+                $uibModalInstance.close(res);
+            }, function (err) {
+                $uibModalInstance.close(err);
+            });
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+}]);
+
+
+app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
+    function ($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
+
+        $scope.fromStage = SupplyChainData.getSelectedStage();
+        
+        
+        InventoryData.getSellingPoints(function (res) {
+            $scope.stages = res;
+            console.log(res);
+        }, function (err) {
+            console.log(err);
+        });
+
+        var selectedBlock = SupplyChainData.getSelectedBlock();
+        console.log(selectedBlock);
+        var supplyChainId = SupplyChainData.getSupplyChainId();
+
+        $scope.ok = function () {
+            console.log("moveBlockToSales ok()");
+            var data = {
+                stageId: $scope.toStage._id,
+                quantity: $scope.quantity,
+                units: $scope.units
+            };
+
+            console.log($scope.toStage._id);
 
             InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, data, function (res) {
                 console.log(res);

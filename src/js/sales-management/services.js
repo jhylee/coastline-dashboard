@@ -19,11 +19,17 @@ app.factory('SellingPointData', ['$http', '$localStorage', 'apiUrl', function($h
         addSellingPoint: function (data, success, error) {
             $http.post(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages', data).success(success).error(error);
         },
+        updateSellingPoint: function (stageId, data, success, error) {
+            $http.put(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages/' + stageId, data).success(success).error(error);
+        },
         setSelectedSellingPoint: function (sellingPoint) {
             selectedSellingPoint = sellingPoint;
         },
         getSelectedSellingPoint: function () {
             return selectedSellingPoint;
+        },
+        getBlocks: function (supplyChainId, stageId, success, error) {
+            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplyChains/' + supplyChainId + '/sellingPoints/' + stageId + '/blocks').success(success).error(error);
         }
     };
 }]);
