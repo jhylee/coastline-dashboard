@@ -1,7 +1,9 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   <h2 class="page-header light-text">Track Inventory</h2>
   <div class="row placeholders">
-    <div class="col-lg-8">
+    <!--
+      <div class="col-lg-8">  CENTER ON COMPUTER SCREEN
+      -->
       <div class="container">
         <div class="panel-container">
           <div class="panel panel-default">
@@ -20,7 +22,7 @@
           </div>
         </div>
       </div>
-    </div>
+    <!--</div>-->
   </div>
 </div>
 
@@ -32,14 +34,10 @@
        <div class = "modal-header"></div>
        <div class="modal-body">
          <div class="row">
-           <div class="col-md-8-offset-md-2 text-center">
-             <h2>Instructions</h2>
+           <div class="col-md-8 col-md-offset-2">
+             <h2 class ="text-center">Instructions</h2>
              <hr>
-           </div>
-         </div>
-         <div class="row">
-             <div class="col-md-12">
-             <h4><b>Step 1: </b> Click on the intermediary you would like to analyze.<br><br>
+             <p><b>Step 1: </b> Click on the intermediary you would like to analyze.<br><br>
                <b>Step 2: </b> Click the <i>View/Edit Inventory</i> button above the supply chain visualization.<br><br>
                <b>Step 3: </b> A popup will appear, providing real-time inventory information at that location.<br><br>
                <b>Step 4a: </b> To add a block of inventory to tht stage, click "Add", then enter in the Name, Quantity,
@@ -48,10 +46,11 @@
                block, and click "Move". Then, choose the desired destination under the "Move to stage" dropdown.<br><br>
                <b>Step 5 [optional]: </b> To move the block of inventory to the e-commerce platform, click "Select" for the desired
                block, and click "Upload to e-commerce".
-             </h4>
-           </div>
+             </p>
          </div>
        </div>
+     </div>
+
        <div class="modal-footer">
          <button type="button" class="btn-dashboard" data-dismiss="modal">Close</button>
        </div>
@@ -62,7 +61,7 @@
 
 <script type="text/ng-template" id="viewBlocksModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Blocks</h3>
+    <h3 class="modal-title">Inventory Batches (Blocks)</h3>
   </div>
 
   <div class="modal-footer">
