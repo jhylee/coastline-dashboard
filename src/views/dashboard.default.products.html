@@ -9,7 +9,8 @@
               <div class="panel-body">
                 <button ng-click="addProduct()" class="btn-dashboard">Add Product</button>
                 <button ng-click="editProduct()" class="btn-dashboard">Edit</button>
-                <button class="btn-dashboard">Delete</button>
+                <!--TODO-->
+                <button ng-click= "deleteProduct(product._id)"class="btn-dashboard">Delete</button>
                 <input type="text" name="search" placeholder="Search for an item" class="search">
               </div>
             </div>
@@ -22,16 +23,22 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>#</th>
-                        <th>Name</th>
+                        <th></th>
+                        <th>Product Name</th>
+                        <th>Unit Price</th>
+                        <th>Units</th>
                         <th>Description</th>
+                        <th>Availability</th>
                       </tr>
                     </thead>
                     <tbody ng-repeat="product in products track by $index">
                       <tr>
-                        <td>{{$index + 1}}</td>
+                        <td><input type="checkbox" class="checkbox" ng-checked="selectedItems[$index]" ng-click="toggleItemSelection($index)"/></td>
                         <td>{{product.name}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.units}}</td>
                         <td>{{product.description}}</td>
+                        <td>{{product.availability}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -49,30 +56,77 @@
 <!-- MODAL CONTENT -->
 
 <script type="text/ng-template" id="addProductModal.html">
+
   <div class="modal-header">
-    <h3 class="modal-title">Add a Product</h3>
+    <h3 class="modal-title text-center">Add a Product</h3>
   </div>
+  <div class ="col-lg-12">
   <div class="modal-body">
     <form>
-
       <fieldset class="form-group">
-        <label>Name of Supply Chain Stage</label>
-        <input class="form-control" ng-model="name" placeholder="Cod">
-        <small class="text-muted">Maximum 30 characters.</small>
+      <div class ="col-lg-6">
+        <label>Product Name</label>
+        <input class="form-control" ng-model="name" placeholder="ex. Atlantic Cod">
+        <small class="text-muted">Maximum 20 characters.</small>
+      </div>
+      <div class ="col-lg-6">
+        <label>Unit Price</label>
+        <input class="form-control" ng-model="number" placeholder="ex. 4.50">
+        <small class="text-muted">Maximum 3 characters</small>
+      </div>
       </fieldset>
 
       <fieldset class="form-group">
-        <label>Name of Supply Chain Stage</label>
-        <input class="form-control" ng-model="description" placeholder="Description of the fish...">
-        <small class="text-muted">Maximum 30 characters.</small>
+      <div class='col-lg-6 form-group' margin-bottom="0px">
+        <div class="form-group">
+          <img class="fishphoto" ng-src="{{imageUrl}}" />
+        </div>
+      </div>
+
+        <div class ="col-lg-3">
+              <label>Units</label><br>
+              <select ng-model="units" name="mydropdown" class="dropdown">
+                <option value="lb">Pounds (Lbs.)</option>
+                <option value="kg">Kilograms (Kgs.)</option>
+                <option value="unit">Per Unit of Fish</option>
+              </select>
+        </div>
+        <div class ="col-lg-3">
+              <label>Availability</label><br>
+              <select ng-model="availability" name="mydropdown" class="dropdown">
+                <option value="None">None</option>
+                <option value="Low">Low: 20-150lbs</option>
+                <option value="Medium">Medium: 151-600lbs</option>
+                <option value="High">High: 600lbs+</option>
+              </select>
+            </div>
       </fieldset>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <fieldset class="form-group">
+      <div class ="col-lg-6"></div>
+      <div class ="col-lg-6">
+        <label>Attach Product Photo</label>
+        <input class="form-control" type="file" ng-model="file" size ="chars">
+        <small class="text-muted">Attach a picture</small>
+      </div>
+      </fieldset>
+
+      <fieldset class="form-group">
+      <div class ="col-lg-12">
+        <label>Description</label>
+        <input class="form-control" ng-model="text" placeholder="Enter a short product description">
+        <small class="text-muted">Maximum 100 characters</small>
+      </div>
+      </fieldset>
     </form>
-  </div>
+   </div>
+   </div>
+
   <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  <div class="alignright">
+  <button type="submit" class="btn-dashboard-green">Submit</button>
+  <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+  </div>
   </div>
 </script>
 <script type="text/ng-template" id="editModalContent.html">
