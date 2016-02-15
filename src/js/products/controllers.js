@@ -1,5 +1,5 @@
-var app = angular.module('coastlineWebApp.products.controllers', ['ui.bootstrap', 
-  'coastlineWebApp.products.services', 
+var app = angular.module('coastlineWebApp.products.controllers', ['ui.bootstrap',
+  'coastlineWebApp.products.services',
   'coastlineWebApp.auth.services',
   'ui.router']);
 
@@ -7,7 +7,7 @@ var app = angular.module('coastlineWebApp.products.controllers', ['ui.bootstrap'
 app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$state', '$uibModal',
     function ($scope, Products, AuthService, $state, $uibModal) {
         $scope.fisheryName = "";
-        
+
 
         var updateProducts = function () {
 			Products.getProducts(function (products) {
@@ -21,7 +21,7 @@ app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$sta
 
         updateProducts();
 
-        
+
         $scope.logout = function () {
             AuthService.logout(function () {
                 $state.go('login');
@@ -29,7 +29,7 @@ app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$sta
         };
 
 
-        // add a stage - linked to the add button    
+        // add a stage - linked to the add button
 	    $scope.addProduct = function() {
 	      console.log("addProduct");
 
@@ -49,7 +49,7 @@ app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$sta
 				// add the stage to the supply chain
 				console.log(product);
 				updateProducts();
-	          
+
 
 	          // CANCEL callback
 	      }, function () {});
@@ -61,7 +61,7 @@ app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$sta
 app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state', '$uibModalInstance',
     function ($scope, Products, AuthService, $state, $uibModalInstance) {
         $scope.fisheryName = "";
-        
+
         Products.getProducts(function (products) {
             console.log("getProducts");
         }, function (err) {
@@ -71,23 +71,23 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state',
 
     // tied to ok button
     $scope.ok = function () {
-        
+
         var data = {
             name: $scope.name,
-            description: $scope.description, 
+            description: $scope.description,
             unit: $scope.unit,
             unitPrice: $scope.unitPrice
         };
-        
+
         console.log("data");
         console.log(data);
-        
+
     	Products.addProduct(data, function (res) {
     		$uibModalInstance.close(res);
     	}, function (err) {
     		$uibModalInstance.close(err);
     	})
-      	
+
     };
 
     // tied to cancel button
@@ -95,5 +95,5 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state',
         $uibModalInstance.dismiss('cancel');
     };
 
-    
+
 }]);

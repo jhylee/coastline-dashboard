@@ -39,10 +39,8 @@ app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', function($http
         },
         getSellingPoints: function (success, error) {
             $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages/selling').success(success).error(error);            
-        }
-        
+        }   
     }
-
 }]);
 
 

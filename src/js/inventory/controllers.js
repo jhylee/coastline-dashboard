@@ -1,6 +1,7 @@
 var app = angular.module('coastlineWebApp.inventory.controllers', ['ui.bootstrap',
   'coastlineWebApp.dashboard.services',
   'coastlineWebApp.inventory.services',
+  'coastlineWebApp.products.services',  
   'coastlineWebApp.common.services',
   'ui.router']);
 
@@ -418,14 +419,23 @@ app.controller('DeleteBlockCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
 }]);
 
 
-app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
-    function ($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
+app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'Products', 'SupplyChainData', '$state', '$uibModalInstance',
+    function ($scope, TrackInventoryManager, InventoryData, Products, SupplyChainData, $state, $uibModalInstance) {
+        
+        
+        Products.getProducts(function (res) {
+            $scope.products = res;
+        }, function (err) {
+            console.log(err);
+        });
 
 
         $scope.ok = function () {
+            
+            console.log($scope.selectedProduct);
 
             var data = {
-                name: $scope.name,
+                productId: $scope.selectedProduct._id,
                 stageId: SupplyChainData.getSelectedStageId(),
                 quantity: $scope.quantity,
                 units: $scope.units
