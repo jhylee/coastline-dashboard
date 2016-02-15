@@ -71,7 +71,18 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state',
 
     // tied to ok button
     $scope.ok = function () {
-    	Products.addProduct({name: $scope.name, description: $scope.description}, function (res) {
+        
+        var data = {
+            name: $scope.name,
+            description: $scope.description, 
+            unit: $scope.unit,
+            unitPrice: $scope.unitPrice
+        };
+        
+        console.log("data");
+        console.log(data);
+        
+    	Products.addProduct(data, function (res) {
     		$uibModalInstance.close(res);
     	}, function (err) {
     		$uibModalInstance.close(err);
