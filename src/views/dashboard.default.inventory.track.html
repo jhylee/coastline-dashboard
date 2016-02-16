@@ -95,7 +95,7 @@
             <tbody ng-repeat="block in blocks track by $index">
               <tr>
               <td>{{$index + 1}}</td>
-              <td>{{block.product}}</td>
+              <td>{{block.productType.name}}</td>
               <td>{{block.quantity + " " + block.units}}</td>
               <td>{{block.dateCreated.substring(0,10)}}</td>
               <td>
