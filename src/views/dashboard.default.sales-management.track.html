@@ -145,7 +145,8 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>ID</th>
+                <th>Product Type</th>
+                <th>Quantity</th>
                 <th>Date Created</th>
                 <th>Select</th>
               </tr>
@@ -153,8 +154,9 @@
             <tbody ng-repeat="block in blocks track by $index">
               <tr>
                 <td>{{$index + 1}}</td>
-                <td>{{block._id}}</td>
-                <td>{{block.dateCreated}}</td>
+                <td>{{block.product}}</td>
+                <td>{{block.quantity + " " + block.units}}</td>
+                <td>{{block.dateCreated.substring(0,10)}}</td>
                 <td>
                   <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
                 </td>

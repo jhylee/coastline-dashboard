@@ -1,6 +1,6 @@
-var app = angular.module('coastlineWebApp.salesManagement.controllers', ['ui.bootstrap', 
-  'coastlineWebApp.salesManagement.services', 
-  'coastlineWebApp.common.services', 
+var app = angular.module('coastlineWebApp.salesManagement.controllers', ['ui.bootstrap',
+  'coastlineWebApp.salesManagement.services',
+  'coastlineWebApp.common.services',
   'coastlineWebApp.auth.services',
   'ui.router']);
 
@@ -27,8 +27,8 @@ app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainData', 'AuthSer
         };
 
         refreshSupplyChains();
-        
-        
+
+
         $scope.setSupplyChain = function (supplyChain) {
             SupplyChainData.setSupplyChain(supplyChain);
             console.log(SupplyChainData.getSupplyChain());
@@ -45,10 +45,10 @@ app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainData', 'AuthSer
 
 app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointData', 'AuthService', '$state', '$uibModal',
     function ($scope, SupplyChainData, SellingPointData, AuthService, $state, $uibModal) {
-        
+
         $scope.selectedSellingPoint = 0;
-        
-        
+
+
         var refreshSellingPoints = function () {
           	SellingPointData.getSellingPoints(function (res) {
                   $scope.sellingPoints = res;
@@ -56,17 +56,17 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
                   console.log(err);
               })
         };
-        
+
         refreshSellingPoints();
-        
-        
+
+
         $scope.fisheryName = "";
-        
+
         console.log(SupplyChainData.getSupplyChain());
-        
-        
-        
-        // add a stage - linked to the add button    
+
+
+
+        // add a stage - linked to the add button
 	    $scope.addSellingPoint = function () {
 	      console.log("addSellingPoint");
 
@@ -88,9 +88,9 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
                 refreshSellingPoints();
 	      }, function () {});
 	    };
-        
-        
-        // add a stage - linked to the add button    
+
+
+        // add a stage - linked to the add button
 	    $scope.editSellingPoint = function () {
           SellingPointData.setSelectedSellingPoint($scope.sellingPoints[$scope.selectedSellingPoint]);
 	      console.log("editSellingPoint");
@@ -113,7 +113,7 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
                 refreshSellingPoints();
 	      }, function () {});
 	    };
-        
+
         $scope.viewBlocks = function () {
             SellingPointData.setSelectedSellingPoint($scope.sellingPoints[$scope.selectedSellingPoint]);
             console.log(SellingPointData.getSelectedSellingPoint());
@@ -135,18 +135,18 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
                     refreshSellingPoints();
             }, function () {});
         };
-        
-    
+
+
 }]);
 
 
 
 app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
     function ($scope, InventoryData, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
-        
+
         console.log(SupplyChainData.getSupplyChainId());
         var sellingPoint = SellingPointData.getSelectedSellingPoint();
-        
+
 
         SellingPointData.getBlocks(SupplyChainData.getSupplyChainId(), sellingPoint._id, function (res) {
             console.log(res);
@@ -155,9 +155,9 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'Supply
         }, function (err) {
             console.log(err);
         })
-        
+
         $scope.blocks = sellingPoint.blocks
-        
+
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
         };
@@ -166,92 +166,92 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'Supply
 
 app.controller('AddSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
     function ($scope, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
-    
-    
+
+
         $scope.ok = function () {
-            
+
             var sellingTargets = []
-            
+
             // for ecommerce sellingTarget
             if ($scope.isEcommerceStage) {
                 sellingTargets.push('ecommerce')
             };
-            
-            
+
+
             var data = {
                 name: $scope.name,
                 isSellingPoint: true,
                 sellingTargets: sellingTargets
             };
-            
+
             SellingPointData.addSellingPoint(data, function (res) {
                 console.log(res);
-                $uibModalInstance.dismiss(res);
+                $uibModalInstance.close(res);
             }, function (err) {
-                $uibModalInstance.dismiss(err);                
+                $uibModalInstance.dismiss(err);
             })
-            
+
         };
-        
-        
+
+
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
         };
-        
-        
+
+
         $scope.getBlocks = function () {
-            
+
         };
-                 
+
 }]);
 
 app.controller('EditSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
     function ($scope, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
-        
+
         $scope.sellingPoint = SellingPointData.getSelectedSellingPoint();
-        
+
         for (var i = 0; i < $scope.sellingPoint.sellingTargets.length; i++) {
             if ($scope.sellingPoint.sellingTargets[i] == 'ecommerce') {
                 $scope.isEcommerceStage = true;
             }
         }
-            
-    
-    
+
+
+
         $scope.ok = function () {
-            
-            
+
+
             var sellingTargets = []
-            
+
             // for ecommerce sellingTarget
             if ($scope.isEcommerceStage) {
                 $scope.sellingPoint.sellingTargets = ['ecommerce'];
             } else {
-                $scope.sellingPoint.sellingTargets = [];                
+                $scope.sellingPoint.sellingTargets = [];
             }
-            
-            
-            
-            
+
+
+
+
             console.log($scope.sellingPoint._id);
-            
+
             SellingPointData.updateSellingPoint($scope.sellingPoint._id, $scope.sellingPoint, function (res) {
                 console.log(res);
                 $uibModalInstance.dismiss(res);
             }, function (err) {
-                $uibModalInstance.dismiss(err);                
+                $uibModalInstance.dismiss(err);
             })
-            
+
         };
-        
-        
+
+
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
         };
-        
-        
+
+
         $scope.getBlocks = function () {
-            
+
         };
-                 
+
 }]);
