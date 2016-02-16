@@ -65,7 +65,12 @@ body {
 }
 
 .activeTab {
-  background-color: $btn-hover-color
+  background-color: $btn-color;
+  border-radius: 2px;
+
+  li, p {
+    color: #fff;
+  }
 }
 
 /*
