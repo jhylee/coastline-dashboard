@@ -1,6 +1,26 @@
 var app = angular.module('coastlineWebApp.common.services', ['ui.bootstrap', 'ngStorage',
   'ui.router']);
-  
+
+
+app.factory('SideNavData', ['$http', '$localStorage', function($http, $localStorage) {
+
+    $localStorage.view = overview;
+
+    return {
+        getView: function () {
+            return view;
+        },
+        setView: function (newView) {
+            view = newView;
+        },
+        getSupplyChains: function (fisheryId, success, error) {
+            $http.get(baseUrl + '/api/fisheries/' + fisheryId + '/supplychains').success(success).error(error);
+        }
+    }
+}]);
+
+
+
   app.factory('SupplyChainMenu', ['$http', 'apiUrl', function($http, apiUrl) {
     var view = 'home';
     var baseUrl = apiUrl;
@@ -13,7 +33,7 @@ var app = angular.module('coastlineWebApp.common.services', ['ui.bootstrap', 'ng
             view = newView;
         },
         getSupplyChains: function (fisheryId, success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + fisheryId + '/supplychains').success(success).error(error);            
+            $http.get(baseUrl + '/api/fisheries/' + fisheryId + '/supplychains').success(success).error(error);
         }
     }
 }]);
@@ -34,7 +54,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
     var selectedStageId = null;
 
     var supplyChain;
-    
+
     var selectedBlocks;
     var selectedBlock;
 
@@ -73,9 +93,9 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
 
     // public methods
     return {
-        
+
         getSupplyChains: function (success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains').success(success).error(error);            
+            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains').success(success).error(error);
         },
 
         // get all stages
@@ -84,7 +104,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
                 return supplyChain.stages;
             }
         },
-        
+
         getSellingPoints: function () {
             if (supplyChain) {
                 return supplyChain.sellingPoints;
@@ -129,8 +149,8 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
                 return stages[findStage(id)];
             }
         },
-        
-        
+
+
 
         // select stage by id
         selectStage: function (stageId) {
@@ -146,23 +166,23 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
         getSelectedStage: function () {
             return supplyChain.stages[findStage(selectedStageId)];
         },
-        
+
         getSelectedStageId: function () {
             return supplyChain.stages[findStage(selectedStageId)].self;
         },
-        
+
         setSelectedBlocks: function (blocks) {
             selectedBlocks = blocks;
         },
-        
+
         getSelectedBlocks: function () {
             return selectedBlocks;
         },
-        
+
         setSelectedBlock: function (block) {
             selectedBlock = block;
         },
-        
+
         getSelectedBlock: function () {
             return selectedBlock;
         },
@@ -221,14 +241,14 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
                 return supplyChain;
             }
         },
-        
+
         getSupplyChainId: function () {
             if (supplyChain) {
                 return supplyChain._id;
             }
         },
-        
-        
+
+
 
         // reconstructs the graph and returns nodes and edges for graphical display
         getDisplayData: function () {
@@ -278,4 +298,3 @@ app.factory('VisDataSet', ['$http', 'apiUrl', function($http, apiUrl) {
         return new vis.DataSet(data, options);
     };
 }]);
-

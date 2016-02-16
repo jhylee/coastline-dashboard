@@ -65,7 +65,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
     };
 
     AuthService.login(formData, function (res) {
-        $state.go('dashboard.default');
+        $state.go('dashboard.default.overview');
       },
       function (err) {
         $rootScope.error = 'Failed to signin';

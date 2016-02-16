@@ -1,12 +1,12 @@
 <div class="col-sm-3 col-md-2 sidebar">
-    <ul class="nav nav-sidebar">
+    <ul ng-controller="SideNavCtrl" class="nav nav-sidebar">
         <li class="active"><h1>Navigation:</h1></li>
-        <li><a ui-sref=".overview">Overview</a></li>
-        <li><a ui-sref=".products">Products</a></li>
-        <li><a ui-sref=".supply-chain.menu">Supply Chain</a></li>
-        <li><a ui-sref=".inventory.menu">Inventory</a></li>
-        <li><a ui-sref=".sales-management.menu">Sales Management</a></li>
-        <li><a ui-sref=".orders">Orders</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.default.overview')}" ui-sref=".overview">Overview</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.default.products')}" ui-sref=".products">Products</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.default.supply-chain')}" ui-sref=".supply-chain.menu">Supply Chain</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.default.inventory')}" ui-sref=".inventory.menu">Inventory</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.default.sales-management')}" ui-sref=".sales-management.menu">Sales Management</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.default.orders')}" ui-sref=".orders">Orders</a></li>
 
     </ul>
 </div>

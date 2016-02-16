@@ -16,7 +16,8 @@ var app = angular.module('coastlineWebApp', ['ui.router',
   'coastlineWebApp.redirect.controllers',
   'coastlineWebApp.redirect.services',
   'coastlineWebApp.supplyChain.controllers',
-  'coastlineWebApp.common.directives',    
+  'coastlineWebApp.common.controllers',
+  'coastlineWebApp.common.directives',
   'coastlineWebApp.common.services',
 ]);
 
@@ -31,12 +32,12 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         url: '/login',
         templateUrl: '/views/login.html'
     })
-    
+
     .state('fishery-setup', {
         url: '/fishery-setup',
         templateUrl: '/views/fishery-setup.html'
     })
-    
+
     .state('sign-up', {
         url: '/sign-up',
         templateUrl: '/views/sign-up.html'
@@ -46,81 +47,81 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         url: '/auth',
         templateUrl: '/views/dashboard.html'
     })
-  
+
     .state('dashboard.default', {
         url: '/home',
-        templateUrl: '/views/dashboard.default.html'        
+        templateUrl: '/views/dashboard.default.html'
     })
-    
+
     .state('dashboard.default.overview', {
         url: '/overview',
-        templateUrl: '/views/dashboard.default.overview.html'        
+        templateUrl: '/views/dashboard.default.overview.html'
     })
- 
+
     .state('dashboard.default.products', {
         url: '/products',
-        templateUrl: '/views/dashboard.default.products.html'        
+        templateUrl: '/views/dashboard.default.products.html'
     })
-    
+
     .state('dashboard.default.supply-chain', {
         url: '/supply-chain',
         templateUrl: '/views/dashboard.default.supply-chain.html'
     })
-    
+
     .state('dashboard.default.sales-management', {
         url: '/sales-management',
         templateUrl: '/views/dashboard.default.sales-management.html'
     })
-    
+
     .state('dashboard.default.sales-management.menu', {
         url: '/menu',
         templateUrl: '/views/dashboard.default.sales-management.menu.html'
     })
-    
+
     .state('dashboard.default.sales-management.track', {
         url: '/track',
         templateUrl: '/views/dashboard.default.sales-management.track.html'
     })
-    
+
     .state('dashboard.default.supply-chain.menu', {
         url: '/supply-chain.menu',
-        templateUrl: '/views/dashboard.default.supply-chain.menu.html'        
+        templateUrl: '/views/dashboard.default.supply-chain.menu.html'
     })
-    
+
     .state('dashboard.default.supply-chain.builder', {
         url: '/supply-chain.builder',
-        templateUrl: '/views/dashboard.default.supply-chain.builder.html'        
+        templateUrl: '/views/dashboard.default.supply-chain.builder.html'
     })
-    
+
     .state('dashboard.default.supply-chain.create', {
         url: '/supply-chain.create',
-        templateUrl: '/views/dashboard.default.supply-chain.create.html'        
+        templateUrl: '/views/dashboard.default.supply-chain.create.html'
     })
-    
+
     .state('dashboard.default.inventory', {
         url: '/inventory',
-        templateUrl: '/views/dashboard.default.inventory.html'        
+        templateUrl: '/views/dashboard.default.inventory.html'
     })
-    
+
     .state('dashboard.default.inventory.menu', {
         url: '/menu',
-        templateUrl: '/views/dashboard.default.inventory.menu.html'        
+        templateUrl: '/views/dashboard.default.inventory.menu.html'
     })
-    
+
     .state('dashboard.default.inventory.track', {
         url: '/inventory.track',
-        templateUrl: '/views/dashboard.default.inventory.track.html'        
+        templateUrl: '/views/dashboard.default.inventory.track.html'
     })
-    
-    
+
+
     .state('dashboard.default.orders', {
         url: '/orders',
-        templateUrl: '/views/dashboard.default.orders.html'        
+        templateUrl: '/views/dashboard.default.orders.html'
     })
-    
 
- 
-    
+
+
+
     .state('redirect', {
         url: '/redirect',
         views: {
@@ -138,7 +139,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
             },
         }
     })
-    
+
 
 
   $httpProvider.interceptors.push('HttpInterceptorForToken');
@@ -177,7 +178,7 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService) {
       var goToDashboard = (toState.name == "redirect");
 
       if (goToDashboard) {
-        RedirectService.setRedirectState("dashboard");
+        RedirectService.setRedirectState("dashboard.default.overview");
       }
       return;
     }
