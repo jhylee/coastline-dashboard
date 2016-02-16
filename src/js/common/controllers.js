@@ -8,6 +8,5 @@ var app = angular.module('coastlineWebApp.common.controllers', ['ui.bootstrap', 
       'use strict';
 
       $scope.state = $state;
-      console.log($scope.state.includes('dashboard.default.overview'));
 
   }]);
