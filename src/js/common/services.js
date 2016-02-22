@@ -290,6 +290,28 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
     };
 }]);
 
+
+app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', function($http, apiUrl, Fishery, $localStorage) {
+
+
+
+
+  return {
+
+    // getStages
+
+
+
+  };
+
+
+}]);
+
+
+
+
+
+
 // for creation of the VisDataSet
 app.factory('VisDataSet', ['$http', 'apiUrl', function($http, apiUrl) {
     'use strict';

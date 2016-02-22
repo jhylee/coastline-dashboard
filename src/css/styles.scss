@@ -6,8 +6,17 @@
 @import url('http://fonts.googleapis.com/css?family=Open+Sans');
 @import url('http://fonts.googleapis.com/css?family=Lato+Light');
 
+//
+// $color1: #FDFEFE
+// $color2: #44AFA9
+// $color3: #354059
+// $color4: #D7E0E3
+// $color5: #66CFCB
+// $color6: #818C9C
+// $color7: #A8B4BF
 
 $primary-background-color: #EEEEEE;
+// $primary-background-color: #EEEEEE;
 $secondary-background-color: #E8E8E8;
 $background-color-3: #DDD;
 $inverse-background-color: #fff;
@@ -154,7 +163,7 @@ body {
     background-color: $btn-color;
   }
   a {
-    color: #fff;
+    color: #000;
   }
 }
 th {
