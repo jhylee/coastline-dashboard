@@ -10,18 +10,66 @@ app.factory('SideNavData', ['$http', '$localStorage', function($http, $localStor
         getView: function () {
             return view;
         },
+
         setView: function (newView) {
             view = newView;
         },
         getSupplyChains: function (fisheryId, success, error) {
             $http.get(baseUrl + '/api/fisheries/' + fisheryId + '/supplychains').success(success).error(error);
-        }
+        },
+
+
     }
 }]);
 
 
+app.factory('FisheryData', ['$http', 'apiUrl', function($http, apiUrl) {
+    'use strict';
 
-  app.factory('SupplyChainMenu', ['$http', 'apiUrl', function($http, apiUrl) {
+    var baseUrl = apiUrl;
+
+    var fishery
+
+
+    $http.get(baseUrl + '/api/fisheries').success(function (res) {
+        for (var i = 0; i < res.length; i ++) {
+            if (res[i]._id == $localStorage.user.fishery) {
+                $localStorage.fisheryName = res[i].name;
+                $localStorage.$save();
+                fishery = {name: res[i].name, _id: res[i]._id};
+                fisheryName = $localStorage.fisheryName;
+                console.log("fisheryName " + fisheryName);
+            }
+        }
+        success(fishery);
+    }).error(function (err) {
+        console.log("Error getting fishery. " + err)
+    });
+
+    return  {
+        getFishery: function (success) {
+            $http.get(baseUrl + '/api/fisheries').success(function (res) {
+                for (var i = 0; i < res.length; i ++) {
+                    if (res[i]._id == $localStorage.user.fishery) {
+                        $localStorage.fisheryName = res[i].name;
+                        $localStorage.$save();
+                        fishery = {name: res[i].name, _id: res[i]._id};
+                        fisheryName = $localStorage.fisheryName;
+                        console.log("fisheryName " + fisheryName);
+                    }
+                }
+                success(fishery);
+            }).error(function (err) {
+                console.log("Error getting fishery. " + err)
+            });
+        }
+    };
+}]);
+
+
+
+
+app.factory('SupplyChainMenu', ['$http', 'apiUrl', function($http, apiUrl) {
     var view = 'home';
     var baseUrl = apiUrl;
 
@@ -293,18 +341,94 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
 
 app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', function($http, apiUrl, Fishery, $localStorage) {
 
+    var baseUrl = apiUrl;
+
+    var selectedStage;
+
+    var fetchNormalStages = function () {
+        return $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains').
+            then(function (res) {
+                console.log(res.data[0].stages);
+
+                var stages = [];
+
+                for (var i = 0; i < res.data[0].stages.length; i ++) {
+                    console.log(res.data[0].stages[i]);
+                    stages.push({
+                        x: res.data[0].stages[i].x,
+                        y: res.data[0].stages[i].y,
+                        next: res.data[0].stages[i].next,
+                        prev: res.data[0].stages[i].prev,
+                        _id: res.data[0].stages[i].self._id,
+                        name: res.data[0].stages[i].self.name
+                    });
+                }
+
+                console.log(stages);
+                return stages;
+
+            }).catch(function (err) {
+                console.log(err);
+            });
+    };
+
+    return {
+
+        getStages: function () {
+            return $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages/all');
+        },
+
+        getNormalStages: function () {
+            console.log('StageData getNormalStages');
+            return fetchNormalStages()
+        },
+
+        getSellingPoints: function (success, error) {
+            console.log('StageData getSellingPoints');
+            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages/selling').success(success).error(error);
+        },// reconstructs the graph and returns nodes and edges for graphical display
 
 
+        getDisplayData: function () {
+            return fetchNormalStages().then(function (stages) {
 
-  return {
+                    console.log(stages);
 
-    // getStages
+                    var data = {
+                        nodes: [],
+                        edges: []
+                    };
 
+                    for (var i = 0; i < stages.length; i ++) {
+                        var node = {};
+                        node.label = stages[i].name;
+                        node.id = stages[i]._id;
+                        node.scaling = { min: 10, max: 10, label: { min: 10, max: 24} };
+                        node.value = 25;
+                        node.size = 25;
+                        node.color = "#93D276"
+                        node.shape = "box";
+                        node.shadow = false;
+                        node.x = stages[i].x;
+                        node.y = stages[i].y;
+                        data.nodes.push(node);
+                    }
 
+                    // link nodes
+                    for (var i = 0; i < stages.length; i ++) {
+                        for (var j = 0; j < stages[i].prev.length; j ++) {
+                            if (data.edges.indexOf({from: stages[i].prev[j], to: stages[i].self}) == -1 &&
+                                stages[i].prev[j] && stages[i].prev[j] != [] &&
+                                stages[i].self && stages[i].self != []) {
+                                    data.edges.push({from: stages[i].prev[j], to: stages[i].self});
+                            }
+                        };
+                    }
 
-  };
-
-
+                    return data;
+                })
+        },
+    };
 }]);
 
 
