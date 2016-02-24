@@ -19,5 +19,5 @@ app.controller('NavTopCtrl', ['$scope', 'Fishery', 'AuthService', '$state',
                 $state.go('login');
             });
         };
-}]);
 
+}]);

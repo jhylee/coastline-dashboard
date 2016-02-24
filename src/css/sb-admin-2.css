@@ -12,7 +12,6 @@ body {
 }
 
 
-
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
   .sidebar-nav .navbar .navbar-collapse {

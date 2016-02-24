@@ -78,9 +78,10 @@ body {
 .activeTab {
   background-color: $btn-color;
   border-radius: 2px;
-}
-.nav-sidebar li.activeTab a {
-  color: #fff;
+
+  a {
+    color: #fff;
+  }
 }
 
 /*
@@ -163,12 +164,22 @@ body {
     background-color: $btn-color;
   }
   a {
-    color: #000;
+    color: #fff;
   }
 }
+
+@media screen and (max-width: 768px) {
+    .hide {
+        display:block!important;
+        visibility: visible;
+        display: none;
+    }
+}
+
 th {
   text-align: center;
 }
+
 
 /*
  * Sidebar
@@ -204,14 +215,14 @@ th {
     }
     a {
       color: $primary-font-color;
-      font-weight: 400;
+      font-weight: 600;
       &:hover {
         background-color: $navbar-color;
         @include border-radius(3px);
       }
       &:active {
         background-color: $btn-color;
-        color: $btn-color;
+        color: white;
       }
     }
     padding-right: 20px;
@@ -260,6 +271,7 @@ th {
   padding-left: 15px;
   padding-right: 15px;
   margin: 2px;
+  margin-bottom: 4px;
   padding-top: 8px;
   padding-bottom: 8px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;

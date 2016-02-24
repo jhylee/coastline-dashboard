@@ -11,7 +11,6 @@ angular.module('coastlineWebApp.dashboard.services', ['ngStorage'])
     }
 }])
 
-
 .factory('Fishery', ['$http', '$localStorage', 'apiUrl', function($http, $localStorage, apiUrl) {
     'use strict';
     var fishery = {name: $localStorage.fisheryName, _id: $localStorage.user.fishery};
@@ -37,6 +36,3 @@ angular.module('coastlineWebApp.dashboard.services', ['ngStorage'])
         }
     };
 }])
-
-
-
