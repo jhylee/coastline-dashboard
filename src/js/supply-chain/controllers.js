@@ -1,8 +1,8 @@
 var app = angular.module('coastlineWebApp.supplyChain.controllers', ['ui.bootstrap',
   'coastlineWebApp.common.services',
-  'coastlineWebApp.common.directives',  
+  'coastlineWebApp.common.directives',
   'ui.router']);
-  
+
   // SUPPLY CHAINS TAB
 
 app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'SupplyChainData', 'Fishery',
@@ -64,8 +64,8 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
 }]);
 
 
-app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu',
-  function ($scope, $uibModal, VisDataSet, SupplyChainData, SupplyChainMenu) {
+app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'StageData',
+  function ($scope, $uibModal, VisDataSet, SupplyChainData, SupplyChainMenu, StageData) {
 
     // $scope.$on("dashboardSwitch", function (event, newView) {
     //   console.log(newView);
@@ -95,29 +95,12 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
         autoResize: true,
         height: '100%',
         width: '100%',
-        // nodes: { 
-        //     color: {
-        //         border: '#455A64',
-        //         background: '#97C2FC',
-        //         highlight: {
-        //             border: '#455A64',
-        //             background: '#CFD8DC'
-        //         },
-        //         hover: {
-        //             border: '#455A64',
-        //             background: '#CFD8DC'
-        //         }
-        //     }
-        // },
         physics: { enabled: false},
-        edges: { 
-            arrows: { 
+        edges: {
+            arrows: {
                 to: { enabled: true, scaleFactor: 1}
             },
-            // color: {
-            //     color: '#455A64'
-            // },
-            smooth: { 
+            smooth: {
                 enabled: false
             }
         }
@@ -129,14 +112,14 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
 
     // callback for selectNode events
     $scope.events.selectNode = function (items) {
-      console.log('selectNode');
-      SupplyChainData.selectStage(items.nodes[0]);
+        console.log('selectNode');
+        SupplyChainData.selectStage(items.nodes[0]);
     };
 
     // callback for deselectNode events
     $scope.events.deselectNode = function (items) {
-      console.log('deselectNode');
-      SupplyChainData.deselectStage();
+        console.log('deselectNode');
+        SupplyChainData.deselectStage();
     };
 
     $scope.events.dragEnd = function (items) {
@@ -241,9 +224,9 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
 
 
 
-app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance', 
+app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
     function ($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
-        
+
         // var prev = SupplyChainData.getSelectedStage();
 
         // get stages - for option display
@@ -267,9 +250,9 @@ app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uib
 
 
 
-app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance', 
+app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
     function ($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
-        
+
         // get stages - for option display
         $scope.getStages = function () {
             return SupplyChainData.getStages();
@@ -293,9 +276,9 @@ app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$ui
 
 
 
-app.controller('ExitSupplyChainCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance', 
+app.controller('ExitSupplyChainCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
     function ($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
-        
+
         // get stages - for option display
         $scope.getStages = function () {
             return SupplyChainData.getStages();

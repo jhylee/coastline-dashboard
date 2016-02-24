@@ -1,6 +1,7 @@
 var app = angular.module('coastlineWebApp.dashboard.controllers', ['ui.bootstrap',
   'coastlineWebApp.dashboard.services',
   'coastlineWebApp.auth.services',
+  'coastlineWebApp.common.services',
   'ui.router']);
 
 
@@ -19,5 +20,4 @@ app.controller('NavTopCtrl', ['$scope', 'Fishery', 'AuthService', '$state',
                 $state.go('login');
             });
         };
-
 }]);

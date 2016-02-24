@@ -49,7 +49,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage','coastlineConstants
             $localStorage.token = res.token;
             $localStorage.user = res.user;
             $localStorage.$save();
-            
+
             success(res);
 
 
@@ -71,7 +71,6 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage','coastlineConstants
         delete $localStorage.token;
         delete $localStorage.user;
         $localStorage.$save();
-        // console.log("token: " + $localStorage.token);
         done();
       },
       getToken: function () {
