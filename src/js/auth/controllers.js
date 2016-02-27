@@ -32,9 +32,9 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
     var fisheryName = $scope.fisheryName
 
     AuthService.signUp(formData, fisheryName, function (res) {
-      AuthService.login(formData, function (res) {
+    //   AuthService.login(formData, function (res) {
         $state.go('fishery-setup');
-      });
+    //   });
     }, function (err) {
       console.log("signup then login then error");
       console.log(err);
@@ -50,7 +50,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
 
     AuthService.createFishery(formData, function (res) {
         console.log(res);
-        $state.go('dashboard.default');
+        // $state.go('dashboard.default.products');
       },
       function (err) {
         $rootScope.error = 'Failed to createFishery';
@@ -59,19 +59,19 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
   };
 
   $scope.login = function () {
-    var formData = {
-      username: $scope.username,
-      password: $scope.password
-    };
+      var formData = {
+        username: $scope.username,
+        password: $scope.password
+      };
 
-    AuthService.login(formData, function (res) {
-        $state.go('dashboard.default.overview');
-      },
-      function (err) {
-        $rootScope.error = 'Failed to signin';
-        console.log("error signing in");
+      var loginPromise = AuthService.login(formData);
+
+      loginPromise.then(function (res) {
+          console.log(res);
+          // $state.go('dashboard.default.products');
       });
   };
+
 
   $scope.me = function () {
     AuthService.me(function (res) {

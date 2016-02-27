@@ -23,46 +23,80 @@ app.factory('SideNavData', ['$http', '$localStorage', function($http, $localStor
 }]);
 
 
-app.factory('FisheryData', ['$http', 'apiUrl', function($http, apiUrl) {
+app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, apiUrl, $localStorage) {
     'use strict';
 
     var baseUrl = apiUrl;
 
-    var fishery
+    var fishery;
 
 
     $http.get(baseUrl + '/api/fisheries').success(function (res) {
         for (var i = 0; i < res.length; i ++) {
-            if (res[i]._id == $localStorage.user.fishery) {
+            // if (res[i]._id == $localStorage.user.fishery) {
                 $localStorage.fisheryName = res[i].name;
                 $localStorage.$save();
                 fishery = {name: res[i].name, _id: res[i]._id};
-                fisheryName = $localStorage.fisheryName;
-                console.log("fisheryName " + fisheryName);
-            }
+                // var fisheryName = $localStorage.fisheryName;
+                // console.log("fisheryName " + fisheryName);
+                console.log(fishery);
+            // }
         }
-        success(fishery);
+        // success(fishery);
     }).error(function (err) {
         console.log("Error getting fishery. " + err)
     });
 
     return  {
-        getFishery: function (success) {
-            $http.get(baseUrl + '/api/fisheries').success(function (res) {
-                for (var i = 0; i < res.length; i ++) {
-                    if (res[i]._id == $localStorage.user.fishery) {
-                        $localStorage.fisheryName = res[i].name;
-                        $localStorage.$save();
-                        fishery = {name: res[i].name, _id: res[i]._id};
-                        fisheryName = $localStorage.fisheryName;
-                        console.log("fisheryName " + fisheryName);
-                    }
-                }
-                success(fishery);
-            }).error(function (err) {
-                console.log("Error getting fishery. " + err)
+        fetchFishery: function () {
+
+            return $http.get(baseUrl + '/api/user').then(function (res) {
+                console.log(res);
+                return res.data.fishery;
+            }).then(function (res) {
+                fishery = { name: res.name, _id: res._id };
+                console.log(fishery);
+                return fishery;
+            }).catch(function (err) {
+                return err;
             });
+
+
+
+            // return $http.get(baseUrl + '/api/fisheries')
+            //     .then(function (res) {
+            //         for (var i = 0; i < res.data.length; i ++) {
+            //             if (res.data[i]._id == $localStorage.user.fishery) {
+            //                 // $localStorage.fisheryName = res.data[i].name;
+            //                 // $localStorage.$save();
+            //                 fishery = {name: res.data[i].name, _id: res.data[i]._id};
+            //                 console.log(fishery);
+            //                 return
+            //                 // fisheryName = $localStorage.fisheryName;
+            //                 // console.log("fisheryName " + fisheryName);
+            //             }
+            //         }
+            //         // success(fishery);
+            //     }).then(function (data) {
+            //
+            //     }).catch(function (err) {
+            //         return err;
+            //     });
+        },
+        getFishery: function () {
+            return fishery;
+        },
+        getFisheryName: function () {
+            if (fishery) {
+                return fishery.name;
+            };
+        },
+        getFisheryId: function () {
+            if (fishery) {
+                return fishery._id;
+            };
         }
+        // setFishery:
     };
 }]);
 
@@ -87,7 +121,7 @@ app.factory('SupplyChainMenu', ['$http', 'apiUrl', function($http, apiUrl) {
 }]);
 
 // for management of the supply chain builder
-app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', function($http, apiUrl, Fishery, $localStorage) {
+app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', 'FisheryData', function($http, apiUrl, Fishery, $localStorage, FisheryData) {
     'use strict';
 
     var baseUrl = apiUrl;
@@ -160,7 +194,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', f
         },
 
         postSupplyChain: function(fisheryId, data, success, error) {
-            $http.post(baseUrl + '/api/fisheries/' + fisheryId + '/supplychains', data).success(success).error(error);
+            $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains', data).success(success).error(error);
         },
 
         saveSupplyChain: function (success, error) {

@@ -15,9 +15,9 @@ var app = angular.module('coastlineWebApp.common.controllers', ['ui.bootstrap', 
       // StageData.getStages().then(logRes)
       //                      .catch(logRes);
       //
-      StageData.getNormalStages().then(function (res) {
-        console.log(res);
-      });
+    //   StageData.getNormalStages().then(function (res) {
+    //     console.log(res);
+    //   });
 
       // StageData.getSellingPoints(function (res) {
       //   console.log(res);

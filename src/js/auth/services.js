@@ -1,7 +1,7 @@
 angular.module('coastlineWebApp.auth.services', ['ngStorage','coastlineConstants', 'ui.router'])
 
 
-.factory('AuthService', ['$http', '$window', '$localStorage', 'apiUrl', function ($http, $window, $localStorage, apiUrl) {
+.factory('AuthService', ['$http', '$window', '$localStorage', 'apiUrl', 'FisheryData', '$state', function ($http, $window, $localStorage, apiUrl, FisheryData, $state) {
     var baseUrl = apiUrl;
     var token = $localStorage.token;
 
@@ -12,17 +12,18 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage','coastlineConstants
     }
 
     var login = function (data, success, error) {
-        $http.post(baseUrl + '/api/login', data).success(function (res) {
-          $localStorage.token = res.token;
-          $localStorage.user = res.user;
-          $localStorage.$save();
+        return $http.post(baseUrl + '/api/login', data).then(function (res) {
+            $localStorage.token = res.data.token;
+            $localStorage.user = res.data.user;
+            $localStorage.$save();
 
-          success(res);
+            FisheryData.fetchFishery().then(function (res) {
+                $state.go('dashboard.default.products');
+            })
 
-        }).error(function (err) {
-
-          error(err);
-
+            return res.data;
+        }).catch(function (err) {
+            return err;
         })
     };
 
@@ -59,8 +60,14 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage','coastlineConstants
 
       createFishery: function (data, success, error) {
           $http.post(baseUrl + '/api/fisheries', data).success(function (res) {
-            $localStorage.fisheryName = res.name;
-            console.log("$localStorage.fisheryName " + $localStorage.fisheryName);
+            $localStorage.user.fishery = res.name;
+            // console.log(res);
+
+            FisheryData.fetchFishery().then(function () {
+                $state.go('dashboard.default.products');
+            });
+
+            console.log("$localStorage.user.fishery " + $localStorage.user.fishery);
             success();
           }).error(error);
       },

@@ -6,14 +6,19 @@ var app = angular.module('coastlineWebApp.dashboard.controllers', ['ui.bootstrap
 
 
 
-app.controller('NavTopCtrl', ['$scope', 'Fishery', 'AuthService', '$state',
-    function ($scope, Fishery, AuthService, $state) {
+// app.controller('NavTopCtrl', ['$scope', 'Fishery', 'AuthService', '$state',
+//     function ($scope, Fishery, AuthService, $state) {
+app.controller('NavTopCtrl', ['$scope', 'Fishery', 'AuthService', '$state', 'FisheryData',
+    function ($scope, Fishery, AuthService, $state, FisheryData) {
         $scope.fisheryName = "";
 
-        Fishery.getFishery(function (fishery) {
-            $scope.fisheryName = fishery.name;
-            console.log("$scope.fisheryName " + fishery);
-        });
+        // Fishery.getFishery(function (fishery) {
+        //     $scope.fisheryName = fishery.name;
+        //     console.log("$scope.fisheryName " + fishery);
+        // });
+
+        $scope.fisheryName = FisheryData.getFisheryName();
+
 
         $scope.logout = function () {
             AuthService.logout(function () {
