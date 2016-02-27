@@ -2,7 +2,7 @@ var app = angular.module('coastlineWebApp.common.services', ['ui.bootstrap', 'ng
   'ui.router']);
 
 
-app.factory('SideNavData', ['$http', '$localStorage', function($http, $localStorage) {
+app.factory('SideNavData', ['$http', '$localStorage', 'FisheryData', function($http, $localStorage, FisheryData) {
 
     $localStorage.view = overview;
 
@@ -15,7 +15,7 @@ app.factory('SideNavData', ['$http', '$localStorage', function($http, $localStor
             view = newView;
         },
         getSupplyChains: function (fisheryId, success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + fisheryId + '/supplychains').success(success).error(error);
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').success(success).error(error);
         },
 
 
@@ -33,7 +33,6 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
 
     $http.get(baseUrl + '/api/fisheries').success(function (res) {
         for (var i = 0; i < res.length; i ++) {
-            // if (res[i]._id == $localStorage.user.fishery) {
                 $localStorage.fisheryName = res[i].name;
                 $localStorage.$save();
                 fishery = {name: res[i].name, _id: res[i]._id};
@@ -66,7 +65,6 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
             // return $http.get(baseUrl + '/api/fisheries')
             //     .then(function (res) {
             //         for (var i = 0; i < res.data.length; i ++) {
-            //             if (res.data[i]._id == $localStorage.user.fishery) {
             //                 // $localStorage.fisheryName = res.data[i].name;
             //                 // $localStorage.$save();
             //                 fishery = {name: res.data[i].name, _id: res.data[i]._id};
@@ -103,7 +101,7 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
 
 
 
-app.factory('SupplyChainMenu', ['$http', 'apiUrl', function($http, apiUrl) {
+app.factory('SupplyChainMenu', ['$http', 'apiUrl', 'FisheryData', function($http, apiUrl, FisheryData) {
     var view = 'home';
     var baseUrl = apiUrl;
 
@@ -115,7 +113,7 @@ app.factory('SupplyChainMenu', ['$http', 'apiUrl', function($http, apiUrl) {
             view = newView;
         },
         getSupplyChains: function (fisheryId, success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + fisheryId + '/supplychains').success(success).error(error);
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').success(success).error(error);
         }
     }
 }]);
@@ -177,7 +175,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
     return {
 
         getSupplyChains: function (success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains').success(success).error(error);
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').success(success).error(error);
         },
 
         // get all stages
@@ -198,15 +196,15 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
         },
 
         saveSupplyChain: function (success, error) {
-            Fishery.getFishery(function (fishery) {
-                $http.put(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChain._id, supplyChain).success(
+            // Fishery.getFishery(function (fishery) {
+                $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChain._id, supplyChain).success(
                     function (res) {
                         supplyChain = res;
 
                         // TODO - make a backend route to easily get the name of the stage
                         for (var i = 0; i < supplyChain.stages.length; i ++) {
 
-                            $http.get(baseUrl + '/api/fisheries/' + fishery._id + '/stages/' + supplyChain.stages[i].self).success(function (stage) {
+                            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/' + supplyChain.stages[i].self).success(function (stage) {
                                 var index = findStage(stage._id);
                                 if (index != null) {
                                     supplyChain.stages[index].name = stage.name;
@@ -221,7 +219,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
                         console.log(err);
                         error(err);
                     });
-            })
+            // })
 
         },
 
@@ -295,7 +293,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
                 Fishery.getFishery(function (fishery) {
                     var fisheryId = fishery._id;
                     var stageData = {name: name};
-                    $http.post(baseUrl + '/api/fisheries/' + fisheryId + '/stages', stageData).success(
+                    $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages', stageData).success(
                         function (stage) {
                             stage.x = x;
                             stage.y = 0;
@@ -373,14 +371,14 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
 }]);
 
 
-app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', function($http, apiUrl, Fishery, $localStorage) {
+app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', 'FisheryData', function($http, apiUrl, Fishery, $localStorage, FisheryData) {
 
     var baseUrl = apiUrl;
 
     var selectedStage;
 
     var fetchNormalStages = function () {
-        return $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains').
+        return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').
             then(function (res) {
                 console.log(res.data[0].stages);
 
@@ -409,7 +407,7 @@ app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', functio
     return {
 
         getStages: function () {
-            return $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages/all');
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/all');
         },
 
         getNormalStages: function () {
@@ -419,7 +417,7 @@ app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', functio
 
         getSellingPoints: function (success, error) {
             console.log('StageData getSellingPoints');
-            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages/selling').success(success).error(error);
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/selling').success(success).error(error);
         },// reconstructs the graph and returns nodes and edges for graphical display
 
 

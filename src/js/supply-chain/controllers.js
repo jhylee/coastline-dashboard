@@ -33,8 +33,8 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'S
 }]);
 
 
-app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'Fishery', '$localStorage',
-    function ($scope, $state, VisDataSet, SupplyChainData, SupplyChainMenu, Fishery, $localStorage) {
+app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'Fishery', 'FisheryData', '$localStorage',
+    function ($scope, $state, VisDataSet, SupplyChainData, SupplyChainMenu, Fishery, FisheryData, $localStorage) {
 
         // get stages - for option display
         $scope.createSupplyChain = function () {
@@ -42,7 +42,7 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
             var data = {name: $scope.name};
 
             Fishery.getFishery(function (fishery) {
-                fisheryId = $localStorage.user.fishery;
+                fisheryId = FisheryData.getFisheryId();
                 console.log("fisheryId " + fishery._id);
 
                 SupplyChainData.postSupplyChain(fisheryId, data, function (res) {
