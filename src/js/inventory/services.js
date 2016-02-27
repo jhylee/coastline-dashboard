@@ -1,9 +1,10 @@
 var app = angular.module('coastlineWebApp.inventory.services', ['ui.bootstrap', 'ngStorage',
   'coastlineWebApp.auth.services',
+  'coastlineWebApp.common.services',
   'coastlineConstants',
   'ui.router']);
 
-app.factory('TrackInventoryMenuNavigation', ['$http', 'apiUrl', '$localStorage', function($http, apiUrl, $localStorage) {
+app.factory('TrackInventoryMenuNavigation', ['$http', 'apiUrl', '$localStorage', 'FisheryData', function($http, apiUrl, $localStorage, FisheryData) {
     var view = 'menu';
     var baseUrl = apiUrl;
 
@@ -15,36 +16,36 @@ app.factory('TrackInventoryMenuNavigation', ['$http', 'apiUrl', '$localStorage',
             view = newView;
         },
         getSupplyChains: function (success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains').success(success).error(error);
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').success(success).error(error);
         }
     }
 }]);
 
-app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', function($http, apiUrl, $localStorage) {
+app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', 'FisheryData', function($http, apiUrl, $localStorage, FisheryData) {
     var baseUrl = apiUrl;
-    
+
     return {
         getBlocks: function (supplyChainId, stageId, success, error) {
             console.log(supplyChainId);
-            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/stages/' + stageId + '/blocks').success(success).error(error);
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/stages/' + stageId + '/blocks').success(success).error(error);
         },
         addBlock: function (supplyChainId ,data, success, error) {
-            $http.post(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/blocks', data).success(success).error(error);
+            $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/blocks', data).success(success).error(error);
         },
         moveBlock(supplyChainId, blockId, data, success, error) {
-            $http.put(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/blocks/' + blockId, data).success(success).error(error);            
+            $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/blocks/' + blockId, data).success(success).error(error);
         },
         deleteBlock(supplyChainId, blockId, success, error) {
-            $http.delete(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains/' + supplyChainId + '/blocks/' + blockId).success(success).error(error);            
+            $http.delete(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/blocks/' + blockId).success(success).error(error);
         },
         getSellingPoints: function (success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/stages/selling').success(success).error(error);            
-        }   
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/selling').success(success).error(error);
+        }
     }
 }]);
 
 
-app.factory('TrackInventoryManager', ['$http', 'apiUrl', '$localStorage', function($http, apiUrl, $localStorage) {
+app.factory('TrackInventoryManager', ['$http', 'apiUrl', '$localStorage', 'FisheryData', function($http, apiUrl, $localStorage, FisheryData) {
     var view = 'menu';
     var baseUrl = apiUrl;
     var _supplyChain;
@@ -58,7 +59,7 @@ app.factory('TrackInventoryManager', ['$http', 'apiUrl', '$localStorage', functi
             _supplyChain = supplyChain;
         },
         getSupplyChains: function (success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + $localStorage.user.fishery + '/supplychains').success(success).error(error);
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').success(success).error(error);
         },
 
         // reconstructs the graph and returns nodes and edges for graphical display
