@@ -1,5 +1,6 @@
 var app = angular.module('coastlineWebApp', ['ui.router',
   'ngStorage',
+  'ng-file-model',
   'coastlineWebApp.auth.controllers',
   'coastlineWebApp.auth.services',
   'coastlineWebApp.dashboard.controllers',

@@ -58,8 +58,8 @@ app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$sta
 }]);
 
 
-app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state', '$uibModalInstance',
-    function ($scope, Products, AuthService, $state, $uibModalInstance) {
+app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function ($scope, Products, AuthService, $state, $uibModalInstance, $http) {
         $scope.fisheryName = "";
 
         Products.getProducts(function (products) {
@@ -76,7 +76,10 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state',
             name: $scope.name,
             description: $scope.description,
             unit: $scope.unit,
-            unitPrice: $scope.unitPrice
+            unitPrice: $scope.unitPrice,
+            fileName: $scope.photo.name,
+            fileType: $scope.photo.type,
+            fileSize: $scope.photo.size
         };
 
         console.log("data");
@@ -86,7 +89,26 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'AuthService', '$state',
     		$uibModalInstance.close(res);
     	}, function (err) {
     		$uibModalInstance.close(err);
-    	})
+    	}).success(function(res) {
+        console.log('here');
+        $http({
+          method: 'PUT',
+          url: res.signedUrl,
+          headers: {
+            'Content-Type': data.fileType,
+            'x-amz-acl': 'public-read'
+          },
+          body: data.body,
+          ignoreInterceptor: true
+        })
+        .then(function(res) {
+          console.log('img upload success!');
+          console.log(res);
+        }, function(err) {
+          console.log('img upload fail');
+          console.log(err);
+        });
+      });
 
     };
 
