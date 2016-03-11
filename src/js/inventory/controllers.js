@@ -1,7 +1,7 @@
 var app = angular.module('coastlineWebApp.inventory.controllers', ['ui.bootstrap',
   'coastlineWebApp.dashboard.services',
   'coastlineWebApp.inventory.services',
-  'coastlineWebApp.products.services',  
+  'coastlineWebApp.products.services',
   'coastlineWebApp.common.services',
   'ui.router']);
 
@@ -190,7 +190,7 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
                 console.log("then");
             });
         };
-        
+
         $scope.moveBlockToSales = function () {
 
 
@@ -353,8 +353,8 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
     function ($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
 
         $scope.fromStage = SupplyChainData.getSelectedStage();
-        
-        
+
+
         InventoryData.getSellingPoints(function (res) {
             $scope.stages = res;
             console.log(res);
@@ -421,8 +421,8 @@ app.controller('DeleteBlockCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
 
 app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'Products', 'SupplyChainData', '$state', '$uibModalInstance',
     function ($scope, TrackInventoryManager, InventoryData, Products, SupplyChainData, $state, $uibModalInstance) {
-        
-        
+
+
         Products.getProducts(function (res) {
             $scope.products = res;
         }, function (err) {
@@ -431,7 +431,7 @@ app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDat
 
 
         $scope.ok = function () {
-            
+
             console.log($scope.selectedProduct);
 
             var data = {
