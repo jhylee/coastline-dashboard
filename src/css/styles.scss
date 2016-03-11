@@ -75,14 +75,7 @@ body {
     overflow-y: scroll;
   }
 }
-.activeTab {
-  background-color: $btn-color;
-  border-radius: 2px;
 
-  a {
-    color: #fff;
-  }
-}
 
 /*
  * Global add-ons
@@ -224,6 +217,15 @@ th {
         background-color: $btn-color;
         color: white;
       }
+    }
+
+    a.activeTab {
+      background-color: $btn-color;
+      border-radius: 2px;
+
+    //   a {
+        color: #fff;
+    //   }
     }
     padding-right: 20px;
     padding-left: 20px;

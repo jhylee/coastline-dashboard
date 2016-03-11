@@ -138,8 +138,13 @@
       </fieldset>
 
       <fieldset class="form-group">
-        <label>Units</label>
-        <input class="form-control" ng-model="units" placeholder="">
+        <label>Units</label><br>
+
+        <select ng-model="units" name="mydropdown" class="dropdown">
+          <option value="lb">Pounds (lb)</option>
+          <option value="kg">Kilograms (kg)</option>
+          <option value="unit">Per Unit of Fish</option>
+        </select>
       </fieldset>
 
       <fieldset class="form-group">
