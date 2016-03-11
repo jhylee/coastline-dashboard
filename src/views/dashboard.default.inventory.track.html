@@ -71,6 +71,7 @@
 
     <!-- THIS IS THE BUTTON FOR VIEW DETAILS MODAL -->
     <button class="btn-dashboard" type="button" ng-click="viewDetails()">View Details</button>
+    <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()">Edit</button>
     <button class="btn-dashboard-green" type="button" ng-click="addBlock()">Add</button>
     <button class="btn-dashboard-red" type="button" ng-click="deleteBlock()">Delete</button>
 
@@ -119,6 +120,59 @@
 <script type="text/ng-template" id="addBlockModal.html">
   <div class="modal-header">
     <h3 class="modal-title">Add Seafood Batch</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <fieldset class="form-group">
+        <label>Product Type</label><br>
+
+        <select class="dropdown" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
+
+        <!--<select ng-model="selectedProduct" name="mydropdown" class="dropdown">
+            <option ng-value="{{product}}" ng-repeat="product in products track by $index">{{product.name}}</option>
+        </select>-->
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label>Quantity</label>
+        <input class="form-control" ng-model="quantity" placeholder="">
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label>Units</label><br>
+
+        <select ng-model="units" name="mydropdown" class="dropdown">
+          <option value="lb">Pounds (lb)</option>
+          <option value="kg">Kilograms (kg)</option>
+          <option value="unit">Per Unit of Fish</option>
+        </select>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label>Catch Date</label>
+        <input class="form-control" ng-model="date" placeholder="">
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label>Catch Location</label>
+        <input class="form-control" ng-model="location" placeholder="">
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label>Caught By</label>
+        <input class="form-control" ng-model="caughtBy" placeholder="">
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="editBlockModal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Edit Seafood Batch</h3>
   </div>
   <div class="modal-body">
     <form>
