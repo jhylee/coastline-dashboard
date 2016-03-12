@@ -8,6 +8,7 @@ app.factory('Products', ['$http', '$localStorage', 'apiUrl', 'FisheryData', func
     var fishery = {name: $localStorage.fisheryName, _id: FisheryData.getFisheryId()};
     var fisheryName;
     var baseUrl = apiUrl;
+    var selectedProductId;
 
     return  {
         getProducts: function (success, error) {
@@ -19,6 +20,21 @@ app.factory('Products', ['$http', '$localStorage', 'apiUrl', 'FisheryData', func
         addProduct: function (data, success, error) {
         	return $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products', data).success(success).error(error);
 
+        },
+        deleteProduct: function (productId) {
+            return $http.delete(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products/' + productId)
+                .then(function (res) {
+                    return res.data;
+                }).catch(function (err) {
+                    console.log(err);
+                })
+        },
+        getSelectedProductId: function () {
+            return selectedProductId;
+        },
+        setSelectedProductId: function (productId) {
+            selectedProductId = productId;
         }
+
     };
 }]);

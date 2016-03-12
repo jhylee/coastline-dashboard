@@ -34,7 +34,10 @@
                     </thead>
                     <tbody ng-repeat="product in products track by $index">
                       <tr>
-                        <td><input type="checkbox" class="checkbox" ng-checked="selectedItems[$index]" ng-click="toggleItemSelection($index)"/></td>
+                        <!-- <td><input type="checkbox" class="checkbox" ng-checked="selectedItems[$index]" ng-click="toggleItemSelection($index)"/></td> -->
+                        <td>
+                          <input type="radio" ng-model="$parent.selectedProduct" ng-value="$index">
+                        </td>
                         <td>{{product.name}}</td>
                         <td>${{product.unitPrice}}/{{product.unit}}</td>
                         <td>{{product.description}}</td>
@@ -151,5 +154,18 @@
   <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="deleteProductModal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Delete Block</h3>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this product?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-dashboard-green" type="button" ng-click="ok()">Yes</button>
+    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
