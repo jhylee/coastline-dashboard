@@ -16,7 +16,7 @@ app.factory('SideNavData', ['$http', '$localStorage', 'FisheryData', function($h
         },
         getSupplyChains: function (fisheryId, success, error) {
             $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').success(success).error(error);
-        },
+        }
 
 
     }
@@ -33,13 +33,10 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
 
     $http.get(baseUrl + '/api/fisheries').success(function (res) {
         for (var i = 0; i < res.length; i ++) {
-                $localStorage.fisheryName = res[i].name;
-                $localStorage.$save();
-                fishery = {name: res[i].name, _id: res[i]._id};
-                // var fisheryName = $localStorage.fisheryName;
-                // console.log("fisheryName " + fisheryName);
-                console.log(fishery);
-            // }
+            $localStorage.fisheryName = res[i].name;
+            $localStorage.$save();
+            fishery = {name: res[i].name, _id: res[i]._id};
+            console.log(fishery);
         }
         // success(fishery);
     }).error(function (err) {
@@ -48,7 +45,6 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
 
     return  {
         fetchFishery: function () {
-
             return $http.get(baseUrl + '/api/user').then(function (res) {
                 console.log(res);
                 return res.data.fishery;
@@ -59,27 +55,6 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
             }).catch(function (err) {
                 return err;
             });
-
-
-
-            // return $http.get(baseUrl + '/api/fisheries')
-            //     .then(function (res) {
-            //         for (var i = 0; i < res.data.length; i ++) {
-            //                 // $localStorage.fisheryName = res.data[i].name;
-            //                 // $localStorage.$save();
-            //                 fishery = {name: res.data[i].name, _id: res.data[i]._id};
-            //                 console.log(fishery);
-            //                 return
-            //                 // fisheryName = $localStorage.fisheryName;
-            //                 // console.log("fisheryName " + fisheryName);
-            //             }
-            //         }
-            //         // success(fishery);
-            //     }).then(function (data) {
-            //
-            //     }).catch(function (err) {
-            //         return err;
-            //     });
         },
         getFishery: function () {
             return fishery;
