@@ -59,181 +59,150 @@
  </div>
 
 
-<script type="text/ng-template" id="viewBlocksModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Inventory in Cold Storage</h3>
-  </div>
 
-  <div class="modal-footer">
+ <script type="text/ng-template" id="viewBlocksModal.html">
+   <div class="modal-header">
+     <h3 class="modal-title">Inventory in Cold Storage</h3>
+   </div>
 
-    <button class="btn-dashboard" type="button" ng-click="moveBlock()">Move</button>
-    <button class="btn-dashboard" type="button" ng-click="moveBlockToSales()">Move to Sales</button>
+   <div class="modal-footer">
 
-    <!-- THIS IS THE BUTTON FOR VIEW DETAILS MODAL -->
-    <button class="btn-dashboard" type="button" ng-click="viewDetails()">View Details</button>
-    <button class="btn-dashboard-green" type="button" ng-click="addBlock()">Add</button>
-    <button class="btn-dashboard-red" type="button" ng-click="deleteBlock()">Delete</button>
+     <button class="btn-dashboard" type="button" ng-click="moveBlock()">Move</button>
+     <button class="btn-dashboard" type="button" ng-click="moveBlockToSales()">Move to Sales</button>
 
-  </div>
+     <!-- THIS IS THE BUTTON FOR VIEW DETAILS MODAL -->
+     <button class="btn-dashboard" type="button" ng-click="viewDetails()">View Details</button>
+     <button class="btn-dashboard-green" type="button" ng-click="addBlock()">Add</button>
+     <button class="btn-dashboard-red" type="button" ng-click="deleteBlock()">Delete</button>
 
-  <div class="modal-body">
-    <div class="panel panel-default">
-      <!-- <div class="panel-heading">
-      <h3 class="panel-title">Supply Chain Representation</h3></div> -->
-      <div class="panel-body">
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-              <th>#</th>
-              <th>Product Type</th>
-              <th>Quantity</th>
-              <th>Date Created</th>
-              <th>Select</th>
-              </tr>
-            </thead>
-            <tbody ng-repeat="block in blocks track by $index">
-              <tr>
-              <td>{{$index + 1}}</td>
-              <td>{{block.productType.name}}</td>
-              <td>{{block.quantity + " " + block.units}}</td>
-              <td>{{block.dateCreated.substring(0,10)}}</td>
-              <td>
-                <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
-              </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+   </div>
 
-  <div class="modal-footer">
-    <button class="btn-dashboard" type="button" ng-click="ok()">Dismiss</button>
-  </div>
-</script>
+   <div class="modal-body">
+     <div class="panel panel-default">
+       <!-- <div class="panel-heading">
+       <h3 class="panel-title">Supply Chain Representation</h3></div> -->
+       <div class="panel-body">
+         <div class="table-responsive">
+           <table class="table table-striped">
+             <thead>
+               <tr>
+               <th>#</th>
+               <th>Product Type</th>
+               <th>Quantity</th>
+               <th>Date Created</th>
+               <th>Select</th>
+               </tr>
+             </thead>
+             <tbody ng-repeat="block in blocks track by $index">
+               <tr>
+               <td>{{$index + 1}}</td>
+               <td>{{block.productType.name}}</td>
+               <td>{{block.quantity + " " + block.units}}</td>
+               <td>{{block.dateCreated.substring(0,10)}}</td>
+               <td>
+                 <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
+               </td>
+               </tr>
+             </tbody>
+           </table>
+         </div>
+       </div>
+     </div>
+   </div>
 
-
-
-<script type="text/ng-template" id="addBlockModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Add Seafood Batch</h3>
-  </div>
-  <div class="modal-body">
-    <form>
-      <fieldset class="form-group">
-        <label>Product Type</label><br>
-
-        <select class="dropdown" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
-
-        <!--<select ng-model="selectedProduct" name="mydropdown" class="dropdown">
-            <option ng-value="{{product}}" ng-repeat="product in products track by $index">{{product.name}}</option>
-        </select>-->
-      </fieldset>
-
-      <fieldset class="form-group">
-        <label>Quantity</label>
-        <input class="form-control" ng-model="quantity" placeholder="">
-      </fieldset>
-
-      <fieldset class="form-group">
-        <label>Units</label>
-        <input class="form-control" ng-model="units" placeholder="">
-      </fieldset>
-
-      <fieldset class="form-group">
-        <label>Catch Date</label>
-        <input class="form-control" ng-model="date" placeholder="">
-      </fieldset>
-
-      <fieldset class="form-group">
-        <label>Catch Location</label>
-        <input class="form-control" ng-model="location" placeholder="">
-      </fieldset>
-
-      <fieldset class="form-group">
-        <label>Caught By</label>
-        <input class="form-control" ng-model="caughtBy" placeholder="">
-      </fieldset>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-  </div>
-</script>
+   <div class="modal-footer">
+     <button class="btn-dashboard" type="button" ng-click="ok()">Dismiss</button>
+   </div>
+ </script>
 
 
-<script type="text/ng-template" id="deleteBlockModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Delete Block</h3>
-  </div>
-  <div class="modal-body">
-    <p>Are you sure you want to delete this block?</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">Yes</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-  </div>
-</script>
 
-<script type="text/ng-template" id="moveBlockModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Move Block</h3>
-  </div>
-  <div class="modal-body">
-    <form>
-      <fieldset class="form-group">
-        <label>Moving blocks from the "{{fromStage.name}}" stage to "{{toStage.name || '_______'}}."</label>
-      </fieldset>
+ <script type="text/ng-template" id="addBlockModal.html">
+   <div class="modal-header">
+     <h3 class="modal-title">Add Seafood Batch</h3>
+   </div>
+   <div class="modal-body">
+   <form>
 
-      <fieldset class="form-group">
-        <label>Move to stage: </label>
-        <select ng-model="toStage" ng-options="stage as stage.name for stage in stages" class="form-control"></select>
-      </fieldset>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-  </div>
-</script>
+     <fieldset class="form-group">
+       <div class ="col-lg-6">
+             <label>Product Type</label><br>
+             <select class="from-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
+             <!--<select ng-model="selectedProduct" name="mydropdown" class="dropdown">
+                 <option ng-value="{{product}}" ng-repeat="product in products track by $index">{{product.name}}</option>
+             </select>--><br>
+             <small class="text-muted">Item must be added under Products tab.</small>
+       </div>
+       <div class ="col-lg-6">
+             <label>Quantity</label>
+             <input class="form-control" ng-model="quantity" placeholder="ex. 4000">
+             <small class="text-muted">Please enter a numerical value.</small>
+           </div>
+     </fieldset>
 
-
-<script type="text/ng-template" id="moveBlockToSalesModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Move Block</h3>
-  </div>
-  <div class="modal-body">
-    <form>
-      <fieldset class="form-group">
-        <label>Moving blocks from the "{{fromStage.name}}" stage to "{{toStage.name || '_______'}}."</label>
-      </fieldset>
-
-      <fieldset class="form-group">
-        <label>Move to stage: </label>
-        <select ng-model="toStage" ng-options="stage as stage.name for stage in stages" class="form-control"></select>
-      </fieldset>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-  </div>
-</script>
+     <fieldset class="form-group">
+      <div class ="col-lg-6">
+       <label>Units</label>
+       <select name="mydropdown" class="form-control" ng-model="units">
+         <option value="lb">Pounds (Lbs.)</option>
+         <option value="kg">Kilograms (Kgs.)</option>
+         <option value="unit">Per Unit of Fish</option>
+       </select>
+       <small class="text-muted">Please choose between the three options.</small>
+     </div>
+     <div class ="col-lg-6">
+       <label>Catch Date</label>
+       <input class="form-control" ng-model="catchDate" placeholder="ex. 5/14/2016">
+       <small class="text-muted">MM/DD/YYYY</small>
+     </div>
+     </fieldset>
 
 
-<!-- THIS IS WHERE I MADE THE DUMMY VIEW DETAILS MODAL -->
+     <fieldset class="form-group">
+     <div class ="col-lg-6">
+       <label>Catch Region</label>
+       <input class="form-control" ng-model="catchRegion" placeholder="ex. 48°N, 61.5°W, Gulf of St. Lawrence">
+       <small class="text-muted">Latitude, Longitude, Ocean</small>
+     </div>
+     <div class ="col-lg-6">
+       <label>Caught By</label>
+       <input class="form-control" ng-model="caughtBy" placeholder="ex. Joey Fisher">
+       <small class="text-muted">Enter in the fisherman/fishery</small>
+     </div>
+     </fieldset>
 
-<script type="text/ng-template" id="viewDetailsModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Inventory Block Details</h3>
-  </div>
-  <div class="modal-body">
-    <p>Put in details here</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-dashboard" type="button" ng-click="cancel()">Close</button>
-  </div>
-</script>
+     <fieldset class="form-group">
+     <div class ="col-lg-6">
+       <label>Catch Type</label>
+       <input class="form-control" ng-model="catchType" placeholder="ex. Gillnetting">
+       <small class="text-muted">Enter the method of catching.</small>
+     </div>
+     <div class ="col-lg-6">
+       <label>Water Depth</label>
+       <input class="form-control" ng-model="waterDepth" placeholder="ex. 500m">
+       <small class="text-muted">Enter the water depth.</small>
+     </div>
+     </fieldset>
+   </form>
+
+   </div>
+   <div class="modal-footer">
+     <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+     <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+   </div>
+ </script>
+
+
+ <!-- THIS IS WHERE I MADE THE DUMMY VIEW DETAILS MODAL -->
+
+ <script type="text/ng-template" id="viewDetailsModal.html">
+   <div class="modal-header">
+     <h3 class="modal-title">Inventory Block Details</h3>
+   </div>
+   <div class="modal-body">
+     <p>Put in details here</p>
+   </div>
+   <div class="modal-footer">
+     <button class="btn-dashboard" type="button" ng-click="cancel()">Close</button>
+   </div>
+ </script>
