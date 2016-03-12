@@ -99,7 +99,6 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'Upload', 'AuthService',
                 headers: {
                     'Content-Type': "image/png",
                     'x-amz-acl': 'public-read',
-                    'Body': $scope.file
                 },
                 ignoreInterceptor: true,
                 method: "PUT"
@@ -107,14 +106,16 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'Upload', 'AuthService',
 
             console.log(payload);
 
-            Upload.upload(payload).then(function (resp) {
-                console.log('Success ' + resp.config.data.name + 'uploaded. Response: ' + resp.data);
-            }, function (resp) {
-                console.log('Error status: ' + resp.status);
-            }, function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.name);
-            });
+            Upload.http(payload);
+
+            // Upload.upload(payload).then(function (resp) {
+            //     // console.log('Success ' + resp.config.data.name + 'uploaded. Response: ' + resp.data);
+            // }, function (resp) {
+            //     // console.log('Error status: ' + resp.status);
+            // }, function (evt) {
+            //     // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            //     // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.name);
+            // });
 
 
 
