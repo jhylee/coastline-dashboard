@@ -363,6 +363,7 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
         $scope.ok = function () {
             console.log("moveBlock ok()");
             var data = {
+                productId: selectedBlock.productType._id,
                 stageId: $scope.toStage.self,
                 quantity: $scope.quantity,
                 units: $scope.units
