@@ -72,6 +72,9 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
     //   $scope.dashboardViewChange(newView);
     // });
 
+    SupplyChainData.fetchStages();
+    
+
     SupplyChainData.saveSupplyChain(function (res) {
           console.log("saved");
           $scope.refreshGraph();

@@ -103,7 +103,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
     var furthestRight = -150;
 
     // set initial stage object
-    var stages = [];
+    // var stages = [];
 
     // stage currently selected on display
     var selectedStageId = null;
@@ -153,11 +153,38 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
             $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').success(success).error(error);
         },
 
+
+        getSupplyChain: function () {
+            if (supplyChain) {
+                return supplyChain;
+            }
+        },
+
+        setSupplyChain: function (newSupplyChain) {
+            supplyChain = newSupplyChain;
+        },
+
+
+        getSupplyChainId: function () {
+            if (supplyChain) {
+                return supplyChain._id;
+            }
+        },
+
+
         // get all stages
         getStages: function () {
             if (supplyChain) {
                 return supplyChain.stages;
             }
+        },
+
+        fetchStages: function () {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChain._id + '/stages/normal')
+                .then(function (res) {
+                    console.log(res.data);
+                    return res.data;
+                })
         },
 
         getSellingPoints: function () {
@@ -197,14 +224,6 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
             // })
 
         },
-
-        // get stage by id
-        getStage: function (id) {
-            if (supplyChain) {
-                return stages[findStage(id)];
-            }
-        },
-
 
 
         // select stage by id
@@ -251,9 +270,6 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
             }
         },
 
-        setSupplyChain: function (newSupplyChain) {
-            supplyChain = newSupplyChain;
-        },
 
         // add a new stage
         addStage: function (name, prev, success) {
@@ -265,43 +281,27 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
                 if (furthestRight == null) x = 0;
                 else x = furthestRight + 150;
 
-                Fishery.getFishery(function (fishery) {
-                    var fisheryId = fishery._id;
-                    var stageData = {name: name};
-                    $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages', stageData).success(
-                        function (stage) {
-                            stage.x = x;
-                            stage.y = 0;
-                            stage.self = stage._id;
-                            stage.prev = [];
-                            if (prev) {
-                                stage.prev.push(prev);
-                            }
-                            stage.next = [];
-                            stage.isHead = (stage.prev.length == 0);
-                            stage.isTail = (stage.next.length == 0);
-                            supplyChain.stages.push(stage);
-                            success();
-                        }).error(function (error) {
-                            console.log(error);
-                        });
-                })
-                // if (prev) supplyChain.stages.push({ name: name, id: id, prev: [prev], next: [], x: x, y: 0 });
-                // else supplyChain.stages.push({ name: name, id: id, prev: [], next: [], x: x, y: 0 });
+                var stageData = {name: name};
+                $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages', stageData).success(
+                    function (stage) {
+                        stage.x = x;
+                        stage.y = 0;
+                        stage.self = stage._id;
+                        stage.prev = [];
+                        if (prev) {
+                            stage.prev.push(prev);
+                        }
+                        stage.next = [];
+                        stage.isHead = (stage.prev.length == 0);
+                        stage.isTail = (stage.next.length == 0);
+                        supplyChain.stages.push(stage);
+                        success();
+                    }).error(function (error) {
+                        console.log(error);
+                    });
             }
         },
 
-        getSupplyChain: function () {
-            if (supplyChain) {
-                return supplyChain;
-            }
-        },
-
-        getSupplyChainId: function () {
-            if (supplyChain) {
-                return supplyChain._id;
-            }
-        },
 
 
 
