@@ -62,7 +62,7 @@
 
  <script type="text/ng-template" id="viewBlocksModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Inventory in Cold Storage</h3>
+    <h3 class="modal-title">Inventory in "{{fromStage.name}}"</h3>
   </div>
 
   <div class="modal-footer">
@@ -249,10 +249,10 @@
 
  <script type="text/ng-template" id="deleteBlockModal.html">
    <div class="modal-header">
-     <h3 class="modal-title">Delete Block</h3>
+     <h3 class="modal-title">Delete Batch</h3>
    </div>
    <div class="modal-body">
-     <p>Are you sure you want to delete this block?</p>
+     <p>Are you sure you want to delete this batch?</p>
    </div>
    <div class="modal-footer">
      <button class="btn-dashboard-green" type="button" ng-click="ok()">Yes</button>
@@ -262,17 +262,21 @@
 
  <script type="text/ng-template" id="moveBlockModal.html">
    <div class="modal-header">
-     <h3 class="modal-title">Move Block</h3>
+     <h3 class="modal-title">Move Inventory Batch</h3>
    </div>
    <div class="modal-body">
      <form>
        <fieldset class="form-group">
-         <label>Moving blocks from the "{{fromStage.name}}" stage to "{{toStage.name || '_______'}}."</label>
+       <div class ="col-lg-8 col-lg-offset-2">
+         <h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i></h4>
        </fieldset>
 
        <fieldset class="form-group">
+       <div class ="col-lg-8 col-lg-offset-2">
          <label>Move to stage: </label>
          <select ng-model="toStage" ng-options="stage as stage.name for stage in stages" class="form-control"></select>
+         <small class="text-muted">Please select the target destination for your inventory.</small>
+         </div>
        </fieldset>
      </form>
    </div>
@@ -284,18 +288,22 @@
 
  <script type="text/ng-template" id="moveBlockToSalesModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Move Block</h3>
+    <h3 class="modal-title">Move Batch</h3>
   </div>
   <div class="modal-body">
     <form>
-      <fieldset class="form-group">
-        <label>Moving blocks from the "{{fromStage.name}}" stage to "{{toStage.name || '_______'}}."</label>
-      </fieldset>
+    <fieldset class="form-group">
+    <div class ="col-lg-8 col-lg-offset-2">
+      <h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>
+    </fieldset>
 
-      <fieldset class="form-group">
-        <label>Move to stage: </label>
-        <select ng-model="toStage" ng-options="stage as stage.name for stage in stages" class="form-control"></select>
-      </fieldset>
+    <fieldset class="form-group">
+    <div class ="col-lg-8 col-lg-offset-2">
+      <label>Move to stage: </label>
+      <select ng-model="toStage" ng-options="stage as stage.name for stage in stages" class="form-control"></select>
+      <small class="text-muted">Please select direct sales destination for your inventory.</small>
+      </div>
+    </fieldset>
     </form>
   </div>
   <div class="modal-footer">
@@ -310,7 +318,7 @@
 
  <script type="text/ng-template" id="viewDetailsModal.html">
    <div class="modal-header">
-     <h3 class="modal-title">Inventory Block Details</h3>
+     <h3 class="modal-title">Inventory Batch Details</h3>
    </div>
    <div class="modal-body">
      <p>Put in details here</p>
