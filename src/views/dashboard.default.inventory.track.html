@@ -60,19 +60,19 @@
 
  <script type="text/ng-template" id="viewBlocksModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Inventory in "{{fromStage.name}}"</h3>
+    <h3 class="modal-title">Inventory in {{fromStage.name}}</h3>
   </div>
 
   <div class="modal-footer">
 
-    <button class="btn-dashboard" type="button" ng-click="moveBlock()">Move</button>
-    <button class="btn-dashboard" type="button" ng-click="moveBlockToSales()">Move to Sales</button>
+    <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="moveBlock()">Move</button>
+    <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="moveBlockToSales()">Move to Sales</button>
 
     <!-- THIS IS THE BUTTON FOR VIEW DETAILS MODAL -->
-    <button class="btn-dashboard" type="button" ng-click="viewDetails()">View Details</button>
+    <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="viewDetails()">View Details</button>
     <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()">Edit</button>
     <button class="btn-dashboard-green" type="button" ng-click="addBlock()">Add</button>
-    <button class="btn-dashboard-red" type="button" ng-click="deleteBlock()">Delete</button>
+    <button class="btn-dashboard-red" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
 
   </div>
 
