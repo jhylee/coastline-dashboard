@@ -197,47 +197,69 @@
      <h3 class="modal-title">Edit Seafood Batch</h3>
    </div>
    <div class="modal-body">
-     <form>
-       <fieldset class="form-group">
-         <label>Product Type</label><br>
+   <form>
 
-         <select class="dropdown" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
+     <fieldset class="form-group">
+       <div class ="col-lg-6">
+             <label>Product Type</label><br>
+             <select class="from-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
+             <!--<select ng-model="selectedProduct" name="mydropdown" class="dropdown">
+                 <option ng-value="{{product}}" ng-repeat="product in products track by $index">{{product.name}}</option>
+             </select>--><br>
+             <small class="text-muted">Item must be added under Products tab.</small>
+       </div>
+       <div class ="col-lg-6">
+             <label>Quantity</label>
+             <input class="form-control" ng-model="quantity" placeholder="ex. 4000">
+             <small class="text-muted">Please enter a numerical value.</small>
+           </div>
+     </fieldset>
 
-         <!--<select ng-model="selectedProduct" name="mydropdown" class="dropdown">
-             <option ng-value="{{product}}" ng-repeat="product in products track by $index">{{product.name}}</option>
-         </select>-->
-       </fieldset>
+     <fieldset class="form-group">
+      <div class ="col-lg-6">
+       <label>Units</label>
+       <select name="mydropdown" class="form-control" ng-model="units">
+         <option value="lb">Pounds (Lbs.)</option>
+         <option value="kg">Kilograms (Kgs.)</option>
+         <option value="unit">Per Unit of Fish</option>
+       </select>
+       <small class="text-muted">Please choose between the three options.</small>
+     </div>
+     <div class ="col-lg-6">
+       <label>Catch Date</label>
+       <input class="form-control" ng-model="catchDate" placeholder="ex. 5/14/2016">
+       <small class="text-muted">MM/DD/YYYY</small>
+     </div>
+     </fieldset>
 
-       <fieldset class="form-group">
-         <label>Quantity</label>
-         <input class="form-control" ng-model="quantity" placeholder="">
-       </fieldset>
 
-       <fieldset class="form-group">
-         <label>Units</label><br>
+     <fieldset class="form-group">
+     <div class ="col-lg-6">
+       <label>Catch Region</label>
+       <input class="form-control" ng-model="catchRegion" placeholder="ex. 48°N, 61.5°W, Gulf of St. Lawrence">
+       <small class="text-muted">Latitude, Longitude, Ocean</small>
+     </div>
+     <div class ="col-lg-6">
+       <label>Caught By</label>
+       <input class="form-control" ng-model="caughtBy" placeholder="ex. Joey Fisher">
+       <small class="text-muted">Enter in the fisherman/fishery</small>
+     </div>
+     </fieldset>
 
-         <select ng-model="units" name="mydropdown" class="dropdown">
-           <option value="lb">Pounds (lb)</option>
-           <option value="kg">Kilograms (kg)</option>
-           <option value="unit">Per Unit of Fish</option>
-         </select>
-       </fieldset>
+     <fieldset class="form-group">
+     <div class ="col-lg-6">
+       <label>Catch Type</label>
+       <input class="form-control" ng-model="catchType" placeholder="ex. Gillnetting">
+       <small class="text-muted">Enter the method of catching.</small>
+     </div>
+     <div class ="col-lg-6">
+       <label>Water Depth</label>
+       <input class="form-control" ng-model="waterDepth" placeholder="ex. 500m">
+       <small class="text-muted">Enter the water depth.</small>
+     </div>
+     </fieldset>
+   </form>
 
-       <fieldset class="form-group">
-         <label>Catch Date</label>
-         <input class="form-control" ng-model="date" placeholder="">
-       </fieldset>
-
-       <fieldset class="form-group">
-         <label>Catch Location</label>
-         <input class="form-control" ng-model="location" placeholder="">
-       </fieldset>
-
-       <fieldset class="form-group">
-         <label>Caught By</label>
-         <input class="form-control" ng-model="caughtBy" placeholder="">
-       </fieldset>
-     </form>
    </div>
    <div class="modal-footer">
      <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
