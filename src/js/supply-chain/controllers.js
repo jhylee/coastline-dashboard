@@ -69,8 +69,38 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
 }]);
 
 
-app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'StageData',
-  function ($scope, $uibModal, VisDataSet, SupplyChainData, SupplyChainMenu, StageData) {
+app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$uibModal', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'StageData',
+  function ($scope, $state, $rootScope, $uibModal, VisDataSet, SupplyChainData, SupplyChainMenu, StageData) {
+
+      $rootScope.$on('leaving-supply-chain-builder', function() {
+          SupplyChainData.chargeLeaveTicket();
+
+          console.log('leaving');
+
+          // modal setup and preferences
+          var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'saveChangesModal.html',
+            controller: 'SaveChangesCtrl',
+            size: 'lg',
+            resolve: {}
+          });
+
+          // called when modal is closed
+          modalInstance.result.then(
+            // OK callback
+            function (res) {
+              // add the stage to the supply chain
+            //   console.log(state);
+              $state.go(SupplyChainData.getToState());
+
+
+
+
+              // CANCEL callback
+          }, function () {});
+
+      });
 
     // $scope.$on("dashboardSwitch", function (event, newView) {
     //   console.log(newView);
@@ -86,6 +116,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
 
     // refresh the graph display - done when changes are made
     $scope.refreshGraph = function () {
+        SupplyChainData.updateStages();
         $scope.data = SupplyChainData.getDisplayData();
     };
 
@@ -132,6 +163,8 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
       console.log(items.nodes[0]);
 
       if (items.nodes.length > 0) SupplyChainData.moveStage(items.nodes[0], items.pointer.canvas.x, items.pointer.canvas.y);
+      SupplyChainData.updateStages();
+
     };
 
     // add a stage - linked to the add button
@@ -182,7 +215,8 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
         // OK callback
         function (res) {
           // retrieve the stage based on the selected id
-          var stage = SupplyChainData.getStage(res.id);
+          var stage = SupplyChainData.getStage(SupplyChainData.getSelectedStageId());
+          console.log(res);
 
           // set the stage name to the new name
           stage.name = res.name;
@@ -321,6 +355,37 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
 ]);
 
 
+
+
+app.controller('SaveChangesCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
+    function ($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
+
+        // var prev = SupplyChainData.getSelectedStage();
+
+        // get stages - for option display
+        $scope.stages = SupplyChainData.getStages();
+
+        // tied to ok button
+        $scope.yes = function () {
+
+            SupplyChainData.updateStages().then(function(res) {
+                $uibModalInstance.close(res);
+            });
+
+        };
+
+        // tied to ok button
+        $scope.no = function () {
+
+            $uibModalInstance.close("no");
+
+        };
+
+        // tied to cancel button
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+}]);
 
 app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
     function ($scope, VisDataSet, SupplyChainData, $uibModalInstance) {

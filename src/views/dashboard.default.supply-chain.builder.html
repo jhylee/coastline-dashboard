@@ -107,6 +107,20 @@
   </div>
 </script>
 
+<script type="text/ng-template" id="saveChangesModal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Saving</h3>
+  </div>
+  <div class="modal-body">
+    <p>Would you like to save your changes?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-dashboard-green" type="button" ng-click="yes()">Yes</button>
+    <button class="btn-dashboard-red" type="button" ng-click="no()">No</button>
+    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+
 
 
 <script type="text/ng-template" id="exitSupplyChain.html">
@@ -137,7 +151,7 @@
                             <button ng-click="deleteStage()" class="btn-dashboard-red">Delete</button>
                             <button ng-click="linkStages()" class="btn-dashboard">Link</button>
                             <button ng-click="unlinkStages()" class="btn-dashboard">Unlink</button>
-                            <button ng-click="saveSupplyChain()" class="btn-dashboard-green">Save</button>
+                            <!-- <button ng-click="saveSupplyChain()" class="btn-dashboard-green">Save</button> -->
                         </div>
                     </div>
                     <div class="panel panel-default">

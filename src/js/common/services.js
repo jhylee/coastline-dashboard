@@ -138,6 +138,9 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
     var selectedBlocks;
     var selectedBlock;
 
+    var canLeave = false;
+    var toState;
+
     // HELPER FUNCTIONS
 
     // find a stage by id
@@ -176,6 +179,24 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
 
         clearStages: function () {
             stages = [];
+        },
+
+        setToState: function (state) {
+            toState = state;
+        },
+
+        getToState: function () {
+            return toState;
+        },
+
+        chargeLeaveTicket: function () {
+            canLeave = true;
+        },
+
+        getLeaveTicket: function () {
+            var bool = canLeave;
+            canLeave = false;
+            return bool;
         },
 
         getSupplyChains: function (success, error) {
