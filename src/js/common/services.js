@@ -308,13 +308,47 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
                 $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages', stageData).success(
                     function (stage) {
 
+                        // TODO check prev and next for all nodes when adding, etc
+
+                        var y = 0;
+
+                        var lowestX = null;
+                        var lowestY = null;
+
+
+                        if (prev) {
+                            var prevStage = stages[findStage(prev._id)];
+                            console.log(prevStage.next);
+
+                            for (var i = 0; i < prevStage.next.length; i ++) {
+                                var nextStage = stages[findStage(prevStage.next[i])];
+                                console.log(nextStage);
+
+                                if (lowestY == null || nextStage.y > lowestY) {
+                                    console.log("lowestY" + lowestY);
+                                    lowestY = nextStage.y;
+                                    lowestX = nextStage.x;
+                                }
+
+                                // x = nextStage.x;
+                                // y = nextStage.y - 75;
+                            }
+                        }
+
+                        if (lowestX != null) x = lowestX;
+                        if (lowestY != null) y = lowestY + 75;
+
+
+
+
+
                         console.log(stage);
 
                         var supplyChainStage = {};
 
                         supplyChainStage.self = stage;
                         supplyChainStage.x = x;
-                        supplyChainStage.y = 0;
+                        supplyChainStage.y = y;
                         supplyChainStage.prev = [];
                         if (prev) {
                             // TODO - prev is an object here, whereas in getDisplayData it is treated as a string
