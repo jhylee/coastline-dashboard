@@ -56,10 +56,10 @@ body {
       border-radius: 3px;
       &:active {
         background-image: linear-gradient(#eee, #fcfcfc);
-        outline: 0;
+        outline: none
       }
       &:focus {
-        outline: 0;
+        outline: none
       }
 
       // &:disabled {
@@ -126,9 +126,11 @@ body {
 .navbar-fixed-top {
   border: 0;
   background-color: $navbar-color;
+  /*
   box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
+  */
   color: $primary-font-color;
 }
 .navbar-header .navbar-brand {
@@ -254,9 +256,12 @@ th {
   margin: 2px 2px 4px;
   padding-top: 8px;
   padding-bottom: 8px;
+  /*
   box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
+  */
+  outline: none
 }
 .btn-dashboard:hover,
 .btn-dashboard:focus,
@@ -267,9 +272,12 @@ th {
   color: $secondary-background-color;
   background-color: $btn-hover-color;
   border-color: $btn-hover-color;
+  outline: none
+  /*
   transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
+  */
 }
 .btn-dashboard:active,
 .btn-dashboard.active,
@@ -298,6 +306,7 @@ fieldset[disabled] .btn-dashboard.active {
   background-color: $btn-hover-color;
   border-radius: 4px;
   opacity: 0.5;
+  outline: none
 }
 .btn-dashboard-red {
   color: $secondary-background-color;
@@ -310,9 +319,12 @@ fieldset[disabled] .btn-dashboard.active {
   margin: 2px;
   padding-top: 8px;
   padding-bottom: 8px;
+  outline: none
+  /*
   box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
+  */
 }
 .btn-dashboard-red:hover,
 .btn-dashboard-red:focus,
@@ -323,9 +335,12 @@ fieldset[disabled] .btn-dashboard.active {
   color: $secondary-background-color;
   background-color: #B71C1C;
   border-color: #B71C1C;
+  outline: none
+  /*
   transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
+  */
 }
 .btn-dashboard-red.disabled,
 .btn-dashboard-red[disabled],
@@ -349,6 +364,7 @@ fieldset[disabled] .btn-dashboard-red.active {
   background-color: #B71C1C;
   border-color: #B71C1C;
   opacity: 0.5;
+  outline: none
 }
 .btn-dashboard-green {
   color: $secondary-background-color;
@@ -361,9 +377,12 @@ fieldset[disabled] .btn-dashboard-red.active {
   margin: 2px;
   padding-top: 8px;
   padding-bottom: 8px;
+  outline: none
+  /*
   box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
+  */
 }
 .btn-dashboard-green:hover,
 .btn-dashboard-green:focus,
@@ -374,15 +393,19 @@ fieldset[disabled] .btn-dashboard-red.active {
   color: $secondary-background-color;
   background-color: #1B5E20;
   border-color: #1B5E20;
+  outline: none
+  /*
   transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -webkit-transition: all 0.5s ease-in-out;
+  */
 }
 input.search {
   border-radius: 4px;
   padding: 8px 15px;
   border-style: none;
   background-color: $primary-border-color;
+  outline: none
 }
 .panel {
   border-radius: 5px;
