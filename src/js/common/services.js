@@ -293,6 +293,47 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
             supplyChain = newSupplyChain;
         },
 
+        deleteStage: function (id) {
+            var stageIndex = findStage(id);
+
+            for (var i = 0; i < stages.length; i ++) {
+
+                var newNext = [];
+
+                for (var j = 0; j < stages[i].next.length; j ++) {
+                    if (stages[i].next[j] != id) {
+                        newNext.push(stages[i].next[j]);
+                    }
+                }
+
+                stages[i].next = newNext;
+
+
+                var newPrev = [];
+
+                for (var j = 0; j < stages[i].prev.length; j ++) {
+                    if (stages[i].prev[j] != id) {
+                        newPrev.push(stages[i].prev[j]);
+                    }
+                }
+
+                stages[i].prev = newPrev;
+
+
+            };
+
+            var newStages = [];
+
+            for (var i = 0; i < stages.length; i ++) {
+                if (stageIndex != i) {
+                    newStages.push(stages[i]);
+                }
+            };
+
+            stages = newStages;
+
+        },
+
         // add a new stage
         addStage: function (name, prev, success) {
             if (supplyChain) {

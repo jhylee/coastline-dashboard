@@ -256,6 +256,36 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$uibModal', 'VisDataSet', '
       }, function () {});
     };
 
+    // edit a stage - linked to the edit button
+    $scope.deleteStage = function() {
+        console.log("deleteStage");
+
+        // modal setup and preferences
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'deleteStageModal.html',
+          controller: 'DeleteStageCtrl',
+          size: 'lg',
+          resolve: {}
+        });
+
+        // called when modal is closed
+        modalInstance.result.then(
+          // OK callback
+          function (res) {
+            // retrieve the stage based on the selected id
+            // var stage = SupplyChainData.getStage(res.id);
+
+            // set the stage name to the new name
+            // stage.name = res.name;
+
+            // refresh the graph to show the changes
+            $scope.refreshGraph();
+
+            // CANCEL callback
+        }, function () {});
+    };
+
     $scope.saveSupplyChain = function() {
       console.log("here");
       SupplyChainData.updateStages().then(function (res) {
@@ -418,6 +448,30 @@ app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$ui
             });
 
 
+
+
+        };
+
+        // tied to cancel button
+        $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+        };
+}]);
+
+app.controller('DeleteStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
+    function ($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
+
+        // get stages - for option display
+        $scope.getStages = function () {
+            return SupplyChainData.getStages();
+        };
+
+        // tied to ok button
+        $scope.ok = function () {
+
+            SupplyChainData.deleteStage(SupplyChainData.getSelectedStageId());
+            console.log(SupplyChainData.getStages());
+            $uibModalInstance.close('ok');
 
 
         };
