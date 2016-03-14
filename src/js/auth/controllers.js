@@ -36,7 +36,6 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
         $state.go('fishery-setup');
     //   });
     }, function (err) {
-      console.log("signup then login then error");
       console.log(err);
     });
 
@@ -54,7 +53,6 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
       },
       function (err) {
         $rootScope.error = 'Failed to createFishery';
-        console.log("error createFishery");
       });
   };
 

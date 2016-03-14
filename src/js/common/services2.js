@@ -16,7 +16,7 @@ app.factory('SideNavData', ['$http', '$localStorage', 'FisheryData', function($h
         },
         getSupplyChains: function (fisheryId, success, error) {
             $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').success(success).error(error);
-        },
+        }
 
 
     }
@@ -33,13 +33,10 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
 
     $http.get(baseUrl + '/api/fisheries').success(function (res) {
         for (var i = 0; i < res.length; i ++) {
-                $localStorage.fisheryName = res[i].name;
-                $localStorage.$save();
-                fishery = {name: res[i].name, _id: res[i]._id};
-                // var fisheryName = $localStorage.fisheryName;
-                // console.log("fisheryName " + fisheryName);
-                console.log(fishery);
-            // }
+            $localStorage.fisheryName = res[i].name;
+            $localStorage.$save();
+            fishery = {name: res[i].name, _id: res[i]._id};
+            console.log(fishery);
         }
         // success(fishery);
     }).error(function (err) {
@@ -48,7 +45,6 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
 
     return  {
         fetchFishery: function () {
-
             return $http.get(baseUrl + '/api/user').then(function (res) {
                 console.log(res);
                 return res.data.fishery;
@@ -59,27 +55,6 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
             }).catch(function (err) {
                 return err;
             });
-
-
-
-            // return $http.get(baseUrl + '/api/fisheries')
-            //     .then(function (res) {
-            //         for (var i = 0; i < res.data.length; i ++) {
-            //                 // $localStorage.fisheryName = res.data[i].name;
-            //                 // $localStorage.$save();
-            //                 fishery = {name: res.data[i].name, _id: res.data[i]._id};
-            //                 console.log(fishery);
-            //                 return
-            //                 // fisheryName = $localStorage.fisheryName;
-            //                 // console.log("fisheryName " + fisheryName);
-            //             }
-            //         }
-            //         // success(fishery);
-            //     }).then(function (data) {
-            //
-            //     }).catch(function (err) {
-            //         return err;
-            //     });
         },
         getFishery: function () {
             return fishery;
@@ -128,7 +103,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
     var furthestRight = -150;
 
     // set initial stage object
-    var stages;
+    // var stages = [];
 
     // stage currently selected on display
     var selectedStageId = null;
@@ -142,9 +117,9 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
 
     // find a stage by id
     var findStage = function (stageId) {
-        if (stages) {
-            for (var i = 0; i < stages.length; i++) {
-                if (stages[i].self._id == stageId) {
+        if (supplyChain) {
+            for (var i = 0; i < supplyChain.stages.length; i++) {
+                if (supplyChain.stages[i].self == stageId) {
                     return i;
                 }
             }
@@ -165,8 +140,8 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
     // get the stage furthest right
     var refreshStageFurthestRight = function () {
         if (supplyChain) {
-            for (var i = 0; i < stages.length; i ++) {
-                if (stages[i].x > furthestRight) furthestRight = stages[i].x;
+            for (var i = 0; i < supplyChain.stages.length; i ++) {
+                if (supplyChain.stages[i].x > furthestRight) furthestRight = supplyChain.stages[i].x;
             }
         }
     };
@@ -174,28 +149,41 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
     // public methods
     return {
 
-        clearStages: function () {
-            stages = [];
-        },
-
         getSupplyChains: function (success, error) {
             $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').success(success).error(error);
         },
 
+
+        getSupplyChain: function () {
+            if (supplyChain) {
+                return supplyChain;
+            }
+        },
+
+        setSupplyChain: function (newSupplyChain) {
+            supplyChain = newSupplyChain;
+        },
+
+
+        getSupplyChainId: function () {
+            if (supplyChain) {
+                return supplyChain._id;
+            }
+        },
+
+
         // get all stages
         getStages: function () {
-            if (stages) {
-                return stages;
+            if (supplyChain) {
+                return supplyChain.stages;
             }
         },
 
         fetchStages: function () {
-            console.log(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChain._id + '/stages/normal');
             return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChain._id + '/stages/normal')
                 .then(function (res) {
                     console.log(res.data);
-                    stages = res.data;
-                    return stages;
+                    return res.data;
                 })
         },
 
@@ -209,40 +197,34 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
             $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains', data).success(success).error(error);
         },
 
-        // get stage by id
-        getStage: function (id) {
-            if (stages) {
-                return stages[findStage(id)];
-            }
+        saveSupplyChain: function (success, error) {
+            // Fishery.getFishery(function (fishery) {
+                $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChain._id, supplyChain).success(
+                    function (res) {
+                        supplyChain = res;
+
+                        // TODO - make a backend route to easily get the name of the stage
+                        for (var i = 0; i < supplyChain.stages.length; i ++) {
+
+                            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/' + supplyChain.stages[i].self).success(function (stage) {
+                                var index = findStage(stage._id);
+                                if (index != null) {
+                                    supplyChain.stages[index].name = stage.name;
+                                }
+                                success(res);
+
+                            }).error(function (err) {
+                                console.log(err)
+                            });
+                        };
+                    }).error(function (err) {
+                        console.log(err);
+                        error(err);
+                    });
+            // })
+
         },
 
-
-        updateStages: function () {
-            console.log(stages);
-            return $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChain._id + '/stages', stages)
-                .then(function (res) {
-                    console.log(res.data);
-                    stages = res.data;
-                    return stages;
-                })
-        },
-
-        updateStage: function (stageId, data) {
-            return $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/' + stageId, data)
-                .then(function (res) {
-                    console.log(res.data);
-
-
-                    // $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChain._id + '/stages/normal')
-                    //     .then(function (res) {
-                    //         console.log(res.data);
-                    //         stages = res.data;
-                    //         return stages;
-                    //     })
-
-                    return res.data;
-                })
-        },
 
         // select stage by id
         selectStage: function (stageId) {
@@ -260,7 +242,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
         },
 
         getSelectedStageId: function () {
-            return stages[findStage(selectedStageId)].self._id;
+            return supplyChain.stages[findStage(selectedStageId)].self;
         },
 
         setSelectedBlocks: function (blocks) {
@@ -283,15 +265,11 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
         moveStage: function (id, x, y) {
             if (supplyChain) {
                 var index = findStage(id);
-                stages[index].x = x;
-                stages[index].y = y;
+                supplyChain.stages[index].x = x;
+                supplyChain.stages[index].y = y;
             }
         },
 
-        setSupplyChain: function (newSupplyChain) {
-            stages = [];
-            supplyChain = newSupplyChain;
-        },
 
         // add a new stage
         addStage: function (name, prev, success) {
@@ -303,38 +281,20 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
                 if (furthestRight == null) x = 0;
                 else x = furthestRight + 150;
 
-
                 var stageData = {name: name};
                 $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages', stageData).success(
                     function (stage) {
-
-                        console.log(stage);
-
-                        var supplyChainStage = {};
-
-                        supplyChainStage.self = stage;
-                        supplyChainStage.x = x;
-                        supplyChainStage.y = 0;
-                        supplyChainStage.prev = [];
+                        stage.x = x;
+                        stage.y = 0;
+                        stage.self = stage._id;
+                        stage.prev = [];
                         if (prev) {
-                            // TODO - prev is an object here, whereas in getDisplayData it is treated as a string
-                            supplyChainStage.prev.push(prev._id);
+                            stage.prev.push(prev);
                         }
-                        supplyChainStage.next = [];
-                        supplyChainStage.isHead = (supplyChainStage.prev.length == 0);
-                        supplyChainStage.isTail = (supplyChainStage.next.length == 0);
-                        stages.push(supplyChainStage);
-
-                        console.log(supplyChainStage);
-                        if (prev) {
-                            stages[findStage(prev._id)].next.push(supplyChainStage.self._id)
-                            console.log(stages[findStage(prev._id)]);
-
-                        }
-
-
-
-
+                        stage.next = [];
+                        stage.isHead = (stage.prev.length == 0);
+                        stage.isTail = (stage.next.length == 0);
+                        supplyChain.stages.push(stage);
                         success();
                     }).error(function (error) {
                         console.log(error);
@@ -342,108 +302,8 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
             }
         },
 
-        linkStages: function (sourceId, targetId) {
-            var sourceStage = stages[findStage(sourceId)];
-            var targetStage = stages[findStage(targetId)];
-
-            var isTargetInSourceNext;
-            var isSourceInTargetPrev;
-
-            for (var i = 0; i < sourceStage.next.length; i ++) {
-                if (sourceStage.next[i] == targetId) {
-                    isTargetInSourceNext = true;
-                }
-            };
-
-            for (var i = 0; i < targetStage.prev.length; i ++) {
-                if (targetStage.prev[i] == sourceId) {
-                    isSourceInTargetPrev = true;
-                }
-            };
-
-            if (!isTargetInSourceNext) {
-                console.log("!isTargetInSourceNext")
-                sourceStage.next.push(targetId);
-            };
-
-            if (!isSourceInTargetPrev) {
-                console.log("!isSourceInTargetPrev")
-                targetStage.prev.push(sourceId);
-            };
-
-            console.log(stages);
-        },
-
-        unlinkStages: function (sourceId, targetId) {
-            console.log('unlinkStages');
-            var sourceStage = stages[findStage(sourceId)];
-            var targetStage = stages[findStage(targetId)];
-
-            var targetInSourceNext = null;
-            var sourceInTargetPrev = null;
-
-            for (var i = 0; i < sourceStage.next.length; i ++) {
-                if (sourceStage.next[i] == targetId) {
-                    targetInSourceNext = i;
-                }
-            };
-
-            for (var i = 0; i < targetStage.prev.length; i ++) {
-                if (targetStage.prev[i] == sourceId) {
-                    sourceInTargetPrev = i;
-                }
-            };
-
-            console.log(targetInSourceNext);
-            console.log(sourceInTargetPrev);
 
 
-            if (targetInSourceNext != null) {
-                var newSourceNext = [];
-
-                for (var i = 0; i < sourceStage.next.length; i ++){
-                    if (sourceStage.next[i] != targetId) {
-                        newSourceNext.push(sourceStage.next[i]);
-                    }
-
-                    sourceStage.next = newSourceNext;
-                }
-
-                console.log("targetInSourceNext")
-                // sourceStage.next.push(targetId);
-            };
-
-            if (sourceInTargetPrev != null) {
-
-                var newTargetPrev = [];
-
-                for (var i = 0; i < targetStage.prev.length; i ++){
-                    if (targetStage.prev[i] != sourceId) {
-                        newTargetPrev.push(targetStage.prev[i]);
-                    }
-
-                    targetStage.prev = newTargetPrev;
-                }
-
-
-                console.log("sourceInTargetPrev")
-                // targetStage.prev.push(sourceId);
-            };
-
-            console.log(stages);
-        },
-
-        getSupplyChain: function () {
-            if (supplyChain) {
-                return supplyChain;
-            }
-        },
-
-        getSupplyChainId: function () {
-            if (supplyChain) {
-                return supplyChain._id;
-            }
-        },
 
         // reconstructs the graph and returns nodes and edges for graphical display
         getDisplayData: function () {
@@ -452,78 +312,36 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
                 edges: []
             };
 
-            console.log(stages);
-
-            if (stages) {
-                for (var i = 0; i < stages.length; i ++) {
+            if (supplyChain) {
+                for (var i = 0; i < supplyChain.stages.length; i ++) {
                     var node = {};
-                    node.label = stages[i].self.name;
-                    node.id = stages[i].self._id;
+                    node.label = supplyChain.stages[i].name;
+                    node.id = supplyChain.stages[i].self;
                     node.scaling = { min: 10, max: 10, label: { min: 10, max: 24} };
                     node.value = 25;
                     node.size = 25;
                     node.color = "#93D276"
                     node.shape = "box";
                     node.shadow = false;
-                    node.x = stages[i].x;
-                    node.y = stages[i].y;
+                    node.x = supplyChain.stages[i].x;
+                    node.y = supplyChain.stages[i].y;
                     data.nodes.push(node);
                 }
 
                 // link nodes
-                for (var i = 0; i < stages.length; i ++) {
-                    for (var j = 0; j < stages[i].prev.length; j ++) {
-                        if (data.edges.indexOf({from: stages[i].prev[j], to: stages[i].self._id}) == -1 &&
-                            stages[i].prev[j] && stages[i].prev[j] != [] &&
-                            stages[i].self._id && stages[i].self._id != []) {
-                                data.edges.push({from: stages[i].prev[j], to: stages[i].self._id});
+                for (var i = 0; i < supplyChain.stages.length; i ++) {
+                    for (var j = 0; j < supplyChain.stages[i].prev.length; j ++) {
+                        if (data.edges.indexOf({from: supplyChain.stages[i].prev[j], to: supplyChain.stages[i].self}) == -1 &&
+                            supplyChain.stages[i].prev[j] && supplyChain.stages[i].prev[j] != [] &&
+                            supplyChain.stages[i].self && supplyChain.stages[i].self != []) {
+                                data.edges.push({from: supplyChain.stages[i].prev[j], to: supplyChain.stages[i].self});
                         }
                     };
                 }
             }
 
             return data;
-        }
-
-
-
-        // // reconstructs the graph and returns nodes and edges for graphical display
-        // getDisplayData: function () {
-        //     var data = {
-        //         nodes: [],
-        //         edges: []
-        //     };
-        //
-        //     if (supplyChain) {
-        //         for (var i = 0; i < supplyChain.stages.length; i ++) {
-        //             var node = {};
-        //             node.label = supplyChain.stages[i].name;
-        //             node.id = supplyChain.stages[i].self;
-        //             node.scaling = { min: 10, max: 10, label: { min: 10, max: 24} };
-        //             node.value = 25;
-        //             node.size = 25;
-        //             node.color = "#93D276"
-        //             node.shape = "box";
-        //             node.shadow = false;
-        //             node.x = supplyChain.stages[i].x;
-        //             node.y = supplyChain.stages[i].y;
-        //             data.nodes.push(node);
-        //         }
-        //
-        //         // link nodes
-        //         for (var i = 0; i < supplyChain.stages.length; i ++) {
-        //             for (var j = 0; j < supplyChain.stages[i].prev.length; j ++) {
-        //                 if (data.edges.indexOf({from: supplyChain.stages[i].prev[j], to: supplyChain.stages[i].self}) == -1 &&
-        //                     supplyChain.stages[i].prev[j] && supplyChain.stages[i].prev[j] != [] &&
-        //                     supplyChain.stages[i].self && supplyChain.stages[i].self != []) {
-        //                         data.edges.push({from: supplyChain.stages[i].prev[j], to: supplyChain.stages[i].self});
-        //                 }
-        //             };
-        //         }
-        //     }
-        //
-        //     return data;
-        // },
+        },
     };
 }]);
 
