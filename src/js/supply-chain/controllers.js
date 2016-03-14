@@ -5,8 +5,8 @@ var app = angular.module('coastlineWebApp.supplyChain.controllers', ['ui.bootstr
 
   // SUPPLY CHAINS TAB
 
-app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'SupplyChainData', 'Fishery',
-    function ($scope, $state, SupplyChainMenu, SupplyChainData, Fishery) {
+app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'SupplyChainData', 'FisheryData',
+    function ($scope, $state, SupplyChainMenu, SupplyChainData, FisheryData) {
 
         $scope.createNewSupplyChain = function () {
             $state.go('dashboard.default.supply-chain.create');
@@ -23,14 +23,14 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'S
         };
 
         $scope.getSupplyChains = function () {
-            Fishery.getFishery(function (fishery) {
-                SupplyChainMenu.getSupplyChains(fishery._id, function (res) {
+            // Fishery.getFishery(function (fishery) {
+                SupplyChainMenu.getSupplyChains(FisheryData.getFisheryId(), function (res) {
                     $scope.supplyChains = res;
                 }, function (error) {
                   console.log("Error creating supplyChain.");
                       console.log(error);
                 });
-            })
+            // })
         };
 
 
@@ -46,9 +46,9 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
             var fisheryId;
             var data = {name: $scope.name};
 
-            Fishery.getFishery(function (fishery) {
+            // Fishery.getFishery(function (fishery) {
                 fisheryId = FisheryData.getFisheryId();
-                console.log("fisheryId " + fishery._id);
+                // console.log("fisheryId " + fishery._id);
 
                 SupplyChainData.postSupplyChain(fisheryId, data, function (res) {
                     console.log(res);
@@ -62,7 +62,7 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
                     console.log(error);
                 });
 
-            });
+            // });
 
         };
 

@@ -61,25 +61,6 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
             });
 
 
-
-            // return $http.get(baseUrl + '/api/fisheries')
-            //     .then(function (res) {
-            //         for (var i = 0; i < res.data.length; i ++) {
-            //                 // $localStorage.fisheryName = res.data[i].name;
-            //                 // $localStorage.$save();
-            //                 fishery = {name: res.data[i].name, _id: res.data[i]._id};
-            //                 console.log(fishery);
-            //                 return
-            //                 // fisheryName = $localStorage.fisheryName;
-            //                 // console.log("fisheryName " + fisheryName);
-            //             }
-            //         }
-            //         // success(fishery);
-            //     }).then(function (data) {
-            //
-            //     }).catch(function (err) {
-            //         return err;
-            //     });
         },
         getFishery: function () {
             return fishery;
@@ -98,6 +79,50 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
     };
 }]);
 
+
+app.factory('BlockData', ['$http', 'apiUrl', '$localStorage', 'FisheryData', function($http, apiUrl, $localStorage, FisheryData) {
+    'use strict';
+
+    var baseUrl = apiUrl;
+
+    var _selectedBlockId;
+
+
+
+    return  {
+        getSelectedBlockId: function () {
+            return _selectedBlockId;
+        },
+        setSelectedBlockId: function (selectedBlockId) {
+            _selectedBlockId = selectedBlockId;
+        },
+        fetchHistory: function(blockId) {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/history/' + blockId)
+                .then(function (res) {
+                    return res.data;
+                }).catch(function (err) {
+                    console.log(err);
+                    return err
+                })
+        },
+        fetchSelectedBlockHistory: function() {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/history/' + _selectedBlockId)
+                .then(function (res) {
+                    return res.data;
+                }).catch(function (err) {
+                    console.log(err);
+                    return err
+                })
+        },
+        fetchBlock: function (blockId) {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/blocks/' + blockId)
+                .then(function (res) {
+                    return res.data;
+                });
+        }
+
+    };
+}]);
 
 
 
@@ -666,6 +691,13 @@ app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', 'Fisher
         getNormalStages: function () {
             console.log('StageData getNormalStages');
             return fetchNormalStages()
+        },
+
+        fetchStage: function (stageId) {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/' + stageId)
+                .then(function (res) {
+                    return res.data;
+                });
         },
 
         getSellingPoints: function (success, error) {

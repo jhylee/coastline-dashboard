@@ -95,8 +95,8 @@ app.controller('InventoryCtrl', ['$scope', 'InventoryData', 'SupplyChainData', '
 
 }]);
 
-app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance', '$uibModal',
-    function ($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance, $uibModal) {
+app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockData', 'SupplyChainData', '$state', '$uibModalInstance', '$uibModal',
+    function ($scope, TrackInventoryManager, InventoryData, BlockData, SupplyChainData, $state, $uibModalInstance, $uibModal) {
 
         InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function (res) {
             console.log(res);
@@ -320,13 +320,15 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
             SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
             console.log(SupplyChainData.getSelectedBlock());
 
+            BlockData.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
+
             console.log(modalInstance);
 
             // modal setup and preferences
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'viewDetailsModal.html',
-                controller: '',
+                controller: 'ViewDetailsCtrl',
                 size: 'lg',
                 resolve: {}
             });
@@ -377,6 +379,79 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
             }, function (err) {
                 $uibModalInstance.close(err);
             });
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+}]);
+
+app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockData', 'SupplyChainData', 'StageData', '$state', '$uibModalInstance',
+    function ($scope, TrackInventoryManager, InventoryData, BlockData, SupplyChainData, StageData, $state, $uibModalInstance) {
+
+        var blockId = BlockData.getSelectedBlockId();
+
+        var block;
+        var history;
+
+        BlockData.fetchBlock(blockId)
+            .then(function (res) {
+                $scope.block = res;
+                console.log($scope.block);
+            });
+
+        BlockData.fetchSelectedBlockHistory()
+            .then(function (res) {
+                console.log(res);
+                $scope.history = res;
+                $scope.stageNames = new Array($scope.history.events.length);
+                $scope.quantities = new Array($scope.history.events.length);
+                $scope.units = new Array($scope.history.events.length);
+
+                for (i = 0; i < $scope.stageNames.length; i ++) {
+                    if ($scope.history.events[i].operation == "create") {
+                        $scope.quantities[i] = $scope.history.events[i].createDetails.block.quantity;
+                        $scope.units[i] = $scope.history.events[i].createDetails.block.units;
+
+                    } else if ($scope.history.events[i].operation == "move") {
+                        $scope.quantities[i] = $scope.history.events[i].moveDetails.after.quantity;
+                        $scope.units[i] = $scope.history.events[i].moveDetails.after.units;
+                        
+                    } else {
+
+                    }
+                }
+
+            });
+
+            $scope.getStageName = function (i) {
+                // return $scope.stageNames[index];
+                if ($scope.history.events[i].operation == "create") {
+                    return $scope.history.events[i].createDetails.block.stage.name;
+                } else if ($scope.history.events[i].operation == "move") {
+                    return $scope.history.events[i].moveDetails.after.stage.name;
+
+                } else {
+
+                }
+            };
+
+            $scope.getDate = function (i) {
+                // return $scope.stageNames[index];
+                if ($scope.history.events[i].operation == "create") {
+                    return $scope.history.events[i].date.substring(0,10);
+                } else if ($scope.history.events[i].operation == "move") {
+                    return $scope.history.events[i].date.substring(0,10);
+
+                } else {
+
+                }
+            };
+
+
+        $scope.ok = function () {
+            $uibModalInstance.close('ok');
         };
 
         $scope.cancel = function () {
