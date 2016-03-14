@@ -157,7 +157,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
 
 });
 
-app.run(function($rootScope, $state, $location, AuthService, RedirectService) {
+app.run(function($rootScope, $state, $location, AuthService, RedirectService, SupplyChainData) {
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
@@ -180,7 +180,21 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService) {
 
 
       return;
-    }
+  }
+  // else {
+  //     if (fromState.name == 'dashboard.default.supply-chain.builder') {
+  //         if (SupplyChainData.getLeaveTicket()) {
+  //             console.log('yes');
+  //
+  //         } else {
+  //             console.log('no');
+  //
+  //             event.preventDefault();
+  //             SupplyChainData.setToState(toState.name);
+  //             $rootScope.$broadcast('leaving-supply-chain-builder');
+  //         }
+  //     }
+  // }
 
 
     // authenticated (previously) comming not to root main
