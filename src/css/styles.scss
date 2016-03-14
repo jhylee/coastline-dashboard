@@ -156,7 +156,15 @@ body {
     visibility: visible;
     display: none;
   }
+
 }
+
+iframe {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+
 th {
   text-align: center;
 }
