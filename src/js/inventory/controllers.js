@@ -417,7 +417,7 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
                     } else if ($scope.history.events[i].operation == "move") {
                         $scope.quantities[i] = $scope.history.events[i].moveDetails.after.quantity;
                         $scope.units[i] = $scope.history.events[i].moveDetails.after.units;
-                        
+
                     } else {
 
                     }
@@ -547,7 +547,12 @@ app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDat
                 productId: $scope.selectedProduct._id,
                 stageId: SupplyChainData.getSelectedStageId(),
                 quantity: $scope.quantity,
-                units: $scope.units
+                units: $scope.units,
+                catchDate: $scope.catchDate,
+                catchRegion: $scope.catchRegion,
+                caughtBy: $scope.caughtBy,
+                catchType: $scope.catchType,
+                waterDepth: $scope.waterDepth
             };
 
 

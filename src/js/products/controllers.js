@@ -5,8 +5,8 @@ var app = angular.module('coastlineWebApp.products.controllers', ['ui.bootstrap'
 'ngFileUpload']);
 
 
-app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$state', '$uibModal',
-    function($scope, Products, AuthService, $state, $uibModal) {
+app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthService', '$state', '$uibModal',
+    function($scope, $rootScope, Products, AuthService, $state, $uibModal) {
         $scope.fisheryName = "";
 
 
@@ -65,6 +65,39 @@ app.controller('ProductDisplayCtrl', ['$scope', 'Products', 'AuthService', '$sta
         };
 
 
+
+        // add a stage - linked to the add button
+        $scope.editProduct = function() {
+            console.log("editProduct");
+
+            Products.setSelectedProductId($scope.products[$scope.selectedProduct]._id   );
+
+            $rootScope.$broadcast("refreshProductEdit");
+
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'editProductModal.html',
+                controller: 'EditProductCtrl',
+                size: 'lg',
+                resolve: {}
+            });
+
+            // called when modal is closed
+            modalInstance.result.then(
+                // OK callback
+                function(product) {
+                    // add the stage to the supply chain
+                    console.log(product);
+                    updateProducts();
+
+
+                    // CANCEL callback
+                },
+                function() {});
+        };
+
+
         // add a stage - linked to the add button
         $scope.addProduct = function() {
             console.log("addProduct");
@@ -100,6 +133,8 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'Upload', 'AuthService',
     function ($scope, Products, Upload, AuthService, $state, $uibModalInstance, $http) {
         $scope.fisheryName = "";
 
+
+
         Products.getProducts(function(products) {
             console.log("getProducts");
         }, function(err) {
@@ -130,11 +165,13 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'Upload', 'AuthService',
         	}, function (err) {
         		$uibModalInstance.close(err);
         	}).success(function(res) {
+
+                console.log($scope.file);
                 var payload = {
                     url: res.signedUrl,
                     data: $scope.file,
                     headers: {
-                        'Content-Type': "image/png",
+                        'Content-Type': $scope.file.type,
                         'x-amz-acl': 'public-read',
                     },
                     ignoreInterceptor: true,
@@ -191,7 +228,117 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'Upload', 'AuthService',
           });
 
         };
-        
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+
+}]);
+
+
+app.controller('EditProductCtrl', ['$scope', "$rootScope", 'Products', 'Upload', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function ($scope, $rootScope, Products, Upload, AuthService, $state, $uibModalInstance, $http) {
+        $scope.fisheryName = "";
+
+        var products;
+
+        Products.getProducts(function(res) {
+            console.log(res);
+            products = res;
+
+            for (var i = 0; i < products.length; i ++) {
+                if (products[i]._id == Products.getSelectedProductId()) {
+                    $scope.name = products[i].name;
+                    $scope.description = products[i].description;
+                    $scope.unit = products[i].unit;
+                    $scope.unitPrice = products[i].unitPrice;
+                }
+            }
+        }, function(err) {
+            console.log(err);
+        });
+
+        $rootScope.$on("refreshProductEdit", function () {
+            Products.getProducts(function(res) {
+                console.log(res);
+                products = res;
+
+                for (var i = 0; i < products.length; i ++) {
+                    if (products[i]._id = Products.getSelectedProductId()) {
+                        $scope.name = products[i].name;
+                        $scope.description = products[i].description;
+                        $scope.unit = products[i].unit;
+                        $scope.unitPrice = products[i].unitPrice;
+                    }
+                }
+            }, function(err) {
+                console.log(err);
+            });
+
+        });
+
+
+
+        // tied to ok button
+        $scope.ok = function () {
+
+            console.log($scope.file);
+
+
+
+            if ($scope.file) {
+                var data = {
+                    name: $scope.name,
+                    description: $scope.description,
+                    unit: $scope.unit,
+                    unitPrice: $scope.unitPrice,
+                    fileName: $scope.file.name,
+                    fileType: $scope.file.type,
+                    fileSize: $scope.file.size
+                };
+            } else {
+                var data = {
+                    name: $scope.name,
+                    description: $scope.description,
+                    unit: $scope.unit,
+                    unitPrice: $scope.unitPrice,
+                };
+            }
+
+
+            console.log("data");
+            console.log(data);
+
+
+        	Products.updateProduct(data, Products.getSelectedProductId(), function (res) {
+        		$uibModalInstance.close(res);
+        	}, function (err) {
+        		$uibModalInstance.close(err);
+        	}).success(function(res) {
+
+                console.log($scope.file);
+                var payload = {
+                    url: res.signedUrl,
+                    data: $scope.file,
+                    headers: {
+                        'Content-Type': $scope.file.type,
+                        'x-amz-acl': 'public-read',
+                    },
+                    ignoreInterceptor: true,
+                    method: "PUT"
+                };
+
+                console.log(payload);
+
+                Upload.http(payload);
+
+
+          });
+
+        };
+
         // tied to cancel button
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');

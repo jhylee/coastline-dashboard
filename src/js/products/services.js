@@ -19,7 +19,9 @@ app.factory('Products', ['$http', '$localStorage', 'apiUrl', 'FisheryData', func
         },
         addProduct: function (data, success, error) {
         	return $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products', data).success(success).error(error);
-
+        },
+        updateProduct: function (data, productId, success, error) {
+        	return $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products/' + productId, data).success(success).error(error);
         },
         deleteProduct: function (productId) {
             return $http.delete(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products/' + productId)
