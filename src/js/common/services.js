@@ -653,7 +653,7 @@ app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', 'Fisher
 
     var baseUrl = apiUrl;
 
-    var selectedStage;
+    var selectedStageId;
 
     var fetchNormalStages = function () {
         return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains').
@@ -686,6 +686,17 @@ app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', 'Fisher
 
         getStages: function () {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/all');
+        },
+
+        setSelectedStageId: function (id) {
+            selectedStageId = id;
+        },
+
+        fetchSelectedStage: function () {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/' + selectedStageId)
+                .then(function (res) {
+                    return res.data;
+                });
         },
 
         getNormalStages: function () {

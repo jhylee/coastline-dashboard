@@ -51,15 +51,18 @@ app.controller('TrackInventoryInterfaceCtrl', ['$scope', 'TrackInventoryManager'
 
 
 
-app.controller('InventoryCtrl', ['$scope', 'InventoryData', 'SupplyChainData', '$state', '$uibModal',
-    function ($scope, InventoryData, SupplyChainData, $state, $uibModal) {
+app.controller('InventoryCtrl', ['$scope', '$rootScope', 'StageData', 'InventoryData', 'SupplyChainData', '$state', '$uibModal',
+    function ($scope, $rootScope, StageData, InventoryData, SupplyChainData, $state, $uibModal) {
 
         //$scope.data = TrackInventoryManager.getDisplayData();
 
         $scope.viewBlocks = function () {
             console.log('$scope.viewBlocks');
+            $rootScope.$broadcast("refreshStageEdit");
+
 
             var stageId = SupplyChainData.getSelectedStageId();
+            StageData.setSelectedStageId(stageId);
             var supplyChainId = SupplyChainData.getSupplyChain()._id;
             console.log(supplyChainId);
 
@@ -95,8 +98,8 @@ app.controller('InventoryCtrl', ['$scope', 'InventoryData', 'SupplyChainData', '
 
 }]);
 
-app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockData', 'SupplyChainData', '$state', '$uibModalInstance', '$uibModal',
-    function ($scope, TrackInventoryManager, InventoryData, BlockData, SupplyChainData, $state, $uibModalInstance, $uibModal) {
+app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInventoryManager', 'InventoryData', 'BlockData', 'SupplyChainData', '$state', '$uibModalInstance', '$uibModal',
+    function ($scope, $rootScope, StageData, TrackInventoryManager, InventoryData, BlockData, SupplyChainData, $state, $uibModalInstance, $uibModal) {
 
         InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function (res) {
             console.log(res);
@@ -105,6 +108,19 @@ app.controller('ViewBlocksCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
         }, function (err) {
             console.log(err);
         })
+
+        StageData.fetchSelectedStage()
+            .then(function (res) {
+                $scope.stageName = res.name;
+            });
+
+        $rootScope.$on("refreshStageEdit", function () {
+            StageData.fetchSelectedStage()
+                .then(function (res) {
+                    $scope.stageName = res.name;
+                });
+
+        });
 
 
         $scope.ok = function () {
