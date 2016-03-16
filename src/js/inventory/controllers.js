@@ -433,7 +433,9 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
                     } else if ($scope.history.events[i].operation == "move") {
                         $scope.quantities[i] = $scope.history.events[i].moveDetails.after.quantity;
                         $scope.units[i] = $scope.history.events[i].moveDetails.after.units;
-
+                    } else if ($scope.history.events[i].operation == "edit") {
+                        $scope.quantities[i] = $scope.history.events[i].editDetails.after.quantity;
+                        $scope.units[i] = $scope.history.events[i].editDetails.after.units;
                     } else {
 
                     }
@@ -447,6 +449,8 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
                     return $scope.history.events[i].createDetails.block.stage.name;
                 } else if ($scope.history.events[i].operation == "move") {
                     return $scope.history.events[i].moveDetails.after.stage.name;
+                } else if ($scope.history.events[i].operation == "edit") {
+                    return $scope.block.stage.name;
 
                 } else {
 
@@ -458,6 +462,8 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
                 if ($scope.history.events[i].operation == "create") {
                     return $scope.history.events[i].date.substring(0,10);
                 } else if ($scope.history.events[i].operation == "move") {
+                    return $scope.history.events[i].date.substring(0,10);
+                } else if ($scope.history.events[i].operation == "edit") {
                     return $scope.history.events[i].date.substring(0,10);
 
                 } else {

@@ -9,6 +9,8 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
     function($scope, $rootScope, Products, AuthService, $state, $uibModal) {
         $scope.fisheryName = "";
 
+        $scope.selectedProduct = 0;
+
 
 
 
