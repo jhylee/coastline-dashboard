@@ -354,27 +354,45 @@
     <div class="modal-body">
 
         <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table tableWhite">
+                    <thead>
+                        <tr>
+                            <th>Product Type</th>
+                            <th>Quantity</th>
+                            <th>Catch Date</th>
+                            <th>Catch Region</th>
+                            <th>Caught By</th>
+                            <th>Catch Type</th>
+                            <th>Water Depth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-        <p>Product Type: {{block.productType.name}}</p>
-        <p>Quantity: {{block.quantity + " " + block.units}}</p>
-        <p>Catch Date: {{block.catchDate}} </p>
-        <p>Catch Region: {{block.catchRegion}} </p>
-        <p>Caught By: {{block.caughtBy}} </p>
-        <p>Catch Type: {{block.catchType}} </p>
-        <p>Water Depth: {{block.waterDepth}} </p>
-
+                        <tr>
+                            <td>{{block.productType.name}}</td>
+                            <td>{{block.quantity + " " + block.units}}</td>
+                            <td>{{block.catchDate}}</td>
+                            <td>{{block.catchRegion}}</td>
+                            <td>{{block.caughtBy}}</td>
+                            <td>{{block.catchType}}</td>
+                            <td>{{block.waterDepth}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="panel-body">
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table tableWhite">
                     <thead>
                         <tr>
                             <th>Operation</th>
                             <th>Date</th>
                             <th>Location</th>
                             <th>Quantity</th>
-                            <th>Select</th>
+                            <!--<th>Select</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -384,9 +402,10 @@
                             <td>{{getDate([history.events.length-1-$index])}}</td>
                             <td>{{getStageName([history.events.length-1-$index])}}</td>
                             <td>{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>
-                            <td>
+
+                            <!--<td>
                                 <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
-                            </td>
+                            </td>-->
                         </tr>
 
                     </tbody>
