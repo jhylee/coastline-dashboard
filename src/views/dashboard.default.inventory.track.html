@@ -299,12 +299,12 @@
         <form>
             <fieldset class="form-group">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i></h4>
+                <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
             </fieldset>
 
             <fieldset class="form-group">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <label>Move to stage: </label>
+                    <label>Moving chosen inventory batch to: </label>
                     <select ng-model="toStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
                     <small class="text-muted">Please select the target destination for your inventory.</small>
                 </div>
@@ -319,18 +319,18 @@
 
 <script type="text/ng-template" id="moveBlockToSalesModal.html">
     <div class="modal-header">
-        <h3 class="modal-title">Move Batch</h3>
+        <h3 class="modal-title">Move Inventory Batch</h3>
     </div>
     <div class="modal-body">
         <form>
             <fieldset class="form-group">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>
+                    <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
             </fieldset>
 
             <fieldset class="form-group">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <label>Move to stage: </label>
+                    <label>Moving chosen inventory batch to: </label>
                     <select ng-model="toStage" ng-options="stage as stage.name for stage in stages" class="form-control"></select>
                     <small class="text-muted">Please select direct sales destination for your inventory.</small>
                 </div>
@@ -352,8 +352,8 @@
         <h3 class="modal-title">Inventory Batch Details</h3>
     </div>
     <div class="modal-body">
-
         <div class="panel-body">
+           <h4 class="text-center">Initial Catch Audit</h4><br>
             <div class="table-responsive">
                 <table class="table tableWhite">
                     <thead>
@@ -384,6 +384,7 @@
         </div>
 
         <div class="panel-body">
+          <h4 class="text-center">Lot History</h4><br>
             <div class="table-responsive">
                 <table class="table tableWhite">
                     <thead>
