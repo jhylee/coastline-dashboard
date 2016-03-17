@@ -8,7 +8,7 @@
   },
 
   "scripts": {
-    "start": "npm install; ./node_modules/.bin/gulp --env production",
+    "start": "npm install; ./node_modules/.bin/gulp --env remotedev",
     "test": "npm install; ./node_modules/.bin/gulp --env remotedev"
   },
   "repository": {
