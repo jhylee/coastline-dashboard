@@ -149,15 +149,25 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'Upload', 'AuthService',
 
             console.log($scope.file);
 
-            var data = {
-                name: $scope.name,
-                description: $scope.description,
-                unit: $scope.unit,
-                unitPrice: $scope.unitPrice,
-                fileName: $scope.file.name,
-                fileType: $scope.file.type,
-                fileSize: $scope.file.size
-            };
+            if ($scope.file) {
+                var data = {
+                    name: $scope.name,
+                    description: $scope.description,
+                    unit: $scope.unit,
+                    unitPrice: $scope.unitPrice,
+                    fileName: $scope.file.name,
+                    fileType: $scope.file.type,
+                    fileSize: $scope.file.size
+                };
+            } else {
+                var data = {
+                    name: $scope.name,
+                    description: $scope.description,
+                    unit: $scope.unit,
+                    unitPrice: $scope.unitPrice,
+                };
+            }
+
 
             console.log("data");
             console.log(data);
