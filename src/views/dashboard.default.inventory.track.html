@@ -95,7 +95,7 @@
                                 <th>#</th>
                                 <th>Product Type</th>
                                 <th>Quantity</th>
-                                <th>Date Created</th>
+                                <th>Inventory Input Date</th>
                                 <th>Select</th>
                             </tr>
                         </thead>
@@ -104,7 +104,8 @@
                                 <td>{{$index + 1}}</td>
                                 <td>{{block.productType.name}}</td>
                                 <td>{{block.quantity + " " + block.units}}</td>
-                                <td>{{block.dateCreated.substring(0,10)}}</td>
+                                <!--<td>{{block.dateCreated.substring(0,10)}}</td>-->
+                                <td>{{block.dateCreated | date: 'yyyy-MM-dd | hh:mm a'}}</td>
                                 <td>
                                     <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
                                 </td>
