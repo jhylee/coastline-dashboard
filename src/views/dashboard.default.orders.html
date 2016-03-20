@@ -28,7 +28,7 @@
                         <th>Invoice #</th>
                         <th>Payment Method</th>
                         <th>Status</th>
-                        <!-- <th>Date (MM/DD/YYYY)</th> -->
+                        <th>Date and Time </th>
                         <th>Total Amount</th>
                         <th></th>
                       </tr>
@@ -38,7 +38,7 @@
                         <td>{{$index+1}}</td>
                         <td>Cash</td>
                         <td>Outstanding</td>
-                        <!-- <td>1/13/2016</td> -->
+                        <td>{{order.date | date:'hh:mm a | yyyy-MM-dd ' }}</td>
                         <td>${{totals[$index]}}</td>
                         <td>
                           <div class="alignright">
@@ -62,11 +62,15 @@
 
 <script type="text/ng-template" id="viewOrderDetailModal.html">
     <div class="modal-header">
-        <h3 class="modal-title">Order Detail - {{order.date.substring(0,10)}}</h3>
+        <h3 class="modal-title">Customer Order on {{order.date | date:'yyyy-MM-dd' }}
+        <!--{{order.date.substring(0,10)}}--></h3>
     </div>
 
     <div class="modal-body">
-        <p>Name: {{order.firstName}} {{order.lastName}}, {{order.phone}}</p>
+        <h4><b>Name:</b> {{order.firstName}} {{order.lastName}}</h4>
+        <h4><b>Phone:</b> {{order.phone}}</h4>
+        <h4><b>Order Time:</b> {{order.date | date: 'hh:mm a'}}</h4>
+
     </div>
 
     <div class="panel panel-default">
@@ -87,7 +91,8 @@
             </thead>
             <tbody ng-repeat="item in order.items track by $index">
               <tr>
-                <td>{{$index + 1}}</td>
+                <!--<td>{{$index + 1}}</td>-->
+                <td>{{item.product.name}}</td>
                 <td>{{item.product.name}}</td>
                 <td>${{item.product.unitPrice}} / {{item.product.unit}}</td>
                 <td>{{item.product.unitPrice * item.quantity}}</td>

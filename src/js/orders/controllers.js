@@ -46,6 +46,10 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
 
           updateOrders();
 
+          $scope.getOrderDate = function() {
+            return orders.date;
+          }
+
           $scope.viewOrderDetail = function (order) {
             OrderData.setSelectedOrder(order);
 
