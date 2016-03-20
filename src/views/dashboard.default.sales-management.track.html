@@ -22,6 +22,8 @@
                       <tr>
                         <th>#</th>
                         <th>Name</th>
+                        <th>Date Created</th>
+                        <th>Channel Type</th>
                         <th>Select</th>
                       </tr>
                     </thead>
@@ -29,6 +31,9 @@
                       <tr>
                         <td>{{$index + 1}}</td>
                         <td>{{sellingPoint.name}}</td>
+                        <td>{{sellingPoint.dateCreated | date: 'yyyy-MM-dd | hh-mm a'}}</td>
+                        <!-- TODO, just set type as first in list for now -->
+                        <td>{{sellingPoint.sellingTargets[0]}}</td>
                         <td><input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index"></td>
                       </tr>
                     </tbody>
