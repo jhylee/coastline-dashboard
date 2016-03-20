@@ -1,9 +1,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header light-text">Track Inventory</h2>
     <div class="row placeholders">
-        <!--
-      <div class="col-lg-8">  CENTER ON COMPUTER SCREEN
-      -->
+      <div class="col-lg-8">
         <div class="container">
             <div class="panel-container">
                 <div class="panel panel-default">
@@ -22,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <!--</div>-->
+        </div>
     </div>
 </div>
 
@@ -105,7 +103,7 @@
                                 <td>{{block.productType.name}}</td>
                                 <td>{{block.quantity + " " + block.units}}</td>
                                 <!--<td>{{block.dateCreated.substring(0,10)}}</td>-->
-                                <td>{{block.dateCreated | date: 'yyyy-MM-dd | hh:mm a'}}</td>
+                                <td>{{block.dateCreated | date: 'short'}}</td>
                                 <td>
                                     <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
                                 </td>
@@ -299,12 +297,12 @@
     <div class="modal-body">
         <form>
             <fieldset class="form-group">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-12">
                 <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
             </fieldset>
 
             <fieldset class="form-group">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-12">
                     <label>Moving chosen inventory batch to: </label>
                     <select ng-model="toStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
                     <small class="text-muted">Please select the target destination for your inventory.</small>
@@ -320,17 +318,17 @@
 
 <script type="text/ng-template" id="moveBlockToSalesModal.html">
     <div class="modal-header">
-        <h3 class="modal-title">Move Inventory Batch</h3>
+        <h3 class="modal-title">Move Inventory to Sales</h3>
     </div>
     <div class="modal-body">
         <form>
             <fieldset class="form-group">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-12">
                     <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
             </fieldset>
 
             <fieldset class="form-group">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-12">
                     <label>Moving chosen inventory batch to: </label>
                     <select ng-model="toStage" ng-options="stage as stage.name for stage in stages" class="form-control"></select>
                     <small class="text-muted">Please select direct sales destination for your inventory.</small>
@@ -369,7 +367,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         <tr>
                             <td>{{block.productType.name}}</td>
                             <td>{{block.quantity + " " + block.units}}</td>

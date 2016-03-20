@@ -176,7 +176,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
         animation: true,
         templateUrl: 'addModalContent.html',
         controller: 'AddStageCtrl',
-        size: 'lg',
+        size: 'md',
         resolve: {}
       });
 
@@ -206,7 +206,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
         animation: true,
         templateUrl: 'editModalContent.html',
         controller: 'EditStageCtrl',
-        size: 'lg',
+        size: 'md',
         resolve: {}
       });
 
@@ -237,7 +237,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
         animation: true,
         templateUrl: 'linkModalContent.html',
         controller: 'LinkStagesCtrl',
-        size: 'lg',
+        size: 'md',
         resolve: {}
       });
 
@@ -268,7 +268,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
         animation: true,
         templateUrl: 'unlinkModalContent.html',
         controller: 'UnlinkStagesCtrl',
-        size: 'lg',
+        size: 'md',
         resolve: {}
       });
 
@@ -299,7 +299,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
           animation: true,
           templateUrl: 'deleteStageModal.html',
           controller: 'DeleteStageCtrl',
-          size: 'lg',
+          size: 'md',
           resolve: {}
         });
 
@@ -335,7 +335,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
         animation: true,
         templateUrl: 'exitSupplyChain.html',
         controller: 'ExitSupplyChainCtrl',
-        size: 'lg',
+        size: 'md',
         resolve: {}
       });
 

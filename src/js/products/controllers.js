@@ -104,7 +104,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
     };
 
 
-    // add a stage - linked to the add button
+    // add a product - linked to the add button
     $scope.addProduct = function() {
       console.log("addProduct");
 

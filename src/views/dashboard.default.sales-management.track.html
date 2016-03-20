@@ -31,7 +31,7 @@
                       <tr>
                         <td>{{$index + 1}}</td>
                         <td>{{sellingPoint.name}}</td>
-                        <td>{{sellingPoint.dateCreated | date: 'yyyy-MM-dd | hh-mm a'}}</td>
+                        <td>{{sellingPoint.dateCreated | date: 'short'}}</td>
                         <!-- TODO, just set type as first in list for now -->
                         <td>{{sellingPoint.sellingTargets[0]}}</td>
                         <td><input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index"></td>
@@ -61,7 +61,7 @@
     <div class="modal-body">
         <form>
             <fieldset class="form-group">
-            <div class="col-lg-8 col-lg-offset-2">
+            <div class="col-lg-12">
                 <label>Name</label>
                 <input class="form-control" ng-model="name" placeholder="Name of sales channel...">
                 <small class="text-muted">Maximum 30 characters.</small>
@@ -87,7 +87,7 @@
     <div class="modal-body">
         <form>
             <fieldset class="form-group">
-            <div class ="col-lg-8 col-lg-offset-2">
+            <div class ="col-lg-12">
                 <label>New Selling Point Name</label>
                 <input class="form-control" ng-model="sellingPoint.name" placeholder="Name of sales channel...">
                 <small class="text-muted">Maximum 30 characters.</small>
