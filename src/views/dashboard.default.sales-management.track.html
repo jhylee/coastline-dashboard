@@ -63,8 +63,8 @@
             <fieldset class="form-group">
             <div class="col-lg-12">
                 <label>Name</label>
-                <input class="form-control" ng-model="name" placeholder="Name of sales channel...">
-                <small class="text-muted">Maximum 30 characters.</small>
+                <input class="form-control" ng-model="name" maxlength="25" placeholder="Name of sales channel...">
+                <small class="text-muted">Maximum 25 characters.</small>
                 <br>
                 <div class="checkbox">
     	            <label><input type="checkbox" ng-model="isEcommerceStage">Sell on e-commerce</label>
@@ -89,8 +89,8 @@
             <fieldset class="form-group">
             <div class ="col-lg-12">
                 <label>New Selling Point Name</label>
-                <input class="form-control" ng-model="sellingPoint.name" placeholder="Name of sales channel...">
-                <small class="text-muted">Maximum 30 characters.</small>
+                <input class="form-control" ng-model="sellingPoint.name" maxlength="25" placeholder="Name of sales channel...">
+                <small class="text-muted">Maximum 25 characters.</small>
 
                 <div class="checkbox">
     	            <label><input type="checkbox" ng-model="isEcommerceStage"> Sell on e-commerce</label>
@@ -103,76 +103,4 @@
         <button class="btn btn-dashboard-green" type="button" ng-click="ok()">Save</button>
         <button class="btn btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
     </div>
-</script>
-
-
-
-
-<script type="text/ng-template" id="editModalContent.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Add a Stage</h3>
-  </div>
-  <div class="modal-body">
-    <form>
-      <fieldset class="form-group">
-        <label>New Name</label>
-        <input class="form-control" ng-model="name" placeholder="i.e. Processing Plant 1">
-        <small class="text-muted">Maximum 30 characters.</small>
-      </fieldset>
-      <fieldset class="form-group">
-        <label>Previous Stage</label>
-        <select ng-model="selectedStage" ng-options="stage as stage.name for stage in getStages()" class="form-control"></select>
-      </fieldset>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-  </div>
-</script>
-
-
-<script type="text/ng-template" id="viewSellingPointBlocksModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Inventory in Selling Point</h3>
-  </div>
-
-
-  <div class="modal-body">
-    <div class="panel panel-default">
-      <!-- <div class="panel-heading">
-      <h3 class="panel-title">Supply Chain Representation</h3></div> -->
-      <div class="panel-body">
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Product Type</th>
-                <th>Quantity</th>
-                <th>Date Created</th>
-                <th>Select</th>
-              </tr>
-            </thead>
-            <tbody ng-repeat="block in blocks track by $index">
-              <tr>
-                <td>{{$index + 1}}</td>
-                <td>{{block.productType.name}}</td>
-                <td>{{block.quantity + " " + block.units}}</td>
-                <td>{{block.dateCreated.substring(0,10)}}</td>
-                <td>
-                  <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-footer">
-    <button class="btn-dashboard" type="button" ng-click="cancel()">Dismiss</button>
-  </div>
 </script>
