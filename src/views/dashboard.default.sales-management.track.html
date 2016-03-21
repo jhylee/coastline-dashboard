@@ -104,3 +104,49 @@
         <button class="btn btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </script>
+
+
+
+
+
+<script type="text/ng-template" id="viewSellingPointBlocksModal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Inventory in Selling Point</h3>
+  </div>
+
+
+  <div class="modal-body">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product Type</th>
+                <th>Quantity</th>
+                <th>Date Created</th>
+                <th>Select</th>
+              </tr>
+            </thead>
+            <tbody ng-repeat="block in blocks track by $index">
+              <tr>
+                <td>{{$index + 1}}</td>
+                <td>{{block.productType.name}}</td>
+                <td>{{block.quantity + " " + block.units}}</td>
+                <td>{{block.dateCreated | date:"yyyy-MM-dd hh:mm a"}}</td>
+                <td>
+                  <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn-dashboard" type="button" ng-click="cancel()">Dismiss</button>
+  </div>
+</script>
