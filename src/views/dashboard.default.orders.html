@@ -1,58 +1,57 @@
-
 <div ng-controller="OrderDisplayCtrl">
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header light-text">Manage Orders</h2>
     <div class="row placeholders">
-      <!--<div class="col-lg-8">-->
+      <div class="col-lg-8">
         <div class="container">
           <div class="panel-container">
-<!-- DELETE FOR DEMO
+
             <div class="panel panel-default">
               <div class="panel-body alignleft">
 
+                <button ng-click="addOrder()" class="btn-dashboard-green">Add Invoice</button>
                 <button ng-click="addStage()" class="btn-dashboard">Print Invoice</button>
                 <button ng-click="editStage()" class="btn-dashboard">Edit Order</button>
-                <button class="btn-dashboard">View Details</button>
-                <button class="btn-dashboard"><i class = "fa fa-filter"></i></button>
                 <input type="text" name="search" placeholder="Search for an item" class="search">
 
               </div>
-            </div>  -->
+            </div>
+
             <div class="panel panel-body">
               <!--
               <div class="panel-scroll">-->
-                <div class="table-responsive">
-                  <table class="table tableWhite">
-                    <thead>
-                      <tr>
-                        <th>Invoice #</th>
-                        <th>Payment Method</th>
-                        <th>Status</th>
-                        <!-- <th>Date (MM/DD/YYYY)</th> -->
-                        <th>Total Amount</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="order in orders track by $index">
-                        <td>{{$index+1}}</td>
-                        <td>Cash</td>
-                        <td>Outstanding</td>
-                        <!-- <td>1/13/2016</td> -->
-                        <td>${{totals[$index]}}</td>
-                        <td>
-                          <div class="alignright">
-                            <button ng-click="viewOrderDetail(order)" class="btn-dashboard">View Details</button>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              <!--</div>-->
+              <div class="table-responsive">
+                <table class="table tableWhite">
+                  <thead>
+                    <tr>
+                      <th>Invoice #</th>
+                      <th>Payment Method</th>
+                      <th>Status</th>
+                      <th>Date and Time </th>
+                      <th>Total Amount</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="order in orders track by $index">
+                      <td>{{$index+1}}</td>
+                      <td>Cash</td>
+                      <td>Outstanding</td>
+                      <td>{{order.date | date:'short' }}</td>
+                      <td>${{totals[$index]}}</td>
+                      <td>
+                        <div class="alignright">
+                          <button ng-click="viewOrderDetail(order)" class="btn-dashboard">View Details</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
+      </div>
       <!--</div>-->
     </div>
   </div>
@@ -61,46 +60,160 @@
 
 
 <script type="text/ng-template" id="viewOrderDetailModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Order Detail - {{order.date.substring(0,10)}}</h3>
+  <div class="modal-header">
+    <h3 class="modal-title">Customer Order on {{order.date | date:'yyyy-MM-dd' }}
+      <!--{{order.date.substring(0,10)}}-->
+    </h3>
+  </div>
+
+  <div class="modal-body">
+    <h4><b>Name:</b> {{order.firstName}} {{order.lastName}}</h4>
+    <h4><b>Phone:</b> {{order.phone}}</h4>
+    <h4><b>Order Time:</b> {{order.date | date: 'hh:mm a'}}</h4>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Item Summary</h3>
     </div>
 
-    <div class="modal-body">
-        <p>Name: {{order.firstName}} {{order.lastName}}, {{order.phone}}</p>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Item Summary</h3>
-      </div>
-
-      <div class="panel-body">
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th>Total Cost</th>
-              </tr>
-            </thead>
-            <tbody ng-repeat="item in order.items track by $index">
-              <tr>
-                <td>{{$index + 1}}</td>
-                <td>{{item.product.name}}</td>
-                <td>${{item.product.unitPrice}} / {{item.product.unit}}</td>
-                <td>{{item.product.unitPrice * item.quantity}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Total Cost</th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="item in order.items track by $index">
+            <tr>
+              <!--<td>{{$index + 1}}</td>-->
+              <td>{{item.product.name}}</td>
+              <td>${{item.product.unitPrice}} / {{item.product.unit}}</td>
+              <td>{{item.quantity}} {{item.product.unit}}</td>
+              <td>{{item.product.unitPrice * item.quantity}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn-dashboard-green" type="button" ng-click="dismiss()">OK</button>
+  </div>
+</script>
 
 
-    <div class="modal-footer">
-        <button class="btn-dashboard-green" type="button" ng-click="dismiss()">OK</button>
+<!-- TODO: Manual Add Invoice Form -->
+<script type="text/ng-template" id="addOrderModal.html">
+
+  <div class="modal-header">
+    <h3 class="modal-title text-center">Add an Order/Invoice</h3>
+  </div>
+  <div class="col-lg-12">
+    <div class="modal-body">
+      <form>
+        <fieldset class="form-group">
+          <div class="col-lg-6">
+            <label>Invoice Number</label>
+            <input class="form-control" type="number" max="99999" ng-model="invoiceNum" placeholder="ex. 34937">
+            <small class="text-muted">Maximum 16 characters</small>
+          </div>
+          <div class="col-lg-6">
+            <label>Payment Method</label>
+            <input class="form-control" maxlength="16" ng-model="payMethod" placeholder="ex. Credit">
+            <small class="text-muted">Maximum 16 characters</small>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <div class="col-lg-6">
+            <label>Status</label>
+            <input class="form-control" type="text" maxlength="16"  ng-model="status" placeholder="ex. Outstanding">
+            <small class="text-muted">Maximum 16 characters</small>
+          </div>
+          <div class="col-lg-6">
+            <label>Date and Time</label>
+            <input class="form-control" type="date" ng-model="dateTime" placeholder="ex. 12:44 PM, 2016-01-14">
+            <small class="text-muted">Enter the invoice date</small>
+          </div>
+        </fieldset>
+
+        <div class="modal-body">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Batch (M/D/Y)</th>
+                      <th>Unit Price</th>
+                      <th>Units</th>
+                      <th>Quantity</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!--ng-repeat="order in orders track by $index"-->
+                    <tr>
+                      <td>
+                        <select class="form-control">
+                        <option>Pacific Cod</option>
+                        <option>Atlantic Salmon</option>
+                        </select>
+                      </td>
+
+                      <td>
+                        <select class="form-control">
+                          <!--ng-model="selectedBlock" ng-options="block.name for block in blocks"-->
+                          <option>2/14/16 (20 lbs)</option>
+                          <option>2/24/16 (143 lbs)</option>
+                          <option>3/4/16 (200 lbs)</option>
+                        </select>
+                      </td>
+
+                      <td>
+                      <input type="number" min="0" max="100" ng-model="listing.price" step="0.01" class="form-control" placeholder="ex. 12.99"></input>
+                      </td>
+
+                      <td>
+                        <select class="form-control">
+                          <option value="lbs">lbs</option>
+                          <option value="half lbs">1/2 lbs</option>
+                          <option value="kg">kg</option>
+                        </select>
+                      </td>
+
+                      <td>
+                      <input type="number" min="0" max="100" ng-model="listing.quantity" value="1" class="form-control" placeholder="ex. 10"></input>
+                      </td>
+
+                      <td>
+                        <button class="btn-dashboard-green"><i class="fa fa-plus"></i></btn>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h3 class="text-right">Total: ${{order}}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
     </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="alignright">
+      <button type="submit" class="btn-dashboard-green" ng-click="ok()">Submit</button>
+      <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+  </div>
 </script>

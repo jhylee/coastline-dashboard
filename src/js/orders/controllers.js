@@ -66,6 +66,33 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
 
           };
 
+          // TODO add an invoice
+          $scope.addOrder = function() {
+            console.log("addOrder");
+
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+              animation: true,
+              templateUrl: 'addOrderModal.html',
+              controller: 'AddOrderCtrl',
+              size: 'lg',
+              resolve: {}
+            });
+
+            // called when modal is closed
+            modalInstance.result.then(
+              // OK callback
+              function(order) {
+                // add the stage to the supply chain
+                console.log(order);
+                updateOrders();
+
+                // CANCEL callback
+              },
+              function() {});
+          };
+
+
   }]);
 
 
@@ -81,3 +108,69 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
 
 
   }]);
+
+
+  app.controller('AddOrderCtrl', ['$scope', 'OrderData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, OrderData, Products, AuthService, $state, $uibModalInstance, $http) {
+
+      OrderData.getOrders(function(orders) {
+        console.log("getOrders");
+      }, function(err) {
+        console.log(err);
+      });
+
+      // tied to ok button
+      $scope.ok = function() {
+
+        console.log($scope.file);
+
+        if ($scope.file) {
+          var data = {
+            name: $scope.name,
+            unitPrice: $scope.unitPrice,
+            quantity: $scope.quantity,
+            totalAmount: $scope.totalAmount,
+            invoiceNum: $scope.invoiceNum,
+            payMethod: $scope.payMethod,
+            status: $scope.status,
+            dateTime: $scope.dateTime,
+          };
+        }
+
+        console.log("data");
+        console.log(data);
+
+        Orders.addOrder(data, function(res) {
+          $uibModalInstance.close(res);
+        }, function(err) {
+          $uibModalInstance.close(err);
+        }).success(function(res) {
+
+          console.log($scope.file);
+          var payload = {
+            url: res.signedUrl,
+            data: $scope.file,
+            headers: {
+              'Content-Type': $scope.file.type,
+              'x-amz-acl': 'public-read',
+            },
+            ignoreInterceptor: true,
+            method: "PUT"
+          };
+
+          console.log(payload);
+
+          Upload.http(payload);
+
+        });
+
+      };
+
+      // tied to cancel button
+      $scope.cancel = function() {
+        $uibModalInstance.dismiss('cancel');
+      };
+
+
+    }
+  ]);

@@ -75,7 +75,7 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
 	        animation: true,
 	        templateUrl: 'addSellingPointModal.html',
 	        controller: 'AddSellingPointCtrl',
-	        size: 'lg',
+	        size: 'md',
 	        resolve: {}
 	      });
 
@@ -100,7 +100,7 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
 	        animation: true,
 	        templateUrl: 'editSellingPointModal.html',
 	        controller: 'EditSellingPointCtrl',
-	        size: 'lg',
+	        size: 'md',
 	        resolve: {}
 	      });
 
