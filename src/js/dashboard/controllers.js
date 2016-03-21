@@ -12,14 +12,10 @@ app.controller('NavTopCtrl', ['$scope', 'Fishery', 'AuthService', '$state', 'Fis
     function ($scope, Fishery, AuthService, $state, FisheryData) {
         $scope.fisheryName = "";
 
-        // Fishery.getFishery(function (fishery) {
-        //     $scope.fisheryName = fishery.name;
-        //     console.log("$scope.fisheryName " + fishery);
-        // });
-
         $scope.fisheryName = FisheryData.getFisheryName();
 
-
+        $scope.navbarCollapsed = true;
+        
         $scope.logout = function () {
             AuthService.logout(function () {
                 $state.go('login');
