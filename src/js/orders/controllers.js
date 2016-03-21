@@ -110,10 +110,10 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
   }]);
 
 
-  app.controller('AddOrderCtrl', ['$scope', 'Orders', 'AuthService', '$state', '$uibModalInstance', '$http',
-    function($scope, Orders, OrderData, Products, AuthService, $state, $uibModalInstance, $http) {
+  app.controller('AddOrderCtrl', ['$scope', 'OrderData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, OrderData, Products, AuthService, $state, $uibModalInstance, $http) {
 
-      Orders.getOrders(function(orders) {
+      OrderData.getOrders(function(orders) {
         console.log("getOrders");
       }, function(err) {
         console.log(err);
@@ -135,7 +135,7 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
             status: $scope.status,
             dateTime: $scope.dateTime,
           };
-        } 
+        }
 
         console.log("data");
         console.log(data);
