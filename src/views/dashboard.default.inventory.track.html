@@ -97,7 +97,6 @@
                 <td>{{$index + 1}}</td>
                 <td>{{block.productType.name}}</td>
                 <td>{{block.quantity + " " + block.units}}</td>
-                <!--<td>{{block.dateCreated.substring(0,10)}}</td>-->
                 <td>{{block.dateCreated | date: 'short'}}</td>
                 <td>
                   <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
@@ -130,15 +129,12 @@
           <label>Product Type</label>
           <br>
           <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
-          <!--<select ng-model="selectedProduct" name="mydropdown" class="dropdown">
-                 <option ng-value="{{product}}" ng-repeat="product in products track by $index">{{product.name}}</option>
-             </select>-->
           <br>
           <small class="text-muted">Item must be added under Products tab.</small>
         </div>
         <div class="col-lg-6">
           <label>Quantity</label>
-          <input class="form-control" ng-model="quantity" type="number" max="999" placeholder="ex. 4000">
+          <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
           <small class="text-muted">Please enter a numerical value.</small>
         </div>
       </fieldset>
