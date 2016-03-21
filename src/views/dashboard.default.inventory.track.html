@@ -74,6 +74,7 @@
     <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="viewDetails()">Batch Detail</button>
     <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()">Edit</button>
     <button class="btn-dashboard-green" type="button" ng-click="addBlock()">Add</button>
+    <button class="btn-dashboard-yellow" type="button" ng-click="splitBlock()">Split</button>
     <button class="btn-dashboard-red" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
 
   </div>
@@ -191,6 +192,48 @@
   </div>
 </script>
 
+
+<script type="text/ng-template" id="splitBlockModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Split Seafood Batch</h3>
+    </div>
+    <div class="modal-body">
+
+        <h4>Original Batch</h4>
+
+        <div class="col-lg-12">
+            <br>
+            <p>Product: {{block1.productType.name}}</p>
+            <p>Quantity: {{getOriginalBlockQuantity() + " " + block1.units}}</p>
+            <br>
+        </div>
+
+
+        <h4>New Batch</h4>
+        <br>
+
+        <form>
+            <fieldset class="form-group">
+
+                <div class="col-lg-6">
+                    <label>Quantity</label>
+                    <input class="form-control" ng-model="quantity" placeholder="ex. 4000">
+                    <small class="text-muted">Please enter a numerical value.</small>
+                </div>
+            </fieldset>
+        </form>
+
+
+
+
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
 <script type="text/ng-template" id="editBlockModal.html">
   <div class="modal-header">
     <h3 class="modal-title">Edit Seafood Batch</h3>
@@ -247,6 +290,7 @@
 </script>
 
 <script type="text/ng-template" id="moveBlockModal.html">
+<<<<<<< HEAD
   <div class="modal-header">
     <h3 class="modal-title">Move Inventory Batch</h3>
   </div>
@@ -262,6 +306,30 @@
           <label>Moving chosen inventory batch to: </label>
           <select ng-model="toStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
           <small class="text-muted">Please select the target destination for your inventory.</small>
+=======
+    <div class="modal-header">
+        <h3 class="modal-title">Move Inventory Batch</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset class="form-group">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
+            </fieldset>
+
+            <fieldset class="form-group">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <label>Moving chosen inventory batch to: </label>
+                    <select ng-model="toStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
+                    <small class="text-muted">Please select the target destination for your inventory.</small>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+            <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+>>>>>>> master
         </div>
       </fieldset>
     </form>
@@ -337,6 +405,7 @@
         </table>
       </div>
     </div>
+<<<<<<< HEAD
 
     <div class="panel-body">
       <h4 class="text-center">Lot History</h4>
@@ -364,6 +433,75 @@
           </tbody>
         </table>
       </div>
+=======
+    <div class="modal-body">
+        <div class="panel-body">
+            <h4 class="text-center">Initial Catch Audit</h4>
+            <br>
+            <div class="table-responsive">
+                <table class="table tableWhite">
+                    <thead>
+                        <tr>
+                            <th>Product Type</th>
+                            <th>Quantity</th>
+                            <th>Catch Date</th>
+                            <th>Catch Region</th>
+                            <th>Caught By</th>
+                            <th>Catch Type</th>
+                            <th>Water Depth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>{{block.productType.name}}</td>
+                            <td>{{block.quantity + " " + block.units}}</td>
+                            <td>{{block.catchDate}}</td>
+                            <td>{{block.catchRegion}}</td>
+                            <td>{{block.caughtBy}}</td>
+                            <td>{{block.catchType}}</td>
+                            <td>{{block.waterDepth}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <h4 class="text-center">Lot History</h4>
+            <br>
+            <div class="table-responsive">
+                <table class="table tableWhite">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Quantity</th>
+                            <!--<th>Select</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr ng-repeat="event in history.events track by $index">
+                            <td>{{history.events[history.events.length-1-$index].operation}}</td>
+                            <td>{{getDate([history.events.length-1-$index])}}</td>
+                            <td>{{getStageName([history.events.length-1-$index])}}</td>
+                            <td>{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>
+
+                            <!--<td>
+                                <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
+                            </td>-->
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn-dashboard" type="button" ng-click="cancel()">Close</button>
+>>>>>>> master
     </div>
   </div>
   <div class="modal-footer">
