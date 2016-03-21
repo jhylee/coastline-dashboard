@@ -411,6 +411,40 @@ fieldset[disabled] .btn-dashboard-red.active {
   -webkit-transition: all 0.5s ease-in-out;
   */
 }
+.btn-dashboard-yellow {
+  color: $secondary-background-color;
+  border-style: none;
+  background-color: #7c7a07;
+  border-color: #7c7a07;
+  border-radius: 4px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 2px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  outline: none
+  /*
+  box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
+  */
+}
+.btn-dashboard-yellow:hover,
+.btn-dashboard-yellow:focus,
+.btn-dashboard-yellow.focus,
+.btn-dashboard-yellow:active,
+.btn-dashboard-yellow.active,
+.open > .dropdown-toggle.btn-dashboard-yellow {
+  color: $secondary-background-color;
+  background-color: #1B5E20;
+  border-color: #1B5E20;
+  outline: none
+  /*
+  transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  */
+}
 input.search {
   border-radius: 4px;
   padding: 8px 15px;
