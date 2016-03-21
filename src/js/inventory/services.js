@@ -38,6 +38,9 @@ app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', 'FisheryData',
         moveBlock(supplyChainId, blockId, data, success, error) {
             $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/blocks/' + blockId + '/move', data).success(success).error(error);
         },
+        splitBlock(supplyChainId, blockId, data, success, error) {
+            $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/blocks/' + blockId + '/split', data).success(success).error(error);
+        },
         deleteBlock(supplyChainId, blockId, success, error) {
             $http.delete(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/blocks/' + blockId).success(success).error(error);
         },

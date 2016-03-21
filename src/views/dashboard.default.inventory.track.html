@@ -79,6 +79,7 @@
         <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="viewDetails()">Batch Detail</button>
         <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()">Edit</button>
         <button class="btn-dashboard-green" type="button" ng-click="addBlock()">Add</button>
+        <button class="btn-dashboard-yellow" type="button" ng-click="splitBlock()">Split</button>
         <button class="btn-dashboard-red" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
 
     </div>
@@ -201,6 +202,48 @@
     </div>
 </script>
 
+
+<script type="text/ng-template" id="splitBlockModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Split Seafood Batch</h3>
+    </div>
+    <div class="modal-body">
+
+        <h4>Original Batch</h4>
+
+        <div class="col-lg-12">
+            <br>
+            <p>Product: {{block1.productType.name}}</p>
+            <p>Quantity: {{getOriginalBlockQuantity() + " " + block1.units}}</p>
+            <br>
+        </div>
+
+
+        <h4>New Batch</h4>
+        <br>
+
+        <form>
+            <fieldset class="form-group">
+
+                <div class="col-lg-6">
+                    <label>Quantity</label>
+                    <input class="form-control" ng-model="quantity" placeholder="ex. 4000">
+                    <small class="text-muted">Please enter a numerical value.</small>
+                </div>
+            </fieldset>
+        </form>
+
+
+
+
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
 <script type="text/ng-template" id="editBlockModal.html">
     <div class="modal-header">
         <h3 class="modal-title">Edit Seafood Batch</h3>
@@ -299,7 +342,7 @@
         <form>
             <fieldset class="form-group">
                 <div class="col-lg-8 col-lg-offset-2">
-                <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
+                    <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
             </fieldset>
 
             <fieldset class="form-group">
@@ -353,7 +396,8 @@
     </div>
     <div class="modal-body">
         <div class="panel-body">
-           <h4 class="text-center">Initial Catch Audit</h4><br>
+            <h4 class="text-center">Initial Catch Audit</h4>
+            <br>
             <div class="table-responsive">
                 <table class="table tableWhite">
                     <thead>
@@ -384,7 +428,8 @@
         </div>
 
         <div class="panel-body">
-          <h4 class="text-center">Lot History</h4><br>
+            <h4 class="text-center">Lot History</h4>
+            <br>
             <div class="table-responsive">
                 <table class="table tableWhite">
                     <thead>
