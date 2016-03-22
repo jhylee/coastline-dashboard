@@ -397,13 +397,87 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
         }
 
 }]);
-//
-//
+
+
+app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'Products', 'SupplyChainData', '$state', '$uibModalInstance',
+    function ($scope, TrackInventoryManager, InventoryData, Products, SupplyChainData, $state, $uibModalInstance) {
+
+        // $scope = SupplyChainData.getSelectedBlock();
+        $scope.quantity = 0;
+
+
+
+        Products.getProducts(function (res) {
+            $scope.products = res;
+        }, function (err) {
+            console.log(err);
+        });
+
+        $scope.block1 = SupplyChainData.getSelectedBlock();
+        console.log("block1");
+        console.log($scope.block1);
+
+        $scope.getOriginalBlockQuantity = function () {
+            if ($scope.block1.quantity - $scope.quantity < 0 ) {
+                return 0;
+            } else {
+                return ($scope.block1.quantity - $scope.quantity);
+            }
+        }
+
+
+        $scope.ok = function () {
+
+            console.log($scope.selectedProduct);
+
+            var block2 = {
+                quantity: $scope.quantity,
+                units: $scope.block1.units,
+                stage: $scope.block1.stage,
+                productType: $scope.block1.productType
+            };
+
+            $scope.block1.quantity = $scope.block1.quantity - block2.quantity;
+
+            if ($scope.block1.quantity < 0) {
+                $scope.block1.quantity = 0
+            };
+
+            var data = {
+                block1: $scope.block1,
+                block2: block2
+            };
+
+
+            InventoryData.splitBlock(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedBlock()._id, data, function (res) {
+                console.log(res);
+                $uibModalInstance.close(res);
+            }, function (err) {
+                $uibModalInstance.close(err);
+            });
+
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+}]);
 
 app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
     function ($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
 
         $scope.fromStage = SupplyChainData.getSelectedStage();
+        $scope.block1 = SupplyChainData.getSelectedBlock();
+        $scope.quantity = $scope.block1.quantity;
+
+        $scope.getRemainingQuantity = function () {
+            if ($scope.block1.quantity - $scope.quantity < 0 ) {
+                return 0;
+            } else {
+                return ($scope.block1.quantity - $scope.quantity);
+            }
+        }
 
         $scope.stages = SupplyChainData.getStages();
         var selectedBlock = SupplyChainData.getSelectedBlock();
@@ -412,21 +486,53 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
 
         $scope.ok = function () {
             console.log("moveBlock ok()");
-            var data = {
-                productId: selectedBlock.productType._id,
-                stageId: $scope.toStage.self,
-                quantity: $scope.quantity,
-                units: $scope.units
-            };
 
-            console.log($scope.toStage.self);
+            if ($scope.quantity == $scope.block1.quantity) {
+                var data = {
+                    productId: selectedBlock.productType._id,
+                    stageId: $scope.toStage.self,
+                    quantity: $scope.quantity,
+                    units: $scope.units
+                };
 
-            InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, data, function (res) {
-                console.log(res);
-                $uibModalInstance.close(res);
-            }, function (err) {
-                $uibModalInstance.close(err);
-            });
+                console.log($scope.toStage.self);
+
+                InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, data, function (res) {
+                    console.log(res);
+                    $uibModalInstance.close(res);
+                }, function (err) {
+                    $uibModalInstance.close(err);
+                });
+            } else {
+                console.log($scope.selectedProduct);
+
+                var block2 = {
+                    quantity: $scope.quantity,
+                    units: $scope.block1.units,
+                    stage: $scope.toStage.self,
+                    productType: $scope.block1.productType
+                };
+
+                $scope.block1.quantity = $scope.block1.quantity - block2.quantity;
+
+                if ($scope.block1.quantity < 0) {
+                    $scope.block1.quantity = 0
+                };
+
+                var data = {
+                    block1: $scope.block1,
+                    block2: block2
+                };
+
+
+                InventoryData.splitBlock(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedBlock()._id, data, function (res) {
+                    console.log(res);
+                    $uibModalInstance.close(res);
+                }, function (err) {
+                    $uibModalInstance.close(err);
+                });
+
+            }
         };
 
         $scope.cancel = function () {
@@ -583,71 +689,6 @@ app.controller('DeleteBlockCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
 }]);
 
 
-
-app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'Products', 'SupplyChainData', '$state', '$uibModalInstance',
-    function ($scope, TrackInventoryManager, InventoryData, Products, SupplyChainData, $state, $uibModalInstance) {
-
-        // $scope = SupplyChainData.getSelectedBlock();
-        $scope.quantity = 0;
-
-
-
-        Products.getProducts(function (res) {
-            $scope.products = res;
-        }, function (err) {
-            console.log(err);
-        });
-
-        $scope.block1 = SupplyChainData.getSelectedBlock();
-        console.log("block1");
-        console.log($scope.block1);
-
-        $scope.getOriginalBlockQuantity = function () {
-            if ($scope.block1.quantity - $scope.quantity < 0 ) {
-                return 0;
-            } else {
-                return ($scope.block1.quantity - $scope.quantity);
-            }
-        }
-
-
-        $scope.ok = function () {
-
-            console.log($scope.selectedProduct);
-
-            var block2 = {
-                quantity: $scope.quantity,
-                units: $scope.block1.units,
-                stage: $scope.block1.stage,
-                productType: $scope.block1.productType
-            };
-
-            $scope.block1.quantity = $scope.block1.quantity - block2.quantity;
-
-            if ($scope.block1.quantity < 0) {
-                $scope.block1.quantity = 0
-            };
-
-            var data = {
-                block1: $scope.block1,
-                block2: block2
-            };
-
-
-            InventoryData.splitBlock(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedBlock()._id, data, function (res) {
-                console.log(res);
-                $uibModalInstance.close(res);
-            }, function (err) {
-                $uibModalInstance.close(err);
-            });
-
-        };
-
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-}]);
 
 
 app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'Products', 'SupplyChainData', '$state', '$uibModalInstance',
