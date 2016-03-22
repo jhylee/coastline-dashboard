@@ -74,7 +74,7 @@
     <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="viewDetails()">Batch Detail</button>
     <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()">Edit</button>
     <button class="btn-dashboard-green" type="button" ng-click="addBlock()">Add</button>
-    <button class="btn-dashboard-yellow" type="button" ng-click="splitBlock()">Split</button>
+    <!-- <button class="btn-dashboard-yellow" type="button" ng-click="splitBlock()">Split</button>-->
     <button class="btn-dashboard-red" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
 
   </div>
@@ -290,23 +290,7 @@
 </script>
 
 <script type="text/ng-template" id="moveBlockModal.html">
-<<<<<<< HEAD
-  <div class="modal-header">
-    <h3 class="modal-title">Move Inventory Batch</h3>
-  </div>
-  <div class="modal-body">
-    <form>
-      <fieldset class="form-group">
-        <div class="col-lg-12">
-          <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
-      </fieldset>
 
-      <fieldset class="form-group">
-        <div class="col-lg-12">
-          <label>Moving chosen inventory batch to: </label>
-          <select ng-model="toStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
-          <small class="text-muted">Please select the target destination for your inventory.</small>
-=======
     <div class="modal-header">
         <h3 class="modal-title">Move Inventory Batch</h3>
     </div>
@@ -315,6 +299,14 @@
             <fieldset class="form-group">
                 <div class="col-lg-8 col-lg-offset-2">
                     <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
+            </fieldset>
+
+            <fieldset class="form-group">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <label>Moving chosen inventory batch to: </label>
+                    <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
+                    <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}}.</small>
+                </div>
             </fieldset>
 
             <fieldset class="form-group">
@@ -329,15 +321,14 @@
         <div class="modal-footer">
             <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
             <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
->>>>>>> master
         </div>
       </fieldset>
     </form>
     </div>
-    <div class="modal-footer">
+    <!--<div class="modal-footer">
       <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
       <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-    </div>
+    </div>-->
 </script>
 
 <script type="text/ng-template" id="moveBlockToSalesModal.html">
