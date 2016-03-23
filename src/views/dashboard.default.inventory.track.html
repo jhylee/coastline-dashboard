@@ -7,7 +7,7 @@
           <div class="panel panel-default">
             <div ng-controller="InventoryCtrl" class="panel-body">
               <button ng-click="viewBlocks()" class="btn-dashboard">View/Edit Inventory</button>
-              <button data-toggle="modal" data-target="#helpModal" class="btn-dashboard">Help</button>
+              <!--<button data-toggle="modal" data-target="#helpModal" class="btn-dashboard">Help</button>-->
             </div>
           </div>
           <div ng-controller="SupplyChainDisplayCtrl" class="panel panel-default">
@@ -298,14 +298,13 @@
         <form>
             <fieldset class="form-group">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <!--<h4 class="text-center">Moving chosen inventory batch from <i>{{fromStage.name}}</i> to <i>{{toStage.name || '_______ '}}</i>  selling point</h4>-->
             </fieldset>
 
             <fieldset class="form-group">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <label>Moving chosen inventory batch to: </label>
+                    <label>Choose how much inventory to move: </label>
                     <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
-                    <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}}.</small>
+                    <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</small>
                 </div>
             </fieldset>
 
