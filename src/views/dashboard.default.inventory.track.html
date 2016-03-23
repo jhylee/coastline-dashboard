@@ -364,66 +364,7 @@
   <div class="modal-header">
     <h3 class="modal-title">Inventory Batch Details</h3>
   </div>
-  <div class="modal-body">
-    <div class="panel-body">
-      <h4 class="text-center">Initial Catch Audit</h4>
-      <br>
-      <div class="table-responsive">
-        <table class="table tableWhite">
-          <thead>
-            <tr>
-              <th>Product Type</th>
-              <th>Quantity</th>
-              <th>Catch Date</th>
-              <th>Catch Region</th>
-              <th>Caught By</th>
-              <th>Catch Type</th>
-              <th>Water Depth</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{block.productType.name}}</td>
-              <td>{{block.quantity + " " + block.units}}</td>
-              <td>{{block.catchDate | date:"yyyy-MM-dd"}}</td>
-              <td>{{block.catchRegion}}</td>
-              <td>{{block.caughtBy}}</td>
-              <td>{{block.catchType}}</td>
-              <td>{{block.waterDepth}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-<<<<<<< HEAD
 
-    <div class="panel-body">
-      <h4 class="text-center">Lot History</h4>
-      <br>
-      <div class="table-responsive">
-        <table class="table tableWhite">
-          <thead>
-            <tr>
-              <th>Operation</th>
-              <th>Date</th>
-              <th>Location</th>
-              <th>Quantity</th>
-              <!--<th>Select</th>-->
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr ng-repeat="event in history.events track by $index">
-              <td>{{history.events[history.events.length-1-$index].operation}}</td>
-              <td>{{getDate([history.events.length-1-$index])}}</td>
-              <td>{{getStageName([history.events.length-1-$index])}}</td>
-              <td>{{quantities[history.events.length-1-$index] + " " + units[history.events.length-1-$index]}}</td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
-=======
     <div class="modal-body">
         <div class="panel-body">
             <h4 class="text-center">Initial Catch Audit</h4>
@@ -491,10 +432,7 @@
     </div>
     <div class="modal-footer">
         <button class="btn-dashboard" type="button" ng-click="cancel()">Close</button>
->>>>>>> master
     </div>
   </div>
-  <div class="modal-footer">
-    <button class="btn-dashboard" type="button" ng-click="cancel()">Close</button>
-  </div>
+
 </script>
