@@ -6,24 +6,19 @@ var app = angular.module('coastlineWebApp.salesManagement.controllers', ['ui.boo
 
 
 
-app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainData', 'AuthService', '$state', '$uibModal',
-    function ($scope, SupplyChainData, AuthService, $state, $uibModal) {
+app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainMenu', 'AuthService', '$state', '$uibModal',
+    function ($scope, SupplyChainMenu, AuthService, $state, $uibModal) {
 
-        SupplyChainData.getSupplyChains(function (res) {
+        SupplyChainMenu.getSupplyChains().then(function (res) {
             console.log(res);
             $scope.supplyChains = res;
-        }, function (error) {
-            console.log(error);
-        })
-
+        });
 
         var refreshSupplyChains = function () {
-            SupplyChainData.getSupplyChains(function (res) {
+            SupplyChainMenu.getSupplyChains().then(function (res) {
                 console.log(res);
                 $scope.supplyChains = res;
-            }, function (error) {
-                console.log(error);
-            })
+            });
         };
 
         refreshSupplyChains();

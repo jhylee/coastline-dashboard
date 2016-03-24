@@ -18,19 +18,14 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'S
             SupplyChainData.fetchStages().then(function (res) {
                 $state.go('dashboard.default.supply-chain.builder');
             });
-
-
         };
 
         $scope.getSupplyChains = function () {
             // Fishery.getFishery(function (fishery) {
-                SupplyChainMenu.getSupplyChains(FisheryData.getFisheryId(), function (res) {
+                SupplyChainMenu.getSupplyChains(FisheryData.getFisheryId()).then(function (res) {
                     $scope.supplyChains = res;
-                }, function (error) {
-                  console.log("Error creating supplyChain.");
-                      console.log(error);
                 });
-            // })
+
         };
 
 
@@ -47,22 +42,13 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
             var data = {name: $scope.name};
 
             // Fishery.getFishery(function (fishery) {
-                fisheryId = FisheryData.getFisheryId();
-                // console.log("fisheryId " + fishery._id);
+            fisheryId = FisheryData.getFisheryId();
+            // console.log("fisheryId " + fishery._id);
 
-                SupplyChainData.postSupplyChain(fisheryId, data, function (res) {
-                    console.log(res);
-                    //SupplyChainMenu.setView('builder');
-                    SupplyChainData.setSupplyChain(res);
-                    $state.go('dashboard.default.supply-chain.builder');
-
-
-                }, function (error) {
-                    console.log("Error creating supplyChain.");
-                    console.log(error);
-                });
-
-            // });
+            SupplyChainData.postSupplyChain(fisheryId, data).then(function (res) {
+                SupplyChainData.setSupplyChain(res);
+                $state.go('dashboard.default.supply-chain.builder');
+            });
 
         };
 
