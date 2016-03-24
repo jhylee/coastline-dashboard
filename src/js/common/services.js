@@ -119,6 +119,12 @@ app.factory('BlockData', ['$http', 'apiUrl', '$localStorage', 'FisheryData', fun
                 .then(function (res) {
                     return res.data;
                 });
+        },
+        fetchBlocksByProduct: function (productId) {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products/' + productId + '/blocks')
+                .then(function (res) {
+                    return res.data;
+                });
         }
 
     };
