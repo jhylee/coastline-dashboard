@@ -33,8 +33,8 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'S
 }]);
 
 
-app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'Fishery', 'FisheryData', '$localStorage',
-    function ($scope, $state, VisDataSet, SupplyChainData, SupplyChainMenu, Fishery, FisheryData, $localStorage) {
+app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'FisheryData', '$localStorage',
+    function ($scope, $state, VisDataSet, SupplyChainData, SupplyChainMenu, FisheryData, $localStorage) {
 
         // get stages - for option display
         $scope.createSupplyChain = function () {

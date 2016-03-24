@@ -127,6 +127,34 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 function() {});
         };
 
+        $scope.deleteOrder = function() {
+            OrderData.setSelectedOrder($scope.selectedOrder);
+
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'deleteOrderModal.html',
+                controller: 'DeleteOrderCtrl',
+                size: 'lg',
+                resolve: {}
+            });
+
+            // called when modal is closed
+            modalInstance.result.then(
+                // OK callback
+                function(order) {
+                    // add the stage to the supply chain
+                    console.log(order);
+                    updateOrders();
+
+
+                    // CANCEL callback
+                },
+                function() {});
+
+
+        }
+
 
     }
 ]);
@@ -160,7 +188,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
         $scope.phone;
         $scope.items = [];
 
-        var getProductData = function () {
+        var getProductData = function() {
             ProductData.getProductData(function(res) {
                 $scope.products = res;
                 if (res.length > 0) $scope.selectedProduct = res[0];
@@ -169,7 +197,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
             });
         };
 
-        $scope.addItem = function () {
+        $scope.addItem = function() {
             console.log('addItem');
             $scope.items.push({
                 quantity: $scope.quantity,
@@ -189,15 +217,15 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
             getProductData();
         };
 
-        $scope.getMaxQuantity = function () {
+        $scope.getMaxQuantity = function() {
             if ($scope.selectedBlock) {
                 return $scope.selectedBlock.quantity;
             }
         };
 
-        $scope.isAddButtonDisabled = function () {
+        $scope.isAddButtonDisabled = function() {
             if ($scope.selectedProduct && $scope.selectedBlock && $scope.unitPrice && $scope.units && $scope.quantity) {
-                if ($scope.selectedBlock){
+                if ($scope.selectedBlock) {
                     if ($scope.quantity > $scope.selectedBlock.quantity) return true;
                 } else {
                     return false;
@@ -217,12 +245,12 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
         $scope.$watch('selectedProduct', function(newValue, oldValue) {
             console.log($scope.selectedProduct);
             if ($scope.selectedProduct) {
-                BlockData.fetchBlocksByProduct($scope.selectedProduct._id).then(function (res) {
+                BlockData.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
                     $scope.blocks = []
-                    for (i = 0; i < res.length; i ++) {
+                    for (i = 0; i < res.length; i++) {
                         var isBlockInItems = false;
 
-                        for (j = 0; j < $scope.items.length; j ++) {
+                        for (j = 0; j < $scope.items.length; j++) {
                             if (res[i]._id == $scope.items[j].block._id) {
                                 console.log('HERE');
                                 isBlockInItems = true;
@@ -271,7 +299,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
             };
 
 
-            for (i = 0; i < $scope.items.length; i ++) {
+            for (i = 0; i < $scope.items.length; i++) {
                 data.items.push({
                     quantity: $scope.items[i].quantity,
                     productId: $scope.items[i].product._id,
@@ -318,7 +346,7 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductD
 
         console.log(order);
 
-        var getProductData = function () {
+        var getProductData = function() {
             ProductData.getProductData(function(res) {
                 $scope.products = res;
                 if (res.length > 0) $scope.selectedProduct = res[0];
@@ -327,7 +355,7 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductD
             });
         };
 
-        $scope.addItem = function () {
+        $scope.addItem = function() {
             console.log('addItem');
             $scope.items.push({
                 quantity: $scope.quantity,
@@ -347,15 +375,15 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductD
             getProductData();
         };
 
-        $scope.getMaxQuantity = function () {
+        $scope.getMaxQuantity = function() {
             if ($scope.selectedBlock) {
                 return $scope.selectedBlock.quantity;
             }
         };
 
-        $scope.isAddButtonDisabled = function () {
+        $scope.isAddButtonDisabled = function() {
             if ($scope.selectedProduct && $scope.selectedBlock && $scope.unitPrice && $scope.units && $scope.quantity) {
-                if ($scope.selectedBlock){
+                if ($scope.selectedBlock) {
                     if ($scope.quantity > $scope.selectedBlock.quantity) return true;
                 } else {
                     return false;
@@ -375,12 +403,12 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductD
         $scope.$watch('selectedProduct', function(newValue, oldValue) {
             console.log($scope.selectedProduct);
             if ($scope.selectedProduct) {
-                BlockData.fetchBlocksByProduct($scope.selectedProduct._id).then(function (res) {
+                BlockData.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
                     $scope.blocks = []
-                    for (i = 0; i < res.length; i ++) {
+                    for (i = 0; i < res.length; i++) {
                         var isBlockInItems = false;
 
-                        for (j = 0; j < $scope.items.length; j ++) {
+                        for (j = 0; j < $scope.items.length; j++) {
                             if (res[i]._id == $scope.items[j].block._id) {
                                 console.log('HERE');
                                 isBlockInItems = true;
@@ -429,7 +457,7 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductD
             };
 
 
-            for (i = 0; i < $scope.items.length; i ++) {
+            for (i = 0; i < $scope.items.length; i++) {
                 data.items.push({
                     quantity: $scope.items[i].quantity,
                     productId: $scope.items[i].product._id,
@@ -444,6 +472,32 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductD
 
 
             OrderData.addOrder(data).then(function(res) {
+                $uibModalInstance.close(res);
+            });
+
+        };
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+
+    }
+]);
+
+app.controller('DeleteOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductData', 'BlockData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryData, OrderData, ProductData, BlockData, AuthService, $state, $uibModalInstance, $http) {
+
+        var order = OrderData.getSelectedOrder();
+
+
+        // tied to ok button
+        $scope.ok = function() {
+
+
+
+            OrderData.deleteOrder(order._id).then(function(res) {
                 $uibModalInstance.close(res);
             });
 

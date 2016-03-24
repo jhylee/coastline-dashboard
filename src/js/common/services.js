@@ -152,7 +152,7 @@ app.factory('SupplyChainMenu', ['$http', 'apiUrl', 'FisheryData', function($http
 }]);
 
 // for management of the supply chain builder
-app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', 'FisheryData', function($http, apiUrl, Fishery, $localStorage, FisheryData) {
+app.factory('SupplyChainData', ['$http', 'apiUrl', '$localStorage', 'FisheryData', function($http, apiUrl, $localStorage, FisheryData) {
     'use strict';
 
     var baseUrl = apiUrl;
@@ -612,7 +612,7 @@ app.factory('SupplyChainData', ['$http', 'apiUrl', 'Fishery', '$localStorage', '
 }]);
 
 
-app.factory('StageData', ['$http', 'apiUrl', 'Fishery', '$localStorage', 'FisheryData', function($http, apiUrl, Fishery, $localStorage, FisheryData) {
+app.factory('StageData', ['$http', 'apiUrl', '$localStorage', 'FisheryData', function($http, apiUrl, $localStorage, FisheryData) {
 
     var baseUrl = apiUrl;
 

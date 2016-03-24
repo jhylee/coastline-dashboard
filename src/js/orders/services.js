@@ -21,6 +21,15 @@ app.factory('OrderData', ['$http', '$localStorage', 'apiUrl', function($http, $l
                 })
 
         },
+        deleteOrder: function(orderId) {
+            return $http.delete(baseUrl + '/api/orders/' + orderId).then(function(res) {
+                    return res.data;
+                }).catch(function (err) {
+                    console.log(err);
+                    return err;
+                })
+
+        },
         getSelectedOrder: function() {
             return selectedOrder;
         },
