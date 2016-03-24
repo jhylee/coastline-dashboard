@@ -14,20 +14,20 @@ app.factory('OrderData', ['$http', '$localStorage', 'apiUrl', function($http, $l
         },
         addOrder: function(data) {
             return $http.post(baseUrl + '/api/orders/manual', data).then(function(res) {
-                    return res.data;
-                }).catch(function (err) {
-                    console.log(err);
-                    return err;
-                })
+                return res.data;
+            }).catch(function(err) {
+                console.log(err);
+                return err;
+            })
 
         },
         deleteOrder: function(orderId) {
             return $http.delete(baseUrl + '/api/orders/' + orderId).then(function(res) {
-                    return res.data;
-                }).catch(function (err) {
-                    console.log(err);
-                    return err;
-                })
+                return res.data;
+            }).catch(function(err) {
+                console.log(err);
+                return err;
+            })
 
         },
         getSelectedOrder: function() {
@@ -36,8 +36,8 @@ app.factory('OrderData', ['$http', '$localStorage', 'apiUrl', function($http, $l
         setSelectedOrder: function(order) {
             selectedOrder = order;
         },
-        createOrder: function (data) {
-            return $http.post(baseUrl + '/api/orders/manual').then(function (res) {
+        createOrder: function(data) {
+            return $http.post(baseUrl + '/api/orders/manual').then(function(res) {
                 return res.data;
             });
         }
