@@ -6,7 +6,7 @@
         <div class="container">
           <div class="panel-container">
 
-            <!--<div class="panel panel-default">
+            <div class="panel panel-default">
               <div class="panel-body alignleft">
 
                 <button ng-click="addOrder()" class="btn-dashboard-green">Add Invoice</button>
@@ -15,7 +15,7 @@
                 <input type="text" name="search" placeholder="Search for an item" class="search">
 
               </div>
-            </div>-->
+            </div>
 
             <div class="panel panel-body">
               <!--
@@ -35,8 +35,8 @@
                   <tbody>
                     <tr ng-repeat="order in orders track by $index">
                       <td>{{$index+1}}</td>
-                      <td>Cash</td>
-                      <td>Outstanding</td>
+                      <td>{{order.paymentMethod}}</td>
+                      <td>{{order.status}}</td>
                       <td>{{order.date | date:'short' }}</td>
                       <td>${{totals[$index]}}</td>
                       <td>
