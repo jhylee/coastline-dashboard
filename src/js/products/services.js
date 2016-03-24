@@ -3,7 +3,7 @@ var app = angular.module('coastlineWebApp.products.services', ['ui.bootstrap',
   'coastlineWebApp.common.services',
   'ui.router']);
 
-app.factory('Products', ['$http', '$localStorage', 'apiUrl', 'FisheryData', function($http, $localStorage, apiUrl, FisheryData) {
+app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryData', function($http, $localStorage, apiUrl, FisheryData) {
     'use strict';
     var fishery = {name: $localStorage.fisheryName, _id: FisheryData.getFisheryId()};
     var fisheryName;
@@ -11,7 +11,7 @@ app.factory('Products', ['$http', '$localStorage', 'apiUrl', 'FisheryData', func
     var selectedProductId;
 
     return  {
-        getProducts: function (success, error) {
+        getProductData: function (success, error) {
             $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products').success(function (res) {
                 console.log(res);
                 success(res);

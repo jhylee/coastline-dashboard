@@ -399,15 +399,15 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
 }]);
 
 
-app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'Products', 'SupplyChainData', '$state', '$uibModalInstance',
-    function ($scope, TrackInventoryManager, InventoryData, Products, SupplyChainData, $state, $uibModalInstance) {
+app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'ProductData', 'SupplyChainData', '$state', '$uibModalInstance',
+    function ($scope, TrackInventoryManager, InventoryData, ProductData, SupplyChainData, $state, $uibModalInstance) {
 
         // $scope = SupplyChainData.getSelectedBlock();
         $scope.quantity = 0;
 
 
 
-        Products.getProducts(function (res) {
+        ProductData.getProductData(function (res) {
             $scope.products = res;
         }, function (err) {
             console.log(err);
@@ -691,11 +691,11 @@ app.controller('DeleteBlockCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
 
 
 
-app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'Products', 'SupplyChainData', '$state', '$uibModalInstance',
-    function ($scope, TrackInventoryManager, InventoryData, Products, SupplyChainData, $state, $uibModalInstance) {
+app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'ProductData', 'SupplyChainData', '$state', '$uibModalInstance',
+    function ($scope, TrackInventoryManager, InventoryData, ProductData, SupplyChainData, $state, $uibModalInstance) {
 
 
-        Products.getProducts(function (res) {
+        ProductData.getProductData(function (res) {
             $scope.products = res;
         }, function (err) {
             console.log(err);
@@ -734,8 +734,8 @@ app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDat
 
 }]);
 
-app.controller('EditBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'Products', 'SupplyChainData', '$state', '$uibModalInstance',
-    function ($scope, TrackInventoryManager, InventoryData, Products, SupplyChainData, $state, $uibModalInstance) {
+app.controller('EditBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'ProductData', 'SupplyChainData', '$state', '$uibModalInstance',
+    function ($scope, TrackInventoryManager, InventoryData, ProductData, SupplyChainData, $state, $uibModalInstance) {
 
 
 
@@ -758,7 +758,7 @@ app.controller('EditBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
 
 
 
-        Products.getProducts(function (res) {
+        ProductData.getProductData(function (res) {
             $scope.products = res;
             findCurrentProduct(block.productType._id);
             console.log(res);

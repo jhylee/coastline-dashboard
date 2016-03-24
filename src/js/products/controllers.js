@@ -6,8 +6,8 @@ var app = angular.module('coastlineWebApp.products.controllers', ['ui.bootstrap'
 ]);
 
 
-app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthService', '$state', '$uibModal',
-  function($scope, $rootScope, Products, AuthService, $state, $uibModal) {
+app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'AuthService', '$state', '$uibModal',
+  function($scope, $rootScope, ProductData, AuthService, $state, $uibModal) {
     $scope.fisheryName = "";
 
     $scope.selectedProduct = 0;
@@ -18,9 +18,9 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
 
 
 
-    var updateProducts = function() {
-      Products.getProducts(function(products) {
-        console.log("getProducts");
+    var updateProductData = function() {
+      ProductData.getProductData(function(products) {
+        console.log("getProductData");
         $scope.products = products;
 
         console.log($scope.products);
@@ -29,7 +29,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
       });
     };
 
-    updateProducts();
+    updateProductData();
 
     // if ($scope.products.length > 0) {
     //     $scope.selectedProduct = 0;
@@ -43,7 +43,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
     };
 
     $scope.deleteProduct = function() {
-      Products.setSelectedProductId($scope.products[$scope.selectedProduct]._id);
+      ProductData.setSelectedProductId($scope.products[$scope.selectedProduct]._id);
       // modal setup and preferences
       var modalInstance = $uibModal.open({
         animation: true,
@@ -59,7 +59,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
         function(product) {
           // add the stage to the supply chain
           console.log(product);
-          updateProducts();
+          updateProductData();
 
 
           // CANCEL callback
@@ -67,7 +67,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
         function() {});
 
 
-      updateProducts();
+      updateProductData();
     };
 
 
@@ -76,7 +76,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
     $scope.editProduct = function() {
       console.log("editProduct");
 
-      Products.setSelectedProductId($scope.products[$scope.selectedProduct]._id);
+      ProductData.setSelectedProductId($scope.products[$scope.selectedProduct]._id);
 
       $rootScope.$broadcast("refreshProductEdit");
 
@@ -95,7 +95,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
         function(product) {
           // add the stage to the supply chain
           console.log(product);
-          updateProducts();
+          updateProductData();
 
 
           // CANCEL callback
@@ -123,7 +123,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
         function(product) {
           // add the stage to the supply chain
           console.log(product);
-          updateProducts();
+          updateProductData();
 
 
           // CANCEL callback
@@ -150,14 +150,14 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
 ]);
 
 
-app.controller('AddProductCtrl', ['$scope', 'Products', 'Upload', 'AuthService', '$state', '$uibModalInstance', '$http',
-  function($scope, Products, Upload, AuthService, $state, $uibModalInstance, $http) {
+app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthService', '$state', '$uibModalInstance', '$http',
+  function($scope, ProductData, Upload, AuthService, $state, $uibModalInstance, $http) {
     $scope.fisheryName = "";
 
 
 
-    Products.getProducts(function(products) {
-      console.log("getProducts");
+    ProductData.getProductData(function(products) {
+      console.log("getProductData");
     }, function(err) {
       console.log(err);
     });
@@ -191,7 +191,7 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'Upload', 'AuthService',
       console.log("data");
       console.log(data);
 
-      Products.addProduct(data, function(res) {
+      ProductData.addProduct(data, function(res) {
         $uibModalInstance.close(res);
       }, function(err) {
         $uibModalInstance.close(err);
@@ -270,18 +270,18 @@ app.controller('AddProductCtrl', ['$scope', 'Products', 'Upload', 'AuthService',
 ]);
 
 
-app.controller('EditProductCtrl', ['$scope', "$rootScope", 'Products', 'Upload', 'AuthService', '$state', '$uibModalInstance', '$http',
-  function($scope, $rootScope, Products, Upload, AuthService, $state, $uibModalInstance, $http) {
+app.controller('EditProductCtrl', ['$scope', "$rootScope", 'ProductData', 'Upload', 'AuthService', '$state', '$uibModalInstance', '$http',
+  function($scope, $rootScope, ProductData, Upload, AuthService, $state, $uibModalInstance, $http) {
     $scope.fisheryName = "";
 
     var products;
 
-    Products.getProducts(function(res) {
+    ProductData.getProductData(function(res) {
       console.log(res);
       products = res;
 
       for (var i = 0; i < products.length; i++) {
-        if (products[i]._id == Products.getSelectedProductId()) {
+        if (products[i]._id == ProductData.getSelectedProductId()) {
           $scope.name = products[i].name;
           $scope.description = products[i].description;
           $scope.unit = products[i].unit;
@@ -293,12 +293,12 @@ app.controller('EditProductCtrl', ['$scope', "$rootScope", 'Products', 'Upload',
     });
 
     $rootScope.$on("refreshProductEdit", function() {
-      Products.getProducts(function(res) {
+      ProductData.getProductData(function(res) {
         console.log(res);
         products = res;
 
         for (var i = 0; i < products.length; i++) {
-          if (products[i]._id = Products.getSelectedProductId()) {
+          if (products[i]._id = ProductData.getSelectedProductId()) {
             $scope.name = products[i].name;
             $scope.description = products[i].description;
             $scope.unit = products[i].unit;
@@ -344,7 +344,7 @@ app.controller('EditProductCtrl', ['$scope', "$rootScope", 'Products', 'Upload',
       console.log(data);
 
 
-      Products.updateProduct(data, Products.getSelectedProductId(), function(res) {
+      ProductData.updateProduct(data, ProductData.getSelectedProductId(), function(res) {
         $uibModalInstance.close(res);
       }, function(err) {
         $uibModalInstance.close(err);
@@ -380,8 +380,8 @@ app.controller('EditProductCtrl', ['$scope', "$rootScope", 'Products', 'Upload',
   }
 ]);
 
-app.controller('DeleteProductCtrl', ['$scope', 'Products', 'AuthService', '$state', '$uibModalInstance',
-  function($scope, Products, AuthService, $state, $uibModalInstance) {
+app.controller('DeleteProductCtrl', ['$scope', 'ProductData', 'AuthService', '$state', '$uibModalInstance',
+  function($scope, ProductData, AuthService, $state, $uibModalInstance) {
     $scope.fisheryName = "";
 
 
@@ -389,7 +389,7 @@ app.controller('DeleteProductCtrl', ['$scope', 'Products', 'AuthService', '$stat
     // tied to ok button
     $scope.ok = function() {
 
-      Products.deleteProduct(Products.getSelectedProductId()).then(function(res) {
+      ProductData.deleteProduct(ProductData.getSelectedProductId()).then(function(res) {
         $uibModalInstance.close(res);
       }, function(err) {
         $uibModalInstance.close(err);

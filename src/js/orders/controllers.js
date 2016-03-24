@@ -6,8 +6,8 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
 ]);
 
 
-app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'Products', 'AuthService', '$state', '$uibModal',
-    function($scope, OrderData, Products, AuthService, $state, $uibModal) {
+app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModal',
+    function($scope, OrderData, ProductData, AuthService, $state, $uibModal) {
         $scope.fisheryName = "";
 
 
@@ -23,7 +23,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'Products', 'AuthServ
 
                 $scope.totals = [];
 
-                Products.getProducts(function(products) {
+                ProductData.getProductData(function(products) {
                     console.log(products);
                     for (var i = 0; i < $scope.orders.length; i++) {
                         var total = 0;
@@ -132,8 +132,8 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'Products', 'AuthServ
 ]);
 
 
-app.controller('ViewOrderDetailCtrl', ['$scope', 'OrderData', 'Products', 'AuthService', '$state', '$uibModalInstance',
-    function($scope, OrderData, Products, AuthService, $state, $uibModalInstance) {
+app.controller('ViewOrderDetailCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance',
+    function($scope, OrderData, ProductData, AuthService, $state, $uibModalInstance) {
 
         $scope.order = OrderData.getSelectedOrder();
         console.log($scope.order);
@@ -147,8 +147,8 @@ app.controller('ViewOrderDetailCtrl', ['$scope', 'OrderData', 'Products', 'AuthS
 ]);
 
 
-app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'Products', 'BlockData', 'AuthService', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryData, OrderData, Products, BlockData, AuthService, $state, $uibModalInstance, $http) {
+app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductData', 'BlockData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryData, OrderData, ProductData, BlockData, AuthService, $state, $uibModalInstance, $http) {
 
         $scope.invoiceNumber;
         $scope.paymentMethod;
@@ -160,8 +160,8 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'Products'
         $scope.phone;
         $scope.items = [];
 
-        var getProducts = function () {
-            Products.getProducts(function(res) {
+        var getProductData = function () {
+            ProductData.getProductData(function(res) {
                 $scope.products = res;
                 if (res.length > 0) $scope.selectedProduct = res[0];
             }, function(err) {
@@ -186,7 +186,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'Products'
             delete $scope.unitPrice;
             delete $scope.units;
 
-            getProducts();
+            getProductData();
         };
 
         $scope.getMaxQuantity = function () {
@@ -207,7 +207,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'Products'
             }
         };
 
-        Products.getProducts(function(res) {
+        ProductData.getProductData(function(res) {
             $scope.products = res;
             // if (res.length > 0) $scope.selectedProduct = res[0];
         }, function(err) {
@@ -301,8 +301,8 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'Products'
 ]);
 
 
-app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'Products', 'BlockData', 'AuthService', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryData, OrderData, Products, BlockData, AuthService, $state, $uibModalInstance, $http) {
+app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductData', 'BlockData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryData, OrderData, ProductData, BlockData, AuthService, $state, $uibModalInstance, $http) {
 
         var order = OrderData.getSelectedOrder();
 
@@ -318,8 +318,8 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'Products
 
         console.log(order);
 
-        var getProducts = function () {
-            Products.getProducts(function(res) {
+        var getProductData = function () {
+            ProductData.getProductData(function(res) {
                 $scope.products = res;
                 if (res.length > 0) $scope.selectedProduct = res[0];
             }, function(err) {
@@ -344,7 +344,7 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'Products
             delete $scope.unitPrice;
             delete $scope.units;
 
-            getProducts();
+            getProductData();
         };
 
         $scope.getMaxQuantity = function () {
@@ -365,7 +365,7 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'Products
             }
         };
 
-        Products.getProducts(function(res) {
+        ProductData.getProductData(function(res) {
             $scope.products = res;
             // if (res.length > 0) $scope.selectedProduct = res[0];
         }, function(err) {
