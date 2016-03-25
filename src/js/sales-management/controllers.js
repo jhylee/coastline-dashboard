@@ -1,35 +1,31 @@
 var app = angular.module('coastlineWebApp.salesManagement.controllers', ['ui.bootstrap',
-  'coastlineWebApp.salesManagement.services',
-  'coastlineWebApp.common.services',
-  'coastlineWebApp.auth.services',
-  'ui.router']);
+    'coastlineWebApp.salesManagement.services',
+    'coastlineWebApp.common.services',
+    'coastlineWebApp.auth.services',
+    'ui.router'
+]);
 
 
 
-app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainData', 'AuthService', '$state', '$uibModal',
-    function ($scope, SupplyChainData, AuthService, $state, $uibModal) {
+app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainMenu', 'AuthService', '$state', '$uibModal',
+    function($scope, SupplyChainMenu, AuthService, $state, $uibModal) {
 
-        SupplyChainData.getSupplyChains(function (res) {
+        SupplyChainMenu.getSupplyChains().then(function(res) {
             console.log(res);
             $scope.supplyChains = res;
-        }, function (error) {
-            console.log(error);
-        })
+        });
 
-
-        var refreshSupplyChains = function () {
-            SupplyChainData.getSupplyChains(function (res) {
+        var refreshSupplyChains = function() {
+            SupplyChainMenu.getSupplyChains().then(function(res) {
                 console.log(res);
                 $scope.supplyChains = res;
-            }, function (error) {
-                console.log(error);
-            })
+            });
         };
 
         refreshSupplyChains();
 
 
-        $scope.setSupplyChain = function (supplyChain) {
+        $scope.setSupplyChain = function(supplyChain) {
             SupplyChainData.setSupplyChain(supplyChain);
             console.log(SupplyChainData.getSupplyChain());
             $state.go('dashboard.default.sales-management.track');
@@ -40,21 +36,22 @@ app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainData', 'AuthSer
         //     $state.go('dashboard.default.inventory.track');
         // };
 
-}]);
+    }
+]);
 
 
 app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointData', 'AuthService', '$state', '$uibModal',
-    function ($scope, SupplyChainData, SellingPointData, AuthService, $state, $uibModal) {
+    function($scope, SupplyChainData, SellingPointData, AuthService, $state, $uibModal) {
 
         $scope.selectedSellingPoint = 0;
 
 
-        var refreshSellingPoints = function () {
-          	SellingPointData.getSellingPoints(function (res) {
-                  $scope.sellingPoints = res;
-              }, function (err) {
-                  console.log(err);
-              })
+        var refreshSellingPoints = function() {
+            SellingPointData.getSellingPoints(function(res) {
+                $scope.sellingPoints = res;
+            }, function(err) {
+                console.log(err);
+            })
         };
 
         refreshSellingPoints();
@@ -67,108 +64,113 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
 
 
         // add a stage - linked to the add button
-	    $scope.addSellingPoint = function () {
-	      console.log("addSellingPoint");
+        $scope.addSellingPoint = function() {
+            console.log("addSellingPoint");
 
-	      // modal setup and preferences
-	      var modalInstance = $uibModal.open({
-	        animation: true,
-	        templateUrl: 'addSellingPointModal.html',
-	        controller: 'AddSellingPointCtrl',
-	        size: 'md',
-	        resolve: {}
-	      });
-
-	      // called when modal is closed
-	      modalInstance.result.then(
-	        // OK callback
-	        function (sellingPoint) {
-                console.log("sellingPoint");
-                console.log(sellingPoint);
-                refreshSellingPoints();
-	      }, function () {});
-	    };
-
-
-        // add a stage - linked to the add button
-	    $scope.editSellingPoint = function () {
-          SellingPointData.setSelectedSellingPoint($scope.sellingPoints[$scope.selectedSellingPoint]);
-	      console.log("editSellingPoint");
-
-	      // modal setup and preferences
-	      var modalInstance = $uibModal.open({
-	        animation: true,
-	        templateUrl: 'editSellingPointModal.html',
-	        controller: 'EditSellingPointCtrl',
-	        size: 'md',
-	        resolve: {}
-	      });
-
-	      // called when modal is closed
-	      modalInstance.result.then(
-	        // OK callback
-	        function (sellingPoint) {
-                console.log("sellingPoint");
-                console.log(sellingPoint);
-                refreshSellingPoints();
-	      }, function () {});
-	    };
-
-        $scope.viewBlocks = function () {
-            SellingPointData.setSelectedSellingPoint($scope.sellingPoints[$scope.selectedSellingPoint]);
-            console.log(SellingPointData.getSelectedSellingPoint());
             // modal setup and preferences
-	        var modalInstance = $uibModal.open({
-	           animation: true,
-	           templateUrl: 'viewSellingPointBlocksModal.html',
-	           controller: 'ViewSellingPointBlocksCtrl',
-	           size: 'lg',
-	           resolve: {}
-	        });
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'addSellingPointModal.html',
+                controller: 'AddSellingPointCtrl',
+                size: 'md',
+                resolve: {}
+            });
 
             // called when modal is closed
             modalInstance.result.then(
                 // OK callback
-                function (sellingPoint) {
+                function(sellingPoint) {
                     console.log("sellingPoint");
                     console.log(sellingPoint);
                     refreshSellingPoints();
-            }, function () {});
+                },
+                function() {});
         };
 
 
-}]);
+        // add a stage - linked to the add button
+        $scope.editSellingPoint = function() {
+            SellingPointData.setSelectedSellingPoint($scope.sellingPoints[$scope.selectedSellingPoint]);
+            console.log("editSellingPoint");
+
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'editSellingPointModal.html',
+                controller: 'EditSellingPointCtrl',
+                size: 'md',
+                resolve: {}
+            });
+
+            // called when modal is closed
+            modalInstance.result.then(
+                // OK callback
+                function(sellingPoint) {
+                    console.log("sellingPoint");
+                    console.log(sellingPoint);
+                    refreshSellingPoints();
+                },
+                function() {});
+        };
+
+        $scope.viewBlocks = function() {
+            SellingPointData.setSelectedSellingPoint($scope.sellingPoints[$scope.selectedSellingPoint]);
+            console.log(SellingPointData.getSelectedSellingPoint());
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'viewSellingPointBlocksModal.html',
+                controller: 'ViewSellingPointBlocksCtrl',
+                size: 'lg',
+                resolve: {}
+            });
+
+            // called when modal is closed
+            modalInstance.result.then(
+                // OK callback
+                function(sellingPoint) {
+                    console.log("sellingPoint");
+                    console.log(sellingPoint);
+                    refreshSellingPoints();
+                },
+                function() {});
+        };
+
+
+    }
+]);
 
 
 
 app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
-    function ($scope, InventoryData, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
+    function($scope, InventoryData, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
 
         console.log(SupplyChainData.getSupplyChainId());
         var sellingPoint = SellingPointData.getSelectedSellingPoint();
 
 
-        SellingPointData.getBlocks(SupplyChainData.getSupplyChainId(), sellingPoint._id, function (res) {
+        SellingPointData.getBlocks(SupplyChainData.getSupplyChainId(), sellingPoint._id, function(res) {
             console.log(res);
             $scope.blocks = res;
             $scope.selectedBlock = 0;
-        }, function (err) {
+        }, function(err) {
             console.log(err);
         })
 
         $scope.blocks = sellingPoint.blocks
 
-        $scope.cancel = function () {
+        $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
-}]);
+    }
+]);
 
 
 app.controller('AddSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
-    function ($scope, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
+    function($scope, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
 
 
-        $scope.ok = function () {
+        $scope.ok = function() {
 
             var sellingTargets = []
 
@@ -184,29 +186,30 @@ app.controller('AddSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPoin
                 sellingTargets: sellingTargets
             };
 
-            SellingPointData.addSellingPoint(data, function (res) {
+            SellingPointData.addSellingPoint(data, function(res) {
                 console.log(res);
                 $uibModalInstance.close(res);
-            }, function (err) {
+            }, function(err) {
                 $uibModalInstance.dismiss(err);
             })
 
         };
 
 
-        $scope.cancel = function () {
+        $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
 
 
-        $scope.getBlocks = function () {
+        $scope.getBlocks = function() {
 
         };
 
-}]);
+    }
+]);
 
 app.controller('EditSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
-    function ($scope, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
+    function($scope, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
 
         $scope.sellingPoint = SellingPointData.getSelectedSellingPoint();
 
@@ -218,7 +221,7 @@ app.controller('EditSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPoi
 
 
 
-        $scope.ok = function () {
+        $scope.ok = function() {
 
 
             var sellingTargets = []
@@ -235,23 +238,24 @@ app.controller('EditSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPoi
 
             console.log($scope.sellingPoint._id);
 
-            SellingPointData.updateSellingPoint($scope.sellingPoint._id, $scope.sellingPoint, function (res) {
+            SellingPointData.updateSellingPoint($scope.sellingPoint._id, $scope.sellingPoint, function(res) {
                 console.log(res);
                 $uibModalInstance.dismiss(res);
-            }, function (err) {
+            }, function(err) {
                 $uibModalInstance.dismiss(err);
             })
 
         };
 
 
-        $scope.cancel = function () {
+        $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
 
 
-        $scope.getBlocks = function () {
+        $scope.getBlocks = function() {
 
         };
 
-}]);
+    }
+]);

@@ -1,25 +1,25 @@
 var app = angular.module('coastlineWebApp', ['ui.router',
-  'ngStorage',
-  'ng-file-model',
-  'coastlineWebApp.auth.controllers',
-  'coastlineWebApp.auth.services',
-  'coastlineWebApp.dashboard.controllers',
-  'coastlineWebApp.dashboard.services',
-  'coastlineWebApp.inventory.controllers',
-  'coastlineWebApp.inventory.directives',
-  'coastlineWebApp.inventory.services',
-  'coastlineWebApp.orders.controllers',
-  'coastlineWebApp.orders.services',
-  'coastlineWebApp.products.controllers',
-  'coastlineWebApp.products.services',
-  'coastlineWebApp.salesManagement.controllers',
-  'coastlineWebApp.salesManagement.services',
-  'coastlineWebApp.redirect.controllers',
-  'coastlineWebApp.redirect.services',
-  'coastlineWebApp.supplyChain.controllers',
-  'coastlineWebApp.common.controllers',
-  'coastlineWebApp.common.directives',
-  'coastlineWebApp.common.services',
+    'ngStorage',
+    'ng-file-model',
+    'coastlineWebApp.auth.controllers',
+    'coastlineWebApp.auth.services',
+    'coastlineWebApp.dashboard.controllers',
+    'coastlineWebApp.dashboard.services',
+    'coastlineWebApp.inventory.controllers',
+    'coastlineWebApp.inventory.directives',
+    'coastlineWebApp.inventory.services',
+    'coastlineWebApp.orders.controllers',
+    'coastlineWebApp.orders.services',
+    'coastlineWebApp.products.controllers',
+    'coastlineWebApp.products.services',
+    'coastlineWebApp.salesManagement.controllers',
+    'coastlineWebApp.salesManagement.services',
+    'coastlineWebApp.redirect.controllers',
+    'coastlineWebApp.redirect.services',
+    'coastlineWebApp.supplyChain.controllers',
+    'coastlineWebApp.common.controllers',
+    'coastlineWebApp.common.directives',
+    'coastlineWebApp.common.services',
 ]);
 
 
@@ -29,7 +29,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
 
     $stateProvider
 
-    .state('login', {
+        .state('login', {
         url: '/login',
         templateUrl: '/views/login.html'
     })
@@ -153,69 +153,69 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
 
 
 
-  $httpProvider.interceptors.push('HttpInterceptorForToken');
+    $httpProvider.interceptors.push('HttpInterceptorForToken');
 
 });
 
 app.run(function($rootScope, $state, $location, AuthService, RedirectService, SupplyChainData) {
 
-  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
-    var shouldLogin = toState.data !== undefined && toState.data.requireLogin && !AuthService.isAuthenticated();
+        var shouldLogin = toState.data !== undefined && toState.data.requireLogin && !AuthService.isAuthenticated();
 
-    // NOT authenticated - wants any private stuff
-    if (shouldLogin) {
-
-
-      if (toState.name === 'login') {
-        return;
-      }
-
-      RedirectService.setRedirectState("login");
-
-      event.preventDefault();
-
-      $state.go("redirect");
+        // NOT authenticated - wants any private stuff
+        if (shouldLogin) {
 
 
+            if (toState.name === 'login') {
+                return;
+            }
 
-      return;
-  }
-  // else {
-  //     if (fromState.name == 'dashboard.default.supply-chain.builder') {
-  //         if (SupplyChainData.getLeaveTicket()) {
-  //             console.log('yes');
-  //
-  //         } else {
-  //             console.log('no');
-  //
-  //             event.preventDefault();
-  //             SupplyChainData.setToState(toState.name);
-  //             $rootScope.$broadcast('leaving-supply-chain-builder');
-  //         }
-  //     }
-  // }
+            RedirectService.setRedirectState("login");
+
+            event.preventDefault();
+
+            $state.go("redirect");
 
 
-    // authenticated (previously) comming not to root main
-    if (AuthService.isAuthenticated()) {
-      // var shouldGoToMain = fromState.name === "" && toState.name !== "dashboard";
-      var goToDashboard = (toState.name == "redirect");
 
-      if (goToDashboard) {
-        RedirectService.setRedirectState("dashboard.default.overview");
-      }
-      return;
-    }
-  });
+            return;
+        }
+        // else {
+        //     if (fromState.name == 'dashboard.default.supply-chain.builder') {
+        //         if (SupplyChainData.getLeaveTicket()) {
+        //             console.log('yes');
+        //
+        //         } else {
+        //             console.log('no');
+        //
+        //             event.preventDefault();
+        //             SupplyChainData.setToState(toState.name);
+        //             $rootScope.$broadcast('leaving-supply-chain-builder');
+        //         }
+        //     }
+        // }
+
+
+        // authenticated (previously) comming not to root main
+        if (AuthService.isAuthenticated()) {
+            // var shouldGoToMain = fromState.name === "" && toState.name !== "dashboard";
+            var goToDashboard = (toState.name == "redirect");
+
+            if (goToDashboard) {
+                RedirectService.setRedirectState("dashboard.default.overview");
+            }
+            return;
+        }
+    });
 });
 
 angular.module('coastlineConstants', [])
-  .constant('apiUrl', '@@apiUrl')
-  .constant('Views', {
-    HOME: 0,
-    ORDERS: 1,
-    PRODUCTS: 2,
-    ADD_PRODUCT: 3,
-    ORDER_DETAIL: 4
-  });
+    .constant('apiUrl', '@@apiUrl')
+    .constant('Views', {
+        HOME: 0,
+        ORDERS: 1,
+        PRODUCTS: 2,
+        ADD_PRODUCT: 3,
+        ORDER_DETAIL: 4
+    });
