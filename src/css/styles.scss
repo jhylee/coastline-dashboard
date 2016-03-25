@@ -411,6 +411,33 @@ fieldset[disabled] .btn-dashboard-red.active {
   -webkit-transition: all 0.5s ease-in-out;
   */
 }
+
+.btn-dashboard-green.disabled,
+.btn-dashboard-green[disabled],
+fieldset[disabled] .btn-dashboard-green,
+.btn-dashboard-green.disabled:hover,
+.btn-dashboard-green[disabled]:hover,
+fieldset[disabled] .btn-dashboard-green:hover,
+.btn-dashboard-green.disabled:focus,
+.btn-dashboard-green[disabled]:focus,
+fieldset[disabled] .btn-dashboard-green:focus,
+.btn-dashboard-green.disabled.focus,
+.btn-dashboard-green[disabled].focus,
+fieldset[disabled] .btn-dashboard-green.focus,
+.btn-dashboard-green.disabled:active,
+.btn-dashboard-green[disabled]:active,
+fieldset[disabled] .btn-dashboard-green:active,
+.btn-dashboard-green.disabled.active,
+.btn-dashboard-green[disabled].active,
+fieldset[disabled] .btn-dashboard-green.active {
+  color: #fff;
+  background-color: #4CAF50;
+  border-radius: 4px;
+  opacity: 0.6;
+  outline: none
+}
+
+
 .btn-dashboard-yellow {
   color: $secondary-background-color;
   border-style: none;
