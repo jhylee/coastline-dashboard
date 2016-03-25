@@ -49,7 +49,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'Products', 'AuthS
         animation: true,
         templateUrl: 'deleteProductModal.html',
         controller: 'DeleteProductCtrl',
-        size: 'lg',
+        size: 'md',
         resolve: {}
       });
 
