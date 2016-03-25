@@ -1,4 +1,4 @@
-<div ng-controller="SupplyChainDisplayCtrl">
+$btn-success-hover-color;<div ng-controller="SupplyChainDisplayCtrl">
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header light-text">Supply Chain Builder</h2>
     <div class="row placeholders">
@@ -7,12 +7,12 @@
           <div class="panel-container">
             <div class="panel panel-default">
               <div class="panel-body">
-                <button ng-click="addStage()" class="btn-dashboard">Add</button>
-                <button ng-click="editStage()" class="btn-dashboard">Edit</button>
-                <button ng-click="deleteStage()" class="btn-dashboard-red">Delete</button>
-                <button ng-click="linkStages()" class="btn-dashboard">Link</button>
-                <button ng-click="unlinkStages()" class="btn-dashboard">Unlink</button>
-                <button ng-click="saveSupplyChain()" class="btn-dashboard-green">Save</button>
+                <button ng-click="addStage()" class="btn-status-default">Add</button>
+                <button ng-click="editStage()" class="btn-status-default">Edit</button>
+                <button ng-click="deleteStage()" class="btn-status-danger">Delete</button>
+                <button ng-click="linkStages()" class="btn-status-default">Link</button>
+                <button ng-click="unlinkStages()" class="btn-status-default">Unlink</button>
+                <button ng-click="saveSupplyChain()" class="btn-status-success">Save</button>
               </div>
             </div>
             <div class="panel panel-default">
@@ -51,8 +51,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
 
@@ -72,8 +72,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
 
@@ -98,8 +98,8 @@
     <p>Your settings will link the stages as below, with an arrow from the Source to the Target (to demonstrate the flow of inventory).</p>
   </div>
   <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
 
@@ -124,8 +124,8 @@
     <p>Your settings will remove any links between the Source and the Target Stages.</p>
   </div>
   <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
 
@@ -139,7 +139,7 @@
     <p>Are you sure you want to delete this stage?</p>
   </div>
   <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">Yes</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Yes</button>
+    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>

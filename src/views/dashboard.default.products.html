@@ -7,9 +7,9 @@
           <div class="panel-container">
             <div class="panel panel-default">
               <div class="panel-body">
-                <button ng-click="addProduct()" class="btn-dashboard">Add Product</button>
-                <button ng-click="editProduct()" class="btn-dashboard">Edit</button>
-                <button ng-click="deleteProduct(product._id)" class="btn-dashboard-red">Delete</button>
+                <button ng-click="addProduct()" class="btn-status-default">Add Product</button>
+                <button ng-click="editProduct()" class="btn-status-default">Edit</button>
+                <button ng-click="deleteProduct(product._id)" class="btn-status-danger">Delete</button>
                 <!--<input type="text" name="search" placeholder="Search for an item" class="search">-->
               </div>
             </div>
@@ -99,8 +99,8 @@
   </div>
   <div class="modal-footer">
     <div class="alignright">
-      <button type="submit" class="btn-dashboard-green" ng-click="ok()">Submit</button>
-      <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+      <button type="submit" class="btn-status-success" ng-click="ok()">Submit</button>
+      <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
   </div>
 </script>
@@ -156,8 +156,8 @@
   </div>
   <div class="modal-footer">
     <div class="alignright">
-      <button type="submit" class="btn-dashboard-green" ng-click="ok()">Submit</button>
-      <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+      <button type="submit" class="btn-status-success" ng-click="ok()">Submit</button>
+      <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
   </div>
 </script>
@@ -172,7 +172,7 @@
     <p>Are you sure you want to delete this product?</p>
   </div>
   <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">Yes</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Yes</button>
+    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>

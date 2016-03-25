@@ -7,9 +7,9 @@
           <div class="panel-container">
             <div class="panel panel-default">
               <div class="panel-body">
-                <button ng-click="addSellingPoint()" class="btn-dashboard">Add Sales Channel</button>
-                <button ng-click="editSellingPoint()" class="btn-dashboard">Edit Sales Channel</button>
-                <button ng-click="viewBlocks()" class="btn-dashboard">View Inventory in Sales</button>
+                <button ng-click="addSellingPoint()" class="btn-status-default">Add Sales Channel</button>
+                <button ng-click="editSellingPoint()" class="btn-status-default">Edit Sales Channel</button>
+                <button ng-click="viewBlocks()" class="btn-status-default">View Inventory in Sales</button>
               </div>
             </div>
             <div class="panel panel-default">
@@ -71,8 +71,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
 
@@ -98,8 +98,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-dashboard-green" type="button" ng-click="ok()">Save</button>
-    <button class="btn btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-status-success" type="button" ng-click="ok()">Save</button>
+    <button class="btn btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
 
@@ -140,6 +140,6 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn-dashboard" type="button" ng-click="cancel()">Dismiss</button>
+    <button class="btn-status-default" type="button" ng-click="cancel()">Dismiss</button>
   </div>
 </script>

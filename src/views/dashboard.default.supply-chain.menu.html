@@ -6,7 +6,7 @@
         <div class="panel-container">
           <div class="panel panel-default">
             <div class="panel-body">
-              <button ng-click="createNewSupplyChain()" class="btn-dashboard">Create Supply Chain</button>
+              <button ng-click="createNewSupplyChain()" class="btn-status-default">Create Supply Chain</button>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
                       <td>{{supplyChain.name}}</td>
                       <td>{{supplyChain.dateCreated | date: 'short'}}</td>
                       <td>
-                        <button ng-click="editSupplyChain(supplyChain)" class="btn-dashboard">View/Edit</button>
+                        <button ng-click="editSupplyChain(supplyChain)" class="btn-status-default">View/Edit</button>
                       </td>
                     </tr>
                   </tbody>
