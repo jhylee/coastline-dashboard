@@ -139,6 +139,12 @@ body {
   letter-spacing: 1px;
   font-size: 20px;
   font-weight: 500;
+
+  img {
+    display: inline-block;
+    margin-top: -5px;
+    margin-left: 10px;
+  }
 }
 
 .navbar-collapse .nav li {

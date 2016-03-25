@@ -383,7 +383,7 @@
                         <tr>
                             <td>{{block.productType.name}}</td>
                             <td>{{block.quantity + " " + block.units}}</td>
-                            <td>{{block.catchDate}}</td>
+                            <td>{{block.catchDate | date:"M/d/y"}}</td>
                             <td>{{block.catchRegion}}</td>
                             <td>{{block.caughtBy}}</td>
                             <td>{{block.catchType}}</td>
