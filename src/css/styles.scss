@@ -14,8 +14,6 @@
 // $color6: #818C9C
 // $color7: #A8B4BF
 $primary-background-color: #EEEEEE;
-
-// $primary-background-color: #EEEEEE;
 $secondary-background-color: #E8E8E8;
 $background-color-3: #DDD;
 $inverse-background-color: #fff;
@@ -126,11 +124,6 @@ body {
 .navbar-fixed-top {
   border: 0;
   background-color: $navbar-color;
-  /*
-  box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 8px 8px 0;
-  */
   color: $primary-font-color;
 }
 .navbar-header .navbar-brand {
