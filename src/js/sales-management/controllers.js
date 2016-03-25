@@ -142,11 +142,12 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainData', 'SellingPointD
 
 
 
-app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
-    function($scope, InventoryData, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
+app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'BlockData', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
+    function($scope, InventoryData, BlockData, SupplyChainData, SellingPointData, $state, $uibModalInstance, $uibModal) {
 
         console.log(SupplyChainData.getSupplyChainId());
         var sellingPoint = SellingPointData.getSelectedSellingPoint();
+        $scope.stageName = sellingPoint.name;
 
 
         SellingPointData.getBlocks(SupplyChainData.getSupplyChainId(), sellingPoint._id, function(res) {
@@ -157,7 +158,36 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'Supply
             console.log(err);
         })
 
-        $scope.blocks = sellingPoint.blocks
+        $scope.blocks = sellingPoint.blocks;
+
+        $scope.moveBlock = function() {
+
+            BlockData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'moveBlockModal.html',
+                controller: 'MoveBlockFromSellingPointCtrl',
+                size: 'md',
+                resolve: {}
+            });
+
+
+            // called when modal is closed
+            modalInstance.result.then(function(block) {
+                // add the stage to the supply chain
+                InventoryData.getBlocks("gjhkj", SellingPointData.getSelectedSellingPointId(), function(res) {
+                    console.log(res);
+                    $scope.blocks = res;
+                    // $scope.selectedBlock = $scope.blockc0;
+                }, function(err) {
+                    console.log(err);
+                });
+
+                console.log("then");
+            });
+        };
 
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
@@ -255,6 +285,99 @@ app.controller('EditSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPoi
 
         $scope.getBlocks = function() {
 
+        };
+
+    }
+]);
+
+app.controller('MoveBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockData', 'SupplyChainMenu', 'SupplyChainData', 'SellingPointData', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, BlockData, SupplyChainMenu, SupplyChainData, SellingPointData, $state, $uibModalInstance) {
+
+        $scope.fromStage = SellingPointData.getSelectedSellingPoint();
+
+        SupplyChainMenu.getSupplyChains().then(function(res) {
+            $scope.supplyChains = res;
+            if ($scope.supplyChains.length > 0) {
+                $scope.selectedSupplyChain = $scope.supplyChains[0];
+                if ($scope.selectedSupplyChain.stages.length > 0) {
+                    $scope.toStage = $scope.selectedSupplyChain.stages[0];
+                }
+            }
+        });
+
+
+        $scope.block1 = BlockData.getSelectedBlock();
+        console.log(BlockData.getSelectedBlock());
+        $scope.quantity = $scope.block1.quantity;
+
+        $scope.$watch('quantity', function () {
+            if ($scope.quantity > $scope.block1.quantity) {
+                $scope.quantity = $scope.block1.quantity;
+                // TODO - insert cgNotify popup or something to tell them not to exceed the batch quantity
+            }
+        });
+
+        $scope.getRemainingQuantity = function() {
+            if ($scope.block1.quantity - $scope.quantity < 0) {
+                return 0;
+            } else {
+                return ($scope.block1.quantity - $scope.quantity);
+            }
+        },
+
+        $scope.ok = function() {
+            console.log("moveBlock ok()");
+
+            if ($scope.quantity == $scope.block1.quantity) {
+                var data = {
+                    productId: $scope.block1.productType._id,
+                    stageId: $scope.toStage.self,
+                    quantity: $scope.quantity,
+                    units: $scope.units
+                };
+
+                console.log($scope.toStage.self);
+
+                InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), $scope.block1._id, data, function(res) {
+                    console.log(res);
+                    $uibModalInstance.close(res);
+                }, function(err) {
+                    $uibModalInstance.close(err);
+                });
+            } else {
+                console.log($scope.selectedProduct);
+
+                var block2 = {
+                    quantity: $scope.quantity,
+                    units: $scope.block1.units,
+                    stage: $scope.toStage.self,
+                    productType: $scope.block1.productType
+                };
+
+                $scope.block1.quantity = $scope.block1.quantity - block2.quantity;
+
+                if ($scope.block1.quantity < 0) {
+                    $scope.block1.quantity = 0
+                };
+
+                var data = {
+                    block1: $scope.block1,
+                    block2: block2
+                };
+
+
+                InventoryData.splitBlock(SupplyChainData.getSupplyChainId(), $scope.block1._id, data, function(res) {
+                    console.log(res);
+                    $uibModalInstance.close(res);
+                }, function(err) {
+                    $uibModalInstance.close(err);
+                });
+
+            }
+        };
+
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
         };
 
     }
