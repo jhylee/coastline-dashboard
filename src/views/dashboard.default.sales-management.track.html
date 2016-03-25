@@ -10,8 +10,6 @@
                 <button ng-click="addSellingPoint()" class="btn-dashboard">Add Sales Channel</button>
                 <button ng-click="editSellingPoint()" class="btn-dashboard">Edit Sales Channel</button>
                 <button ng-click="viewBlocks()" class="btn-dashboard">View Inventory in Sales</button>
-
-
               </div>
             </div>
             <div class="panel panel-default">
@@ -34,7 +32,9 @@
                         <td>{{sellingPoint.dateCreated | date: 'short'}}</td>
                         <!-- TODO, just set type as first in list for now -->
                         <td>{{sellingPoint.sellingTargets[0]}}</td>
-                        <td><input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index"></td>
+                        <td>
+                          <input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index">
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -49,72 +49,66 @@
 </div>
 
 
-<!-- MODAL CONTENT -->
-
-
-
-
+<!-- ADD SELLING POINT MODAL -->
 <script type="text/ng-template" id="addSellingPointModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Add a Selling Point</h3>
-    </div>
-    <div class="modal-body">
-        <form>
-            <fieldset class="form-group">
-            <div class="col-lg-12">
-                <label>Name</label>
-                <input class="form-control" ng-model="name" maxlength="25" placeholder="Name of sales channel...">
-                <small class="text-muted">Maximum 25 characters.</small>
-                <br>
-                <div class="checkbox">
-    	            <label><input type="checkbox" ng-model="isEcommerceStage">Sell on e-commerce</label>
-                </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-    </div>
+  <div class="modal-header">
+    <h3 class="modal-title">Add a Selling Point</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <fieldset class="form-group">
+        <div class="col-lg-12">
+          <label>Name</label>
+          <input class="form-control" ng-model="name" maxlength="25" placeholder="Name of sales channel...">
+          <small class="text-muted">Maximum 25 characters.</small>
+          <br>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="isEcommerceStage">Sell on e-commerce</label>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+  </div>
 </script>
 
 
+<!-- EDIT SELLING POINT MODAL -->
 <script type="text/ng-template" id="editSellingPointModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Edit Selling Point</h3>
-    </div>
-    <div class="modal-body">
-        <form>
-            <fieldset class="form-group">
-            <div class ="col-lg-12">
-                <label>New Selling Point Name</label>
-                <input class="form-control" ng-model="sellingPoint.name" maxlength="25" placeholder="Name of sales channel...">
-                <small class="text-muted">Maximum 25 characters.</small>
-
-                <div class="checkbox">
-    	            <label><input type="checkbox" ng-model="isEcommerceStage"> Sell on e-commerce</label>
-                </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-dashboard-green" type="button" ng-click="ok()">Save</button>
-        <button class="btn btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-    </div>
+  <div class="modal-header">
+    <h3 class="modal-title">Edit Selling Point</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <fieldset class="form-group">
+        <div class="col-lg-12">
+          <label>New Selling Point Name</label>
+          <input class="form-control" ng-model="sellingPoint.name" maxlength="25" placeholder="Name of sales channel...">
+          <small class="text-muted">Maximum 25 characters.</small>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="isEcommerceStage"> Sell on e-commerce</label>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-dashboard-green" type="button" ng-click="ok()">Save</button>
+    <button class="btn btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+  </div>
 </script>
 
 
-
-
-
+<!-- VIEW INVENTORY IN SELLING POINT MODAL -->
 <script type="text/ng-template" id="viewSellingPointBlocksModal.html">
   <div class="modal-header">
     <h3 class="modal-title">Inventory in Selling Point</h3>
   </div>
-
-
   <div class="modal-body">
     <div class="panel panel-default">
       <div class="panel-body">
@@ -145,7 +139,6 @@
       </div>
     </div>
   </div>
-
   <div class="modal-footer">
     <button class="btn-dashboard" type="button" ng-click="cancel()">Dismiss</button>
   </div>

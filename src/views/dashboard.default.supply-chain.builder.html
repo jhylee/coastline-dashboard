@@ -1,99 +1,136 @@
+<div ng-controller="SupplyChainDisplayCtrl">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header light-text">Supply Chain Builder</h2>
+    <div class="row placeholders">
+      <div class="col-lg-8">
+        <div class="container">
+          <div class="panel-container">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <button ng-click="addStage()" class="btn-dashboard">Add</button>
+                <button ng-click="editStage()" class="btn-dashboard">Edit</button>
+                <button ng-click="deleteStage()" class="btn-dashboard-red">Delete</button>
+                <button ng-click="linkStages()" class="btn-dashboard">Link</button>
+                <button ng-click="unlinkStages()" class="btn-dashboard">Unlink</button>
+                <button ng-click="saveSupplyChain()" class="btn-dashboard-green">Save</button>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-body" style="height:500px">
+                <vis-network data="data" options="options" events="events" height="500px"></vis-network>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD SUPPLY CHAIN STAGE MODAL -->
 <script type="text/ng-template" id="addModalContent.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Add a Stage</h3>
-    </div>
-    <div class="modal-body">
-        <form>
-            <fieldset class="form-group">
-                <div class="col-lg-12">
-                    <label>Name of Supply Chain Stage</label>
-                    <input class="form-control" ng-model="name" maxlength="25"  placeholder="i.e. Processing Plant 1">
-                    <small class="text-muted">Maximum 25 characters.</small>
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <div class="col-lg-12">
-                    <label>Previous Stage</label>
-                    <select ng-model="prev" ng-options="stage as stage.self.name for stage in stages" class="form-control">
-                    </select>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-    </div>
+  <div class="modal-header">
+    <h3 class="modal-title">Add a Stage</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <fieldset class="form-group">
+        <div class="col-lg-12">
+          <label>Name of Supply Chain Stage</label>
+          <input class="form-control" ng-model="name" maxlength="25" placeholder="i.e. Processing Plant 1">
+          <small class="text-muted">Maximum 25 characters.</small>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <div class="col-lg-12">
+          <label>Previous Stage</label>
+          <select ng-model="prev" ng-options="stage as stage.self.name for stage in stages" class="form-control">
+          </select>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+  </div>
 </script>
+
+
+<!-- EDIT SUPPLY CHAIN STAGE MODAL -->
 <script type="text/ng-template" id="editModalContent.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Edit Stage Name</h3>
-    </div>
-    <div class="modal-body">
-        <form>
-            <fieldset class="form-group">
-                <label>New Name</label>
-                <input class="form-control" ng-model="name" maxlength="25"placeholder="i.e. Processing Plant 1">
-                <small class="text-muted">Maximum 30 characters.</small>
-            </fieldset>
-
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-    </div>
+  <div class="modal-header">
+    <h3 class="modal-title">Edit Stage Name</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <fieldset class="form-group">
+        <label>New Name</label>
+        <input class="form-control" ng-model="name" maxlength="25" placeholder="i.e. Processing Plant 1">
+        <small class="text-muted">Maximum 30 characters.</small>
+      </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+  </div>
 </script>
 
+
+<!-- LINK SUPPLY CHAIN STAGES MODAL -->
 <script type="text/ng-template" id="linkModalContent.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Link Stages</h3>
-    </div>
-    <div class="modal-body">
-        <form>
-            <fieldset class="form-group">
-                <label>Source Stage</label>
-                <select ng-model="sourceStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Target Stage</label>
-                <select ng-model="targetStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
-            </fieldset>
-        </form>
-        <br>
-        <p>Your settings will link the stages as below, with an arrow from the Source to the Target (to demonstrate the flow of inventory).</p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-    </div>
+  <div class="modal-header">
+    <h3 class="modal-title">Link Supply Chain Stages</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <fieldset class="form-group">
+        <label>Source Stage</label>
+        <select ng-model="sourceStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Target Stage</label>
+        <select ng-model="targetStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
+      </fieldset>
+    </form>
+    <br>
+    <p>Your settings will link the stages as below, with an arrow from the Source to the Target (to demonstrate the flow of inventory).</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+  </div>
 </script>
 
+
+<!-- UNLINK SUPPLY CHAIN STAGES MODAL -->
 <script type="text/ng-template" id="unlinkModalContent.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Unlink Stages</h3>
-    </div>
-    <div class="modal-body">
-        <form>
-            <fieldset class="form-group">
-                <label>Source Stage</label>
-                <select ng-model="sourceStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Target Stage</label>
-                <select ng-model="targetStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
-            </fieldset>
-        </form>
-        <br>
-        <p>Your settings will remove any links between the Source and the Target.</p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
-        <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-    </div>
+  <div class="modal-header">
+    <h3 class="modal-title">Unlink Stages</h3>
+  </div>
+  <div class="modal-body">
+    <form>
+      <fieldset class="form-group">
+        <label>Source Stage</label>
+        <select ng-model="sourceStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Target Stage</label>
+        <select ng-model="targetStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
+      </fieldset>
+    </form>
+    <br>
+    <p>Your settings will remove any links between the Source and the Target Stages.</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+  </div>
 </script>
 
 
+<!-- DELETE SUPPLY CHAIN STAGE MODAL -->
 <script type="text/ng-template" id="deleteStageModal.html">
   <div class="modal-header">
     <h3 class="modal-title">Delete Stage</h3>
@@ -106,60 +143,3 @@
     <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
-
-<script type="text/ng-template" id="saveChangesModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Saving</h3>
-  </div>
-  <div class="modal-body">
-    <p>Would you like to save your changes?</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-dashboard-green" type="button" ng-click="yes()">Yes</button>
-    <button class="btn-dashboard-red" type="button" ng-click="no()">No</button>
-    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
-  </div>
-</script>
-
-
-
-<script type="text/ng-template" id="exitSupplyChain.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Save and Exit?</h3>
-    </div>
-    <div class="modal-body">
-
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancsel</button>
-    </div>
-</script>
-<div ng-controller="SupplyChainDisplayCtrl">
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h2 class="page-header light-text">Supply Chain Builder</h2>
-        <div class="row placeholders">
-          <div class="col-lg-8">
-            <div class="container">
-                <div class="panel-container">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <button ng-click="addStage()" class="btn-dashboard">Add</button>
-                            <button ng-click="editStage()" class="btn-dashboard">Edit</button>
-                            <button ng-click="deleteStage()" class="btn-dashboard-red">Delete</button>
-                            <button ng-click="linkStages()" class="btn-dashboard">Link</button>
-                            <button ng-click="unlinkStages()" class="btn-dashboard">Unlink</button>
-                            <button ng-click="saveSupplyChain()" class="btn-dashboard-green">Save</button>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-body" style="height:500px">
-                            <vis-network data="data" options="options" events="events" height="500px"></vis-network>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
