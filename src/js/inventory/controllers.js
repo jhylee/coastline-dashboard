@@ -214,7 +214,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
                 animation: true,
                 templateUrl: 'editBlockModal.html',
                 controller: 'EditBlockCtrl',
-                size: 'lg',
+                size: 'md',
                 resolve: {}
             });
 
@@ -251,7 +251,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
                 animation: true,
                 templateUrl: 'moveBlockModal.html',
                 controller: 'MoveBlockCtrl',
-                size: 'lg',
+                size: 'md',
                 resolve: {}
             });
 
@@ -293,7 +293,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
                 animation: true,
                 templateUrl: 'moveBlockToSalesModal.html',
                 controller: 'MoveBlockToSalesCtrl',
-                size: 'lg',
+                size: 'md',
                 resolve: {}
             });
 
@@ -335,7 +335,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
                 animation: true,
                 templateUrl: 'deleteBlockModal.html',
                 controller: 'DeleteBlockCtrl',
-                size: 'lg',
+                size: 'md',
                 resolve: {}
             });
 

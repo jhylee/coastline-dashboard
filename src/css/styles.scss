@@ -41,7 +41,7 @@ body {
   color: $primary-font-color;
 }
 .panel {
-  width: 100%;
+  max-width: 100%;
   height: 100%;
   border-color: $primary-border-color;
   background-color: $secondary-background-color;
@@ -139,13 +139,19 @@ body {
   letter-spacing: 1px;
   font-size: 20px;
   font-weight: 500;
+
+  img {
+    display: inline-block;
+    margin-top: -5px;
+    margin-left: 10px;
+  }
 }
 
 .navbar-collapse .nav li {
   margin: 10px 5px;
   @include border-radius(2px);
   &:hover {
-    background-color: $btn-color;
+    background-color: $btn-hover-color;
   }
   a {
     color: #fff;
@@ -205,7 +211,7 @@ th {
       font-weight: 600;
       &:hover {
         background-color: $navbar-color;
-        @include border-radius(3px);
+        @include border-radius(2px);
       }
       &:active {
         background-color: $btn-color;
@@ -214,7 +220,7 @@ th {
     }
     a.activeTab {
       background-color: $btn-color;
-      border-radius: 2px;
+      @include border-radius(2px);
 
       //   a {
       color: #fff;
@@ -230,10 +236,7 @@ th {
 .nav>li>a:hover,
 .nav>li>a:active {
   text-decoration: none;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  border-radius: 3px;
+  @include border-radius(2px);
   background-color: $btn-color;
   color: #fff;
 }
@@ -242,24 +245,28 @@ th {
  */
 .main {
   padding: 20px;
+  max-width: 100%;
 }
 @media (min-width: 768px) {
   .main {
     padding-right: 40px;
     padding-left: 40px;
+    max-width: 100%;
   }
 }
 .main .page-header {
   margin-top: 20px;
   font-weight: 400;
   border-color: $primary-border-color;
+  max-width: 100%;
+
 }
 .btn-dashboard {
+  @include border-radius(2px);
   color: $secondary-background-color;
   border-style: none;
   background-color: $btn-color;
   border-color: $btn-color;
-  border-radius: 4px;
   padding-left: 15px;
   padding-right: 15px;
   margin: 2px 2px 4px;
@@ -314,17 +321,17 @@ fieldset[disabled] .btn-dashboard:active,
 .btn-dashboard[disabled].active,
 fieldset[disabled] .btn-dashboard.active {
   color: #fff;
-  background-color: $btn-hover-color;
+  background-color: $btn-color;
   border-radius: 4px;
   opacity: 0.5;
   outline: none
 }
 .btn-dashboard-red {
+  @include border-radius(2px);
   color: $secondary-background-color;
   border-style: none;
   background-color: #F44336;
   border-color: #F44336;
-  border-radius: 4px;
   padding-left: 15px;
   padding-right: 15px;
   margin: 2px;
@@ -374,15 +381,15 @@ fieldset[disabled] .btn-dashboard-red.active {
   color: $secondary-background-color;
   background-color: #B71C1C;
   border-color: #B71C1C;
-  opacity: 0.5;
+  opacity: 0.3;
   outline: none
 }
 .btn-dashboard-green {
+  @include border-radius(2px);
   color: $secondary-background-color;
   border-style: none;
   background-color: #4CAF50;
   border-color: #4CAF50;
-  border-radius: 4px;
   padding-left: 15px;
   padding-right: 15px;
   margin: 2px;
@@ -439,11 +446,11 @@ fieldset[disabled] .btn-dashboard-green.active {
 
 
 .btn-dashboard-yellow {
+  @include border-radius(2px);
   color: $secondary-background-color;
   border-style: none;
   background-color: #7c7a07;
   border-color: #7c7a07;
-  border-radius: 4px;
   padding-left: 15px;
   padding-right: 15px;
   margin: 2px;
@@ -473,7 +480,7 @@ fieldset[disabled] .btn-dashboard-green.active {
   */
 }
 input.search {
-  border-radius: 4px;
+  @include border-radius(2px);
   padding: 8px 15px;
   border-style: none;
   background-color: $primary-border-color;

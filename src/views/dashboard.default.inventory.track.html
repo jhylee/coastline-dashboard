@@ -128,10 +128,9 @@
       <fieldset class="form-group">
         <div class="col-lg-6">
           <label>Product Type</label>
-          <br>
           <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
-          <br>
-          <small class="text-muted">Item must be added under ProductData tab.</small>
+
+          <small class="text-muted">Item must be added under Products tab.</small>
         </div>
         <div class="col-lg-6">
           <label>Quantity</label>
@@ -178,9 +177,9 @@
           <small class="text-muted">Enter the method of catching.</small>
         </div>
         <div class="col-lg-6">
-          <label>Water Depth</label>
-          <input class="form-control" ng-model="waterDepth" placeholder="ex. 500m">
-          <small class="text-muted">Enter the water depth.</small>
+          <label>Water Depth (Meters)</label>
+          <input class="form-control" ng-model="waterDepth" type="number" step="1" placeholder="ex. 500">
+          <small class="text-muted">Enter the water depth in meters.</small>
         </div>
       </fieldset>
     </form>
@@ -242,14 +241,17 @@
     <form>
 
       <fieldset class="form-group">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <label>Product Type</label>
-          <br>
           <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
+<<<<<<< HEAD
           <br>
           <small class="text-muted">Item must be added under ProductData tab.</small>
+=======
+          <small class="text-muted">Item must be added under Products tab.</small>
+>>>>>>> modal-resize
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <label>Quantity</label>
           <input class="form-control" type="number" ng-model="quantity" placeholder="ex. 4000">
           <small class="text-muted">Please enter a numerical value.</small>
@@ -301,7 +303,7 @@
             </fieldset>
 
             <fieldset class="form-group">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-12">
                     <label>Choose how much inventory to move: </label>
                     <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
                     <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</small>
@@ -309,7 +311,7 @@
             </fieldset>
 
             <fieldset class="form-group">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-12">
                     <label>Moving chosen inventory batch to: </label>
                     <select ng-model="toStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
                     <small class="text-muted">Please select the target destination for your inventory.</small>
@@ -387,7 +389,7 @@
                         <tr>
                             <td>{{block.productType.name}}</td>
                             <td>{{block.quantity + " " + block.units}}</td>
-                            <td>{{block.catchDate}}</td>
+                            <td>{{block.catchDate | date:"M/d/y"}}</td>
                             <td>{{block.catchRegion}}</td>
                             <td>{{block.caughtBy}}</td>
                             <td>{{block.catchType}}</td>

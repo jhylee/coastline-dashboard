@@ -49,9 +49,10 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
                 animation: true,
                 templateUrl: 'deleteProductModal.html',
                 controller: 'DeleteProductCtrl',
-                size: 'lg',
+                size: 'md',
                 resolve: {}
             });
+
 
             // called when modal is closed
             modalInstance.result.then(
