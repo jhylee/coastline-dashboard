@@ -160,6 +160,82 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'BlockD
 
         $scope.blocks = sellingPoint.blocks;
 
+        $scope.deleteBlock = function() {
+
+
+            BlockData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            // console.log(SupplyChainData.getSelectedBlock());
+
+            console.log(modalInstance);
+
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'deleteBlockModal.html',
+                controller: 'DeleteBlockFromSellingPointCtrl',
+                size: 'md',
+                resolve: {}
+            });
+
+            // var blocksToMove = [];
+
+            // for (var i = 0; i < $scope.blocks.length; i ++) {
+            //     if ($scope.selectedBlocks[i]) {
+            //         blocksToMove.push($scope.blocks[i]);
+            //     }
+            // };
+
+
+
+            // called when modal is closed
+            modalInstance.result.then(function(block) {
+                // add the stage to the supply chain
+                InventoryData.getBlocks("gjhkj", SellingPointData.getSelectedSellingPointId(), function(res) {
+                    console.log(res);
+                    $scope.blocks = res;
+                    // $scope.selectedBlock = $scope.blockc0;
+                }, function(err) {
+                    console.log(err);
+                });
+
+
+                console.log("then");
+            });
+        }
+
+        $scope.viewDetails = function() {
+
+            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            console.log(SupplyChainData.getSelectedBlock());
+
+            BlockData.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
+
+            console.log(modalInstance);
+
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'viewDetailsModal.html',
+                controller: 'ViewDetailsCtrl',
+                size: 'lg',
+                resolve: {}
+            });
+
+            // called when modal is closed
+            modalInstance.result.then(function(block) {
+                // add the stage to the supply chain
+                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function(res) {
+                    console.log(res);
+                    $scope.blocks = res;
+                    $scope.selectedBlock = 0;
+                }, function(err) {
+                    console.log(err);
+                });
+
+                console.log("then");
+            });
+        }
+
         $scope.moveBlock = function() {
 
             BlockData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
@@ -233,6 +309,29 @@ app.controller('AddSellingPointCtrl', ['$scope', 'SupplyChainData', 'SellingPoin
 
         $scope.getBlocks = function() {
 
+        };
+
+    }
+]);
+
+app.controller('DeleteBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockData', 'SupplyChainData', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, BlockData, SupplyChainData, $state, $uibModalInstance) {
+
+        var selectedBlock = BlockData.getSelectedBlock();
+
+        $scope.ok = function() {
+            console.log("deleteBlock ok()");
+
+            InventoryData.deleteBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, function(res) {
+                console.log(res);
+                $uibModalInstance.close(res);
+            }, function(err) {
+                $uibModalInstance.close(err);
+            });
+        };
+
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
         };
 
     }
