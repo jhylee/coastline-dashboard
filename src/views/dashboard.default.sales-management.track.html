@@ -38,15 +38,17 @@
                       </tr>
                     </tbody>
                   </table>
+
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+
 
 
 <!-- ADD SELLING POINT MODAL -->
@@ -74,6 +76,7 @@
     <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
+
 </script>
 
 
@@ -101,45 +104,194 @@
     <button class="btn btn-status-success" type="button" ng-click="ok()">Save</button>
     <button class="btn btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
+
 </script>
 
 
 <!-- VIEW INVENTORY IN SELLING POINT MODAL -->
 <script type="text/ng-template" id="viewSellingPointBlocksModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Inventory in {{stageName}}</h3>
+    </div>
+
+    <div class="modal-footer">
+
+        <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="moveBlock()">Move</button>
+
+        <!-- THIS IS THE BUTTON FOR VIEW DETAILS MODAL -->
+        <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="viewDetails()">Batch Detail</button>
+        <!-- <button class="btn-dashboard" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()">Edit</button>-->
+        <!-- <button class="btn-dashboard-green" type="button" ng-click="addBlock()">Add</button>-->
+        <!-- <button class="btn-dashboard-yellow" type="button" ng-click="splitBlock()">Split</button>-->
+        <button class="btn-dashboard-red" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
+
+    </div>
+
+    <div class="modal-body">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product Type</th>
+                                <th>Quantity</th>
+                                <th>Inventory Input Date</th>
+                                <th>Select</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="block in blocks track by $index">
+                            <tr>
+                                <td>{{$index + 1}}</td>
+                                <td>{{block.productType.name}}</td>
+                                <td>{{block.quantity + " " + block.units}}</td>
+                                <td>{{block.dateCreated | date: 'short'}}</td>
+                                <td>
+                                    <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn-dashboard" type="button" ng-click="ok()">Dismiss</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="moveBlockModal.html">
+
+    <div class="modal-header">
+        <h3 class="modal-title">Move Inventory Batch</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset class="form-group">
+                <div class="col-lg-8 col-lg-offset-2">
+            </fieldset>
+
+            <fieldset class="form-group">
+                <div class="col-lg-12">
+                    <label>Choose how much inventory to move: </label>
+                    <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
+                    <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</small>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+                <div class="col-lg-12">
+                    <label>Moving chosen inventory batch to stage to supply chain: </label>
+                    <select ng-model="selectedSupplyChain" ng-options="supplyChain as supplyChain.name for supplyChain in supplyChains" class="form-control"></select>
+                    <small class="text-muted">Please select the target supply chain for your inventory.</small>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+                <div class="col-lg-12">
+                    <label>Moving chosen inventory batch to stage: </label>
+                    <select ng-model="toStage" ng-options="stage as stage.self.name for stage in selectedSupplyChain.stages" class="form-control"></select>
+                    <small class="text-muted">Please select the target stage for your inventory.</small>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+            <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+      </fieldset>
+    </form>
+    </div>
+    <!--<div class="modal-footer">
+      <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+      <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    </div>-->
+</script>
+
+<script type="text/ng-template" id="deleteBlockModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Inventory in Selling Point</h3>
+    <h3 class="modal-title">Delete Batch</h3>
   </div>
   <div class="modal-body">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Product Type</th>
-                <th>Quantity</th>
-                <th>Date Created</th>
-                <th>Select</th>
-              </tr>
-            </thead>
-            <tbody ng-repeat="block in blocks track by $index">
-              <tr>
-                <td>{{$index + 1}}</td>
-                <td>{{block.productType.name}}</td>
-                <td>{{block.quantity + " " + block.units}}</td>
-                <td>{{block.dateCreated | date:"yyyy-MM-dd hh:mm a"}}</td>
-                <td>
-                  <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <p>Are you sure you want to delete this batch?</p>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-default" type="button" ng-click="cancel()">Dismiss</button>
+    <button class="btn-dashboard-green" type="button" ng-click="ok()">Yes</button>
+    <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
   </div>
+</script>
+
+
+<script type="text/ng-template" id="viewDetailsModal.html">
+<div class="modal-body">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product Type</th>
+              <th>Quantity</th>
+              <th>Date Created</th>
+              <th>Select</th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="block in blocks track by $index">
+            <tr>
+              <td>{{$index + 1}}</td>
+              <td>{{block.productType.name}}</td>
+              <td>{{block.quantity + " " + block.units}}</td>
+              <td>{{block.dateCreated | date:"yyyy-MM-dd hh:mm a"}}</td>
+              <td>
+                <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <h4 class="text-center">Lot History</h4>
+            <br>
+            <div class="table-responsive">
+                <table class="table tableWhite">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Quantity</th>
+                            <!--<th>Select</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr ng-repeat="event in history.events track by $index">
+                            <td>{{history.events[history.events.length-1-$index].operation}}</td>
+                            <td>{{getDate([history.events.length-1-$index])}}</td>
+                            <td>{{getStageName([history.events.length-1-$index])}}</td>
+                            <td>{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>
+
+                            <!--<td>
+                                <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
+                            </td>-->
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn-status-default" type="button" ng-click="cancel()">Dismiss</button>
+    </div>
+  </div>
+
+
 </script>

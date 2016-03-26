@@ -219,25 +219,47 @@
 
 <!-- MOVE BATCH TO SALES MODAL-->
 <script type="text/ng-template" id="moveBlockToSalesModal.html">
-  <div class="modal-header">
-    <h3 class="modal-title">Move Inventory to Sales</h3>
-  </div>
-  <div class="modal-body">
-    <form>
-      <fieldset class="form-group">
-        <div class="col-lg-12">
-          <label>Moving chosen inventory batch to: </label>
-          <select ng-model="toStage" ng-options="stage as stage.name for stage in stages" class="form-control"></select>
-          <small class="text-muted">Please select direct sales destination for your inventory.</small>
+
+    <div class="modal-header">
+        <h3 class="modal-title">Move Inventory Batch to Sales</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset class="form-group">
+                <div class="col-lg-8 col-lg-offset-2">
+            </fieldset>
+
+            <fieldset class="form-group">
+                <div class="col-lg-12">
+                    <label>Choose how much inventory to move: </label>
+                    <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
+                    <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</small>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+                <div class="col-lg-12">
+                    <label>Moving chosen inventory batch to: </label>
+                    <select ng-model="toStage" ng-options="stage as stage.name for stage in stages" class="form-control"></select>
+                    <small class="text-muted">Please select the target destination for your inventory.</small>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+            <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
         </div>
       </fieldset>
     </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
-    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
-  </div>
+    </div>
+    <!--<div class="modal-footer">
+      <button class="btn-dashboard-green" type="button" ng-click="ok()">OK</button>
+      <button class="btn-dashboard-red" type="button" ng-click="cancel()">Cancel</button>
+    </div>-->
 </script>
+
+
 
 
 <!-- VIEW BATCH DETAILS MODAL-->

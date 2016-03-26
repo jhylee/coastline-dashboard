@@ -28,7 +28,7 @@ app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', 'FisheryData',
     return {
         getBlocks: function(supplyChainId, stageId, success, error) {
             console.log(supplyChainId);
-            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/stages/' + stageId + '/blocks').success(success).error(error);
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/' + stageId + '/blocks').success(success).error(error);
         },
         addBlock: function(supplyChainId, data, success, error) {
             $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/blocks', data).success(success).error(error);
@@ -43,7 +43,7 @@ app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', 'FisheryData',
             $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/blocks/' + blockId + '/split', data).success(success).error(error);
         },
         deleteBlock(supplyChainId, blockId, success, error) {
-            $http.delete(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplychains/' + supplyChainId + '/blocks/' + blockId).success(success).error(error);
+            $http.delete(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/blocks/' + blockId).success(success).error(error);
         },
         getSellingPoints: function(success, error) {
             $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/stages/selling').success(success).error(error);

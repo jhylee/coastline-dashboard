@@ -478,6 +478,13 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
         $scope.block1 = SupplyChainData.getSelectedBlock();
         $scope.quantity = $scope.block1.quantity;
 
+        $scope.$watch('quantity', function () {
+            if ($scope.quantity > $scope.block1.quantity) {
+                $scope.quantity = $scope.block1.quantity;
+                // TODO - insert cgNotify popup or something to tell them not to exceed the batch quantity
+            }
+        });
+
         $scope.getRemainingQuantity = function() {
             if ($scope.block1.quantity - $scope.quantity < 0) {
                 return 0;
@@ -632,7 +639,24 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
 app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
     function($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
 
+        $scope.$watch('quantity', function () {
+            if ($scope.quantity > $scope.block1.quantity) {
+                $scope.quantity = $scope.block1.quantity;
+                // TODO - insert cgNotify popup or something to tell them not to exceed the batch quantity
+            }
+        });
+
         $scope.fromStage = SupplyChainData.getSelectedStage();
+        $scope.block1 = SupplyChainData.getSelectedBlock();
+        $scope.quantity = $scope.block1.quantity;
+
+        $scope.getRemainingQuantity = function() {
+            if ($scope.block1.quantity - $scope.quantity < 0) {
+                return 0;
+            } else {
+                return ($scope.block1.quantity - $scope.quantity);
+            }
+        }
 
 
         InventoryData.getSellingPoints(function(res) {
@@ -647,21 +671,55 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
         var supplyChainId = SupplyChainData.getSupplyChainId();
 
         $scope.ok = function() {
-            console.log("moveBlockToSales ok()");
-            var data = {
-                stageId: $scope.toStage._id,
-                quantity: $scope.quantity,
-                units: $scope.units
-            };
+            console.log($scope.toStage);
 
-            console.log($scope.toStage._id);
 
-            InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, data, function(res) {
-                console.log(res);
-                $uibModalInstance.close(res);
-            }, function(err) {
-                $uibModalInstance.close(err);
-            });
+            if ($scope.quantity == $scope.block1.quantity) {
+                var data = {
+                    productId: selectedBlock.productType._id,
+                    stageId: $scope.toStage._id,
+                    quantity: $scope.quantity,
+                    units: $scope.units
+                };
+
+                console.log($scope.toStage.self);
+
+                InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, data, function(res) {
+                    console.log(res);
+                    $uibModalInstance.close(res);
+                }, function(err) {
+                    $uibModalInstance.close(err);
+                });
+            } else {
+                console.log($scope.selectedProduct);
+
+                var block2 = {
+                    quantity: $scope.quantity,
+                    units: $scope.block1.units,
+                    stage: $scope.toStage._id,
+                    productType: $scope.block1.productType
+                };
+
+                $scope.block1.quantity = $scope.block1.quantity - block2.quantity;
+
+                if ($scope.block1.quantity < 0) {
+                    $scope.block1.quantity = 0
+                };
+
+                var data = {
+                    block1: $scope.block1,
+                    block2: block2
+                };
+
+
+                InventoryData.splitBlock(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedBlock()._id, data, function(res) {
+                    console.log(res);
+                    $uibModalInstance.close(res);
+                }, function(err) {
+                    $uibModalInstance.close(err);
+                });
+
+            }
         };
 
         $scope.cancel = function() {
