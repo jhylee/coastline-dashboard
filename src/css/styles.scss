@@ -145,7 +145,7 @@ body {
   margin: 10px 5px;
   @include border-radius(2px);
   &:hover {
-    background-color: $btn-hover-color;
+    background-color: $btn-default-hover-color;
   }
   a {
     color: #fff;
@@ -421,9 +421,7 @@ input.search {
   border-radius: 5px;
   border: none;
 }
-.panel-green {
-  background-color: $side-nav-color;
-}
+
 .huge {
   font-size: 30px;
   font-weight: 400;
