@@ -1,101 +1,68 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   <h2 class="page-header light-text">Home</h2>
   <div class="row placeholders">
-    <div class="container">
-      <div class="panel-container">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="panel-header">
-            </div>
-            <!--    <div class="panel-scroll">-->
-            <div class="col-lg-6">
-              <h3>Payments Due in One Week</h3>
-              <hr class="short">
-              <div class="table-responsive">
-                <table class="table tableWhite">
-                  <thead>
-                    <tr>
-                      <th>Invoice #</th>
-                      <th>Payment Method</th>
-                      <th>Status</th>
-                      <th>Date (MM/DD/YYYY)</th>
-                      <th>Total Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1,010</td>
-                      <td>Subscription Pickup</td>
-                      <td>Completed</td>
-                      <td>1/12/2016</td>
-                      <td>N/A</td>
-                    </tr>
-                    <tr>
-                      <td>1,009</td>
-                      <td>Credit Card</td>
-                      <td>Outstanding</td>
-                      <td>1/12/2016</td>
-                      <td>$225.59</td>
-                    </tr>
-                    <tr>
-                      <td>1,008</td>
-                      <td>Paypal</td>
-                      <td>Completed</td>
-                      <td>1/12/2016</td>
-                      <td>$416.25</td>
-                    </tr>
-                    <tr>
-                      <td>1,007</td>
-                      <td>Credit Card</td>
-                      <td>Completed</td>
-                      <td>1/12/2016</td>
-                      <td>$27.35</td>
-                    </tr>
-                    <tr>
-                      <td>1,006</td>
-                      <td>Subscription Pickup</td>
-                      <td>Completed</td>
-                      <td>1/12/2016</td>
-                      <td>N/A</td>
-                    </tr>
-                    <tr>
-                      <td>1,005</td>
-                      <td>Credit Card</td>
-                      <td>Outstanding</td>
-                      <td>1/11/2016</td>
-                      <td>$144.43</td>
-                    </tr>
-                  </tbody>
-                </table>
+    <div class="col-lg-8">
+      <div class="container">
+        <div class="panel-container">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="panel-header">
+              </div>
+              <!--<div class="panel-scroll">-->
+              <div class="col-lg-6">
+                <h3>Outstanding Payments Due in Two Weeks</h3>
+                <hr class="short">
+                <div class="table-responsive">
+                  <table class="table tableWhite">
+                    <thead>
+                      <tr>
+                        <th>Invoice #</th>
+                        <th>Date (MM/DD/YYYY)</th>
+                        <th>View Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1,010</td>
+                        <td>Subscription Pickup</td>
+                        <td>
+                          <div class="alignright">
+                            <button ng-click="viewOrderDetail(order)" class="btn-status-default">View Details</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <h3>Payments Due in Two Weeks</h3>
+                <hr class="short">
+                <div class="table-responsive">
+                  <table class="table tableWhite">
+                    <thead>
+                      <tr>
+                        <th>Invoice #</th>
+                        <th>Date (MM/DD/YYYY)</th>
+                        <th>View Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1,010</td>
+                        <td>Subscription Pickup</td>
+                        <td>
+                          <div class="alignright">
+                            <button ng-click="viewOrderDetail(order)" class="btn-status-default">View Details</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-
-            <div class="col-lg-6">
-              <h3>Payments Due in Two Weeks</h3>
-              <hr class="short">
-              <div class="table-responsive">
-                <table class="table tableWhite">
-                  <thead>
-                    <tr>
-                      <th>Invoice #</th>
-                      <th>Payment Method</th>
-                      <th>Status</th>
-                      <th>Date (MM/DD/YYYY)</th>
-                      <th>Total Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1,010</td>
-                      <td>Subscription Pickup</td>
-                      <td>Completed</td>
-                      <td>1/12/2016</td>
-                      <td>N/A</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>
