@@ -188,6 +188,15 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
         $scope.phone;
         $scope.items = [];
 
+        $scope.$watch('quantity', function() {
+            if ($scope.quantity && $scope.selectedBlock) {
+                if ($scope.quantity > $scope.selectedBlock.quantity) {
+                    $scope.quantity = $scope.selectedBlock.quantity;
+                    // TODO - insert cgNotify popup or something to tell them not to exceed the batch quantity
+                }
+            }
+        });
+
         var getProductData = function() {
             ProductData.getProductData(function(res) {
                 $scope.products = res;

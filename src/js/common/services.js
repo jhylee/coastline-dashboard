@@ -86,6 +86,7 @@ app.factory('BlockData', ['$http', 'apiUrl', '$localStorage', 'FisheryData', fun
     var baseUrl = apiUrl;
 
     var _selectedBlockId;
+    var _selectedBlock;
 
 
 
@@ -95,6 +96,12 @@ app.factory('BlockData', ['$http', 'apiUrl', '$localStorage', 'FisheryData', fun
         },
         setSelectedBlockId: function(selectedBlockId) {
             _selectedBlockId = selectedBlockId;
+        },
+        getSelectedBlock: function() {
+            return _selectedBlock;
+        },
+        setSelectedBlock: function(selectedBlock) {
+            _selectedBlock = selectedBlock;
         },
         fetchHistory: function(blockId) {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/history/' + blockId)
