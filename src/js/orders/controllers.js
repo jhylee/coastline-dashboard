@@ -135,7 +135,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 animation: true,
                 templateUrl: 'deleteOrderModal.html',
                 controller: 'DeleteOrderCtrl',
-                size: 'lg',
+                size: 'md',
                 resolve: {}
             });
 
