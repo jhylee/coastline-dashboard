@@ -101,7 +101,6 @@
     <button class="btn btn-status-success" type="button" ng-click="ok()">Save</button>
     <button class="btn btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
-
 </script>
 
 
@@ -151,6 +150,7 @@
 </script>
 
 
+<!-- MOVE INVENTORY IN SELLING POINT MODAL -->
 <script type="text/ng-template" id="moveBlockModal.html">
   <div class="modal-header">
     <h3 class="modal-title">Move Inventory Batch</h3>
@@ -160,7 +160,6 @@
       <fieldset class="form-group">
         <div class="col-lg-8 col-lg-offset-2">
       </fieldset>
-
       <fieldset class="form-group">
         <div class="col-lg-12">
           <label>Choose how much inventory to move: </label>
@@ -168,7 +167,6 @@
           <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</small>
         </div>
       </fieldset>
-
       <fieldset class="form-group">
         <div class="col-lg-12">
           <label>Moving chosen inventory batch to stage to supply chain: </label>
@@ -194,6 +192,8 @@
   </div>
 </script>
 
+
+<!-- DELETE INVENTORY IN SELLING POINT MODAL -->
 <script type="text/ng-template" id="deleteBlockModal.html">
   <div class="modal-header">
     <h3 class="modal-title">Delete Batch</h3>
@@ -208,6 +208,7 @@
 </script>
 
 
+<!-- VIEW INVENTORY BATCH DETAILS IN SELLING POINT MODAL -->
 <script type="text/ng-template" id="viewDetailsModal.html">
 <div class="modal-header">
   <h3 class="modal-title">Inventory Batch Details</h3>
@@ -215,6 +216,8 @@
   <div class="modal-body">
     <div class="panel panel-default">
       <div class="panel-body">
+      <h4 class="text-center">Initial Catch Audit</h4>
+      <hr class="short">
         <div class="tableWhite">
           <table class="table tableWhite">
             <thead>
@@ -240,10 +243,9 @@
           </table>
         </div>
       </div>
-
       <div class="panel-body">
         <h4 class="text-center">Lot History</h4>
-        <br>
+        <hr class="short">
         <div class="table-responsive">
           <table class="table tableWhite">
             <thead>
@@ -255,7 +257,6 @@
               </tr>
             </thead>
             <tbody>
-
               <tr ng-repeat="event in history.events track by $index">
                 <td>{{history.events[history.events.length-1-$index].operation}}</td>
                 <td>{{getDate([history.events.length-1-$index])}}</td>

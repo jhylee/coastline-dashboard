@@ -4,7 +4,6 @@
 @import url('http://fonts.googleapis.com/css?family=Roboto');
 @import url('http://fonts.googleapis.com/css?family=Open+Sans');
 @import url('http://fonts.googleapis.com/css?family=Lato+Light');
-
 $primary-background-color: #EEEEEE;
 $secondary-background-color: #E8E8E8;
 $background-color-3: #DDD;
@@ -25,7 +24,6 @@ $btn-danger-color: #F44336;
 $btn-danger-hover-color: #B71C1C;
 $btn-success-color: #4CAF50;
 $btn-success-hover-color: #1B5E20;
-
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
@@ -56,10 +54,10 @@ body {
       border-radius: 3px;
       &:active {
         background-image: linear-gradient(#eee, #fcfcfc);
-        outline: none
+        outline: none;
       }
       &:focus {
-        outline: none
+        outline: none;
       }
     }
   }
@@ -133,14 +131,12 @@ body {
   letter-spacing: 1px;
   font-size: 20px;
   font-weight: 500;
-
   img {
     display: inline-block;
     margin-top: -5px;
     margin-left: 10px;
   }
 }
-
 .navbar-collapse .nav li {
   margin: 10px 5px;
   @include border-radius(2px);
@@ -157,15 +153,11 @@ body {
     visibility: visible;
     display: none;
   }
-
 }
-
 iframe {
   max-width: 100%;
   border-radius: 5px;
 }
-
-
 th {
   text-align: center;
 }
@@ -218,7 +210,6 @@ th {
       background-color: $btn-default-color;
       @include border-radius(2px);
       color: #fff;
-
     }
     padding-right: 20px;
     padding-left: 20px;
@@ -252,7 +243,6 @@ th {
   font-weight: 400;
   border-color: $primary-border-color;
   max-width: 100%;
-
 }
 .btn-status-default {
   @include border-radius(2px);
@@ -265,9 +255,8 @@ th {
   margin: 2px 2px 4px;
   padding-top: 8px;
   padding-bottom: 8px;
-  outline: none
+  outline: none;
 }
-
 .btn-status-default:hover,
 .btn-status-default:focus,
 .btn-status-default.focus,
@@ -277,7 +266,7 @@ th {
   color: $secondary-background-color;
   background-color: $btn-default-hover-color;
   border-color: $btn-default-hover-color;
-  outline: none
+  outline: none;
 }
 .btn-status-default:active,
 .btn-status-default.active,
@@ -306,7 +295,7 @@ fieldset[disabled] .btn-status-default.active {
   background-color: $btn-default-color;
   @include border-radius(2px);
   opacity: 0.5;
-  outline: none
+  outline: none;
 }
 .btn-status-danger {
   @include border-radius(2px);
@@ -319,7 +308,7 @@ fieldset[disabled] .btn-status-default.active {
   margin: 2px;
   padding-top: 8px;
   padding-bottom: 8px;
-  outline: none
+  outline: none;
 }
 .btn-status-danger:hover,
 .btn-status-danger:focus,
@@ -356,7 +345,7 @@ fieldset[disabled] .btn-status-danger.active {
   background-color: $btn-danger-color;
   border-color: $btn-danger-color;
   opacity: 0.3;
-  outline: none
+  outline: none;
 }
 .btn-status-success {
   @include border-radius(2px);
@@ -383,7 +372,6 @@ fieldset[disabled] .btn-status-danger.active {
   border-color: $btn-success-hover-color;
   outline: none;
 }
-
 .btn-status-success.disabled,
 .btn-status-success[disabled],
 fieldset[disabled] .btn-status-success,
@@ -406,22 +394,19 @@ fieldset[disabled] .btn-status-success.active {
   color: #fff;
   background-color: $btn-success-color;
   opacity: 0.6;
-  outline: none
+  outline: none;
 }
-
-
 input.search {
   @include border-radius(2px);
   padding: 8px 15px;
   border-style: none;
   background-color: $primary-border-color;
-  outline: none
+  outline: none;
 }
 .panel {
   border-radius: 5px;
   border: none;
 }
-
 .huge {
   font-size: 30px;
   font-weight: 400;
