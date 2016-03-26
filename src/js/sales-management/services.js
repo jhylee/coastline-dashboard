@@ -30,8 +30,11 @@ app.factory('SellingPointData', ['$http', '$localStorage', 'apiUrl', 'FisheryDat
         getSelectedSellingPoint: function() {
             return selectedSellingPoint;
         },
+        getSelectedSellingPointId: function() {
+            if (selectedSellingPoint) return selectedSellingPoint._id;
+        },
         getBlocks: function(supplyChainId, stageId, success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/supplyChains/' + supplyChainId + '/sellingPoints/' + stageId + '/blocks').success(success).error(error);
+            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/sellingPoints/' + stageId + '/blocks').success(success).error(error);
         }
     };
 }]);

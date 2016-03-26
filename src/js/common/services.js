@@ -28,23 +28,18 @@ app.factory('FisheryData', ['$http', 'apiUrl', '$localStorage', function($http, 
     var fishery;
 
 
-    $http.get(baseUrl + '/api/fisheries').then(function(res) {
-        return res.data;
+    $http.get(baseUrl + '/api/user').then(function(res) {
+        console.log(res);
+        return res.data.fishery;
     }).then(function(res) {
-        for (var i = 0; i < res.length; i++) {
-            $localStorage.fisheryName = res[i].name;
-            $localStorage.$save();
-            fishery = {
-                name: res[i].name,
-                _id: res[i]._id
-            };
-            // var fisheryName = $localStorage.fisheryName;
-            // console.log("fisheryName " + fisheryName);
-            console.log(fishery);
-            // }
-        }
+        fishery = {
+            name: res.name,
+            _id: res._id
+        };
+        console.log(fishery);
+        return fishery;
     }).catch(function(err) {
-        console.log("Error getting fishery. " + err)
+        return err;
     });
 
 
@@ -91,6 +86,7 @@ app.factory('BlockData', ['$http', 'apiUrl', '$localStorage', 'FisheryData', fun
     var baseUrl = apiUrl;
 
     var _selectedBlockId;
+    var _selectedBlock;
 
 
 
@@ -100,6 +96,12 @@ app.factory('BlockData', ['$http', 'apiUrl', '$localStorage', 'FisheryData', fun
         },
         setSelectedBlockId: function(selectedBlockId) {
             _selectedBlockId = selectedBlockId;
+        },
+        getSelectedBlock: function() {
+            return _selectedBlock;
+        },
+        setSelectedBlock: function(selectedBlock) {
+            _selectedBlock = selectedBlock;
         },
         fetchHistory: function(blockId) {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/history/' + blockId)
