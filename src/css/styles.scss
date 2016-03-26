@@ -210,12 +210,12 @@ th {
         @include border-radius(2px);
       }
       &:active {
-        background-color: $btn-color;
+        background-color: $btn-default-color;
         color: white;
       }
     }
     a.activeTab {
-      background-color: $btn-color;
+      background-color: $btn-default-color;
       @include border-radius(2px);
       color: #fff;
 
@@ -230,7 +230,7 @@ th {
 .nav>li>a:active {
   text-decoration: none;
   @include border-radius(2px);
-  background-color: $btn-color;
+  background-color: $btn-default-color;
   color: #fff;
 }
 /*
