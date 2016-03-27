@@ -19,7 +19,7 @@ $side-nav-color: #CFD8DC;
 
 //Button Colours
 $btn-default-color: #01579B;
-$btn-default-hover-color: #1A237E;
+$btn-default-hover-color: #0D47A1;
 $btn-danger-color: #F44336;
 $btn-danger-hover-color: #B71C1C;
 $btn-success-color: #4CAF50;
@@ -152,6 +152,9 @@ body {
     display: block!important;
     visibility: visible;
     display: none;
+  }
+  a.hide {
+    width: 10px;
   }
 }
 iframe {
