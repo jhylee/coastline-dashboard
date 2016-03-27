@@ -31,12 +31,14 @@ $btn-success-hover-color: #1B5E20;
   border-radius: $radius;
 }
 
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
   background-color: $primary-background-color;
   font-family: $primary-font;
   color: $primary-font-color;
+  max-width: 95%;
 }
 .panel {
   max-width: 100%;
@@ -48,6 +50,7 @@ body {
     background-color: $secondary-background-color;
     border-color: $primary-border-color;
     border-radius: 5px;
+    max-width: 100%;
     .btn {
       background-image: linear-gradient(#fcfcfc, #eee);
       border: 1px solid #d5d5d5;
@@ -60,6 +63,8 @@ body {
         outline: none;
       }
     }
+  }
+
   }
   .panel-scroll {
     @extend .panel-body;
