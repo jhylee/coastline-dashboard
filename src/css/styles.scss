@@ -31,7 +31,6 @@ $btn-success-hover-color: #1B5E20;
   border-radius: $radius;
 }
 
-
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
@@ -64,13 +63,11 @@ body {
       }
     }
   }
-
-  }
-  .panel-scroll {
-    @extend .panel-body;
-    height: 500px;
-    overflow-y: scroll;
-  }
+}
+.panel-scroll {
+  @extend .panel-body;
+  height: 500px;
+  overflow-y: scroll;
 }
 
 /*

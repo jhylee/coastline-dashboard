@@ -58,9 +58,11 @@
   </div>
   <div class="col-lg-12">
     <div class="modal-body">
-      <h4><b>Name:</b> {{order.firstName}} {{order.lastName}}</h4>
-      <h4><b>Phone:</b> {{order.phone}}</h4>
-      <h4><b>Order Time:</b> {{order.date | date:'short' }}</h4>
+      <h4><b>Name :</b> {{order.customerName}}</h4>
+      <h4><b>Phone :</b> {{order.phone}}</h4>
+      <h4><b>Email :</b> {{order.email}}</h4>
+      <h4><b>Order Time :</b> {{order.date | date:'short' }}</h4>
+      <h4><b>Credit Terms :</b> {{order.creditTerms}}</h4>
     </div>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -88,7 +90,7 @@
                 <td><b>Total</b></td>
                 <td></td>
                 <td></td>
-                <td>${{OrderData.length}}</td>
+                <td>${{getTotal()}}</td>
               </tr>
             </tbody>
           </table>

@@ -33,7 +33,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                                 console.log($scope.orders[i].items[j].product + " " + products[k]._id);
                                 if ($scope.orders[i].items[j].product == products[k]._id) {
                                     $scope.orders[i].items[j].product = products[k];
-                                    total += $scope.orders[i].items[j].product.unitPrice * $scope.orders[i].items[j].quantity
+                                    total += Math.round($scope.orders[i].items[j].product.unitPrice * $scope.orders[i].items[j].quantity *100)/100
                                     console.log(total);
                                 }
                             }
@@ -73,7 +73,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
         };
 
-        // TODO add an invoice
         $scope.addOrder = function() {
             console.log("addOrder");
 
@@ -99,7 +98,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 function() {});
         };
 
-        // TODO add an invoice
         $scope.editOrder = function() {
             console.log("editOrder");
 
@@ -169,6 +167,17 @@ app.controller('ViewOrderDetailCtrl', ['$scope', 'OrderData', 'ProductData', 'Au
         $scope.dismiss = function() {
             $uibModalInstance.close("dismiss");
         };
+
+        $scope.getTotal = function () {
+          var totalPrice = 0;
+          console.log(totalPrice);
+          var order = OrderData.getSelectedOrder();
+          for (var i = 0; i < order.items.length; i++) {
+            totalPrice += order.items[i].product.unitPrice * order.items[i].quantity;
+            console.log(totalPrice);
+          }
+          return Math.round(totalPrice *100)/100;
+        }
 
 
     }
