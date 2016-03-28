@@ -253,6 +253,16 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
             }
         };
 
+        $scope.getTotal = function () {
+          var totalPrice = 0;
+          console.log(totalPrice);
+          for (var i = 0; i < $scope.items.length; i++) {
+            totalPrice += $scope.items[i].unitPrice * $scope.items[i].quantity;
+            console.log(totalPrice);
+          }
+          return Math.round(totalPrice *100)/100;
+        }
+
         ProductData.getProductData(function(res) {
             $scope.products = res;
             // if (res.length > 0) $scope.selectedProduct = res[0];
@@ -298,6 +308,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
             }
 
         });
+
 
 
 
