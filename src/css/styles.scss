@@ -456,8 +456,64 @@ table.tableWhite {
 .table>thead>tr>td,
 .table>thead>tr>th {
   vertical-align: middle;
-  text-align: center;
+  text-align: middle;
 }
+
+
+@media screen and (max-width: 768px) {
+
+  .table>tbody>tr>td,
+  .table>tbody>tr>th,
+  .table>tfoot>tr>td,
+  .table>tfoot>tr>th,
+  .table>thead>tr>td,
+  .table>thead>tr>th {
+    vertical-align: middle;
+    text-align: right;
+    background-color: #fff;
+
+  }
+
+  table {
+    border: none;
+    .tableWhite {
+      border: none;
+    }
+  }
+
+
+  tbody {
+    background-color: $secondary-background-color;
+    border: none;
+  }
+
+  table thead {
+    display: none;
+  }
+  table tr {
+    margin-bottom: 10px;
+    display: block;
+
+  }
+  table td {
+    content: attr(data-label);
+    display: block;
+    font-size: 13px;
+
+  }
+
+  table td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  table td:last-child {
+  }
+}
+
+
+
 select {
   padding: 6px 10px;
   border: 1px solid #bfbfbf;
