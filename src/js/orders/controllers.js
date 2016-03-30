@@ -34,7 +34,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 console.log($scope.orders[i].items[j].product + " " + products[k]._id);
                 if ($scope.orders[i].items[j].product == products[k]._id) {
                   $scope.orders[i].items[j].product = products[k];
-                  total += Math.round($scope.orders[i].items[j].product.unitPrice * $scope.orders[i].items[j].quantity * 100) / 100
+                  total += Math.round($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity * 100) / 100
                   console.log(total);
                 }
               }
@@ -174,7 +174,7 @@ app.controller('ViewOrderDetailCtrl', ['$scope', 'OrderData', 'ProductData', 'Au
       console.log(totalPrice);
       var order = OrderData.getSelectedOrder();
       for (var i = 0; i < order.items.length; i++) {
-        totalPrice += order.items[i].product.unitPrice * order.items[i].quantity;
+        totalPrice += order.items[i].unitPrice * order.items[i].quantity;
         console.log(totalPrice);
       }
       return Math.round(totalPrice * 100) / 100;

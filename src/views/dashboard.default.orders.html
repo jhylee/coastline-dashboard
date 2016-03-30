@@ -82,9 +82,9 @@
             <tbody>
               <tr ng-repeat="item in order.items track by $index">
                 <td>{{item.product.name}}</td>
-                <td>${{item.product.unitPrice}} / {{item.product.unit}}</td>
+                <td>${{item.unitPrice}} / {{item.product.unit}}</td>
                 <td>{{item.quantity}} {{item.product.unit}}</td>
-                <td>{{item.product.unitPrice * item.quantity}}</td>
+                <td>{{item.unitPrice * item.quantity}}</td>
               </tr>
               <tr>
                 <td><b>Total</b></td>
