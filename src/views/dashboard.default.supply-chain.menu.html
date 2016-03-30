@@ -20,15 +20,15 @@
                       <th>#</th>
                       <th>Name</th>
                       <th>Date Created</th>
-                      <th>Last Updated</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr ng-repeat="supplyChain in supplyChains track by $index">
-                      <td>{{$index + 1}}</td>
-                      <td>{{supplyChain.name}}</td>
-                      <td>{{supplyChain.dateCreated | date: 'short'}}</td>
-                      <td>
+                      <td data-label="#">{{$index + 1}}</td>
+                      <td data-label="Name">{{supplyChain.name}}</td>
+                      <td data-label="Date Created">{{supplyChain.dateCreated | date: 'short'}}</td>
+                      <td data-label="Details">
                         <button ng-click="editSupplyChain(supplyChain)" class="btn-status-default">View/Edit</button>
                       </td>
                     </tr>

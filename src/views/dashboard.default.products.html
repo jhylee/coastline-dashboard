@@ -23,18 +23,16 @@
                         <th>Product Name</th>
                         <th>Unit Price</th>
                         <th>Description</th>
-                        <th></th>
                       </tr>
                     </thead>
                     <tbody ng-repeat="product in products track by $index">
                       <tr>
-                        <td>
+                        <td data-label="Select">
                           <input type="radio" ng-model="$parent.selectedProduct" ng-value="$index">
                         </td>
-                        <td>{{product.name}}</td>
-                        <td>${{product.unitPrice}}/{{product.unit}}</td>
-                        <td>{{product.description}}</td>
-                        <td></td>
+                        <td data-label="Product">{{product.name}}</td>
+                        <td data-label="Unit Price">${{product.unitPrice}}/{{product.unit}}</td>
+                        <td data-label="Description">{{product.description}}</td>
                       </tr>
                     </tbody>
                   </table>
