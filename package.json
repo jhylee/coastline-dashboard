@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "Inventory Management and E-Commerce App",
   "main": "gulpfile.js",
-   "engines": {
+  "engines": {
     "node": "4.1.1"
   },
-
   "scripts": {
     "test": "npm install; gulp",
-
     "start": "npm install; gulp"
   },
   "repository": {
@@ -28,6 +26,7 @@
     "gulp-jshint": "^1.11.2",
     "gulp-replace-task": "^0.2.1",
     "gulp-sass": "^2.0.3",
+    "ng-notify": "^0.7.1",
     "yargs": "^3.15.0"
   },
   "devDependencies": {
