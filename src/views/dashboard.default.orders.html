@@ -29,12 +29,12 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="order in orders track by $index">
-                      <td>{{order.invoiceNumber}}</td>
-                      <td>{{order.customerName}}</td>
-                      <td>{{order.status}}</td>
-                      <td>{{order.date | date:'short' }}</td>
-                      <td>${{totals[$index]}}</td>
-                      <td>
+                      <td data-label="Invoice">{{order.invoiceNumber}}</td>
+                      <td data-label="Name">{{order.customerName}}</td>
+                      <td data-label="Status">{{order.status}}</td>
+                      <td data-label="Date">{{order.date | date:'short' }}</td>
+                      <td data-label="Subtotal">${{totals[$index]}}</td>
+                      <td data-label="Select">
                         <input type="radio" ng-model="$parent.selectedOrder" ng-value="$parent.orders[$index]">
                       </td>
                     </tr>
@@ -81,10 +81,10 @@
             </thead>
             <tbody>
               <tr ng-repeat="item in order.items track by $index">
-                <td>{{item.product.name}}</td>
-                <td>${{item.unitPrice}} / {{item.product.unit}}</td>
-                <td>{{item.quantity}} {{item.product.unit}}</td>
-                <td>{{item.unitPrice * item.quantity}}</td>
+                <td data-label="Product">{{item.product.name}}</td>
+                <td data-label="Unit Price">${{item.unitPrice}} / {{item.product.unit}}</td>
+                <td data-label="Quantity">{{item.quantity}} {{item.product.unit}}</td>
+                <td data-label="Subtotal">{{item.unitPrice * item.quantity}}</td>
               </tr>
               <tr>
                 <td><b>Total</b></td>
@@ -188,26 +188,26 @@
                   </thead>
                   <tbody>
                     <tr ng-repeat="item in items track by $index">
-                      <td>{{item.product.name}}</td>
+                      <td >{{item.product.name}}</td>
                       <td>{{item.block.displayData || item.block.catchDate}}</td>
                       <td>{{item.unitPrice}}</td>
                       <td>{{item.units}}</td>
                       <td>{{item.quantity}}</td>
                     </tr>
                     <tr>
-                      <td>
+                      <td data-label="Product">
                         <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
                       </td>
 
-                      <td>
+                      <td data-label="Choose Batch">
                         <select class="form-control" ng-model="selectedBlock" ng-options="block.displayData for block in blocks"></select>
                       </td>
 
-                      <td>
+                      <td data-label="Unit Price">
                         <input type="number" min="0" ng-model="unitPrice" step="0.01" class="form-control" placeholder="ex. 12.99"></input>
                       </td>
 
-                      <td>
+                      <td data-label="Units">
                         <select ng-model="units" class="form-control">
                           <option value="lbs">lbs</option>
                           <option value="half lbs">1/2 lbs</option>
@@ -215,11 +215,11 @@
                         </select>
                       </td>
 
-                      <td>
+                      <td data-label="Quantity">
                         <input type="number" min="0" ng-model="quantity" value="1" class="form-control" placeholder="ex. 10"></input>
                       </td>
 
-                      <td>
+                      <td data-label="Add Entry">
                         <button ng-disabled="isAddButtonDisabled()" ng-click="addItem()" class="btn-status-success"><i class="fa fa-plus"></i></btn>
                       </td>
                     </tr>

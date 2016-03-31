@@ -27,12 +27,12 @@
                     </thead>
                     <tbody ng-repeat="sellingPoint in sellingPoints track by $index">
                       <tr>
-                        <td>{{$index + 1}}</td>
-                        <td>{{sellingPoint.name}}</td>
-                        <td>{{sellingPoint.dateCreated | date: 'short'}}</td>
+                        <td data-label="#">{{$index + 1}}</td>
+                        <td data-label="Name">{{sellingPoint.name}}</td>
+                        <td data-label="Date Created">{{sellingPoint.dateCreated | date: 'short'}}</td>
                         <!-- TODO, just set type as first in list for now -->
-                        <td>{{sellingPoint.sellingTargets[0]}}</td>
-                        <td>
+                        <td data-label="Channel Type">{{sellingPoint.sellingTargets[0]}}</td>
+                        <td data-label="Select">
                           <input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index">
                         </td>
                       </tr>
@@ -130,11 +130,11 @@
             </thead>
             <tbody ng-repeat="block in blocks track by $index">
               <tr>
-                <td>{{$index + 1}}</td>
-                <td>{{block.productType.name}}</td>
-                <td>{{block.quantity + " " + block.units}}</td>
-                <td>{{block.dateCreated | date: 'short'}}</td>
-                <td>
+                <td data-label="#">{{$index + 1}}</td>
+                <td data-label="Product">{{block.productType.name}}</td>
+                <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+                <td data-label="Date Added">{{block.dateCreated | date: 'short'}}</td>
+                <td data-label="Select">
                   <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
                 </td>
               </tr>
