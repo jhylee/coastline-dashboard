@@ -478,7 +478,7 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
         $scope.block1 = SupplyChainData.getSelectedBlock();
         $scope.quantity = $scope.block1.quantity;
 
-        $scope.$watch('quantity', function () {
+        $scope.$watch('quantity', function() {
             if ($scope.quantity > $scope.block1.quantity) {
                 $scope.quantity = $scope.block1.quantity;
                 // TODO - insert cgNotify popup or something to tell them not to exceed the batch quantity
@@ -639,7 +639,7 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
 app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
     function($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
 
-        $scope.$watch('quantity', function () {
+        $scope.$watch('quantity', function() {
             if ($scope.quantity > $scope.block1.quantity) {
                 $scope.quantity = $scope.block1.quantity;
                 // TODO - insert cgNotify popup or something to tell them not to exceed the batch quantity
