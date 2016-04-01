@@ -149,6 +149,16 @@ body {
     color: #fff;
   }
 }
+
+.navbar-toggle {
+  border: none;
+  margin-top: 16px;
+}
+
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: $btn-default-color;
+}
+
 @media screen and (max-width: 768px) {
   .hide {
     display: block!important;
