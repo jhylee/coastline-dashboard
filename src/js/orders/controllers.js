@@ -169,6 +169,37 @@ app.controller('ViewOrderDetailCtrl', ['$scope', 'OrderData', 'ProductData', 'Au
             $uibModalInstance.close("dismiss");
         };
 
+        $scope.getPDF = function() {
+
+            OrderData.fetchOrderPDF($scope.order._id).then(function (res) {
+                var anchor = angular.element('<a/>');
+                anchor.attr({
+                    href: 'data:attachment/xlsx;charset=utf-8,' + encodeURI(res),
+                    target: '_blank',
+                    download: 'order.xlsx'
+                })[0].click();
+            })
+
+
+            // $http({
+            //     method: 'GET',
+            //     url: '/someUrl'
+            // }).
+            // success(function(data, status, headers, config) {
+            //     var anchor = angular.element('<a/>');
+            //     anchor.attr({
+            //         // href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+            //         href: 'http://google.com/',
+            //         target: '_blank',
+            //         // download: 'filename.csv'
+            //     })[0].click();
+
+            // }).
+            // error(function(data, status, headers, config) {
+            //     // handle error
+            // });
+        }
+
         $scope.getTotal = function() {
             var totalPrice = 0;
             console.log(totalPrice);

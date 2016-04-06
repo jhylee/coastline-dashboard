@@ -12,6 +12,11 @@ app.factory('OrderData', ['$http', '$localStorage', 'apiUrl', function($http, $l
         getOrders: function(success, error) {
             $http.get(baseUrl + '/api/orders').success(success).error(error);
         },
+        fetchOrderPDF: function(orderId) {
+            return $http.get(baseUrl + '/api/orders/' + orderId + '/pdf').then(function(res) {
+                return res.data;
+            })
+        },
         addOrder: function(data) {
             return $http.post(baseUrl + '/api/orders/manual', data).then(function(res) {
                 return res.data;
