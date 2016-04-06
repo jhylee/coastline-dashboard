@@ -125,11 +125,21 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
             physics: {
                 enabled: false
             },
+            nodes: {
+              color: {
+                background: '#D2E5FF'
+              }
+            },
+
             edges: {
+              color: {
+                color: '#000',
+                highlight:'#01579B'
+              },
                 arrows: {
                     to: {
                         enabled: true,
-                        scaleFactor: 1
+                        scaleFactor: 1.5
                     }
                 },
                 smooth: {
