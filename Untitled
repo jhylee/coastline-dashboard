@@ -1,0 +1,141 @@
+<div id="page-wrapper">
+  <!-- ng-controller=invoiceCtrl -->
+  <header class="container">
+    <h1></h1>
+  </header>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="text-center">
+
+          <h1>Invoice for purchase #33221</h1>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xs-12 col-md-4 col-lg-4 pull-left">
+            <div class="panel panel-default height">
+              <div class="panel-heading">Vendor Information</div>
+              <div class="panel-body">
+                <strong>{{getSellerOrganization()}}</strong>
+                <br>{{getSellerAddress()}}
+                <br>{{getSellerCity()}}, {{getSellerState()}}
+                <br>{{getSellerPostalCode()}},
+                <br>{{getSellerPhoneNumber()}}
+                <br>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-4 col-lg-4">
+            <!-- <div class="panel panel-default height">
+              <div class="panel-heading">Payment Information</div>
+              <div class="panel-body">
+                <strong>Card Name:</strong> Visa
+                <br>
+                <strong>Card Number:</strong> ***** 332
+                <br>
+                <strong>Exp Date:</strong> 09/2020
+                <br>
+              </div>
+            </div> -->
+          </div>
+
+          <div class="col-xs-12 col-md-4 col-lg-4 pull-right">
+            <div class="panel panel-default height">
+              <div class="panel-heading">Customer Information</div>
+              <div class="panel-body">
+                <strong>{{getBuyerName()}}</strong>
+                <br>{{getBuyerAddress()}}
+                <br>{{getBuyerCity()}}, {{getBuyerState()}}
+                <br>{{getBuyerPostalCode()}},
+                <br>{{getBuyerPhoneNumber()}}
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="text-center">
+              <strong>Order summary</strong>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <td>
+                      <strong>Item Name</strong>
+                    </td>
+                    <td class="text-center">
+                      <strong>Item Price</strong>
+                    </td>
+                    <td class="text-center">
+                      <strong>Item Quantity</strong>
+                    </td>
+                    <td class="text-right">
+                      <strong>Subtotal</strong>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="product in getProducts()">
+                    <td>{{product.name}}</td>
+                    <td class="text-center">${{product.unitPrice}}/{{product.units}}</td>
+                    <td class="text-center">{{product.quantity}}</td>
+                    <td class="text-right">{{getTotalAmount(product.quantity * product.unitPrice)}}</td>
+                  </tr>
+
+                  <tr>
+                    <td class="highrow"></td>
+                    <td class="highrow"></td>
+                    <td class="highrow text-center">
+                      <strong>Total</strong>
+                    </td>
+                    <td class="highrow text-right">{{getTotalAmount(getOrderTotal())}}</td>
+                  </tr>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .height {
+      min-height: 200px;
+    }
+    .icon {
+      font-size: 47px;
+      color: #000;
+    }
+    .iconbig {
+      font-size: 77px;
+      color: #000;
+    }
+    .table > tbody > tr > .emptyrow {
+      border-top: none;
+    }
+    .table > thead > tr > .emptyrow {
+      border-bottom: none;
+    }
+    .table > tbody > tr > .highrow {
+      border-top: 3px solid;
+    }
+    .container {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      /*margin-left: 150px;*/
+      /*margin-right: 150px;*/
+    }
+  </style>
+
+</div>
