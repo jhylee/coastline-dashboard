@@ -158,7 +158,7 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
 
 });
 
-app.run(function($rootScope, $state, $location, AuthService, RedirectService, SupplyChainData) {
+app.run(function($rootScope, $state, $location, AuthService, RedirectService, SupplyChainService) {
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
@@ -184,14 +184,14 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
         }
         // else {
         //     if (fromState.name == 'dashboard.default.supply-chain.builder') {
-        //         if (SupplyChainData.getLeaveTicket()) {
+        //         if (SupplyChainService.getLeaveTicket()) {
         //             console.log('yes');
         //
         //         } else {
         //             console.log('no');
         //
         //             event.preventDefault();
-        //             SupplyChainData.setToState(toState.name);
+        //             SupplyChainService.setToState(toState.name);
         //             $rootScope.$broadcast('leaving-supply-chain-builder');
         //         }
         //     }
