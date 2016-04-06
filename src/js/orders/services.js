@@ -3,7 +3,7 @@ var app = angular.module('coastlineWebApp.orders.services', ['ui.bootstrap', 'ng
 ]);
 
 
-app.factory('OrderData', ['$http', '$localStorage', 'apiUrl', function($http, $localStorage, apiUrl) {
+app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', function($http, $window, $localStorage, apiUrl) {
     'use strict';
     var baseUrl = apiUrl;
     var selectedOrder;
@@ -13,9 +13,33 @@ app.factory('OrderData', ['$http', '$localStorage', 'apiUrl', function($http, $l
             $http.get(baseUrl + '/api/orders').success(success).error(error);
         },
         fetchOrderPDF: function(orderId) {
-            return $http.get(baseUrl + '/api/orders/' + orderId + '/pdf').then(function(res) {
+            // var anchor = angular.element('<a/>');
+            // anchor.attr({
+            //     href: baseUrl + '/api/orders/' + orderId + '/pdf',
+            //     target: '_blank',
+            //     download: 'order.xlsx'
+            // })[0].click();
+
+            return $http({
+                url: baseUrl + '/api/orders/' + orderId + '/pdf',
+                method: 'GET',
+                responseType: 'arraybuffer',
+                // data: json, //this is your json data string
+                headers: {
+                    // 'Content-type': 'application/json',
+                    'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                }
+            }).then(function(res) {
+                console.log('here');
+
                 return res.data;
             })
+            //
+            // return $http.get(baseUrl + '/api/orders/' + orderId + '/pdf').then(function(res) {
+            //
+            //     return res.data;
+            // })
+
         },
         addOrder: function(data) {
             return $http.post(baseUrl + '/api/orders/manual', data).then(function(res) {
