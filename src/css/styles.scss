@@ -39,6 +39,7 @@ body {
   color: $primary-font-color;
   max-width: 95%;
 }
+
 .panel {
   max-width: 100%;
   height: 100%;
@@ -440,6 +441,11 @@ hr.short {
 div.modal-text {
   width: 80%;
 }
+
+.div-align-right {
+  float:right;
+}
+
 table {
   display: table;
   border-collapse: separate;
