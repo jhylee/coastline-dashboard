@@ -206,6 +206,18 @@
           <small class="text-muted">Please select the target destination for your inventory.</small>
         </div>
       </fieldset>
+      <fieldset class="form-group">
+        <div class="col-lg-6">
+          <label>Job Number: </label>
+          <input class="form-control" ng-model="jobNum" type="number" min="0" placeholder="ex. 13421">
+          <small class="text-muted">[Optional]: Please enter in the desired job number.</small>
+        </div>
+        <div class="col-lg-6">
+          <label>Process Type: </label>
+          <input class="form-control" ng-model="processType" type="text" placeholder="ex. Filleted, Five-pound bag">
+          <small class="text-muted">[Optional]: Please enter in the process type.</small>
+        </div>
+      </fieldset>
     </form>
     </div>
     <div class="modal-footer">
