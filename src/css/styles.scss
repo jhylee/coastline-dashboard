@@ -38,21 +38,22 @@ body {
   background-color: $primary-background-color;
   font-family: $primary-font;
   color: $primary-font-color;
-  max-width: 95%;
   margin-left: 10px;
 }
+
 .panel {
-  max-width: 100%;
+  max-width: 90%;
   height: 100%;
   border-color: $primary-border-color;
   background-color: $secondary-background-color;
+
   .panel-body {
     padding: none;
+    margin-left:0px;
     background-color: $secondary-background-color;
     border-color: $primary-border-color;
     border-radius: 5px;
-    max-width: 100%;
-    .btn {
+     .btn {
       background-image: linear-gradient(#fcfcfc, #eee);
       border: 1px solid #d5d5d5;
       border-radius: 3px;
@@ -65,7 +66,11 @@ body {
       }
     }
   }
+
+  }
+
 }
+
 .panel-scroll {
   @extend .panel-body;
   height: 500px;
@@ -503,7 +508,6 @@ div.modal-text {
   float: right;
 }
 table {
-  display: table;
   border-collapse: collapse;
   border-color: grey;
   border-radius: 2px;
@@ -511,6 +515,7 @@ table {
 }
 table.tableWhite {
   background-color: #f3f3f3;
+
   th {
     background-color: #eeeeee;
     border-top-right-radius: 5px;
@@ -550,13 +555,7 @@ table.tableWhite {
     padding-left: 10px;
     padding-right: 10px;
   }
-  table {
-    border-radius: 20px;
-    border: none;
-    .tableWhite {
-      border: none;
-    }
-  }
+
   .table-responsive {
     border: none;
   }
