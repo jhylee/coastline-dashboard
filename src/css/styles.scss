@@ -148,9 +148,9 @@ body {
   }
 }
 
-.navbar-header img:hover,.navbar-header img:active,.navbar-header img:focus, .navbar-header a:hover {
+.navbar-header img:hover,.navbar-header img:active,.navbar-header img:focus,
+.navbar-header a:hover{
     -webkit-filter: invert(35%);
-    color: invert(35%);
 }
 
 .navbar-collapse .nav li {
