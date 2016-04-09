@@ -2,7 +2,6 @@
  * Base structure
  */
 @import url('http://fonts.googleapis.com/css?family=Roboto');
-@import url('http://fonts.googleapis.com/css?family=Open+Sans');
 
 // @import url('http://fonts.googleapis.com/css?family=Lato+Light');
 $primary-background-color: #EEEEEE;
@@ -12,7 +11,7 @@ $inverse-background-color: #fff;
 $primary-font-color: #000;
 $hyperlink-font-color: #fff;
 $primary-border-color: #CFD8DC;
-$primary-font: "Open Sans", "Helvetica", "Roboto";
+$primary-font: "Roboto";
 
 //Navigation Colours
 $navbar-color: #01579B;
@@ -39,7 +38,10 @@ body {
   font-family: $primary-font;
   color: $primary-font-color;
   max-width: 95%;
+  margin-left: 10px;
+
 }
+
 .panel {
   max-width: 100%;
   height: 100%;
@@ -63,6 +65,7 @@ body {
         outline: none;
       }
     }
+
   }
 }
 .panel-scroll {
@@ -138,7 +141,18 @@ body {
     margin-top: -5px;
     margin-left: 30px;
   }
+  @media screen and (max-width: 768px) {
+    img {
+      margin-left: 0px;
+    }
+  }
 }
+
+.navbar-header img:hover,.navbar-header img:active,.navbar-header img:focus, .navbar-header a:hover {
+    -webkit-filter: invert(35%);
+    color: invert(35%);
+}
+
 .navbar-collapse .nav li {
   margin: 10px 5px;
   @include border-radius(2px);
@@ -147,8 +161,10 @@ body {
   }
   a {
     color: #fff;
-    margin-righ: 30px;
   }
+}
+.navbar-right {
+  margin-right: 30px;
 }
 .navbar-toggle {
   border: none;
@@ -255,10 +271,13 @@ th {
 }
 .main .page-header {
   margin-top: 25px;
-  font-weight: 400;
+  margin-left: 20px;
+  font-weight: 100;
   border-color: $primary-border-color;
-  max-width: 100%;
+  max-width: 88%;
+
 }
+
 .btn-status-default {
   @include border-radius(2px);
   color: $secondary-background-color;
