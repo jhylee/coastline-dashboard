@@ -62,6 +62,7 @@ body {
       &:focus {
         outline: none;
       }
+
     }
   }
 }
@@ -313,6 +314,10 @@ fieldset[disabled] .btn-status-default.active {
   opacity: 0.5;
   outline: none;
 }
+a.btn-status-default:hover {
+    text-decoration: none;
+  }
+
 .btn-status-danger {
   @include border-radius(2px);
   color: $secondary-background-color;
@@ -412,6 +417,17 @@ fieldset[disabled] .btn-status-success.active {
   opacity: 0.6;
   outline: none;
 }
+
+.btn-size-large {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+a.btn-size-large:hover {
+    text-decoration: none;
+  }
+
 input.search {
   @include border-radius(2px);
   padding: 8px 15px;
@@ -571,4 +587,5 @@ select {
 */
 img.instructionImg {
   max-width: 100%;
+  border-radius: 2px;
 }
