@@ -471,8 +471,8 @@ app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
     }
 ]);
 
-app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
+app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', 'ngNotify', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, SupplyChainData, ngNotify, $state, $uibModalInstance) {
 
         $scope.fromStage = SupplyChainData.getSelectedStage();
         $scope.block1 = SupplyChainData.getSelectedBlock();
@@ -481,8 +481,15 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
         $scope.$watch('quantity', function() {
             if ($scope.quantity > $scope.block1.quantity) {
                 $scope.quantity = $scope.block1.quantity;
-                // TODO - insert cgNotify popup or something to tell them not to exceed the batch quantity
-            }
+
+                ngNotify.set('Quantity entered exceeds availability', {
+                    sticky: false,
+                    button: true,
+                    type: 'error',
+                    duration: 900,
+                    position: 'top'
+                })
+              }
         });
 
         $scope.getRemainingQuantity = function() {
@@ -506,7 +513,10 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
                     productId: selectedBlock.productType._id,
                     stageId: $scope.toStage.self,
                     quantity: $scope.quantity,
-                    units: $scope.units
+                    units: $scope.units,
+                    // TODO save to backend for display/storage?
+                    jobNum: $scope.jobNum,
+                    processType: $scope.processType
                 };
 
                 console.log($scope.toStage.self);
@@ -524,7 +534,10 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
                     quantity: $scope.quantity,
                     units: $scope.block1.units,
                     stage: $scope.toStage.self,
-                    productType: $scope.block1.productType
+                    productType: $scope.block1.productType,
+                    // TODO save to backend for display/storage?
+                    jobNum: $scope.block1.jobNum,
+                    processType: $scope.block1.processType
                 };
 
                 $scope.block1.quantity = $scope.block1.quantity - block2.quantity;
@@ -636,14 +649,21 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
     }
 ]);
 
-app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
+app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', 'ngNotify', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, SupplyChainData, ngNotify, $state, $uibModalInstance) {
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity > $scope.block1.quantity) {
                 $scope.quantity = $scope.block1.quantity;
-                // TODO - insert cgNotify popup or something to tell them not to exceed the batch quantity
-            }
+
+                ngNotify.set('Quantity entered exceeds availability', {
+                    sticky: false,
+                    button: true,
+                    type: 'error',
+                    duration: 900,
+                    position: 'top'
+                })
+              }
         });
 
         $scope.fromStage = SupplyChainData.getSelectedStage();
@@ -679,7 +699,10 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
                     productId: selectedBlock.productType._id,
                     stageId: $scope.toStage._id,
                     quantity: $scope.quantity,
-                    units: $scope.units
+                    units: $scope.units,
+                    // TODO save to backend for display/storage?
+                    jobNum: $scope.jobNum,
+                    processType: $scope.processType
                 };
 
                 console.log($scope.toStage.self);
@@ -697,7 +720,10 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
                     quantity: $scope.quantity,
                     units: $scope.block1.units,
                     stage: $scope.toStage._id,
-                    productType: $scope.block1.productType
+                    productType: $scope.block1.productType,
+                    // TODO save to backend for display/storage?
+                    jobNum: $scope.block1.jobNum,
+                    processType: $scope.processType
                 };
 
                 $scope.block1.quantity = $scope.block1.quantity - block2.quantity;

@@ -266,7 +266,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
             if ($scope.quantity && $scope.selectedBlock) {
                 if ($scope.quantity > $scope.selectedBlock.quantity) {
                     $scope.quantity = $scope.selectedBlock.quantity;
-                    // TODO - insert cgNotify popup or something to tell them not to exceed the batch quantity
+
                     ngNotify.set('Quantity exceeds availability in this batch', {
                         sticky: false,
                         button: true,
