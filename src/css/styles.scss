@@ -40,20 +40,18 @@ body {
   color: $primary-font-color;
   margin-left: 10px;
 }
-
 .panel {
   max-width: 90%;
   height: 100%;
   border-color: $primary-border-color;
   background-color: $secondary-background-color;
-
   .panel-body {
     padding: none;
-    margin-left:0px;
+    margin-left: 0;
     background-color: $secondary-background-color;
     border-color: $primary-border-color;
     border-radius: 5px;
-     .btn {
+    .btn {
       background-image: linear-gradient(#fcfcfc, #eee);
       border: 1px solid #d5d5d5;
       border-radius: 3px;
@@ -66,9 +64,6 @@ body {
       }
     }
   }
-
-  }
-
 }
 
 .panel-scroll {
@@ -187,7 +182,10 @@ body {
     width: 10px;
   }
 }
-iframe, iframe:active, iframe:focus, iframe:hover {
+iframe,
+iframe:active,
+iframe:focus,
+iframe:hover {
   max-width: 100%;
 }
 th {
@@ -515,20 +513,18 @@ table {
 }
 table.tableWhite {
   background-color: #f3f3f3;
-
   th {
     background-color: #eeeeee;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     vertical-align: middle;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 0;
+    padding-right: 0;
   }
   td {
     vertical-align: bottom;
-    padding-left: 0px;
-    padding-right: 0px;
-
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 .table>tbody>tr>td,
@@ -539,8 +535,8 @@ table.tableWhite {
 .table>thead>tr>th {
   vertical-align: middle;
   text-align: center;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0;
+  padding-right: 0;
 }
 @media screen and (max-width: 768px) {
   .table>tbody>tr>td,
@@ -555,7 +551,6 @@ table.tableWhite {
     padding-left: 10px;
     padding-right: 10px;
   }
-
   .table-responsive {
     border: none;
   }
