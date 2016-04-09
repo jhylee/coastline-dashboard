@@ -18,23 +18,23 @@
                   <table class="table tableWhite">
                     <thead>
                       <tr>
-                        <th>#</th>
+                        <th>Select</th>
                         <th>Name</th>
                         <th>Date Created</th>
                         <th>Channel Type</th>
-                        <th>Select</th>
                       </tr>
                     </thead>
                     <tbody ng-repeat="sellingPoint in sellingPoints track by $index">
                       <tr>
-                        <td data-label="#">{{$index + 1}}</td>
+                        <!-- <td data-label="#">{{$index + 1}}</td> -->
+                        <td data-label="Select">
+                          <input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index">
+                        </td>
                         <td data-label="Name">{{sellingPoint.name}}</td>
                         <td data-label="Date Created">{{sellingPoint.dateCreated | date: 'short'}}</td>
                         <!-- TODO, just set type as first in list for now -->
                         <td data-label="Channel Type">{{sellingPoint.sellingTargets[0]}}</td>
-                        <td data-label="Select">
-                          <input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index">
-                        </td>
+
                       </tr>
                     </tbody>
                   </table>
@@ -117,37 +117,37 @@
   <div class="modal-body">
     <div class="panel panel-default">
       <div class="panel-body">
-       <!-- <div class="panel-scroll">-->
+        <!-- <div class="panel-scroll">-->
         <div class="tableWhite">
           <table class="table tableWhite">
             <thead>
               <tr>
-                <th>#</th>
+                <th>Select</th>
+                <!--<th>#</th>-->
                 <th>Product Type</th>
                 <th>Quantity</th>
                 <th>Inventory Input Date</th>
-                <th>Select</th>
               </tr>
             </thead>
             <tbody ng-repeat="block in blocks track by $index">
               <tr>
-                <td data-label="#">{{$index + 1}}</td>
-                <td data-label="Product">{{block.productType.name}}</td>
-                <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
-                <td data-label="Date Added">{{block.dateCreated | date: 'short'}}</td>
                 <td data-label="Select">
                   <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
                 </td>
+                <!--<td data-label="#">{{$index + 1}}</td>-->
+                <td data-label="Product">{{block.productType.name}}</td>
+                <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+                <td data-label="Date Added">{{block.dateCreated | date: 'short'}}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  <!--</div>-->
+    <!--</div>-->
   </div>
   <div class="modal-footer">
-    <button class="btn-status-default" type="button" ng-click="cancel()">Dismiss</button>
+    <button class="btn-status-default" type="button" ng-click="cancel()">Close</button>
   </div>
 </script>
 
@@ -213,14 +213,14 @@
 
 <!-- VIEW INVENTORY BATCH DETAILS IN SELLING POINT MODAL -->
 <script type="text/ng-template" id="viewDetailsModal.html">
-<div class="modal-header">
-  <h3 class="modal-title">Inventory Batch Details</h3>
-</div>
+  <div class="modal-header">
+    <h3 class="modal-title">Inventory Batch Details</h3>
+  </div>
   <div class="modal-body">
     <div class="panel panel-default">
       <div class="panel-body">
-      <h4 class="text-center">Initial Catch Audit</h4>
-      <hr class="short">
+        <h4 class="text-center">Initial Catch Audit</h4>
+        <hr class="short">
         <div class="tableWhite">
           <table class="table tableWhite">
             <thead>
@@ -272,7 +272,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-status-default" type="button" ng-click="cancel()">Dismiss</button>
+      <button class="btn-status-default" type="button" ng-click="cancel()">Close</button>
     </div>
   </div>
 </script>

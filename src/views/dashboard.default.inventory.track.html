@@ -41,22 +41,23 @@
           <table class="table tableWhite">
             <thead>
               <tr>
-                <th>#</th>
+                <th>Select</th>
+                <!--<th>#</th>-->
                 <th>Product Type</th>
                 <th>Quantity</th>
                 <th>Inventory Input Date</th>
-                <th>Select</th>
               </tr>
             </thead>
             <tbody ng-repeat="block in blocks track by $index">
               <tr>
-                <td data-label="#">{{$index + 1}}</td>
-                <td data-label="Product">{{block.productType.name}}</td>
-                <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
-                <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
                 <td data-label="Select">
                   <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
                 </td>
+                <!--<td data-label="#">{{$index + 1}}</td>-->
+                <td data-label="Product">{{block.productType.name}}</td>
+                <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+                <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
+
               </tr>
             </tbody>
           </table>
@@ -65,7 +66,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-default" type="button" ng-click="ok()">Dismiss</button>
+    <button class="btn-status-default" type="button" ng-click="ok()">Close</button>
   </div>
 </script>
 
@@ -133,7 +134,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
@@ -161,7 +162,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-success" type="button" ng-click="ok()">Save</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
@@ -221,7 +222,7 @@
     </form>
     </div>
     <div class="modal-footer">
-      <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+      <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
     </fieldset>
@@ -257,7 +258,7 @@
     </form>
     </div>
     <div class="modal-footer">
-      <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+      <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
     </fieldset>
