@@ -11,6 +11,7 @@ $inverse-background-color: #fff;
 $primary-font-color: #000;
 $hyperlink-font-color: #fff;
 $primary-border-color: #CFD8DC;
+$secondary-border-color: #dfe0e0;
 $primary-font: "Roboto";
 
 //Navigation Colours
@@ -47,6 +48,7 @@ body {
   height: 100%;
   border-color: $primary-border-color;
   background-color: $secondary-background-color;
+
   .panel-body {
     padding: none;
     background-color: $secondary-background-color;
@@ -273,8 +275,8 @@ th {
   margin-top: 25px;
   margin-left: 20px;
   font-weight: 100;
-  border-color: $primary-border-color;
   max-width: 88%;
+  border-bottom: 2px solid $primary-border-color;
 
 }
 
@@ -446,13 +448,29 @@ a.btn-size-large:active,
 a.btn-size-large:focus {
   text-decoration: none;
 }
-input.search {
-  @include border-radius(2px);
-  padding: 8px 15px;
-  border-style: none;
-  background-color: $primary-border-color;
-  outline: none;
+
+.form-control {
+  border-radius: 2px;
 }
+
+input.form-control, select.form-control {
+  border-radius: 2px;
+  padding-top: 2px;
+  padding-bottom:2px;
+  padding-left: 15px;
+  background-color: #fff;
+  border: 1px solid $primary-border-color;
+  font-size: 14px;
+}
+input.form-control:focus, select.form-control:focus {
+  padding-top: 2px;
+  padding-bottom:2px;
+  padding-left: 15px;  background-color: #fff;
+  border: 1px solid $primary-border-color;
+  font-size: 14px;
+  box-shadow: none;
+}
+
 .panel {
   border-radius: 5px;
   border: none;
@@ -470,7 +488,7 @@ hr {
 }
 hr.short {
   width: 90%;
-  border-width: 2px;
+  border-width: 1px;
   border-style: solid;
   border-color: $side-nav-color;
   opacity: 0.9;
@@ -494,7 +512,8 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   border-color: grey;
-  border-radius: 5px;
+  border-radius: 2px;
+  border: 2px solid $secondary-border-color;
 }
 table.tableWhite {
   background-color: #f3f3f3;
@@ -506,6 +525,7 @@ table.tableWhite {
   }
   td {
     vertical-align: bottom;
+
   }
 }
 .table>tbody>tr>td,
@@ -530,6 +550,8 @@ table.tableWhite {
   }
   table {
     border-radius: 20px;
+    border: none;
+
     .tableWhite {
       border: none;
     }
