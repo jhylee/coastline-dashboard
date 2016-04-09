@@ -21,9 +21,9 @@ $side-nav-color: #CFD8DC;
 //Button Colours
 $btn-default-color: #01579B;
 $btn-default-hover-color: #0D47A1;
-$btn-danger-color: #F44336;
+$btn-danger-color: #DD2C00;
 $btn-danger-hover-color: #B71C1C;
-$btn-success-color: #4CAF50;
+$btn-success-color: #43A047;
 $btn-success-hover-color: #1B5E20;
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
@@ -129,15 +129,14 @@ body {
   color: $primary-font-color;
 }
 .navbar-header .navbar-brand {
-  margin: 10px 10px 10px 15px;
+  margin: 10px 10px 10px 10px;
   color: #fff;
-  letter-spacing: 1px;
+  letter-spacing: 0.1em;
   font-size: 20px;
-  font-weight: 500;
   img {
     display: inline-block;
     margin-top: -5px;
-    margin-left: 10px;
+    margin-left: 30px;
   }
 }
 .navbar-collapse .nav li {
@@ -148,6 +147,7 @@ body {
   }
   a {
     color: #fff;
+    margin-righ: 30px;
   }
 }
 .navbar-toggle {
@@ -205,12 +205,13 @@ th {
     h1 {
       font-size: 18px;
       font-weight: 700;
-      margin-bottom: 15px;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
+      margin-left: 15px;
+      margin-top: 25px;
     }
     a {
       color: $primary-font-color;
-      font-weight: 600;
+      font-size:15px;
       &:hover {
         background-color: $navbar-color;
         @include border-radius(2px);
@@ -225,8 +226,8 @@ th {
       @include border-radius(2px);
       color: #fff;
     }
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 32px;
+    padding-left: 32px;
     margin: 10px 5px;
   }
 }
@@ -253,7 +254,7 @@ th {
   }
 }
 .main .page-header {
-  margin-top: 20px;
+  margin-top: 25px;
   font-weight: 400;
   border-color: $primary-border-color;
   max-width: 100%;
@@ -445,12 +446,23 @@ input.search {
 .panel-footer {
   background-color: #EEEEEE;
 }
+hr {
+  border-width: 2px;
+}
 hr.short {
   width: 90%;
-  border-width: 1px;
+  border-width: 2px;
   border-style: solid;
   border-color: $side-nav-color;
   opacity: 0.9;
+}
+hr.side-nav {
+  border-color: #454545;
+  width: 65%;
+  border-width: 2px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 15px;
 }
 div.modal-text {
   width: 80%;
