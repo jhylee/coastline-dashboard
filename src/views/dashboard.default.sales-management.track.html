@@ -201,32 +201,37 @@
   <div class="modal-header">
     <h3 class="modal-title">Inventory Batch Details</h3>
   </div>
+
   <div class="modal-body">
-    <h4 class="text-center">Initial Catch Audit</h4>
-    <hr class="short">
-    <div class="tableWhite">
-      <table class="table tableWhite">
-        <thead>
-          <tr>
-            <th>Select</th>
-            <th>Product Type</th>
-            <th>Quantity</th>
-            <th>Date Created</th>
-          </tr>
-        </thead>
-        <tbody ng-repeat="block in blocks track by $index">
-          <tr>
-            <td>
-              <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
-            </td>
-            <td>&nbsp;{{block.productType.name}}</td>
-            <td>&nbsp;{{block.quantity + " " + block.units}}</td>
-            <td>&nbsp;{{block.dateCreated | date:"yyyy-MM-dd hh:mm a"}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <h4 class="text-center">Initial Catch Audit</h4>
+      <hr class="short">
+      <div class="table-responsive">
+        <table class="table tableWhite">
+          <thead>
+            <tr>
+              <th>Product Type</th>
+              <th>Quantity</th>
+              <th>Catch Date</th>
+              <th>Catch Region</th>
+              <th>Caught By</th>
+              <th>Catch Type</th>
+              <th>Water Depth</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Product">{{block.productType.name}}</td>
+              <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+              <td data-label="Catch Date">{{block.catchDate | date:"M/d/y"}}</td>
+              <td data-label="Region">{{block.catchRegion}}</td>
+              <td data-label="Catcher">{{block.caughtBy}}</td>
+              <td data-label="Method">{{block.catchType}}</td>
+              <td data-label="Depth">{{block.waterDepth}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
 
   <div class="modal-body">
     <h4 class="text-center">Lot History</h4>
@@ -243,10 +248,10 @@
         </thead>
         <tbody>
           <tr ng-repeat="event in history.events track by $index">
-            <td>{{history.events[history.events.length-1-$index].operation}}</td>
-            <td>&nbsp;{{getDate([history.events.length-1-$index])}}</td>
-            <td>&nbsp;{{getStageName([history.events.length-1-$index])}}</td>
-            <td>&nbsp;{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>
+            <td data-label="Operation">{{history.events[history.events.length-1-$index].operation}}</td>
+            <td data-label="Date">&nbsp;{{getDate([history.events.length-1-$index])}}</td>
+            <td data-label="Location">&nbsp;{{getStageName([history.events.length-1-$index])}}</td>
+            <td data-label="Quantity">&nbsp;{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>
           </tr>
         </tbody>
       </table>

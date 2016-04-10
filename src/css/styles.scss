@@ -556,8 +556,8 @@ table.tableWhite {
 
 
 @media screen and (max-width: 768px) {
-  // .table>tbody>tr>td,
-  // .table>tbody>tr>th,
+  .table>tbody>tr>td,
+  .table>tbody>tr>th,
   .table>tfoot>tr>td,
   .table>tfoot>tr>th,
   .table>thead>tr>td,
