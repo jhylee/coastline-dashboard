@@ -527,9 +527,9 @@ table {
   border-radius: 4px;
 }
 table.tableWhite {
-  background-color: #f3f3f3;
+  background-color: $secondary-background-color;
   th {
-    background-color: #eeeeee;
+    background-color: $secondary-background-color;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
     vertical-align: middle;
@@ -550,27 +550,28 @@ table.tableWhite {
 }
 
 @media screen and (max-width: 768px) {
-  .table>tbody>tr>td,
-  .table>tbody>tr>th,
+  // .table>tbody>tr>td,
+  // .table>tbody>tr>th,
   .table>tfoot>tr>td,
   .table>tfoot>tr>th,
   .table>thead>tr>td,
   .table>thead>tr>th {
     vertical-align: middle;
     text-align: right;
+   }
+  .table>tbody>tr>td,
+  .table>tbody>tr>th {
     background-color: #fff;
+  }
 
-  }
-  .table>tbody {
-    border: hidden;
-  }
+
   .table-responsive {
     border: hidden;
   }
-  tbody {
-    background-color: $secondary-background-color;
-    border: none;
+  table {
+    border: 2px solid $secondary-background-color;
   }
+
   table thead {
     display: none;
   }
