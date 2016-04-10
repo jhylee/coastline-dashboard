@@ -32,9 +32,9 @@
                       <td data-label="Select">
                         <input type="radio" ng-model="$parent.selectedOrder" ng-value="$parent.orders[$index]">
                       </td>
-                      <td data-label="Invoice">{{order.invoiceNumber}}</td>
+                      <td data-label="Invoice">&nbsp; {{order.invoiceNumber}}</td>
                       <td data-label="Name">{{order.customerName}}</td>
-                      <td data-label="Status">{{order.status}}</td>
+                      <td data-label="Status">&nbsp;{{order.status}}</td>
                       <td data-label="Date">{{order.date | date:'short' }}</td>
                       <td data-label="Subtotal">${{totals[$index]}}</td>
                     </tr>
