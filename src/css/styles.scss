@@ -40,8 +40,11 @@ body {
   color: $primary-font-color;
   margin-left: 10px;
 }
+canvas, vis-network-track {
+  outline:0;
+}
 .panel {
-  max-width: 90%;
+  max-width: 92%;
   height: 100%;
   border-color: $primary-border-color;
   background-color: $secondary-background-color;
@@ -50,11 +53,11 @@ body {
     margin-left: 0;
     background-color: $secondary-background-color;
     border-color: $primary-border-color;
-    border-radius: 5px;
+    border-radius: 3px;
     .btn {
       background-image: linear-gradient(#fcfcfc, #eee);
       border: 1px solid #d5d5d5;
-      border-radius: 3px;
+      border-radius: 2px;
       &:active {
         background-image: linear-gradient(#eee, #fcfcfc);
         outline: none;
@@ -338,6 +341,7 @@ fieldset[disabled] .btn-status-default.active {
   opacity: 0.5;
   outline: none;
 }
+
 a.btn-status-default:hover,
 a.btn-status-default:active,
 a.btn-status-default:focus {
@@ -477,7 +481,7 @@ select.form-control:focus {
   box-shadow: none;
 }
 .panel {
-  border-radius: 5px;
+  border-radius: 2px;
   border: none;
 }
 .huge {
@@ -529,7 +533,6 @@ table.tableWhite {
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
     vertical-align: middle;
-    padding-left: 100px;
   }
   td {
     vertical-align: bottom;
@@ -543,9 +546,9 @@ table.tableWhite {
 .table>thead>tr>th {
   vertical-align: middle;
   text-align: center;
-  margin-left: 50px;
-  margin-right: 50px;
+
 }
+
 @media screen and (max-width: 768px) {
   .table>tbody>tr>td,
   .table>tbody>tr>th,
@@ -556,15 +559,17 @@ table.tableWhite {
     vertical-align: middle;
     text-align: right;
     background-color: #fff;
-    margin-left: 10px;
-    margin-right: 10px;
+
+  }
+  .table>tbody {
+    border: hidden;
   }
   .table-responsive {
-    border: 0;
+    border: hidden;
   }
   tbody {
     background-color: $secondary-background-color;
-    border: hidden;
+    border: none;
   }
   table thead {
     display: none;
