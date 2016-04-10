@@ -57,7 +57,6 @@
   <div class="modal-body">
     <form>
       <fieldset class="form-group">
-        <div class="col-lg-12">
           <label>Name</label>
           <input class="form-control" ng-model="name" maxlength="40" placeholder="Name of sales channel...">
           <small class="text-muted">Maximum 40 characters.</small>
@@ -66,7 +65,6 @@
             <label>
               <input type="checkbox" ng-model="isEcommerceStage">Sell on e-commerce</label>
           </div>
-        </div>
       </fieldset>
     </form>
   </div>
@@ -85,7 +83,6 @@
   <div class="modal-body">
     <form>
       <fieldset class="form-group">
-        <div class="col-lg-12">
           <label>New Selling Point Name</label>
           <input class="form-control" ng-model="sellingPoint.name" maxlength="25" placeholder="Name of sales channel...">
           <small class="text-muted">Maximum 25 characters.</small>
@@ -93,7 +90,6 @@
             <label>
               <input type="checkbox" ng-model="isEcommerceStage"> Sell on e-commerce</label>
           </div>
-        </div>
       </fieldset>
     </form>
   </div>
@@ -158,25 +154,19 @@
         <div class="col-lg-8 col-lg-offset-2">
       </fieldset>
       <fieldset class="form-group">
-        <div class="col-lg-12">
           <label>Choose how much inventory to move: </label>
           <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
           <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</small>
-        </div>
       </fieldset>
       <fieldset class="form-group">
-        <div class="col-lg-12">
           <label>Moving chosen inventory batch to stage to supply chain: </label>
           <select ng-model="selectedSupplyChain" ng-options="supplyChain as supplyChain.name for supplyChain in supplyChains" class="form-control"></select>
           <small class="text-muted">Please select the target supply chain for your inventory.</small>
-        </div>
       </fieldset>
       <fieldset class="form-group">
-        <div class="col-lg-12">
           <label>Moving chosen inventory batch to stage: </label>
           <select ng-model="toStage" ng-options="stage as stage.self.name for stage in selectedSupplyChain.stages" class="form-control"></select>
           <small class="text-muted">Please select the target stage for your inventory.</small>
-        </div>
       </fieldset>
 
     </form>
