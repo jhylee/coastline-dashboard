@@ -56,8 +56,7 @@
   <div class="modal-header">
     <h3 class="modal-title">Customer Order #{{order.invoiceNumber}}</h3>
   </div>
-  <div class="col-lg-12">
-    <div class="modal-body">
+     <div class="modal-body">
       <h4><b>Name :</b> {{order.customerName}}</h4>
       <h4><b>Phone :</b> {{order.phone}}</h4>
       <h4><b>Email :</b> {{order.email}}</h4>
@@ -68,11 +67,8 @@
     <a class="btn-status-default" ng-href="{{ fileUrl }}" download="order:{{order.invoiceNumber}}.xlsx"><i class="fa fa-file-pdf-o"></i>  Export to PDF</a>
     <a class="btn-status-default" ng-href="{{ fileUrl }}" download="order:{{order.invoiceNumber}}.xlsx"><i class="fa fa-file-excel-o"></i>  Export to Excel</a>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Order Summary</h3>
-      </div>
-      <div class="panel-body">
+
+      <div class="modal-body">
         <div class="table-responsive">
           <table class="table tableWhite">
             <thead>
@@ -99,8 +95,6 @@
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
   </div>
   </div>
   <div class="modal-footer">
@@ -115,7 +109,7 @@
     <h3 class="modal-title text-center">Add an Order</h3>
   </div>
   <div class="col-lg-12">
-    <div class="modal-body">
+    <div class="order-modal-body">
       <form>
         <fieldset class="form-group">
           <div class="col-lg-6">
@@ -174,10 +168,8 @@
             <small class="text-muted">No spaces or dashes</small>
           </div>
         </fieldset>
-        <div class="modal-body">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="table-responsive">
+        <hr class="short">
+               <div class="table-responsive">
                 <table class="table tableWhite">
                   <thead>
                     <tr>
@@ -230,10 +222,7 @@
                 </table>
                 <h3 class="text-right">Total: ${{getTotal()}}</h3>
               </div>
-            </div>
-          </div>
-        </div>
-      </form>
+       </form>
     </div>
     </form>
   </div>

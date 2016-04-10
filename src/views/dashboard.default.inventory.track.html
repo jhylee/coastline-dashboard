@@ -35,8 +35,7 @@
     <button class="btn-status-danger" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
   </div>
   <div class="modal-body">
-    <div class="panel panel-default">
-      <div class="panel-body">
+
         <div class="table-responsive">
           <table class="table tableWhite">
             <thead>
@@ -61,8 +60,7 @@
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
+
     </div>
   </div>
   <div class="modal-footer">
@@ -273,7 +271,6 @@
     <h3 class="modal-title">Inventory Batch Details</h3>
   </div>
   <div class="modal-body">
-    <div class="panel-body">
       <h4 class="text-center">Initial Catch Audit</h4>
       <hr class="short">
       <div class="table-responsive">
@@ -296,14 +293,14 @@
               <td data-label="Catch Date">{{block.catchDate | date:"M/d/y"}}</td>
               <td data-label="Region">{{block.catchRegion}}</td>
               <td data-label="Catcher">{{block.caughtBy}}</td>
-              <td data-label="Method">{{block.processType}}</td>
-              <td data-label="Depth">{{block.jobNum}}</td>
+              <td data-label="Method">{{block.catchType}}</td>
+              <td data-label="Depth">{{block.waterDepth}}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <div class="panel-body">
+    <div class="modal-body">
       <h4 class="text-center">Lot History</h4>
       <hr class="short">
       <div class="table-responsive">
