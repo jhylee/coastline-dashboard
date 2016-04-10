@@ -80,7 +80,6 @@
         <div class="col-lg-6">
           <label>Product Type</label>
           <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
-
           <small class="text-muted">Item must be added under Products tab.</small>
         </div>
         <div class="col-lg-6">
@@ -127,6 +126,19 @@
           <label>Water Depth (Meters)</label>
           <input class="form-control" ng-model="waterDepth" type="number" step="1" placeholder="ex. 500">
           <small class="text-muted">Enter the water depth in meters.</small>
+        </div>
+      </fieldset>
+      <--TODO-->
+      <fieldset class="form-group">
+        <div class="col-lg-6">
+          <label>Process Type</label>
+          <input class="form-control" ng-model="processType" placeholder="ex. Gillnet">
+          <small class="text-muted">Enter the Catch Location</small>
+        </div>
+        <div class="col-lg-6">
+          <label>Job Number</label>
+          <input class="form-control" ng-model="jobNum" type="number"placeholder="ex. 1738">
+          <small class="text-muted">Enter in the fisherman/fishery</small>
         </div>
       </fieldset>
     </form>

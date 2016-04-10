@@ -514,9 +514,9 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
                     stageId: $scope.toStage.self,
                     quantity: $scope.quantity,
                     units: $scope.units,
-                    // TODO save to backend for display/storage?
-                    jobNum: $scope.jobNum,
-                    processType: $scope.processType
+                    // TODO
+                    jobNum: $scope.block1.jobNum,
+                    processType: $scope.block1.processType
                 };
 
                 console.log($scope.toStage.self);
@@ -535,9 +535,9 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
                     units: $scope.block1.units,
                     stage: $scope.toStage.self,
                     productType: $scope.block1.productType,
-                    // TODO save to backend for display/storage?
-                    jobNum: $scope.block1.jobNum,
-                    processType: $scope.block1.processType
+                    // TODO
+                    jobNum: $scope.block2.jobNum,
+                    processType: $scope.block2.processType
                 };
 
                 $scope.block1.quantity = $scope.block1.quantity - block2.quantity;
@@ -700,9 +700,9 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
                     stageId: $scope.toStage._id,
                     quantity: $scope.quantity,
                     units: $scope.units,
-                    // TODO save to backend for display/storage?
-                    jobNum: $scope.jobNum,
-                    processType: $scope.processType
+                    // TODO
+                    jobNum: $scope.block1.jobNum,
+                    processType: $scope.block1.processType
                 };
 
                 console.log($scope.toStage.self);
@@ -721,9 +721,9 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
                     units: $scope.block1.units,
                     stage: $scope.toStage._id,
                     productType: $scope.block1.productType,
-                    // TODO save to backend for display/storage?
-                    jobNum: $scope.block1.jobNum,
-                    processType: $scope.processType
+                    // TODO
+                    jobNum: $scope.block2.jobNum,
+                    processType: $scope.block2.processType
                 };
 
                 $scope.block1.quantity = $scope.block1.quantity - block2.quantity;
@@ -810,7 +810,10 @@ app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDat
                 catchRegion: $scope.catchRegion,
                 caughtBy: $scope.caughtBy,
                 catchType: $scope.catchType,
-                waterDepth: $scope.waterDepth
+                waterDepth: $scope.waterDepth,
+                //TODO
+                processType: $scope.processType,
+                jobNum: $scope.jobNum
             };
 
 

@@ -127,7 +127,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
             },
             nodes: {
               color: {
-                background: '#D2E5FF'
+                background: '#000'
               }
             },
 
