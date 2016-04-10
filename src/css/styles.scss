@@ -525,7 +525,7 @@ table {
   border-radius: 2px;
 }
 table.tableWhite {
-  background-color: #f3f3f3;
+  background-color: $secondary-background-color;
   border-radius: 2px;
 
   th {
@@ -536,6 +536,7 @@ table.tableWhite {
 
   td {
     vertical-align: bottom;
+    background-color: #f3f3f3;
   }
 }
 .table>tbody>tr>td,
