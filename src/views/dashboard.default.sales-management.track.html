@@ -7,7 +7,7 @@
           <div class="panel-container">
             <div class="panel panel-default">
               <div class="panel-body">
-                <button ng-click="addSellingPoint()" class="btn-status-default">Add Sales Channel</button>
+                <button ng-click="addSellingPoint()" class="btn-status-success">Add Sales Channel</button>
                 <button ng-click="editSellingPoint()" class="btn-status-default">Edit Sales Channel</button>
                 <button ng-click="viewBlocks()" class="btn-status-default">View Inventory in Sales</button>
               </div>
@@ -18,23 +18,23 @@
                   <table class="table tableWhite">
                     <thead>
                       <tr>
-                        <th>#</th>
+                        <th>Select</th>
                         <th>Name</th>
                         <th>Date Created</th>
                         <th>Channel Type</th>
-                        <th>Select</th>
                       </tr>
                     </thead>
                     <tbody ng-repeat="sellingPoint in sellingPoints track by $index">
                       <tr>
-                        <td data-label="#">{{$index + 1}}</td>
+                        <!-- <td data-label="#">{{$index + 1}}</td> -->
+                        <td data-label="Select">
+                          <input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index">
+                        </td>
                         <td data-label="Name">{{sellingPoint.name}}</td>
                         <td data-label="Date Created">{{sellingPoint.dateCreated | date: 'short'}}</td>
                         <!-- TODO, just set type as first in list for now -->
                         <td data-label="Channel Type">{{sellingPoint.sellingTargets[0]}}</td>
-                        <td data-label="Select">
-                          <input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index">
-                        </td>
+
                       </tr>
                     </tbody>
                   </table>
@@ -57,15 +57,13 @@
   <div class="modal-body">
     <form>
       <fieldset class="form-group">
-        <div class="col-lg-12">
-          <label>Name</label>
-          <input class="form-control" ng-model="name" maxlength="40" placeholder="Name of sales channel...">
-          <small class="text-muted">Maximum 40 characters.</small>
-          <br>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" ng-model="isEcommerceStage">Sell on e-commerce</label>
-          </div>
+        <label>Name</label>
+        <input class="form-control" ng-model="name" maxlength="40" placeholder="Name of sales channel...">
+        <small class="text-muted">Maximum 40 characters.</small>
+        <br>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="isEcommerceStage">Sell on e-commerce</label>
         </div>
       </fieldset>
     </form>
@@ -85,14 +83,12 @@
   <div class="modal-body">
     <form>
       <fieldset class="form-group">
-        <div class="col-lg-12">
-          <label>New Selling Point Name</label>
-          <input class="form-control" ng-model="sellingPoint.name" maxlength="25" placeholder="Name of sales channel...">
-          <small class="text-muted">Maximum 25 characters.</small>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" ng-model="isEcommerceStage"> Sell on e-commerce</label>
-          </div>
+        <label>New Selling Point Name</label>
+        <input class="form-control" ng-model="sellingPoint.name" maxlength="25" placeholder="Name of sales channel...">
+        <small class="text-muted">Maximum 25 characters.</small>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="isEcommerceStage"> Sell on e-commerce</label>
         </div>
       </fieldset>
     </form>
@@ -115,39 +111,34 @@
     <button class="btn-status-danger" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
   </div>
   <div class="modal-body">
-    <div class="panel panel-default">
-      <div class="panel-body">
-       <!-- <div class="panel-scroll">-->
-        <div class="tableWhite">
-          <table class="table tableWhite">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Product Type</th>
-                <th>Quantity</th>
-                <th>Inventory Input Date</th>
-                <th>Select</th>
-              </tr>
-            </thead>
-            <tbody ng-repeat="block in blocks track by $index">
-              <tr>
-                <td data-label="#">{{$index + 1}}</td>
-                <td data-label="Product">{{block.productType.name}}</td>
-                <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
-                <td data-label="Date Added">{{block.dateCreated | date: 'short'}}</td>
-                <td data-label="Select">
-                  <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+
+    <div class="tableWhite">
+      <table class="table tableWhite">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <!--<th>#</th>-->
+            <th>Product Type</th>
+            <th>Quantity</th>
+            <th>Inventory Input Date</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="block in blocks track by $index">
+          <tr>
+            <td data-label="Select">
+              <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
+            </td>
+            <!--<td data-label="#">{{$index + 1}}</td>-->
+            <td data-label="Product">{{block.productType.name}}</td>
+            <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+            <td data-label="Date Added">{{block.dateCreated | date: 'short'}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  <!--</div>-->
   </div>
   <div class="modal-footer">
-    <button class="btn-status-default" type="button" ng-click="cancel()">Dismiss</button>
+    <button class="btn-status-default" type="button" ng-click="cancel()">Close</button>
   </div>
 </script>
 
@@ -163,26 +154,21 @@
         <div class="col-lg-8 col-lg-offset-2">
       </fieldset>
       <fieldset class="form-group">
-        <div class="col-lg-12">
-          <label>Choose how much inventory to move: </label>
-          <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
-          <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</small>
-        </div>
+        <label>Choose how much inventory to move: </label>
+        <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
+        <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</small>
       </fieldset>
       <fieldset class="form-group">
-        <div class="col-lg-12">
-          <label>Moving chosen inventory batch to stage to supply chain: </label>
-          <select ng-model="selectedSupplyChain" ng-options="supplyChain as supplyChain.name for supplyChain in supplyChains" class="form-control"></select>
-          <small class="text-muted">Please select the target supply chain for your inventory.</small>
-        </div>
+        <label>Moving chosen inventory batch to stage to supply chain: </label>
+        <select ng-model="selectedSupplyChain" ng-options="supplyChain as supplyChain.name for supplyChain in supplyChains" class="form-control"></select>
+        <small class="text-muted">Please select the target supply chain for your inventory.</small>
       </fieldset>
       <fieldset class="form-group">
-        <div class="col-lg-12">
-          <label>Moving chosen inventory batch to stage: </label>
-          <select ng-model="toStage" ng-options="stage as stage.self.name for stage in selectedSupplyChain.stages" class="form-control"></select>
-          <small class="text-muted">Please select the target stage for your inventory.</small>
-        </div>
+        <label>Moving chosen inventory batch to stage: </label>
+        <select ng-model="toStage" ng-options="stage as stage.self.name for stage in selectedSupplyChain.stages" class="form-control"></select>
+        <small class="text-muted">Please select the target stage for your inventory.</small>
       </fieldset>
+
     </form>
     </div>
     <div class="modal-footer">
@@ -212,66 +198,68 @@
 
 <!-- VIEW INVENTORY BATCH DETAILS IN SELLING POINT MODAL -->
 <script type="text/ng-template" id="viewDetailsModal.html">
-<div class="modal-header">
-  <h3 class="modal-title">Inventory Batch Details</h3>
-</div>
+  <div class="modal-header">
+    <h3 class="modal-title">Inventory Batch Details</h3>
+  </div>
+
   <div class="modal-body">
-    <div class="panel panel-default">
-      <div class="panel-body">
       <h4 class="text-center">Initial Catch Audit</h4>
       <hr class="short">
-        <div class="tableWhite">
-          <table class="table tableWhite">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Product Type</th>
-                <th>Quantity</th>
-                <th>Date Created</th>
-                <th>Select</th>
-              </tr>
-            </thead>
-            <tbody ng-repeat="block in blocks track by $index">
-              <tr>
-                <td>{{$index + 1}}</td>
-                <td>{{block.productType.name}}</td>
-                <td>{{block.quantity + " " + block.units}}</td>
-                <td>{{block.dateCreated | date:"yyyy-MM-dd hh:mm a"}}</td>
-                <td>
-                  <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="panel-body">
-        <h4 class="text-center">Lot History</h4>
-        <hr class="short">
-        <div class="table-responsive">
-          <table class="table tableWhite">
-            <thead>
-              <tr>
-                <th>Operation</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="event in history.events track by $index">
-                <td>{{history.events[history.events.length-1-$index].operation}}</td>
-                <td>{{getDate([history.events.length-1-$index])}}</td>
-                <td>{{getStageName([history.events.length-1-$index])}}</td>
-                <td>{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="table-responsive">
+        <table class="table tableWhite">
+          <thead>
+            <tr>
+              <th>Product Type</th>
+              <th>Quantity</th>
+              <th>Catch Date</th>
+              <th>Catch Region</th>
+              <th>Caught By</th>
+              <th>Catch Type</th>
+              <th>Water Depth</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Product">{{block.productType.name}}</td>
+              <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+              <td data-label="Catch Date">{{block.catchDate | date:"M/d/y"}}</td>
+              <td data-label="Region">{{block.catchRegion}}</td>
+              <td data-label="Catcher">{{block.caughtBy}}</td>
+              <td data-label="Method">{{block.catchType}}</td>
+              <td data-label="Depth">{{block.waterDepth}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn-status-default" type="button" ng-click="cancel()">Dismiss</button>
+
+  <div class="modal-body">
+    <h4 class="text-center">Lot History</h4>
+    <hr class="short">
+    <div class="table-responsive">
+      <table class="table tableWhite">
+        <thead>
+          <tr>
+            <th>Operation</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="event in history.events track by $index">
+            <td data-label="Operation">{{history.events[history.events.length-1-$index].operation}}</td>
+            <td data-label="Date">&nbsp;{{getDate([history.events.length-1-$index])}}</td>
+            <td data-label="Location">&nbsp;{{getStageName([history.events.length-1-$index])}}</td>
+            <td data-label="Quantity">&nbsp;{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-status-default" type="button" ng-click="cancel()">Close</button>
+  </div>
   </div>
 </script>

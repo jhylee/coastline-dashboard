@@ -7,11 +7,11 @@ $btn-success-hover-color;<div ng-controller="SupplyChainDisplayCtrl">
           <div class="panel-container">
             <div class="panel panel-default">
               <div class="panel-body">
-                <button ng-click="addStage()" class="btn-status-default">Add</button>
+                <button ng-click="addStage()" class="btn-status-success">Add</button>
                 <button ng-click="editStage()" class="btn-status-default">Edit</button>
-                <button ng-click="deleteStage()" class="btn-status-danger">Delete</button>
                 <button ng-click="linkStages()" class="btn-status-default">Link</button>
                 <button ng-click="unlinkStages()" class="btn-status-default">Unlink</button>
+                <button ng-click="deleteStage()" class="btn-status-danger">Delete</button>
                 <button ng-click="saveSupplyChain()" class="btn-status-success">Save</button>
               </div>
             </div>
@@ -72,7 +72,7 @@ $btn-success-hover-color;<div ng-controller="SupplyChainDisplayCtrl">
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
@@ -98,7 +98,7 @@ $btn-success-hover-color;<div ng-controller="SupplyChainDisplayCtrl">
     <p>Your settings will link the stages as below, with an arrow from the Source to the Target (to demonstrate the flow of inventory).</p>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
@@ -124,7 +124,7 @@ $btn-success-hover-color;<div ng-controller="SupplyChainDisplayCtrl">
     <p>Your settings will remove any links between the Source and the Target Stages.</p>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>

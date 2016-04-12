@@ -93,9 +93,9 @@ app.factory('TrackInventoryManager', ['$http', 'apiUrl', '$localStorage', 'Fishe
                     };
                     node.value = 25;
                     node.size = 25;
-                    node.color = "#93D276"
+                    node.color = "#000000"
                     node.shape = "box";
-                    node.shadow = false;
+                    node.shadow = true;
                     node.x = _supplyChain.stages[i].x;
                     node.y = _supplyChain.stages[i].y;
                     data.nodes.push(node);

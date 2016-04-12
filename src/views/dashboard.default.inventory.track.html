@@ -35,37 +35,36 @@
     <button class="btn-status-danger" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
   </div>
   <div class="modal-body">
-    <div class="panel panel-default">
-      <div class="panel-body">
+
         <div class="table-responsive">
           <table class="table tableWhite">
             <thead>
               <tr>
-                <th>#</th>
+                <th>Select</th>
+                <!--<th>#</th>-->
                 <th>Product Type</th>
                 <th>Quantity</th>
                 <th>Inventory Input Date</th>
-                <th>Select</th>
               </tr>
             </thead>
             <tbody ng-repeat="block in blocks track by $index">
               <tr>
-                <td data-label="#">{{$index + 1}}</td>
-                <td data-label="Product">{{block.productType.name}}</td>
-                <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
-                <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
                 <td data-label="Select">
                   <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
                 </td>
+                <!--<td data-label="#">{{$index + 1}}</td>-->
+                <td data-label="Product">{{block.productType.name}}</td>
+                <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+                <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
+
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
+
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-default" type="button" ng-click="ok()">Dismiss</button>
+    <button class="btn-status-default" type="button" ng-click="ok()">Close</button>
   </div>
 </script>
 
@@ -81,12 +80,11 @@
         <div class="col-lg-6">
           <label>Product Type</label>
           <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
-
           <small class="text-muted">Item must be added under Products tab.</small>
         </div>
         <div class="col-lg-6">
           <label>Quantity</label>
-          <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
+          <input class="form-control" ng-model="quantity" type="text" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 3500"></input>
           <small class="text-muted">Please enter a numerical value.</small>
         </div>
       </fieldset>
@@ -130,10 +128,23 @@
           <small class="text-muted">Enter the water depth in meters.</small>
         </div>
       </fieldset>
+      <--TODO-->
+      <fieldset class="form-group">
+        <div class="col-lg-6">
+          <label>Process Type</label>
+          <input class="form-control" ng-model="processType" placeholder="ex. Gillnet">
+          <small class="text-muted">Enter the Catch Location</small>
+        </div>
+        <div class="col-lg-6">
+          <label>Job Number</label>
+          <input class="form-control" ng-model="jobNum" type="number"placeholder="ex. 1738">
+          <small class="text-muted">Enter in the fisherman/fishery</small>
+        </div>
+      </fieldset>
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
@@ -161,7 +172,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-success" type="button" ng-click="ok()">Save</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
@@ -195,7 +206,7 @@
       <fieldset class="form-group">
         <div class="col-lg-12">
           <label>Choose how much inventory to move: </label>
-          <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
+          <input class="form-control" ng-model="quantity" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 4000"></input>
           <small class="text-muted"><b>{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</b></small>
         </div>
       </fieldset>
@@ -206,10 +217,22 @@
           <small class="text-muted">Please select the target destination for your inventory.</small>
         </div>
       </fieldset>
+      <fieldset class="form-group">
+        <div class="col-lg-6">
+          <label>Job Number: </label>
+          <input class="form-control" ng-model="jobNum" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 4000"></input>
+          <small class="text-muted">[Optional]: Please enter in the desired job number.</small>
+        </div>
+        <div class="col-lg-6">
+          <label>Process Type: </label>
+          <input class="form-control" ng-model="processType" type="text" placeholder="ex. Filleted, Five-pound bag">
+          <small class="text-muted">[Optional]: Please enter in the process type.</small>
+        </div>
+      </fieldset>
     </form>
     </div>
     <div class="modal-footer">
-      <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+      <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
     </fieldset>
@@ -231,7 +254,7 @@
       <fieldset class="form-group">
         <div class="col-lg-12">
           <label>Choose how much inventory to move: </label>
-          <input class="form-control" ng-model="quantity" type="number" placeholder="ex. 4000">
+          <input class="form-control" ng-model="quantity" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 4000"></input>
           <small class="text-muted">{{getRemainingQuantity() + " " + block1.units}} remaining of {{block1.quantity + " " + block1.units}} in chosen stage.</small>
         </div>
       </fieldset>
@@ -245,7 +268,7 @@
     </form>
     </div>
     <div class="modal-footer">
-      <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+      <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
     </fieldset>
@@ -260,7 +283,6 @@
     <h3 class="modal-title">Inventory Batch Details</h3>
   </div>
   <div class="modal-body">
-    <div class="panel-body">
       <h4 class="text-center">Initial Catch Audit</h4>
       <hr class="short">
       <div class="table-responsive">
@@ -290,7 +312,7 @@
         </table>
       </div>
     </div>
-    <div class="panel-body">
+    <div class="modal-body">
       <h4 class="text-center">Lot History</h4>
       <hr class="short">
       <div class="table-responsive">
@@ -306,9 +328,9 @@
           <tbody>
             <tr ng-repeat="event in history.events track by $index">
               <td data-label="Operation">{{history.events[history.events.length-1-$index].operation}}</td>
-              <td data-label="Date">{{getDate([history.events.length-1-$index])}}</td>
-              <td data-label="Location">{{getStageName([history.events.length-1-$index])}}</td>
-              <td data-label="Quantity">{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>
+              <td data-label="Date">&nbsp;{{getDate([history.events.length-1-$index])}}</td>
+              <td data-label="Location">&nbsp;{{getStageName([history.events.length-1-$index])}}</td>
+              <td data-label="Quantity">&nbsp;{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>
             </tr>
           </tbody>
         </table>
