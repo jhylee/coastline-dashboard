@@ -191,7 +191,7 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
                     var anchor = angular.element('<a/>');
                     anchor.attr({
                         href: $scope.fileUrl,
-                        download: 'order.pdf'
+                        download: 'Order-' + $scope.order.customerName + '-' + ($scope.order.date.substring(0,10)) + '.pdf'
                     })[0].click();
 
                     $scope.pdfStatus = "";
