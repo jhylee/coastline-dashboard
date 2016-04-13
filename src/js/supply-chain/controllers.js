@@ -6,25 +6,27 @@ var app = angular.module('coastlineWebApp.supplyChain.controllers', ['ui.bootstr
 
 // SUPPLY CHAINS TAB
 
-app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'SupplyChainData', 'FisheryData',
-    function($scope, $state, SupplyChainMenu, SupplyChainData, FisheryData) {
+app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService', 'FisheryService',
+    function($scope, $state, SupplyChainService, FisheryService) {
 
         $scope.createNewSupplyChain = function() {
             $state.go('dashboard.default.supply-chain.create');
         };
 
-        $scope.editSupplyChain = function(supplyChain) {
-            SupplyChainData.setSupplyChain(supplyChain);
+        $scope.editSupplyChain = function(selectedSupplyChainId) {
+            // TODO - make a route to get just IDs
+            console.log(selectedSupplyChainId);
+            SupplyChainService.setSupplyChainId(selectedSupplyChainId);
 
-            SupplyChainData.fetchStages().then(function(res) {
+            SupplyChainService.fetchStages().then(function(res) {
                 $state.go('dashboard.default.supply-chain.builder');
             });
         };
 
         $scope.getSupplyChains = function() {
             // Fishery.getFishery(function (fishery) {
-            SupplyChainMenu.getSupplyChains(FisheryData.getFisheryId()).then(function(res) {
-                $scope.supplyChains = res;
+            SupplyChainService.fetchSupplyChains().then(function(supplyChains) {
+                $scope.supplyChains = supplyChains;
             });
 
         };
@@ -35,8 +37,8 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainMenu', 'S
 ]);
 
 
-app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'FisheryData', '$localStorage',
-    function($scope, $state, VisDataSet, SupplyChainData, SupplyChainMenu, FisheryData, $localStorage) {
+app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainService', 'FisheryService', '$localStorage',
+    function($scope, $state, VisDataSet, SupplyChainService, FisheryService, $localStorage) {
 
         // get stages - for option display
         $scope.createSupplyChain = function() {
@@ -46,11 +48,12 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
             };
 
             // Fishery.getFishery(function (fishery) {
-            fisheryId = FisheryData.getFisheryId();
+            fisheryId = FisheryService.getFisheryId();
             // console.log("fisheryId " + fishery._id);
 
-            SupplyChainData.postSupplyChain(fisheryId, data).then(function(res) {
-                SupplyChainData.setSupplyChain(res);
+            SupplyChainService.postSupplyChain(fisheryId, data).then(function(res) {
+                console.log(res);
+                SupplyChainService.setSupplyChainId(res._id);
                 $state.go('dashboard.default.supply-chain.builder');
             });
 
@@ -60,15 +63,13 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
 ]);
 
 
-app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$uibModal', 'VisDataSet', 'SupplyChainData', 'SupplyChainMenu', 'StageData',
-    function($scope, $state, $rootScope, $uibModal, VisDataSet, SupplyChainData, SupplyChainMenu, StageData) {
+app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$uibModal', 'VisDataSet', 'SupplyChainService', 'StageService',
+    function($scope, $state, $rootScope, $uibModal, VisDataSet, SupplyChainService, StageService) {
 
         $rootScope.$on('leaving-supply-chain-builder', function() {
-            SupplyChainData.chargeLeaveTicket();
 
             console.log('leaving');
 
-            // modal setup and preferences
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'saveChangesModal.html',
@@ -77,39 +78,23 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                 resolve: {}
             });
 
-            // called when modal is closed
             modalInstance.result.then(
-                // OK callback
                 function(res) {
-                    // add the stage to the supply chain
-                    //   console.log(state);
-                    $state.go(SupplyChainData.getToState());
-
-
-
-
-                    // CANCEL callback
+                    $state.go(SupplyChainService.getToState());
                 },
                 function() {});
-
         });
 
-        // $scope.$on("dashboardSwitch", function (event, newView) {
-        //   console.log(newView);
-        //   $scope.dashboardViewChange(newView);
-        // });
-
-        SupplyChainData.fetchStages().then(function() {
+        SupplyChainService.fetchStages().then(function() {
             $scope.refreshGraph();
             console.log("here");
         });
 
-
-
         // refresh the graph display - done when changes are made
         $scope.refreshGraph = function() {
-            SupplyChainData.updateStages();
-            $scope.data = SupplyChainData.getDisplayData();
+            console.log('refreshGraph');
+            SupplyChainService.updateStages();
+            $scope.data = SupplyChainService.getDisplayData();
         };
 
         // $scope.refreshGraph();
@@ -149,28 +134,28 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
         };
 
         // get initial supply chain data
-        $scope.data = SupplyChainData.getDisplayData();
-        console.log(SupplyChainData.getStages());
-        // console.log(SupplyChainData.getSupplyChain());
+        $scope.data = SupplyChainService.getDisplayData();
+        console.log(SupplyChainService.getStages());
+        // console.log(SupplyChainService.getSupplyChain());
 
         // callback for selectNode events
         $scope.events.selectNode = function(items) {
             console.log('selectNode');
-            SupplyChainData.selectStage(items.nodes[0]);
+            SupplyChainService.selectStage(items.nodes[0]);
         };
 
         // callback for deselectNode events
         $scope.events.deselectNode = function(items) {
             console.log('deselectNode');
-            SupplyChainData.deselectStage();
+            SupplyChainService.deselectStage();
         };
 
         $scope.events.dragEnd = function(items) {
             console.log(items);
             console.log(items.nodes[0]);
 
-            if (items.nodes.length > 0) SupplyChainData.moveStage(items.nodes[0], items.pointer.canvas.x, items.pointer.canvas.y);
-            SupplyChainData.updateStages();
+            if (items.nodes.length > 0) SupplyChainService.moveStage(items.nodes[0], items.pointer.canvas.x, items.pointer.canvas.y);
+            SupplyChainService.updateStages();
 
         };
 
@@ -193,8 +178,10 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                 function(stage) {
                     // add the stage to the supply chain
                     console.log(stage);
-                    SupplyChainData.addStage(stage.name, stage.prev, function() {
+                    SupplyChainService.addStage(stage.name, stage.prev, function(res, stages) {
                         // refresh the graph to show the changes
+                        console.log(res);
+                        console.log(stages);
                         $scope.refreshGraph();
                     });
 
@@ -223,7 +210,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                 // OK callback
                 function(res) {
                     // retrieve the stage based on the selected id
-                    var stage = SupplyChainData.getStage(SupplyChainData.getSelectedStageId());
+                    var stage = SupplyChainService.getStage(SupplyChainService.getSelectedStageId());
                     console.log(res);
 
                     // set the stage name to the new name
@@ -256,7 +243,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                 function(res) {
                     // retrieve the stage based on the selected id
                     console.log(res);
-                    //   var stage = SupplyChainData.getStage(res._id);
+                    //   var stage = SupplyChainService.getStage(res._id);
 
                     // set the stage name to the new name
                     //   stage.name = res.name;
@@ -288,7 +275,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                 function(res) {
                     // retrieve the stage based on the selected id
                     console.log(res);
-                    //   var stage = SupplyChainData.getStage(res._id);
+                    //   var stage = SupplyChainService.getStage(res._id);
 
                     // set the stage name to the new name
                     //   stage.name = res.name;
@@ -319,7 +306,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                 // OK callback
                 function(res) {
                     // retrieve the stage based on the selected id
-                    // var stage = SupplyChainData.getStage(res.id);
+                    // var stage = SupplyChainService.getStage(res.id);
 
                     // set the stage name to the new name
                     // stage.name = res.name;
@@ -334,7 +321,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
 
         $scope.saveSupplyChain = function() {
             console.log("here");
-            SupplyChainData.updateStages().then(function(res) {
+            SupplyChainService.updateStages().then(function(res) {
                 console.log(res);
                 $scope.refreshGraph();
             });
@@ -370,18 +357,18 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
 
 
 
-app.controller('SaveChangesCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
-    function($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
+app.controller('SaveChangesCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
 
-        // var prev = SupplyChainData.getSelectedStage();
+        // var prev = SupplyChainService.getSelectedStage();
 
         // get stages - for option display
-        $scope.stages = SupplyChainData.getStages();
+        $scope.stages = SupplyChainService.getStages();
 
         // tied to ok button
         $scope.yes = function() {
 
-            SupplyChainData.updateStages().then(function(res) {
+            SupplyChainService.updateStages().then(function(res) {
                 $uibModalInstance.close(res);
             });
 
@@ -401,13 +388,13 @@ app.controller('SaveChangesCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$
     }
 ]);
 
-app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
-    function($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
+app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
 
-        // var prev = SupplyChainData.getSelectedStage();
+        // var prev = SupplyChainService.getSelectedStage();
 
         // get stages - for option display
-        $scope.stages = SupplyChainData.getStages();
+        $scope.stages = SupplyChainService.getStages();
 
         // tied to ok button
         $scope.ok = function() {
@@ -431,13 +418,13 @@ app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uib
     }
 ]);
 
-app.controller('LinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
-    function($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
+app.controller('LinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
 
-        // var prev = SupplyChainData.getSelectedStage();
+        // var prev = SupplyChainService.getSelectedStage();
 
         // get stages - for option display
-        $scope.stages = SupplyChainData.getStages();
+        $scope.stages = SupplyChainService.getStages();
 
         // tied to ok button
         $scope.ok = function() {
@@ -446,8 +433,8 @@ app.controller('LinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$u
             console.log($scope.targetStage);
 
             if ($scope.sourceStage && $scope.targetStage) {
-                SupplyChainData.linkStages($scope.sourceStage.self._id, $scope.targetStage.self._id);
-                console.log(SupplyChainData.getStages());
+                SupplyChainService.linkStages($scope.sourceStage.self._id, $scope.targetStage.self._id);
+                console.log(SupplyChainService.getStages());
 
 
                 $uibModalInstance.close('ok');
@@ -470,13 +457,13 @@ app.controller('LinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$u
     }
 ]);
 
-app.controller('UnlinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
-    function($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
+app.controller('UnlinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
 
-        // var prev = SupplyChainData.getSelectedStage();
+        // var prev = SupplyChainService.getSelectedStage();
 
         // get stages - for option display
-        $scope.stages = SupplyChainData.getStages();
+        $scope.stages = SupplyChainService.getStages();
 
         // tied to ok button
         $scope.ok = function() {
@@ -486,8 +473,8 @@ app.controller('UnlinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '
             console.log($scope.targetStage);
 
             if ($scope.sourceStage && $scope.targetStage) {
-                SupplyChainData.unlinkStages($scope.sourceStage.self._id, $scope.targetStage.self._id);
-                console.log(SupplyChainData.getStages());
+                SupplyChainService.unlinkStages($scope.sourceStage.self._id, $scope.targetStage.self._id);
+                console.log(SupplyChainService.getStages());
 
 
                 $uibModalInstance.close('ok');
@@ -511,26 +498,26 @@ app.controller('UnlinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '
 ]);
 
 
-app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
-    function($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
+app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
 
         // get stages - for option display
         $scope.getStages = function() {
-            return SupplyChainData.getStages();
+            return SupplyChainService.getStages();
         };
 
         // tied to ok button
         $scope.ok = function() {
             var res = {
                 name: $scope.name,
-                _id: SupplyChainData.getSelectedStageId()
+                _id: SupplyChainService.getSelectedStageId()
             };
 
-            SupplyChainData.updateStage(res._id, {
+            SupplyChainService.updateStage(res._id, {
                     name: $scope.name
                 })
                 .then(function(res) {
-                    SupplyChainData.fetchStages().then(function(res) {
+                    SupplyChainService.fetchStages().then(function(res) {
                         $uibModalInstance.close(res);
                     })
 
@@ -548,19 +535,19 @@ app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$ui
     }
 ]);
 
-app.controller('DeleteStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
-    function($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
+app.controller('DeleteStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
 
         // get stages - for option display
         $scope.getStages = function() {
-            return SupplyChainData.getStages();
+            return SupplyChainService.getStages();
         };
 
         // tied to ok button
         $scope.ok = function() {
 
-            SupplyChainData.deleteStage(SupplyChainData.getSelectedStageId());
-            console.log(SupplyChainData.getStages());
+            SupplyChainService.deleteStage(SupplyChainService.getSelectedStageId());
+            console.log(SupplyChainService.getStages());
             $uibModalInstance.close('ok');
 
 
@@ -576,12 +563,12 @@ app.controller('DeleteStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$
 
 
 
-app.controller('ExitSupplyChainCtrl', ['$scope', 'VisDataSet', 'SupplyChainData', '$uibModalInstance',
-    function($scope, VisDataSet, SupplyChainData, $uibModalInstance) {
+app.controller('ExitSupplyChainCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
 
         // get stages - for option display
         $scope.getStages = function() {
-            return SupplyChainData.getStages();
+            return SupplyChainService.getStages();
         };
 
         // tied to ok button

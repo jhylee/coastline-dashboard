@@ -1,7 +1,7 @@
 angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstants', 'ui.router'])
 
 
-.factory('AuthService', ['$http', '$window', '$localStorage', 'apiUrl', 'FisheryData', '$state', function($http, $window, $localStorage, apiUrl, FisheryData, $state) {
+.factory('AuthService', ['$http', '$window', '$localStorage', 'apiUrl', 'FisheryService', '$state', function($http, $window, $localStorage, apiUrl, FisheryService, $state) {
     var baseUrl = apiUrl;
     var token = $localStorage.token;
 
@@ -17,7 +17,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
             $localStorage.user = res.data.user;
             $localStorage.$save();
 
-            FisheryData.fetchFishery().then(function(res) {
+            FisheryService.fetchFishery().then(function(res) {
                 $state.go('dashboard.default.products');
             })
 
@@ -75,7 +75,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
                 $localStorage.user.fishery = res.name;
                 // console.log(res);
 
-                FisheryData.fetchFishery().then(function() {
+                FisheryService.fetchFishery().then(function() {
                     $state.go('dashboard.default.products');
                 });
 

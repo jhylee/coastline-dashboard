@@ -10,8 +10,8 @@ var app = angular.module('coastlineWebApp.inventory.controllers', ['ui.bootstrap
 
 
 
-app.controller('TrackInventoryMenuCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', 'AuthService', '$state', '$uibModal',
-    function($scope, TrackInventoryManager, InventoryData, SupplyChainData, AuthService, $state, $uibModal) {
+app.controller('TrackInventoryMenuCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', 'AuthService', '$state', '$uibModal',
+    function($scope, TrackInventoryManager, InventoryData, SupplyChainService, AuthService, $state, $uibModal) {
 
         var getSupplyChains = function() {
             TrackInventoryManager.getSupplyChains(function(res) {
@@ -26,7 +26,7 @@ app.controller('TrackInventoryMenuCtrl', ['$scope', 'TrackInventoryManager', 'In
 
         $scope.setSupplyChain = function(supplyChain) {
             TrackInventoryManager.setSupplyChain(supplyChain);
-            SupplyChainData.setSupplyChain(supplyChain);
+            SupplyChainService.setSupplyChain(supplyChain._id);
             $state.go('dashboard.default.inventory.track');
         };
 
@@ -54,8 +54,8 @@ app.controller('TrackInventoryInterfaceCtrl', ['$scope', 'TrackInventoryManager'
 
 
 
-app.controller('InventoryCtrl', ['$scope', '$rootScope', 'StageData', 'InventoryData', 'SupplyChainData', '$state', '$uibModal',
-    function($scope, $rootScope, StageData, InventoryData, SupplyChainData, $state, $uibModal) {
+app.controller('InventoryCtrl', ['$scope', '$rootScope', 'StageService', 'InventoryData', 'SupplyChainService', '$state', '$uibModal',
+    function($scope, $rootScope, StageService, InventoryData, SupplyChainService, $state, $uibModal) {
 
         //$scope.data = TrackInventoryManager.getDisplayData();
 
@@ -64,9 +64,9 @@ app.controller('InventoryCtrl', ['$scope', '$rootScope', 'StageData', 'Inventory
             $rootScope.$broadcast("refreshStageEdit");
 
 
-            var stageId = SupplyChainData.getSelectedStageId();
-            StageData.setSelectedStageId(stageId);
-            var supplyChainId = SupplyChainData.getSupplyChain()._id;
+            var stageId = SupplyChainService.getSelectedStageId();
+            StageService.setSelectedStageId(stageId);
+            var supplyChainId = SupplyChainService.getSupplyChain()._id;
             console.log(supplyChainId);
 
             // modal setup and preferences
@@ -103,10 +103,10 @@ app.controller('InventoryCtrl', ['$scope', '$rootScope', 'StageData', 'Inventory
     }
 ]);
 
-app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInventoryManager', 'InventoryData', 'BlockData', 'SupplyChainData', '$state', '$uibModalInstance', '$uibModal',
-    function($scope, $rootScope, StageData, TrackInventoryManager, InventoryData, BlockData, SupplyChainData, $state, $uibModalInstance, $uibModal) {
+app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageService', 'TrackInventoryManager', 'InventoryData', 'BlockService', 'SupplyChainService', '$state', '$uibModalInstance', '$uibModal',
+    function($scope, $rootScope, StageService, TrackInventoryManager, InventoryData, BlockService, SupplyChainService, $state, $uibModalInstance, $uibModal) {
 
-        InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function(res) {
+        InventoryData.getBlocks(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedStageId(), function(res) {
             console.log(res);
             $scope.blocks = res;
             $scope.selectedBlock = 0;
@@ -114,13 +114,13 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
             console.log(err);
         })
 
-        StageData.fetchSelectedStage()
+        StageService.fetchSelectedStage()
             .then(function(res) {
                 $scope.stageName = res.name;
             });
 
         $rootScope.$on("refreshStageEdit", function() {
-            StageData.fetchSelectedStage()
+            StageService.fetchSelectedStage()
                 .then(function(res) {
                     $scope.stageName = res.name;
                 });
@@ -137,7 +137,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
         };
 
         $scope.splitBlock = function() {
-            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
 
             console.log($scope.blocks[$scope.selectedBlock]);
 
@@ -158,7 +158,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
                 console.log("then");
 
                 // add the stage to the supply chain
-                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function(res) {
+                InventoryData.getBlocks(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedStageId(), function(res) {
                     console.log(res);
                     $scope.blocks = res;
                     $scope.selectedBlock = 0;
@@ -190,7 +190,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
                 console.log("then");
 
                 // add the stage to the supply chain
-                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function(res) {
+                InventoryData.getBlocks(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedStageId(), function(res) {
                     console.log(res);
                     $scope.blocks = res;
                     $scope.selectedBlock = 0;
@@ -205,7 +205,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
         $scope.editBlock = function() {
 
             console.log('editBlock');
-            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
 
 
 
@@ -226,7 +226,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
                 console.log("then");
 
                 // add the stage to the supply chain
-                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function(res) {
+                InventoryData.getBlocks(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedStageId(), function(res) {
                     console.log(res);
                     $scope.blocks = res;
                     $scope.selectedBlock = 0;
@@ -241,8 +241,8 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
         $scope.moveBlock = function() {
 
 
-            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
-            console.log(SupplyChainData.getSelectedBlock());
+            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            console.log(SupplyChainService.getSelectedBlock());
 
             console.log(modalInstance);
 
@@ -268,7 +268,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
             // called when modal is closed
             modalInstance.result.then(function(block) {
                 // add the stage to the supply chain
-                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function(res) {
+                InventoryData.getBlocks(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedStageId(), function(res) {
                     console.log(res);
                     $scope.blocks = res;
                     $scope.selectedBlock = 0;
@@ -283,8 +283,8 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
         $scope.moveBlockToSales = function() {
 
 
-            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
-            console.log(SupplyChainData.getSelectedBlock());
+            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            console.log(SupplyChainService.getSelectedBlock());
 
             console.log(modalInstance);
 
@@ -310,7 +310,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
             // called when modal is closed
             modalInstance.result.then(function(block) {
                 // add the stage to the supply chain
-                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function(res) {
+                InventoryData.getBlocks(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedStageId(), function(res) {
                     console.log(res);
                     $scope.blocks = res;
                     $scope.selectedBlock = 0;
@@ -325,8 +325,8 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
         $scope.deleteBlock = function() {
 
 
-            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
-            console.log(SupplyChainData.getSelectedBlock());
+            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            console.log(SupplyChainService.getSelectedBlock());
 
             console.log(modalInstance);
 
@@ -352,7 +352,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
             // called when modal is closed
             modalInstance.result.then(function(block) {
                 // add the stage to the supply chain
-                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function(res) {
+                InventoryData.getBlocks(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedStageId(), function(res) {
                     console.log(res);
                     $scope.blocks = res;
                     $scope.selectedBlock = 0;
@@ -370,10 +370,10 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
         ///////////////////////////////////////
         $scope.viewDetails = function() {
 
-            SupplyChainData.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
-            console.log(SupplyChainData.getSelectedBlock());
+            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            console.log(SupplyChainService.getSelectedBlock());
 
-            BlockData.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
+            BlockService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
 
             console.log(modalInstance);
 
@@ -389,7 +389,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
             // called when modal is closed
             modalInstance.result.then(function(block) {
                 // add the stage to the supply chain
-                InventoryData.getBlocks(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedStageId(), function(res) {
+                InventoryData.getBlocks(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedStageId(), function(res) {
                     console.log(res);
                     $scope.blocks = res;
                     $scope.selectedBlock = 0;
@@ -405,10 +405,10 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageData', 'TrackInv
 ]);
 
 
-app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'ProductData', 'SupplyChainData', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, ProductData, SupplyChainData, $state, $uibModalInstance) {
+app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'ProductData', 'SupplyChainService', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, ProductData, SupplyChainService, $state, $uibModalInstance) {
 
-        // $scope = SupplyChainData.getSelectedBlock();
+        // $scope = SupplyChainService.getSelectedBlock();
         $scope.quantity = 0;
 
 
@@ -419,7 +419,7 @@ app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
             console.log(err);
         });
 
-        $scope.block1 = SupplyChainData.getSelectedBlock();
+        $scope.block1 = SupplyChainService.getSelectedBlock();
         console.log("block1");
         console.log($scope.block1);
 
@@ -455,7 +455,7 @@ app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
             };
 
 
-            InventoryData.splitBlock(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedBlock()._id, data, function(res) {
+            InventoryData.splitBlock(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedBlock()._id, data, function(res) {
                 console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {
@@ -471,11 +471,11 @@ app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
     }
 ]);
 
-app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', 'ngNotify', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, SupplyChainData, ngNotify, $state, $uibModalInstance) {
+app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', 'ngNotify', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, SupplyChainService, ngNotify, $state, $uibModalInstance) {
 
-        $scope.fromStage = SupplyChainData.getSelectedStage();
-        $scope.block1 = SupplyChainData.getSelectedBlock();
+        $scope.fromStage = SupplyChainService.getSelectedStage();
+        $scope.block1 = SupplyChainService.getSelectedBlock();
         $scope.quantity = $scope.block1.quantity;
 
         $scope.$watch('quantity', function() {
@@ -500,10 +500,10 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
             }
         }
 
-        $scope.stages = SupplyChainData.getStages();
-        var selectedBlock = SupplyChainData.getSelectedBlock();
+        $scope.stages = SupplyChainService.getStages();
+        var selectedBlock = SupplyChainService.getSelectedBlock();
         console.log(selectedBlock);
-        var supplyChainId = SupplyChainData.getSupplyChainId();
+        var supplyChainId = SupplyChainService.getSupplyChainId();
 
         $scope.ok = function() {
             console.log("moveBlock ok()");
@@ -521,7 +521,7 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
 
                 console.log($scope.toStage.self);
 
-                InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, data, function(res) {
+                InventoryData.moveBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, data, function(res) {
                     console.log(res);
                     $uibModalInstance.close(res);
                 }, function(err) {
@@ -552,7 +552,7 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
                 };
 
 
-                InventoryData.splitBlock(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedBlock()._id, data, function(res) {
+                InventoryData.splitBlock(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedBlock()._id, data, function(res) {
                     console.log(res);
                     $uibModalInstance.close(res);
                 }, function(err) {
@@ -569,21 +569,21 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
     }
 ]);
 
-app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockData', 'SupplyChainData', 'StageData', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, BlockData, SupplyChainData, StageData, $state, $uibModalInstance) {
+app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockService', 'SupplyChainService', 'StageService', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, BlockService, SupplyChainService, StageService, $state, $uibModalInstance) {
 
-        var blockId = BlockData.getSelectedBlockId();
+        var blockId = BlockService.getSelectedBlockId();
 
         var block;
         var history;
 
-        BlockData.fetchBlock(blockId)
+        BlockService.fetchBlock(blockId)
             .then(function(res) {
                 $scope.block = res;
                 console.log($scope.block);
             });
 
-        BlockData.fetchSelectedBlockHistory()
+        BlockService.fetchSelectedBlockHistory()
             .then(function(res) {
                 console.log(res);
                 $scope.history = res;
@@ -650,8 +650,8 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
     }
 ]);
 
-app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', 'ngNotify', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, SupplyChainData, ngNotify, $state, $uibModalInstance) {
+app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', 'ngNotify', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, SupplyChainService, ngNotify, $state, $uibModalInstance) {
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity > $scope.block1.quantity) {
@@ -667,8 +667,8 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
               }
         });
 
-        $scope.fromStage = SupplyChainData.getSelectedStage();
-        $scope.block1 = SupplyChainData.getSelectedBlock();
+        $scope.fromStage = SupplyChainService.getSelectedStage();
+        $scope.block1 = SupplyChainService.getSelectedBlock();
         $scope.quantity = $scope.block1.quantity;
 
         $scope.getRemainingQuantity = function() {
@@ -687,9 +687,9 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
             console.log(err);
         });
 
-        var selectedBlock = SupplyChainData.getSelectedBlock();
+        var selectedBlock = SupplyChainService.getSelectedBlock();
         console.log(selectedBlock);
-        var supplyChainId = SupplyChainData.getSupplyChainId();
+        var supplyChainId = SupplyChainService.getSupplyChainId();
 
         $scope.ok = function() {
             console.log($scope.toStage);
@@ -708,7 +708,7 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
 
                 console.log($scope.toStage.self);
 
-                InventoryData.moveBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, data, function(res) {
+                InventoryData.moveBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, data, function(res) {
                     console.log(res);
                     $uibModalInstance.close(res);
                 }, function(err) {
@@ -739,7 +739,7 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
                 };
 
 
-                InventoryData.splitBlock(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedBlock()._id, data, function(res) {
+                InventoryData.splitBlock(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedBlock()._id, data, function(res) {
                     console.log(res);
                     $uibModalInstance.close(res);
                 }, function(err) {
@@ -756,20 +756,20 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
     }
 ]);
 
-app.controller('DeleteBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainData', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, SupplyChainData, $state, $uibModalInstance) {
+app.controller('DeleteBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, SupplyChainService, $state, $uibModalInstance) {
 
-        $scope.fromStage = SupplyChainData.getSelectedStage();
+        $scope.fromStage = SupplyChainService.getSelectedStage();
 
-        $scope.stages = SupplyChainData.getStages();
-        var selectedBlock = SupplyChainData.getSelectedBlock();
+        $scope.stages = SupplyChainService.getStages();
+        var selectedBlock = SupplyChainService.getSelectedBlock();
         console.log(selectedBlock);
-        var supplyChainId = SupplyChainData.getSupplyChainId();
+        var supplyChainId = SupplyChainService.getSupplyChainId();
 
         $scope.ok = function() {
             console.log("deleteBlock ok()");
 
-            InventoryData.deleteBlock(SupplyChainData.getSupplyChainId(), selectedBlock._id, function(res) {
+            InventoryData.deleteBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, function(res) {
                 console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {
@@ -787,8 +787,8 @@ app.controller('DeleteBlockCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
 
 
 
-app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'ProductData', 'SupplyChainData', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, ProductData, SupplyChainData, $state, $uibModalInstance) {
+app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'ProductData', 'SupplyChainService', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, ProductData, SupplyChainService, $state, $uibModalInstance) {
 
 
         ProductData.getProductData(function(res) {
@@ -804,7 +804,7 @@ app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDat
 
             var data = {
                 productId: $scope.selectedProduct._id,
-                stageId: SupplyChainData.getSelectedStageId(),
+                stageId: SupplyChainService.getSelectedStageId(),
                 quantity: $scope.quantity,
                 units: $scope.units,
                 catchDate: $scope.catchDate,
@@ -816,7 +816,7 @@ app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDat
             };
 
 
-            InventoryData.addBlock(SupplyChainData.getSupplyChainId(), data, function(res) {
+            InventoryData.addBlock(SupplyChainService.getSupplyChainId(), data, function(res) {
                 console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {
@@ -832,14 +832,14 @@ app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDat
     }
 ]);
 
-app.controller('EditBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'ProductData', 'SupplyChainData', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, ProductData, SupplyChainData, $state, $uibModalInstance) {
+app.controller('EditBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'ProductData', 'SupplyChainService', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, ProductData, SupplyChainService, $state, $uibModalInstance) {
 
 
 
 
 
-        var block = SupplyChainData.getSelectedBlock();
+        var block = SupplyChainService.getSelectedBlock();
         // $scope.selectedProduct = block.productType;
         console.log(block);
         $scope.quantity = block.quantity;
@@ -872,13 +872,13 @@ app.controller('EditBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
 
             var data = {
                 productId: $scope.selectedProduct._id,
-                stageId: SupplyChainData.getSelectedStageId(),
+                stageId: SupplyChainService.getSelectedStageId(),
                 quantity: $scope.quantity,
                 units: $scope.units
             };
 
 
-            InventoryData.updateBlock(SupplyChainData.getSupplyChainId(), SupplyChainData.getSelectedBlock()._id, data, function(res) {
+            InventoryData.updateBlock(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedBlock()._id, data, function(res) {
                 console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {

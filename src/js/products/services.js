@@ -4,11 +4,11 @@ var app = angular.module('coastlineWebApp.products.services', ['ui.bootstrap',
     'ui.router'
 ]);
 
-app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryData', function($http, $localStorage, apiUrl, FisheryData) {
+app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService', function($http, $localStorage, apiUrl, FisheryService) {
     'use strict';
     var fishery = {
         name: $localStorage.fisheryName,
-        _id: FisheryData.getFisheryId()
+        _id: FisheryService.getFisheryId()
     };
     var fisheryName;
     var baseUrl = apiUrl;
@@ -16,19 +16,19 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryData', f
 
     return {
         getProductData: function(success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products').success(function(res) {
+            $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products').success(function(res) {
                 console.log(res);
                 success(res);
             }).error(error);
         },
         addProduct: function(data, success, error) {
-            return $http.post(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products', data).success(success).error(error);
+            return $http.post(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products', data).success(success).error(error);
         },
         updateProduct: function(data, productId, success, error) {
-            return $http.put(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products/' + productId, data).success(success).error(error);
+            return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products/' + productId, data).success(success).error(error);
         },
         deleteProduct: function(productId) {
-            return $http.delete(baseUrl + '/api/fisheries/' + FisheryData.getFisheryId() + '/products/' + productId)
+            return $http.delete(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products/' + productId)
                 .then(function(res) {
                     return res.data;
                 }).catch(function(err) {
