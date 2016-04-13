@@ -52,7 +52,7 @@
                 <td data-label="Select">
                   <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
                 </td>
-                <td data-label="#">{{block.jobNumber}}</td>
+                <td data-label="Job #">&nbsp;{{block.jobNumber}}</td>
                 <td data-label="Product">{{block.productType.name}}</td>
                 <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
                 <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
@@ -316,7 +316,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="event in history.events track by $index">
-              <td data-label="Operation">{{history.events[history.events.length-1-$index].operation}}</td>
+              <td data-label="Operation">&nbsp;{{history.events[history.events.length-1-$index].operation}}</td>
               <td data-label="Date">&nbsp;{{getDate([history.events.length-1-$index])}}</td>
               <td data-label="Location">&nbsp;{{getStageName([history.events.length-1-$index])}}</td>
               <td data-label="Quantity">&nbsp;{{quantities[$index] + " " + units[history.events.length-1-$index]}}</td>

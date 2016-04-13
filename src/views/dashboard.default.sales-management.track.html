@@ -30,10 +30,10 @@
                         <td data-label="Select">
                           <input type="radio" ng-model="$parent.selectedSellingPoint" ng-value="$index">
                         </td>
-                        <td data-label="Name">{{sellingPoint.name}}</td>
-                        <td data-label="Date Created">{{sellingPoint.dateCreated | date: 'short'}}</td>
+                        <td data-label="Name">&nbsp;{{sellingPoint.name}}</td>
+                        <td data-label="Date Created">&nbsp;{{sellingPoint.dateCreated | date: 'short'}}</td>
                         <!-- TODO, just set type as first in list for now -->
-                        <td data-label="Channel Type">{{sellingPoint.sellingTargets[0]}}</td>
+                        <td data-label="Channel Type">&nbsp;{{sellingPoint.sellingTargets[0]}}</td>
 
                       </tr>
                     </tbody>
