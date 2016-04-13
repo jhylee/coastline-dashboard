@@ -326,7 +326,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageService', 'Track
         $scope.deleteBlock = function() {
 
 
-            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            SupplyChainService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
             console.log(SupplyChainService.getSelectedBlock());
 
             console.log(modalInstance);
@@ -795,17 +795,17 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
 app.controller('DeleteBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', '$state', '$uibModalInstance',
     function($scope, TrackInventoryManager, InventoryData, SupplyChainService, $state, $uibModalInstance) {
 
-        $scope.fromStage = SupplyChainService.getSelectedStage();
+        // $scope.fromStage = SupplyChainService.getSelectedStage();
 
-        $scope.stages = SupplyChainService.getStages();
-        var selectedBlock = SupplyChainService.getSelectedBlock();
-        console.log(selectedBlock);
+        // $scope.stages = SupplyChainService.getStages();
+        var selectedBlockId = SupplyChainService.getSelectedBlockId();
+        // console.log(selectedBlock);
         var supplyChainId = SupplyChainService.getSupplyChainId();
 
         $scope.ok = function() {
             console.log("deleteBlock ok()");
 
-            InventoryData.deleteBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, function(res) {
+            InventoryData.deleteBlock(SupplyChainService.getSupplyChainId(), selectedBlockId, function(res) {
                 console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {
