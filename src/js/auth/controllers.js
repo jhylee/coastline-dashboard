@@ -26,6 +26,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
         var formData = {
             username: $scope.username,
             password: $scope.password,
+            email: $scope.email,
             accountType: $scope.accountType
         };
 
