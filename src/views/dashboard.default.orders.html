@@ -174,13 +174,17 @@
         <fieldset class="form-group">
           <div class="col-lg-6">
             <label>Order Currency</label>
-            <input class="form-control" type="text" maxlength="30" ng-model="currency" placeholder="ex. USD or CAD">
-            <small class="text-muted">Maximum 10 characters</small>
+            <select ng-model="currency" class="form-control">
+              <option value="USD">USD</option>
+              <option value="CAD">CAD</option>
+              <option value="Euro">Euro</option>
+            </select>
+            <small class="text-muted">Choose the currency type.</small>
           </div>
           <div class="col-lg-6">
-            <label>Tax Rate (Format: 15% - NOT in decimal format)</label>
-            <input type="number" min="0" ng-model="taxRate" step="0.5" class="form-control" placeholder="ex. 13 for HST"></input>
-            <small class="text-muted">Please enter the tax rate as a percentage.</small>
+            <label>Tax Rate</label>
+            <input class="form-control" maxlength="10" min="0" ng-model="taxRate" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 13"></input>
+            <small class="text-muted">[Optional] Please enter the tax rate as a percentage.</small>
           </div>
         </fieldset>
         <hr class="short">
