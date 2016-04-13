@@ -697,12 +697,12 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
             if ($scope.quantity == $scope.block1.quantity) {
                 var data = {
                     productId: selectedBlock.productType._id,
-                    stageId: $scope.toStage._id,
+                    stageId: $scope.toStage.self,
                     quantity: $scope.quantity,
                     units: $scope.units,
                     // TODO
-                    jobNum: $scope.block1.jobNum,
-                    processType: $scope.block1.processType
+                    // jobNum: $scope.block1.jobNum,
+                    processType: $scope.processType
                 };
 
                 console.log($scope.toStage.self);
@@ -722,8 +722,8 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
                     stage: $scope.toStage._id,
                     productType: $scope.block1.productType,
                     // TODO
-                    jobNum: $scope.block2.jobNum,
-                    processType: $scope.block2.processType
+                    // jobNum: $scope.block2.jobNum,
+                    processType: $scope.processType
                 };
 
                 $scope.block1.quantity = $scope.block1.quantity - block2.quantity;
@@ -811,9 +811,7 @@ app.controller('AddBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDat
                 caughtBy: $scope.caughtBy,
                 catchType: $scope.catchType,
                 waterDepth: $scope.waterDepth,
-                //TODO
-                processType: $scope.processType,
-                jobNum: $scope.jobNum
+                jobNumber: $scope.jobNumber
             };
 
 
