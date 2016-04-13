@@ -631,7 +631,8 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
                 return $scope.history.events[i].date.substring(0, 10);
             } else if ($scope.history.events[i].operation == "edit") {
                 return $scope.history.events[i].date.substring(0, 10);
-
+            } else if ($scope.history.events[i].operation == "split") {
+                return $scope.history.events[i].date.substring(0, 10);
             } else {
 
             }
