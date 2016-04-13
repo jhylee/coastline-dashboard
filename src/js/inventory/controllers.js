@@ -65,7 +65,8 @@ app.controller('InventoryCtrl', ['$scope', '$rootScope', 'StageService', 'Invent
 
 
             var stageId = SupplyChainService.getSelectedStageId();
-            StageService.setSelectedStageId(stageId);
+            console.log(stageId);
+            // SupplyChainService.setSelectedStageId(stageId);
             var supplyChainId = SupplyChainService.getSupplyChain()._id;
             console.log(supplyChainId);
 
@@ -114,7 +115,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageService', 'Track
             console.log(err);
         })
 
-        StageService.fetchSelectedStage()
+        SupplyChainService.fetchSelectedStage()
             .then(function(res) {
                 $scope.stageName = res.name;
             });
@@ -241,7 +242,7 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageService', 'Track
         $scope.moveBlock = function() {
 
 
-            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            SupplyChainService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
             console.log(SupplyChainService.getSelectedBlock());
 
             console.log(modalInstance);
@@ -283,8 +284,8 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageService', 'Track
         $scope.moveBlockToSales = function() {
 
 
-            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
-            console.log(SupplyChainService.getSelectedBlock());
+            SupplyChainService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
+            // console.log(SupplyChainService.getSelectedBlock());
 
             console.log(modalInstance);
 
@@ -372,6 +373,8 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'StageService', 'Track
 
             SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
             console.log(SupplyChainService.getSelectedBlock());
+
+
 
             BlockService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
 
@@ -474,9 +477,8 @@ app.controller('SplitBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryD
 app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', 'ngNotify', '$state', '$uibModalInstance',
     function($scope, TrackInventoryManager, InventoryData, SupplyChainService, ngNotify, $state, $uibModalInstance) {
 
-        $scope.fromStage = SupplyChainService.getSelectedStage();
-        $scope.block1 = SupplyChainService.getSelectedBlock();
-        $scope.quantity = $scope.block1.quantity;
+        // $scope.block1 = SupplyChainService.getSelectedBlock();
+        // $scope.quantity = $scope.block1.quantity;
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity > $scope.block1.quantity) {
@@ -491,6 +493,18 @@ app.controller('MoveBlockCtrl', ['$scope', 'TrackInventoryManager', 'InventoryDa
                 })
               }
         });
+
+        SupplyChainService.fetchSelectedStage()
+            .then(function (res) {
+                $scope.fromStage = res;
+            });
+
+        SupplyChainService.fetchSelectedBlock()
+            .then(function (data) {
+                $scope.block1 = data;
+                $scope.quantity = $scope.block1.quantity;
+                selectedBlock = data;
+            });
 
         $scope.getRemainingQuantity = function() {
             if ($scope.block1.quantity - $scope.quantity < 0) {
@@ -576,6 +590,13 @@ app.controller('ViewDetailsCtrl', ['$scope', 'TrackInventoryManager', 'Inventory
 
         var block;
         var history;
+
+        SupplyChainService.fetchSelectedStage()
+            .then(function (res) {
+                $scope.stage = res;
+                $scope.stageName = res.name;
+            });
+
 
         BlockService.fetchBlock(blockId)
             .then(function(res) {
@@ -667,9 +688,24 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
               }
         });
 
-        $scope.fromStage = SupplyChainService.getSelectedStage();
-        $scope.block1 = SupplyChainService.getSelectedBlock();
-        $scope.quantity = $scope.block1.quantity;
+        SupplyChainService.fetchSelectedStage()
+            .then(function (res) {
+                $scope.fromStage = res;
+            });
+
+
+
+        // $scope.block1 = SupplyChainService.getSelectedBlock();
+        // $scope.quantity = $scope.block1.quantity;
+        var selectedBlock;
+
+
+        SupplyChainService.fetchSelectedBlock()
+            .then(function (data) {
+                $scope.block1 = data;
+                $scope.quantity = $scope.block1.quantity;
+                selectedBlock = data;
+            });
 
         $scope.getRemainingQuantity = function() {
             if ($scope.block1.quantity - $scope.quantity < 0) {
@@ -687,8 +723,8 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
             console.log(err);
         });
 
-        var selectedBlock = SupplyChainService.getSelectedBlock();
-        console.log(selectedBlock);
+        // var selectedBlock = SupplyChainService.getSelectedBlock();
+        // console.log(selectedBlock);
         var supplyChainId = SupplyChainService.getSupplyChainId();
 
         $scope.ok = function() {
@@ -698,7 +734,7 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
             if ($scope.quantity == $scope.block1.quantity) {
                 var data = {
                     productId: selectedBlock.productType._id,
-                    stageId: $scope.toStage.self,
+                    stageId: $scope.toStage,
                     quantity: $scope.quantity,
                     units: $scope.units,
                     // TODO
@@ -706,7 +742,7 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'TrackInventoryManager', 'Inve
                     processType: $scope.processType
                 };
 
-                console.log($scope.toStage.self);
+                console.log($scope.toStage);
 
                 InventoryData.moveBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, data, function(res) {
                     console.log(res);

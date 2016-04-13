@@ -141,13 +141,15 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
         // callback for selectNode events
         $scope.events.selectNode = function(items) {
             console.log('selectNode');
-            SupplyChainService.selectStage(items.nodes[0]);
+            SupplyChainService.setSelectedStageId(items.nodes[0]);
+            console.log(items.nodes[0]);
         };
 
         // callback for deselectNode events
         $scope.events.deselectNode = function(items) {
             console.log('deselectNode');
-            SupplyChainService.deselectStage();
+            SupplyChainService.setSelectedStageId(null);
+
         };
 
         $scope.events.dragEnd = function(items) {

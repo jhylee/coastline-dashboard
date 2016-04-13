@@ -158,7 +158,7 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'BlockS
         $scope.deleteBlock = function() {
 
 
-            BlockService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            BlockService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
             // console.log(SupplyChainService.getSelectedBlock());
 
             console.log(modalInstance);
@@ -312,12 +312,12 @@ app.controller('AddSellingPointCtrl', ['$scope', 'SupplyChainService', 'SellingP
 app.controller('DeleteBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockService', 'SupplyChainService', '$state', '$uibModalInstance',
     function($scope, TrackInventoryManager, InventoryData, BlockService, SupplyChainService, $state, $uibModalInstance) {
 
-        var selectedBlock = BlockService.getSelectedBlock();
+        var selectedBlockId = BlockService.getSelectedBlockId();
 
         $scope.ok = function() {
             console.log("deleteBlock ok()");
 
-            InventoryData.deleteBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, function(res) {
+            InventoryData.deleteBlock(SupplyChainService.getSupplyChainId(), selectedBlockId, function(res) {
                 console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {

@@ -86,18 +86,25 @@ app.factory('BlockService', ['$http', 'apiUrl', '$localStorage', 'FisheryService
 
 
     return {
+
+        // TODO - move
         getSelectedBlockId: function() {
             return _selectedBlockId;
         },
+        // TODO - move
         setSelectedBlockId: function(selectedBlockId) {
             _selectedBlockId = selectedBlockId;
         },
+        // TODO - eliminate
         getSelectedBlock: function() {
             return _selectedBlock;
         },
+        // TODO - eliminate
         setSelectedBlock: function(selectedBlock) {
             _selectedBlock = selectedBlock;
         },
+
+        // TODO - move
         fetchHistory: function(blockId) {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/history/' + blockId)
                 .then(function(res) {
@@ -107,6 +114,8 @@ app.factory('BlockService', ['$http', 'apiUrl', '$localStorage', 'FisheryService
                     return err
                 })
         },
+
+        // TODO - done
         fetchSelectedBlockHistory: function() {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/history/' + _selectedBlockId)
                 .then(function(res) {
@@ -116,12 +125,16 @@ app.factory('BlockService', ['$http', 'apiUrl', '$localStorage', 'FisheryService
                     return err
                 })
         },
+
+        // TODO - move
         fetchBlock: function(blockId) {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/blocks/' + blockId)
                 .then(function(res) {
                     return res.data;
                 });
         },
+
+        // TODO - move
         fetchBlocksByProduct: function(productId) {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products/' + productId + '/blocks')
                 .then(function(res) {
@@ -147,12 +160,14 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
     var stages;
 
     // stage currently selected on display
-    var selectedStageId = null;
+    var _selectedStageId = null;
 
     var supplyChain;
 
     var selectedBlocks;
     var selectedBlock;
+    var _selectedBlockId;
+
 
     var canLeave = false;
     var toState;
@@ -195,11 +210,25 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
     // public methods
     return {
 
+        getSelectedBlockId: function () {
+            return _selectedBlockId;
+        },
+        setSelectedBlockId: function (selectedBlockId) {
+            _selectedBlockId = selectedBlockId;
+        },
+
+        fetchSelectedBlock: function () {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/blocks/' + _selectedBlockId)
+                .then(function(res) {
+                    return res.data;
+                });
+        },
+
         getSupplyChainId: function() {
             return $localStorage.selectedSupplyChainId;
         },
 
-            setSupplyChainId: function(supplyChainId) {
+        setSupplyChainId: function(supplyChainId) {
                 $localStorage.selectedSupplyChainId = supplyChainId;
             $localStorage.$save();
         },
@@ -238,7 +267,7 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
 
         fetchStages: function() {
             console.log(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId + '/stages/normal');
-            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId + '/stages/normal')
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId._id + '/stages/normal')
                 .then(function(res) {
                     console.log(res.data);
                     stages = res.data;
@@ -246,7 +275,15 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                 })
         },
 
-            fetchSupplyChain: function (supplyChainId) {
+        fetchSelectedStage: function() {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/' + _selectedStageId)
+                .then(function(res) {
+                    console.log(res.data);
+                    return res.data;
+                })
+        },
+
+        fetchSupplyChain: function (supplyChainId) {
             // $localStorage.selectedSupplyChainId;
                 $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + supplyChainId)
                 .then(function(res) {
@@ -275,6 +312,16 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                         return supplyChain;
                 }).catch(function(err) {
                     console.log(err);
+                })
+        },
+
+        fetchSelectedBlockHistory: function() {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/history/' + _selectedBlockId)
+                .then(function(res) {
+                    return res.data;
+                }).catch(function(err) {
+                    console.log(err);
+                    return err
                 })
         },
 
@@ -335,7 +382,11 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
         },
 
         getSelectedStageId: function() {
-            return stages[findStage(selectedStageId)].self._id;
+            return _selectedStageId;
+        },
+
+        setSelectedStageId: function(id) {
+            _selectedStageId = id;
         },
 
 
