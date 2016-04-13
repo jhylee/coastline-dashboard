@@ -26,6 +26,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
         var formData = {
             username: $scope.username,
             password: $scope.password,
+            email: $scope.email,
             accountType: $scope.accountType
         };
 
@@ -39,6 +40,17 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
             console.log(err);
         });
 
+    };
+
+    $scope.sendResetLink = function () {
+        var data = {
+            username: $scope.username
+        };
+
+        AuthService.sendResetLink(data).then(function (res) {
+            console.log(res);
+            $state.go('login');
+        })
     };
 
 

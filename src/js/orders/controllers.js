@@ -165,26 +165,7 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
         $scope.order = OrderData.getSelectedOrder();
         console.log($scope.order);
 
-        OrderData.fetchOrderPDF($scope.order._id)
-            .then(function(res) {
 
-                var blob = new Blob([res], {
-                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                });
-                // var objectUrl = URL.createObjectURL(blob);
-                // $window.open(objectUrl);
-                var url = $window.URL || $window.webkitURL;
-                // var url = $window.URL || $window.webkitURL;
-                $scope.fileUrl = url.createObjectURL(blob);
-                console.log($scope.fileUrl);
-
-                // var anchor = angular.element('<a/>');
-                // anchor.attr({
-                //     href: $scope.fileUrl,
-                //     target: '_blank',
-                //     download: 'order.xlsx'
-                // })[0].click();
-            })
 
         $scope.dismiss = function() {
             $uibModalInstance.close("dismiss");
@@ -192,45 +173,30 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 
         $scope.getPDF = function() {
 
+            $scope.pdfStatus = "loading";
+
             OrderData.fetchOrderPDF($scope.order._id)
                 .then(function(res) {
 
                     var blob = new Blob([res], {
-                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                        type: 'application/pdf'
                     });
                     // var objectUrl = URL.createObjectURL(blob);
                     // $window.open(objectUrl);
+                    var url = $window.URL || $window.webkitURL;
                     // var url = $window.URL || $window.webkitURL;
-                    // var url = $window.URL || $window.webkitURL;
-                    // $scope.fileUrl = url.createObjectURL(blob);
-                    // console.log($scope.fileUrl);
+                    $scope.fileUrl = url.createObjectURL(blob);
+                    console.log($scope.fileUrl);
 
                     var anchor = angular.element('<a/>');
                     anchor.attr({
                         href: $scope.fileUrl,
-                        target: '_blank',
-                        download: 'order.xlsx'
+                        download: 'order.pdf'
                     })[0].click();
+
+                    $scope.pdfStatus = "";
+
                 })
-
-
-            // $http({
-            //     method: 'GET',
-            //     url: '/someUrl'
-            // }).
-            // success(function(data, status, headers, config) {
-            //     var anchor = angular.element('<a/>');
-            //     anchor.attr({
-            //         // href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
-            //         href: 'http://google.com/',
-            //         target: '_blank',
-            //         // download: 'filename.csv'
-            //     })[0].click();
-
-            // }).
-            // error(function(data, status, headers, config) {
-            //     // handle error
-            // });
         }
 
         $scope.getTotal = function() {
@@ -396,6 +362,8 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
                 date: $scope.date,
                 email: $scope.email,
                 phone: $scope.phone,
+                currency: $scope.currency,
+                taxRate: $scope.taxRate / 100,
                 items: []
             };
 

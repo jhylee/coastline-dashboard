@@ -27,7 +27,7 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
                 // data: json, //this is your json data string
                 headers: {
                     // 'Content-type': 'application/json',
-                    'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    'Accept': 'application/pdf'
                 }
             }).then(function(res) {
                 console.log('here');
