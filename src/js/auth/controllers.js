@@ -42,6 +42,17 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
 
     };
 
+    $scope.sendResetLink = function () {
+        var data = {
+            username: $scope.username
+        };
+
+        AuthService.sendResetLink(data).then(function (res) {
+            console.log(res);
+            $state.go('login');
+        })
+    };
+
 
     $scope.createFishery = function() {
         var formData = {

@@ -40,6 +40,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/fishery-setup.html'
     })
 
+    .state('forgot-password', {
+        url: '/forgot-password',
+        templateUrl: '/views/forgot-password.html'
+    })
+
     .state('sign-up', {
         url: '/sign-up',
         templateUrl: '/views/sign-up.html'

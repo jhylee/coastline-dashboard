@@ -61,6 +61,15 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
             }).error(error);
         },
 
+        sendResetLink: function(data) {
+            return $http.post(baseUrl + '/api/password/reset/send', data).then(function(res) {
+                return res.data;
+            }).catch(function (err) {
+                console.log(err);
+                return err;
+            });
+        },
+
         createFishery: function(data, success, error) {
             $http.post(baseUrl + '/api/fisheries', data).success(function(res) {
                 $localStorage.user.fishery = res.name;
