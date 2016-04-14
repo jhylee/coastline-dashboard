@@ -110,7 +110,7 @@
 <!-- MANUAL ORDER INPUT MODAL-->
 <script type="text/ng-template" id="addOrderModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Add an Order</h3>
+    <h3 class="modal-title text-center">Add an Invoice</h3>
   </div>
     <div class="modal-body">
       <form>
@@ -197,16 +197,16 @@
                       <th>Unit Price</th>
                       <th>Units</th>
                       <th>Quantity (Max: {{selectedBlock.quantity + selectedBlock.units}})</th>
-                      <th></th>
+                      <th>&nbsp;</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr ng-repeat="item in items track by $index">
-                      <td >{{item.product.name}}</td>
-                      <td>{{item.block.displayData || item.block.catchDate}}</td>
-                      <td>{{item.unitPrice}}</td>
-                      <td>{{item.units}}</td>
-                      <td>{{item.quantity}}</td>
+                      <td data-label="Product">{{item.product.name}}</td>
+                      <td data-label="Data">{{item.block.displayData || item.block.catchDate}}</td>
+                      <td data-label="Unit Price $">{{item.unitPrice}}</td>
+                      <td data-label="Units">{{item.units}}</td>
+                      <td data-label="Quantity">{{item.quantity}}</td>
                     </tr>
                     <tr>
                       <td data-label="Product">
