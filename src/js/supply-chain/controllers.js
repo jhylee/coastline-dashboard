@@ -15,8 +15,7 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
 
         $scope.editSupplyChain = function(selectedSupplyChainId) {
             // TODO - make a route to get just IDs
-            console.log(selectedSupplyChainId);
-            SupplyChainService.setSupplyChainId(selectedSupplyChainId);
+            SupplyChainService.setSupplyChainId($scope.selectedSupplyChain._id);
 
             SupplyChainService.fetchStages().then(function(res) {
                 $state.go('dashboard.default.supply-chain.builder');
@@ -27,6 +26,7 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
             // Fishery.getFishery(function (fishery) {
             SupplyChainService.fetchSupplyChains().then(function(supplyChains) {
                 $scope.supplyChains = supplyChains;
+                if (supplyChains.length > 0) $scope.selectedSupplyChain = $scope.supplyChains[0];
             });
 
         };
@@ -63,8 +63,8 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
 ]);
 
 
-app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$uibModal', 'VisDataSet', 'SupplyChainService', 'StageService',
-    function($scope, $state, $rootScope, $uibModal, VisDataSet, SupplyChainService, StageService) {
+app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$uibModal', 'VisDataSet', 'SupplyChainService',
+    function($scope, $state, $rootScope, $uibModal, VisDataSet, SupplyChainService) {
 
         $rootScope.$on('leaving-supply-chain-builder', function() {
 
@@ -186,8 +186,6 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                         console.log(stages);
                         $scope.refreshGraph();
                     });
-
-
 
                     // CANCEL callback
                 },
@@ -484,12 +482,6 @@ app.controller('UnlinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainService'
 
             }
 
-            //   if ($scope.prev) {
-            //       console.log('scope.prev._id ' + $scope.prev)
-            //       $uibModalInstance.close({name: $scope.name, prev: $scope.prev.self});
-            //   } else {
-            //       $uibModalInstance.close({name: $scope.name});
-            //   }
         };
 
         // tied to cancel button

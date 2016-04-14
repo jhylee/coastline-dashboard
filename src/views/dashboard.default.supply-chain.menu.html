@@ -8,7 +8,7 @@
             <div class="panel-body">
               <!-- TODO - make it so that selectedSupplyChain does NOT have to be passed into the function. -->
               <button ng-click="createNewSupplyChain()" class="btn-status-default">Create</button>
-              <button ng-click="editSupplyChain(selectedSupplyChain)" class="btn-status-default">Edit</button>
+              <button ng-click="editSupplyChain()" class="btn-status-default">Edit</button>
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@
                   <tbody>
                     <tr ng-repeat="supplyChain in supplyChains track by $index">
                         <td data-label="Select">
-                          <input type="radio" ng-model="$parent.selectedSupplyChain" ng-value="$parent.supplyChains[$index]._id">
+                          <input type="radio" ng-model="$parent.selectedSupplyChain" ng-value="$parent.supplyChains[$index]">
                         </td>
                       <td data-label="#">{{$index + 1}}</td>
                       <td data-label="Name">{{supplyChain.name}}</td>

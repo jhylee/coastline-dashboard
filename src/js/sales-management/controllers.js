@@ -137,8 +137,8 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainService', 'SellingPoi
 
 
 
-app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'BlockService', 'SupplyChainService', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
-    function($scope, InventoryData, BlockService, SupplyChainService, SellingPointData, $state, $uibModalInstance, $uibModal) {
+app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'SupplyChainService', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
+    function($scope, InventoryData, SupplyChainService, SellingPointData, $state, $uibModalInstance, $uibModal) {
 
         console.log(SupplyChainService.getSupplyChainId());
         var sellingPoint = SellingPointData.getSelectedSellingPoint();
@@ -199,10 +199,10 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'BlockS
 
         $scope.viewDetails = function() {
 
-            SupplyChainService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
-            console.log(SupplyChainService.getSelectedBlock());
+            SupplyChainService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
+            // console.log(SupplyChainService.getSelectedBlock());
 
-            BlockService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
+            // BlockService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
 
             console.log(modalInstance);
 
@@ -232,7 +232,7 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'BlockS
 
         $scope.moveBlock = function() {
 
-            BlockService.setSelectedBlock($scope.blocks[$scope.selectedBlock]);
+            SupplyChainService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
 
             // modal setup and preferences
             var modalInstance = $uibModal.open({
@@ -308,8 +308,8 @@ app.controller('AddSellingPointCtrl', ['$scope', 'SupplyChainService', 'SellingP
     }
 ]);
 
-app.controller('DeleteBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockService', 'SupplyChainService', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, BlockService, SupplyChainService, $state, $uibModalInstance) {
+app.controller('DeleteBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, SupplyChainService, $state, $uibModalInstance) {
 
         var selectedBlockId = SupplyChainService.getSelectedBlockId();
         // $scope.fromStage = SellingPointData.getSelectedSellingPoint();
@@ -385,8 +385,8 @@ app.controller('EditSellingPointCtrl', ['$scope', 'SupplyChainService', 'Selling
     }
 ]);
 
-app.controller('MoveBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'BlockService', 'SupplyChainService', 'SellingPointData', '$state', '$uibModalInstance',
-    function($scope, TrackInventoryManager, InventoryData, BlockService, SupplyChainService, SellingPointData, $state, $uibModalInstance) {
+app.controller('MoveBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', 'SellingPointData', '$state', '$uibModalInstance',
+    function($scope, TrackInventoryManager, InventoryData, SupplyChainService, SellingPointData, $state, $uibModalInstance) {
 
         $scope.fromStage = SellingPointData.getSelectedSellingPoint();
 
@@ -400,10 +400,14 @@ app.controller('MoveBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManage
             }
         });
 
+        SupplyChainService.fetchSelectedBlock().then(function (res) {
+            $scope.block1 = res;
+            $scope.quantity = $scope.block1.quantity;
+        });
 
-        $scope.block1 = BlockService.getSelectedBlock();
-        console.log(BlockService.getSelectedBlock());
-        $scope.quantity = $scope.block1.quantity;
+
+        // $scope.block1 = BlockService.getSelectedBlock();
+        // console.log(BlockService.getSelectedBlock());
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity > $scope.block1.quantity) {

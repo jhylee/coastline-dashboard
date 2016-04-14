@@ -5,7 +5,7 @@ var app = angular.module('coastlineWebApp.common.controllers', ['ui.bootstrap', 
 
 
 
-app.controller('SideNavCtrl', ['$scope', '$http', '$state', 'apiUrl', 'StageService', function($scope, $http, $state, apiUrl, StageService) {
+app.controller('SideNavCtrl', ['$scope', '$http', '$state', 'apiUrl', function($scope, $http, $state, apiUrl) {
     'use strict';
 
     var logRes = function(res) {
