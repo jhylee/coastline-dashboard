@@ -5,7 +5,7 @@ var app = angular.module('coastlineWebApp.common.controllers', ['ui.bootstrap', 
 
 
 
-app.controller('SideNavCtrl', ['$scope', '$http', '$state', 'apiUrl', 'StageData', function($scope, $http, $state, apiUrl, StageData) {
+app.controller('SideNavCtrl', ['$scope', '$http', '$state', 'apiUrl', function($scope, $http, $state, apiUrl) {
     'use strict';
 
     var logRes = function(res) {
@@ -13,18 +13,18 @@ app.controller('SideNavCtrl', ['$scope', '$http', '$state', 'apiUrl', 'StageData
         console.log(res);
     }
 
-    // StageData.getStages().then(logRes)
+    // StageService.getStages().then(logRes)
     //                      .catch(logRes);
     //
-    //   StageData.getNormalStages().then(function (res) {
+    //   StageService.getNormalStages().then(function (res) {
     //     console.log(res);
     //   });
 
-    // StageData.getSellingPoints(function (res) {
+    // StageService.getSellingPoints(function (res) {
     //   console.log(res);
     // });
 
-    // StageData.getDisplayData().then(function (data) {
+    // StageService.getDisplayData().then(function (data) {
     //     console.log(data);
     // });
 

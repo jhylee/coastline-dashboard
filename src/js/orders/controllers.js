@@ -215,8 +215,8 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 ]);
 
 
-app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductData', 'BlockData', 'AuthService', 'ngNotify', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryData, OrderData, ProductData, BlockData, AuthService, ngNotify, $state, $uibModalInstance, $http) {
+app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'SupplyChainService', 'AuthService', 'ngNotify', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, OrderData, ProductData, SupplyChainService, AuthService, ngNotify, $state, $uibModalInstance, $http) {
 
         $scope.invoiceNumber;
         $scope.paymentMethod;
@@ -258,7 +258,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
             $scope.items.push({
                 quantity: $scope.quantity,
                 product: $scope.selectedProduct,
-                fisheryId: FisheryData.getFisheryId(),
+                fisheryId: FisheryService.getFisheryId(),
                 block: $scope.selectedBlock,
                 unitPrice: $scope.unitPrice,
                 units: $scope.units
@@ -311,7 +311,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
         $scope.$watch('selectedProduct', function(newValue, oldValue) {
             console.log($scope.selectedProduct);
             if ($scope.selectedProduct) {
-                BlockData.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
+                SupplyChainService.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
                     $scope.blocks = []
                     for (i = 0; i < res.length; i++) {
                         var isBlockInItems = false;
@@ -398,8 +398,8 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductDa
 ]);
 
 
-app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductData', 'BlockData', 'AuthService', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryData, OrderData, ProductData, BlockData, AuthService, $state, $uibModalInstance, $http) {
+app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
 
         var order = OrderData.getSelectedOrder();
 
@@ -429,7 +429,7 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductD
             $scope.items.push({
                 quantity: $scope.quantity,
                 product: $scope.selectedProduct,
-                fisheryId: FisheryData.getFisheryId(),
+                fisheryId: FisheryService.getFisheryId(),
                 block: $scope.selectedBlock,
                 unitPrice: $scope.unitPrice,
                 units: $scope.units
@@ -472,7 +472,7 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductD
         $scope.$watch('selectedProduct', function(newValue, oldValue) {
             console.log($scope.selectedProduct);
             if ($scope.selectedProduct) {
-                BlockData.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
+                SupplyChainService.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
                     $scope.blocks = []
                     for (i = 0; i < res.length; i++) {
                         var isBlockInItems = false;
@@ -555,8 +555,8 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductD
     }
 ]);
 
-app.controller('DeleteOrderCtrl', ['$scope', 'FisheryData', 'OrderData', 'ProductData', 'BlockData', 'AuthService', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryData, OrderData, ProductData, BlockData, AuthService, $state, $uibModalInstance, $http) {
+app.controller('DeleteOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
 
         var order = OrderData.getSelectedOrder();
 

@@ -7,11 +7,11 @@ var app = angular.module('coastlineWebApp.dashboard.controllers', ['ui.bootstrap
 
 
 
-app.controller('NavTopCtrl', ['$scope', 'AuthService', '$state', 'FisheryData',
-    function($scope, AuthService, $state, FisheryData) {
+app.controller('NavTopCtrl', ['$scope', 'AuthService', '$state', 'FisheryService',
+    function($scope, AuthService, $state, FisheryService) {
         $scope.fisheryName = "";
 
-        $scope.fisheryName = FisheryData.getFisheryName();
+        $scope.fisheryName = FisheryService.getFisheryName();
 
         $scope.navbarCollapsed = true;
 
