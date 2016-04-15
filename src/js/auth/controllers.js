@@ -86,14 +86,17 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         loginPromise.then(function(res) {
             console.log(res);
 
-            ngNotify.set('The credentials entered are incorrect. Please try again.', {
-                  sticky: false,
-                  button: false,
-                  type: 'error',
-                  duration: 1000,
-                  position: 'top'
-              })
+            if (res.statusText === "Unauthorized"){
+                      ngNotify.set('The credentials entered are incorrect. Please try again.', {
+                            sticky: false,
+                            button: false,
+                            type: 'error',
+                            duration: 1000,
+                            position: 'top'
+                  })
+            }
         });
+
     };
 
 
