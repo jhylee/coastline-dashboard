@@ -558,7 +558,10 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
         $scope.ok = function() {
 
             console.log($scope.selectedProduct);
-            if (angular.isUndefined($scope.selectedProduct)){
+            if (angular.isUndefined($scope.selectedProduct) ||
+                angular.isUndefined($scope.quantity) ||
+                angular.isUndefined($scope.units) ||
+                angular.isUndefined($scope.stageId)){
               ngNotify.set('Please fill out all mandatory product batch details.', {
                 sticky: false,
                 button: false,
