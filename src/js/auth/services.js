@@ -21,6 +21,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
                 $state.go('dashboard.default.products');
             })
 
+
             return res.data;
         }).catch(function(err) {
             return err;
@@ -35,6 +36,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
                 // console.log("token not present");
 
                 return false;
+
             } else {
                 var params = parseJwt($localStorage.token);
                 // console.log("is token expired? " + Math.round(new Date().getTime() / 1000) <= params.exp);

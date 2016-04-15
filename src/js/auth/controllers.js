@@ -1,4 +1,4 @@
-angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'coastlineWebApp.auth.services'])
+angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'ngNotify', 'coastlineWebApp.auth.services'])
 
 .controller('accountCtrl', ['$rootScope', '$scope', '$state', '$location', '$localStorage', 'AuthService', function($rootScope, $scope, $state, $location, $localStorage, AuthService) {
 
@@ -15,7 +15,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
 }])
 
 // CONTROLLER FOR LOGIN/LOGOUT
-.controller('loginCtrl', ['$rootScope', '$scope', '$state', '$location', '$localStorage', 'AuthService', function($rootScope, $scope, $state, $location, $localStorage, AuthService) {
+.controller('loginCtrl', ['$rootScope', '$scope', '$state', '$location', '$localStorage', 'ngNotify','AuthService', function($rootScope, $scope, $state, $location, $localStorage, ngNotify, AuthService) {
 
     $scope.isToken = AuthService.isAuthenticated();
 
@@ -51,6 +51,13 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
             console.log(res);
             $state.go('login');
         })
+        ngNotify.set('Please Check Your Email for Reset Instructions ', {
+            sticky: false,
+            button: true,
+            type: 'success',
+            duration: 1500,
+            position: 'top'
+        })
     };
 
 
@@ -78,7 +85,14 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'c
 
         loginPromise.then(function(res) {
             console.log(res);
-            // $state.go('dashboard.default.products');
+
+            ngNotify.set('The credentials entered are incorrect. Please try again.', {
+                  sticky: false,
+                  button: false,
+                  type: 'error',
+                  duration: 1000,
+                  position: 'top'
+              })
         });
     };
 
