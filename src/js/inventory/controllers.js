@@ -3,7 +3,8 @@ var app = angular.module('coastlineWebApp.inventory.controllers', ['ui.bootstrap
     'coastlineWebApp.inventory.services',
     'coastlineWebApp.products.services',
     'coastlineWebApp.common.services',
-    'ui.router'
+    'ui.router',
+    'ngNotify'
 ]);
 
 
@@ -543,8 +544,8 @@ app.controller('DeleteBlockCtrl', ['$scope', 'InventoryData', 'SupplyChainServic
 
 
 
-app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'SupplyChainService', '$state', '$uibModalInstance',
-    function($scope, InventoryData, ProductData, SupplyChainService, $state, $uibModalInstance) {
+app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'SupplyChainService', 'ngNotify', '$state', '$uibModalInstance',
+    function($scope, InventoryData, ProductData, SupplyChainService, ngNotify, $state, $uibModalInstance) {
 
 
         ProductData.getProductData(function(res) {
@@ -557,6 +558,15 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
         $scope.ok = function() {
 
             console.log($scope.selectedProduct);
+            if (angular.isUndefined($scope.selectedProduct)){
+              ngNotify.set('Please fill out all mandatory product batch details.', {
+                sticky: false,
+                button: false,
+                type: 'error',
+                duration: 1000,
+                position: 'top'
+              })
+            }
 
             var data = {
                 productId: $scope.selectedProduct._id,
@@ -570,7 +580,6 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
                 waterDepth: $scope.waterDepth,
                 jobNumber: $scope.jobNumber
             };
-
 
             InventoryData.addBlock(SupplyChainService.getSupplyChainId(), data, function(res) {
                 console.log(res);

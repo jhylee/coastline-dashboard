@@ -179,6 +179,7 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                 // OK callback
                 function(stage) {
                     // add the stage to the supply chain
+
                     console.log(stage);
                     SupplyChainService.addStage(stage.name, stage.prev, function(res, stages) {
                         // refresh the graph to show the changes

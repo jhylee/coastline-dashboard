@@ -353,6 +353,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 
         // tied to ok button
         $scope.ok = function() {
+
             var data = {
                 invoiceNumber: $scope.invoiceNumber,
                 paymentMethod: $scope.paymentMethod,
@@ -366,6 +367,22 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 taxRate: $scope.taxRate / 100,
                 items: []
             };
+
+            if (angular.isUndefined(data.customerName) ||
+                angular.isUndefined(data.invoiceNumber) ||
+                angular.isUndefined(data.paymentMethod) ||
+                angular.isUndefined(data.status) ||
+                angular.isUndefined(data.customerName) ||
+                angular.isUndefined(data.creditTerms)){
+                ngNotify.set('Please fill out all mandatory invoice fields.', {
+                  sticky: false,
+                  button: false,
+                  type: 'error',
+                  duration: 1500,
+                  position: 'top'
+                })
+
+            }
 
 
             for (i = 0; i < $scope.items.length; i++) {

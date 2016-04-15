@@ -2,12 +2,13 @@ var app = angular.module('coastlineWebApp.products.controllers', ['ui.bootstrap'
     'coastlineWebApp.products.services',
     'coastlineWebApp.auth.services',
     'ui.router',
-    'ngFileUpload' /*, 'searchApp', 'ngSanitize'*/
+    'ngFileUpload', /*, 'searchApp', 'ngSanitize'*/
+    'ngNotify'
 ]);
 
 
-app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'AuthService', '$state', '$uibModal',
-    function($scope, $rootScope, ProductData, AuthService, $state, $uibModal) {
+app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'AuthService', 'ngNotify', '$state', '$uibModal',
+    function($scope, $rootScope, ProductData, AuthService, ngNotify, $state, $uibModal) {
         $scope.fisheryName = "";
 
         $scope.selectedProduct = 0;
@@ -122,8 +123,20 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
             modalInstance.result.then(
                 // OK callback
                 function(product) {
-                    // add the stage to the supply chain
+                    // add the product to the products page
+                    if (product.error === "Fishery validation failed"){
+                        ngNotify.set('Please fill out all mandatory product fields.', {
+                          sticky: false,
+                          button: false,
+                          type: 'error',
+                          duration: 1000,
+                          position: 'top'
+                        })
+
+                    }
                     console.log(product);
+
+
                     updateProductData();
 
 
@@ -187,7 +200,6 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
                     unitPrice: $scope.unitPrice,
                 };
             }
-
 
             console.log("data");
             console.log(data);
