@@ -21,6 +21,8 @@ $side-nav-color: #CFD8DC;
 //Button Colours
 $btn-default-color: #01579B;
 $btn-default-hover-color: #0D47A1;
+$btn-highlight-color: #90A4AE;
+$btn-highlight-hover-color: #78909C;
 $btn-danger-color: #DD2C00;
 $btn-danger-hover-color: #B71C1C;
 $btn-success-color: #43A047;
@@ -236,10 +238,9 @@ iframe:hover {
       margin-top: 38px;
     }
     .sidebar-border {
-      margin-right: -35px;
-      margin-left: -35px;
-      padding-left: 50px;
-      border-bottom: 0.15em solid $secondary-background-color;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-bottom: 0.132em solid $secondary-background-color;
 
     }
     a {
@@ -256,14 +257,18 @@ iframe:hover {
         @include border-radius(2px);
       }
       &:active {
-        background-color: $btn-default-color;
+        background-color: $btn-highlight-color;
         color: white;
+        font-weight: 100;
+
       }
     }
     a.activeTab {
-      background-color: $btn-default-color;
+      background-color: $btn-highlight-color;
       @include border-radius(2px);
       color: #fff;
+      font-weight:100;
+
     }
     padding-right: 15px;
     padding-left: 15px;
@@ -275,8 +280,10 @@ iframe:hover {
 .nav>li>a:active {
   text-decoration: none;
   @include border-radius(2px);
-  background-color: $btn-default-color;
+  background-color: $btn-highlight-color;
   color: #fff;
+  font-weight:100;
+
 }
 /*
  * Main content
@@ -490,6 +497,11 @@ select.form-control:focus {
   border: 1px solid $secondary-border-color;
   font-size: 14px;
   box-shadow: none;
+}
+
+input.search-side-nav {
+  max-width: 350px;
+  border-radius: 2px;
 }
 .panel {
   border-radius: 2px;
