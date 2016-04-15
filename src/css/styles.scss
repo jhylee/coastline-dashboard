@@ -233,8 +233,14 @@ iframe:hover {
       font-size: 18px;
       font-weight: 700;
       letter-spacing: 1px;
-      margin-left: 15px;
       margin-top: 38px;
+    }
+    .sidebar-border {
+      margin-right: -35px;
+      margin-left: -35px;
+      padding-left: 50px;
+      border-bottom: 0.15em solid $secondary-background-color;
+
     }
     a {
       color: $primary-font-color;
@@ -244,18 +250,18 @@ iframe:hover {
       padding-left: 50px;
       padding-top: 10px;
       padding-bottom: 10px;
-      border-bottom: 0.12em solid #E8E8E8;
+      border-bottom: 0.132em solid $secondary-background-color;
       &:hover {
-        background-color: #E8E8E8;
+        background-color: $secondary-background-color;
         @include border-radius(2px);
       }
       &:active {
-        background-color: #78909C;
+        background-color: $btn-default-color;
         color: white;
       }
     }
     a.activeTab {
-      background-color: #78909C;
+      background-color: $btn-default-color;
       @include border-radius(2px);
       color: #fff;
     }
@@ -263,16 +269,13 @@ iframe:hover {
     padding-left: 15px;
     // margin: 10px 5px;
   }
-  li:first-child {
-    // Use to get spacing b/t nav and first li
-    padding-top: 0px;
-  }
+
 }
 .nav>li>a:focus,
 .nav>li>a:active {
   text-decoration: none;
   @include border-radius(2px);
-  background-color: #78909C;
+  background-color: $btn-default-color;
   color: #fff;
 }
 /*
