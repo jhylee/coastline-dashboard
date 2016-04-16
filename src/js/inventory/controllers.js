@@ -281,7 +281,8 @@ app.controller('MoveBlockCtrl', ['$scope', 'InventoryData', 'SupplyChainService'
                     stageId: $scope.toStage.self,
                     quantity: $scope.quantity,
                     units: $scope.units,
-                    processType: $scope.processType
+                    processType: $scope.processType,
+                    jobNumber: $scope.jobNumber
                 };
 
                 InventoryData.moveBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, data, function(res) {
@@ -306,7 +307,8 @@ app.controller('MoveBlockCtrl', ['$scope', 'InventoryData', 'SupplyChainService'
                 var data = {
                     block1: $scope.block1,
                     block2: block2,
-                    processType: $scope.processType
+                    processType: $scope.processType,
+                    jobNumber: $scope.jobNumber
                 };
 
                 InventoryData.splitBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, data, function(res) {
@@ -579,8 +581,8 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
                     catchRegion: $scope.catchRegion,
                     caughtBy: $scope.caughtBy,
                     catchType: $scope.catchType,
-                    waterDepth: $scope.waterDepth,
-                    jobNumber: $scope.jobNumber
+                    waterDepth: $scope.waterDepth
+                    // jobNumber: $scope.jobNumber
                 };
 
                 InventoryData.addBlock(SupplyChainService.getSupplyChainId(), data, function(res) {
