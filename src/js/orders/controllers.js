@@ -150,9 +150,34 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                     // CANCEL callback
                 },
                 function() {});
-
-
         }
+
+        // TODO - Filter orders
+        $scope.filterOrders = function() {
+            console.log("filterOrder");
+
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'filterOrders.html',
+                // TODO make filterCtrl
+                controller: 'OrderDisplayCtrl',
+                size: 'md',
+                resolve: {}
+            });
+
+            // called when modal is closed
+            modalInstance.result.then(
+                // OK callback
+                function(order) {
+                    // add the stage to the supply chain
+                    console.log(order);
+                    updateOrders();
+
+                    // CANCEL callback
+                },
+                function() {});
+        };
 
 
     }
