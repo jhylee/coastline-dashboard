@@ -558,38 +558,40 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
         $scope.ok = function() {
 
             console.log($scope.selectedProduct);
-            if (angular.isUndefined($scope.selectedProduct) ||
-                angular.isUndefined($scope.quantity) ||
-                angular.isUndefined($scope.units) ||
-                angular.isUndefined($scope.stageId)){
-              ngNotify.set('Please fill out all mandatory product batch details.', {
-                sticky: false,
-                button: false,
-                type: 'error',
-                duration: 1000,
-                position: 'top'
-              })
+
+            if (!$scope.selectedProduct ||
+                !$scope.quantity ||
+                !$scope.units) {
+                ngNotify.set('Please fill out all mandatory product batch details.', {
+                    sticky: false,
+                    button: false,
+                    type: 'error',
+                    duration: 1000,
+                    position: 'top'
+                })
+            } else {
+                var data = {
+                    productId: $scope.selectedProduct._id,
+                    stageId: SupplyChainService.getSelectedStageId(),
+                    quantity: $scope.quantity,
+                    units: $scope.units,
+                    catchDate: $scope.catchDate,
+                    catchRegion: $scope.catchRegion,
+                    caughtBy: $scope.caughtBy,
+                    catchType: $scope.catchType,
+                    waterDepth: $scope.waterDepth,
+                    jobNumber: $scope.jobNumber
+                };
+
+                InventoryData.addBlock(SupplyChainService.getSupplyChainId(), data, function(res) {
+                    console.log(res);
+                    $uibModalInstance.close(res);
+                }, function(err) {
+                    $uibModalInstance.close(err);
+                });
             }
 
-            var data = {
-                productId: $scope.selectedProduct._id,
-                stageId: SupplyChainService.getSelectedStageId(),
-                quantity: $scope.quantity,
-                units: $scope.units,
-                catchDate: $scope.catchDate,
-                catchRegion: $scope.catchRegion,
-                caughtBy: $scope.caughtBy,
-                catchType: $scope.catchType,
-                waterDepth: $scope.waterDepth,
-                jobNumber: $scope.jobNumber
-            };
 
-            InventoryData.addBlock(SupplyChainService.getSupplyChainId(), data, function(res) {
-                console.log(res);
-                $uibModalInstance.close(res);
-            }, function(err) {
-                $uibModalInstance.close(err);
-            });
 
         };
 
@@ -610,11 +612,11 @@ app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Supp
         var block;
 
         SupplyChainService.fetchSelectedBlock()
-            .then(function (res) {
+            .then(function(res) {
                 block = res;
                 $scope.quantity = block.quantity;
                 $scope.units = block.units;
-            }).then(function () {
+            }).then(function() {
                 ProductData.getProductData(function(res) {
                     $scope.products = res;
                     findCurrentProduct(block.productType._id);
