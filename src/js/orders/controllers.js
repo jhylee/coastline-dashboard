@@ -15,9 +15,9 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
         var updateOrders = function() {
             OrderData.getOrders(function(orders) {
-                console.log("getOrders");
+                // console.log("getOrders");
                 $scope.orders = orders;
-                console.log($scope.orders);
+                // console.log($scope.orders);
                 if ($scope.orders.length > 0) {
                     $scope.selectedOrder = $scope.orders[0];
                 }
@@ -25,17 +25,17 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 $scope.totals = [];
 
                 ProductData.getProductData(function(products) {
-                    console.log(products);
+                    // console.log(products);
                     for (var i = 0; i < $scope.orders.length; i++) {
                         var total = 0;
 
                         for (var j = 0; j < $scope.orders[i].items.length; j++) {
                             for (var k = 0; k < products.length; k++) {
-                                console.log($scope.orders[i].items[j].product + " " + products[k]._id);
+                                // console.log($scope.orders[i].items[j].product + " " + products[k]._id);
                                 if ($scope.orders[i].items[j].product == products[k]._id) {
                                     $scope.orders[i].items[j].product = products[k];
                                     total += Math.round($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity * 100) / 100
-                                    console.log(total);
+                                    // console.log(total);
                                 }
                             }
                         }
@@ -75,9 +75,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         };
 
         $scope.addOrder = function() {
-            console.log("addOrder");
-
-            // modal setup and preferences
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'addOrderModal.html',
@@ -86,18 +83,38 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 resolve: {}
             });
 
-            // called when modal is closed
             modalInstance.result.then(
-                // OK callback
                 function(order) {
-                    // add the stage to the supply chain
-                    console.log(order);
                     updateOrders();
-
-                    // CANCEL callback
                 },
                 function() {});
         };
+
+        $scope.addFilter = function() {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'addFilterModal.html',
+                controller: 'AddFilterCtrl',
+                size: 'md',
+                resolve: {}
+            });
+
+            modalInstance.result.then(
+                function() {
+                    updateOrders();
+                    $scope.isFilterCleared = OrderData.isFilterCleared();
+                },
+                function() {});
+        };
+
+        $scope.clearFilter = function() {
+            OrderData.clearFilter();
+            $scope.isFilterCleared = OrderData.isFilterCleared();
+            updateOrders();
+        };
+
+        $scope.isFilterCleared = OrderData.isFilterCleared();
+        console.log($scope.isFilterCleared);
 
         $scope.editOrder = function() {
             console.log("editOrder");
@@ -153,31 +170,31 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         }
 
         // TODO - Filter orders
-        $scope.filterOrders = function() {
-            console.log("filterOrder");
-
-            // modal setup and preferences
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'filterOrders.html',
-                // TODO make filterCtrl
-                controller: 'OrderDisplayCtrl',
-                size: 'md',
-                resolve: {}
-            });
-
-            // called when modal is closed
-            modalInstance.result.then(
-                // OK callback
-                function(order) {
-                    // add the stage to the supply chain
-                    console.log(order);
-                    updateOrders();
-
-                    // CANCEL callback
-                },
-                function() {});
-        };
+        // $scope.filterOrders = function() {
+        //     console.log("filterOrder");
+        //
+        //     // modal setup and preferences
+        //     var modalInstance = $uibModal.open({
+        //         animation: true,
+        //         templateUrl: 'filterOrders.html',
+        //         // TODO make filterCtrl
+        //         controller: 'OrderDisplayCtrl',
+        //         size: 'md',
+        //         resolve: {}
+        //     });
+        //
+        //     // called when modal is closed
+        //     modalInstance.result.then(
+        //         // OK callback
+        //         function(order) {
+        //             // add the stage to the supply chain
+        //             console.log(order);
+        //             updateOrders();
+        //
+        //             // CANCEL callback
+        //         },
+        //         function() {});
+        // };
 
 
     }
@@ -611,6 +628,38 @@ app.controller('DeleteOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Pro
             OrderData.deleteOrder(order._id).then(function(res) {
                 $uibModalInstance.close(res);
             });
+
+        };
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+
+    }
+]);
+
+
+app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
+
+        // var order = OrderData.getSelectedOrder();
+
+
+        // tied to ok button
+        $scope.ok = function() {
+
+            OrderData.setFilter({
+                customerName: $scope.customerName,
+                invoiceNumber: $scope.invoiceNumber,
+                paymentMethod: $scope.paymentMethod,
+                status: $scope.status,
+                // invoiceNumber: $scope.invoiceNumber
+            });
+
+            $uibModalInstance.close();
+
 
         };
 

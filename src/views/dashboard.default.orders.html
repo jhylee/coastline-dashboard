@@ -10,7 +10,8 @@
                 <button ng-click="addOrder()" class="btn-status-success">Add Invoice Order</button>
                 <button ng-click="deleteOrder()" class="btn-status-danger">Delete Order</button>
                 <button ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default">View Order Details</button>
-                <button ng-click="filterOrders()" class="btn-status-default">Filter/Search <i class="fa fa-filter"></i></button>
+                <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default">Filter/Search <i class="fa fa-filter"></i></button>
+                <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default">Clear Filter <i class="fa fa-filter"></i></button>
               </div>
             </div>
             <div class="panel panel-body">
@@ -254,7 +255,7 @@
 </script>
 
 <!-- FILTER ORDERS MODAL-->
-<script type="text/ng-template" id="filterOrders.html">
+<script type="text/ng-template" id="addFilterModal.html">
   <div class="modal-header">
     <h3 class="modal-title">Filter Order Criteria</h3>
   </div>

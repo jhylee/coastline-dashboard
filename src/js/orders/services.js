@@ -8,9 +8,39 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
     var baseUrl = apiUrl;
     var selectedOrder;
 
+    var _filter = null;
+
     return {
         getOrders: function(success, error) {
-            $http.get(baseUrl + '/api/orders').success(success).error(error);
+            var url = baseUrl + '/api/orders?';
+
+            var counter = 0;
+
+            for (var key in _filter) {
+                counter += 1
+
+                if (!_filter.hasOwnProperty(key)) continue;
+
+                if (counter == 1) {
+                    url = url + key + "=" + _filter[key]
+                } else {
+                    url = url + "&" + key + "=" + _filter[key]
+                }
+            }
+
+            console.log(url);
+
+            $http.get(url).success(success).error(error);
+        },
+        setFilter: function(filter) {
+            _filter = filter;
+        },
+        clearFilter: function () {
+            _filter = null;
+        },
+        isFilterCleared: function () {
+            // return true;
+            return (_filter == null);
         },
         fetchOrderPDF: function(orderId) {
             // var anchor = angular.element('<a/>');
