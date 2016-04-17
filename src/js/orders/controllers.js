@@ -649,14 +649,14 @@ app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
 
         // tied to ok button
         $scope.ok = function() {
+            var filter = {};
 
-            OrderData.setFilter({
-                customerName: $scope.customerName,
-                invoiceNumber: $scope.invoiceNumber,
-                paymentMethod: $scope.paymentMethod,
-                status: $scope.status,
-                // invoiceNumber: $scope.invoiceNumber
-            });
+            if ($scope.customerName) filter.customerName = $scope.customerName;
+            if ($scope.invoiceNumber) filter.invoiceNumber = $scope.invoiceNumber;
+            if ($scope.paymentMethod) filter.paymentMethod = $scope.paymentMethod;
+            if ($scope.status) filter.status = $scope.status;
+
+            OrderData.setFilter(filter);
 
             $uibModalInstance.close();
 
