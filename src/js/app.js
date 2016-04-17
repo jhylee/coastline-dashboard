@@ -60,9 +60,14 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/dashboard.help.html'
     })
 
-    .state('dashboard.settings', {
+    .state('dashboard.settings.menu', {
         url: '/settings',
-        templateUrl: '/views/dashboard.settings.html'
+        templateUrl: '/views/dashboard.settings.menu.html'
+    })
+
+    .state('dashboard.settings.profile', {
+        url: '/settings.profile',
+        templateUrl: '/views/dashboard.settings.profile.html'
     })
 
     .state('dashboard.default', {
