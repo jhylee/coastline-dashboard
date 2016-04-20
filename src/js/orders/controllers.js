@@ -17,7 +17,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
             OrderData.getOrders(function(orders) {
                 // console.log("getOrders");
                 $scope.orders = orders;
-                // console.log($scope.orders);
+                console.log($scope.orders);
                 if ($scope.orders.length > 0) {
                     $scope.selectedOrder = $scope.orders[0];
                 }
