@@ -1,0 +1,19 @@
+<div class="col-sm-3 col-md-2 sidebar">
+    <ul ng-controller="SideNavCtrl" class="nav nav-sidebar">
+        <li><div class="sidebar-border"><h1>
+          <!--<input class="form-control search-side-nav" type="text" maxlength="15"  placeholder="Search"></input>-->
+          Navigation
+        </h1></li>
+        <!--<li><a ng-class="{activeTab: state.includes('dashboard.default.overview')}" ui-sref=".overview">Overview</a></li>-->
+        <li>&nbsp;</li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.settings.general')}" ui-sref=".general">General</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.settings.users')}" ui-sref=".users">Users</a></li>
+        <!-- <li><a ng-class="{activeTab: state.includes('dashboard.default.supply-chain')}" ui-sref=".supply-chain.menu">Supply Chain</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.default.inventory')}" ui-sref=".inventory.menu">Inventory</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.default.sales-management')}" ui-sref=".sales-management.track">Sales Channel</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.default.orders')}" ui-sref=".orders">Orders</a></li> -->
+
+    </ul>
+</div>
+
+<div ui-view></div>

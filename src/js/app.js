@@ -60,14 +60,19 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/dashboard.help.html'
     })
 
-    .state('dashboard.settings.menu', {
+    .state('dashboard.settings', {
         url: '/settings',
-        templateUrl: '/views/dashboard.settings.menu.html'
+        templateUrl: '/views/dashboard.settings.html'
     })
 
-    .state('dashboard.settings.profile', {
-        url: '/settings.profile',
-        templateUrl: '/views/dashboard.settings.profile.html'
+    .state('dashboard.settings.general', {
+        url: '/settings.general',
+        templateUrl: '/views/dashboard.settings.general.html'
+    })
+
+    .state('dashboard.settings.users', {
+        url: '/settings.users',
+        templateUrl: '/views/dashboard.settings.users.html'
     })
 
     .state('dashboard.default', {
