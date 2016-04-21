@@ -1,0 +1,50 @@
+/*
+ * Global add-ons
+ */
+
+ canvas, vis-network-track {
+   outline:0;
+ }
+
+
+.vis-network {
+  background-color: $secondary-background-color;
+  width: 100%;
+  height: 100%;
+  color: #000;
+}
+.vis-network .item {
+  background-color: #000;
+  border-color: #000;
+  color: #ffffff;
+  font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+  font-kerning: auto;
+  font-size: 13px;
+  font-style: normal;
+  font-variant: normal;
+  font-variant-ligatures: normal;
+  font-weight: normal;
+}
+.vis-network .item.green {
+  background-color: #000;
+  border-color: #000;
+  color: #ffffff;
+}
+.vis-network .item.red {
+  background-color: red;
+  border-color: red;
+  color: #ffffff;
+}
+.vis-network .item.orange {
+  background-color: orange;
+  border-color: orange;
+}
+.vis-network .item.magenta {
+  background-color: magenta;
+  border-color: magenta;
+  color: #ffffff;
+}
+.vis-network .item.past {
+  filter:alpha(opacity=50);
+  opacity: 0.5;
+}
