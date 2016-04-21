@@ -613,6 +613,10 @@ app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
     function($scope, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
 
         // var order = OrderData.getSelectedOrder();
+        $scope.dateEnd = new Date();
+        $scope.dateEnd.setHours(23);
+        $scope.dateEnd.setMinutes(59);
+        $scope.dateEnd.setSeconds(59);
 
 
         // tied to ok button
@@ -623,6 +627,22 @@ app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
             if ($scope.invoiceNumber) filter.invoiceNumber = $scope.invoiceNumber;
             if ($scope.paymentMethod) filter.paymentMethod = $scope.paymentMethod;
             if ($scope.status) filter.status = $scope.status;
+
+            if ($scope.dateStart) {
+                console.log($scope.dateStart);
+                filter.dateStart = $scope.dateStart;
+            }
+
+            if ($scope.dateEnd) {
+                console.log(new Date($scope.dateEnd.getFullYear(),
+                    $scope.dateEnd.getMonth(),
+                    $scope.dateEnd.getDate(),
+                    23, 59, 59, 59, 0));
+                filter.dateEnd = new Date($scope.dateEnd.getFullYear(),
+                    $scope.dateEnd.getMonth(),
+                    $scope.dateEnd.getDate(),
+                    23, 59, 59, 59, 0)
+            }
 
             OrderData.setFilter(filter);
 
