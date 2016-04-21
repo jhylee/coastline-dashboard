@@ -13,8 +13,6 @@ app.factory('SellingPointData', ['$http', '$localStorage', 'apiUrl', 'FisherySer
     return {
         getSellingPoints: function(success, error) {
             $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/selling').success(function(res) {
-                console.log("getSellingPoints");
-                console.log(res);
                 success(res);
             }).error(error);
         },

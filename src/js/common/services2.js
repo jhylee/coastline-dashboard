@@ -40,24 +40,21 @@ app.factory('FisheryService', ['$http', 'apiUrl', '$localStorage', function($htt
                 name: res[i].name,
                 _id: res[i]._id
             };
-            console.log(fishery);
         }
         // success(fishery);
     }).error(function(err) {
-        console.log("Error getting fishery. " + err)
+
     });
 
     return {
         fetchFishery: function() {
             return $http.get(baseUrl + '/api/user').then(function(res) {
-                console.log(res);
                 return res.data.fishery;
             }).then(function(res) {
                 fishery = {
                     name: res.name,
                     _id: res._id
                 };
-                console.log(fishery);
                 return fishery;
             }).catch(function(err) {
                 return err;
@@ -189,7 +186,6 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
         fetchStages: function() {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + supplyChain._id + '/stages/normal')
                 .then(function(res) {
-                    console.log(res.data);
                     return res.data;
                 })
         },
@@ -377,12 +373,10 @@ app.factory('StageService', ['$http', 'apiUrl', '$localStorage', 'FisheryService
     var fetchNormalStages = function() {
         return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains').
         then(function(res) {
-            console.log(res.data[0].stages);
 
             var stages = [];
 
             for (var i = 0; i < res.data[0].stages.length; i++) {
-                console.log(res.data[0].stages[i]);
                 stages.push({
                     x: res.data[0].stages[i].x,
                     y: res.data[0].stages[i].y,
@@ -393,7 +387,6 @@ app.factory('StageService', ['$http', 'apiUrl', '$localStorage', 'FisheryService
                 });
             }
 
-            console.log(stages);
             return stages;
 
         }).catch(function(err) {
@@ -408,12 +401,10 @@ app.factory('StageService', ['$http', 'apiUrl', '$localStorage', 'FisheryService
         },
 
         getNormalStages: function() {
-            console.log('StageService getNormalStages');
             return fetchNormalStages()
         },
 
         getSellingPoints: function(success, error) {
-            console.log('StageService getSellingPoints');
             $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/selling').success(success).error(error);
         }, // reconstructs the graph and returns nodes and edges for graphical display
 
@@ -421,7 +412,6 @@ app.factory('StageService', ['$http', 'apiUrl', '$localStorage', 'FisheryService
         getDisplayData: function() {
             return fetchNormalStages().then(function(stages) {
 
-                console.log(stages);
 
                 var data = {
                     nodes: [],

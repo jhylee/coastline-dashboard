@@ -37,7 +37,6 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
             $state.go('fishery-setup');
             //   });
         }, function(err) {
-            console.log(err);
         });
 
     };
@@ -48,7 +47,6 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         };
 
         AuthService.sendResetLink(data).then(function (res) {
-            console.log(res);
             $state.go('login');
         })
         ngNotify.set('Please Check Your Email for Reset Instructions ', {
@@ -67,7 +65,6 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         };
 
         AuthService.createFishery(formData, function(res) {
-                console.log(res);
                 // $state.go('dashboard.default.products');
             },
             function(err) {
@@ -84,7 +81,6 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         var loginPromise = AuthService.login(formData);
 
         loginPromise.then(function(res) {
-            console.log(res);
 
             if (res.statusText === "Unauthorized"){
                       ngNotify.set('The credentials entered are incorrect. Please try again.', {

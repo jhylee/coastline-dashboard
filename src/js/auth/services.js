@@ -33,13 +33,11 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
 
         isAuthenticated: function() {
             if ($localStorage.token === undefined || $localStorage.token === null) {
-                // console.log("token not present");
 
                 return false;
 
             } else {
                 var params = parseJwt($localStorage.token);
-                // console.log("is token expired? " + Math.round(new Date().getTime() / 1000) <= params.exp);
 
                 return Math.round(new Date().getTime() / 1000) <= params.exp;
             }
@@ -75,13 +73,11 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
         createFishery: function(data, success, error) {
             $http.post(baseUrl + '/api/fisheries', data).success(function(res) {
                 $localStorage.user.fishery = res.name;
-                // console.log(res);
 
                 FisheryService.fetchFishery().then(function() {
                     $state.go('dashboard.default.products');
                 });
 
-                console.log("$localStorage.user.fishery " + $localStorage.user.fishery);
                 success();
             }).error(error);
         },
@@ -95,13 +91,10 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
             done();
         },
         getToken: function() {
-            // console.log("getting token: " + token);
             return token;
         },
         setToken: function(newToken) {
-            // console.log("setting token: " + token + ", " + newToken);
             token = newToken;
-            // console.log("token now: " + token);
         },
 
 
@@ -113,13 +106,9 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
 
         request: function(config) {
             config.headers = config.headers || {};
-            // console.log("attaching token: " + $localStorage.token);
             if ($localStorage.token) {
-                // console.log("attaching token now");
                 config.headers.Authorization = $localStorage.token;
-                // config.headers.Authorization = 'Bearer ' + $localStorage.token;
 
-                console.log("config.headers.Authorization " + config.headers.Authorization);
             }
             return config;
         },

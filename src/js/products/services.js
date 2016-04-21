@@ -17,7 +17,6 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
     return {
         getProductData: function(success, error) {
             $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products').success(function(res) {
-                console.log(res);
                 success(res);
             }).error(error);
         },

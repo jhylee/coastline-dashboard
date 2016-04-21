@@ -28,7 +28,6 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
                 }
             }
 
-            console.log(url);
 
             $http.get(url).success(success).error(error);
         },
@@ -60,7 +59,6 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
                     'Accept': 'application/pdf'
                 }
             }).then(function(res) {
-                console.log('here');
 
                 return res.data;
             })
@@ -75,7 +73,6 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
             return $http.post(baseUrl + '/api/orders/manual', data).then(function(res) {
                 return res.data;
             }).catch(function(err) {
-                console.log(err);
                 return err;
             })
 

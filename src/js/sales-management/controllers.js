@@ -11,13 +11,11 @@ app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainMenu', 'AuthSer
     function($scope, SupplyChainMenu, AuthService, $state, $uibModal) {
 
         SupplyChainMenu.getSupplyChains().then(function(res) {
-            console.log(res);
             $scope.supplyChains = res;
         });
 
         var refreshSupplyChains = function() {
             SupplyChainMenu.getSupplyChains().then(function(res) {
-                console.log(res);
                 $scope.supplyChains = res;
             });
         };
@@ -27,7 +25,6 @@ app.controller('SalesManagementMenuCtrl', ['$scope', 'SupplyChainMenu', 'AuthSer
 
         $scope.setSupplyChain = function(supplyChain) {
             SupplyChainService.setSupplyChain(supplyChain._id);
-            console.log(SupplyChainService.getSupplyChain());
             $state.go('dashboard.default.sales-management.track');
         };
 
@@ -54,13 +51,11 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainService', 'SellingPoi
 
         $scope.fisheryName = "";
 
-        console.log(SupplyChainService.getSupplyChain());
 
 
 
         // add a stage - linked to the add button
         $scope.addSellingPoint = function() {
-            console.log("addSellingPoint");
 
             // modal setup and preferences
             var modalInstance = $uibModal.open({
@@ -75,8 +70,6 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainService', 'SellingPoi
             modalInstance.result.then(
                 // OK callback
                 function(sellingPoint) {
-                    console.log("sellingPoint");
-                    console.log(sellingPoint);
                     refreshSellingPoints();
                 },
                 function() {});
@@ -86,7 +79,6 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainService', 'SellingPoi
         // add a stage - linked to the add button
         $scope.editSellingPoint = function() {
             SellingPointData.setSelectedSellingPoint($scope.sellingPoints[$scope.selectedSellingPoint]);
-            console.log("editSellingPoint");
 
             // modal setup and preferences
             var modalInstance = $uibModal.open({
@@ -101,8 +93,6 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainService', 'SellingPoi
             modalInstance.result.then(
                 // OK callback
                 function(sellingPoint) {
-                    console.log("sellingPoint");
-                    console.log(sellingPoint);
                     refreshSellingPoints();
                 },
                 function() {});
@@ -110,7 +100,6 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainService', 'SellingPoi
 
         $scope.viewBlocks = function() {
             SellingPointData.setSelectedSellingPoint($scope.sellingPoints[$scope.selectedSellingPoint]);
-            console.log(SellingPointData.getSelectedSellingPoint());
             // modal setup and preferences
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -124,8 +113,6 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainService', 'SellingPoi
             modalInstance.result.then(
                 // OK callback
                 function(sellingPoint) {
-                    console.log("sellingPoint");
-                    console.log(sellingPoint);
                     refreshSellingPoints();
                 },
                 function() {});
@@ -140,13 +127,11 @@ app.controller('SellingPointsCtrl', ['$scope', 'SupplyChainService', 'SellingPoi
 app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'SupplyChainService', 'SellingPointData', '$state', '$uibModalInstance', '$uibModal',
     function($scope, InventoryData, SupplyChainService, SellingPointData, $state, $uibModalInstance, $uibModal) {
 
-        console.log(SupplyChainService.getSupplyChainId());
         var sellingPoint = SellingPointData.getSelectedSellingPoint();
         $scope.stageName = sellingPoint.name;
 
 
         SellingPointData.getBlocks(SupplyChainService.getSupplyChainId(), sellingPoint._id, function(res) {
-            console.log(res);
             $scope.blocks = res;
             $scope.selectedBlock = 0;
         }, function(err) {
@@ -159,8 +144,6 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'Supply
 
 
             SupplyChainService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
-
-            console.log(modalInstance);
 
             // modal setup and preferences
             var modalInstance = $uibModal.open({
@@ -185,7 +168,6 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'Supply
             modalInstance.result.then(function(block) {
                 // add the stage to the supply chain
                 InventoryData.getBlocks("gjhkj", SellingPointData.getSelectedSellingPointId(), function(res) {
-                    console.log(res);
                     $scope.blocks = res;
                     // $scope.selectedBlock = $scope.blockc0;
                 }, function(err) {
@@ -193,18 +175,15 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'Supply
                 });
 
 
-                console.log("then");
             });
         }
 
         $scope.viewDetails = function() {
 
             SupplyChainService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
-            // console.log(SupplyChainService.getSelectedBlock());
 
             // BlockService.setSelectedBlockId($scope.blocks[$scope.selectedBlock]._id);
 
-            console.log(modalInstance);
 
             // modal setup and preferences
             var modalInstance = $uibModal.open({
@@ -219,14 +198,12 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'Supply
             modalInstance.result.then(function(block) {
                 // add the stage to the supply chain
                 InventoryData.getBlocks(SupplyChainService.getSupplyChainId(), SupplyChainService.getSelectedStageId(), function(res) {
-                    console.log(res);
                     $scope.blocks = res;
                     $scope.selectedBlock = 0;
                 }, function(err) {
                     console.log(err);
                 });
 
-                console.log("then");
             });
         }
 
@@ -248,14 +225,12 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'Supply
             modalInstance.result.then(function(block) {
                 // add the stage to the supply chain
                 InventoryData.getBlocks("gjhkj", SellingPointData.getSelectedSellingPointId(), function(res) {
-                    console.log(res);
                     $scope.blocks = res;
                     // $scope.selectedBlock = $scope.blockc0;
                 }, function(err) {
                     console.log(err);
                 });
 
-                console.log("then");
             });
         };
 
@@ -287,7 +262,6 @@ app.controller('AddSellingPointCtrl', ['$scope', 'SupplyChainService', 'SellingP
             };
 
             SellingPointData.addSellingPoint(data, function(res) {
-                console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {
                 $uibModalInstance.dismiss(err);
@@ -316,10 +290,8 @@ app.controller('DeleteBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryMana
 
 
         $scope.ok = function() {
-            console.log("deleteBlock ok()");
 
             InventoryData.deleteBlock(SupplyChainService.getSupplyChainId(), selectedBlockId, function(res) {
-                console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {
                 $uibModalInstance.close(err);
@@ -361,10 +333,8 @@ app.controller('EditSellingPointCtrl', ['$scope', 'SupplyChainService', 'Selling
 
 
 
-            console.log($scope.sellingPoint._id);
 
             SellingPointData.updateSellingPoint($scope.sellingPoint._id, $scope.sellingPoint, function(res) {
-                console.log(res);
                 $uibModalInstance.dismiss(res);
             }, function(err) {
                 $uibModalInstance.dismiss(err);
@@ -407,7 +377,6 @@ app.controller('MoveBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManage
 
 
         // $scope.block1 = BlockService.getSelectedBlock();
-        // console.log(BlockService.getSelectedBlock());
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity > $scope.block1.quantity) {
@@ -425,7 +394,6 @@ app.controller('MoveBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManage
             },
 
             $scope.ok = function() {
-                console.log("moveBlock ok()");
 
                 if ($scope.quantity == $scope.block1.quantity) {
                     var data = {
@@ -435,16 +403,13 @@ app.controller('MoveBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManage
                         units: $scope.units
                     };
 
-                    console.log($scope.toStage.self);
 
                     InventoryData.moveBlock(SupplyChainService.getSupplyChainId(), $scope.block1._id, data, function(res) {
-                        console.log(res);
                         $uibModalInstance.close(res);
                     }, function(err) {
                         $uibModalInstance.close(err);
                     });
                 } else {
-                    console.log($scope.selectedProduct);
 
                     var block2 = {
                         quantity: $scope.quantity,
@@ -466,7 +431,6 @@ app.controller('MoveBlockFromSellingPointCtrl', ['$scope', 'TrackInventoryManage
 
 
                     InventoryData.splitBlock(SupplyChainService.getSupplyChainId(), $scope.block1._id, data, function(res) {
-                        console.log(res);
                         $uibModalInstance.close(res);
                     }, function(err) {
                         $uibModalInstance.close(err);

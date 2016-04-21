@@ -66,7 +66,6 @@ angular.module('coastlineWebApp.inventory.directives', [])
                 angular.forEach(scope.events, function(callback, event) {
                     if (networkEvents.indexOf(String(event)) >= 0) {
                         network.on(event, callback);
-                        console.log(String(event));
                     }
                 });
 

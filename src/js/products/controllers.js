@@ -21,10 +21,8 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
 
         var updateProductData = function() {
             ProductData.getProductData(function(products) {
-                console.log("getProductData");
                 $scope.products = products;
 
-                console.log($scope.products);
             }, function(err) {
                 console.log(err);
             });
@@ -60,7 +58,6 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
                 // OK callback
                 function(product) {
                     // add the stage to the supply chain
-                    console.log(product);
                     updateProductData();
 
 
@@ -76,7 +73,6 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
 
         // add a stage - linked to the add button
         $scope.editProduct = function() {
-            console.log("editProduct");
 
             ProductData.setSelectedProductId($scope.products[$scope.selectedProduct]._id);
 
@@ -96,7 +92,6 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
                 // OK callback
                 function(product) {
                     // add the stage to the supply chain
-                    console.log(product);
                     updateProductData();
 
 
@@ -108,7 +103,6 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
 
         // add a product - linked to the add button
         $scope.addProduct = function() {
-            console.log("addProduct");
 
             // modal setup and preferences
             var modalInstance = $uibModal.open({
@@ -134,7 +128,6 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
                         })
 
                     }
-                    console.log(product);
 
 
                     updateProductData();
@@ -171,7 +164,6 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
 
 
         ProductData.getProductData(function(products) {
-            console.log("getProductData");
         }, function(err) {
             console.log(err);
         });
@@ -179,8 +171,6 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
 
         // tied to ok button
         $scope.ok = function() {
-
-            console.log($scope.file);
 
             if ($scope.file) {
                 var data = {
@@ -201,8 +191,6 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
                 };
             }
 
-            console.log("data");
-            console.log(data);
 
             ProductData.addProduct(data, function(res) {
                 $uibModalInstance.close(res);
@@ -210,7 +198,6 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
                 $uibModalInstance.close(err);
             }).success(function(res) {
 
-                console.log($scope.file);
                 var payload = {
                     url: res.signedUrl,
                     data: $scope.file,
@@ -222,51 +209,9 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
                     method: "PUT"
                 };
 
-                console.log(payload);
 
                 Upload.http(payload);
 
-                // Upload.upload(payload).then(function (resp) {
-                //     // console.log('Success ' + resp.config.data.name + 'uploaded. Response: ' + resp.data);
-                // }, function (resp) {
-                //     // console.log('Error status: ' + resp.status);
-                // }, function (evt) {
-                //     // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                //     // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.name);
-                // });
-
-
-
-                // console.log('here');
-                // console.log({
-                //     method: 'PUT',
-                //     url: res.signedUrl,
-                //     headers: {
-                //         'Content-Type': data.fileType,
-                //         'x-amz-acl': 'public-read'
-                //     },
-                //     body: data,
-                //     file: $scope.file,
-                //     ignoreInterceptor: true
-                // });
-                // $http({
-                //     method: 'PUT',
-                //     url: res.signedUrl,
-                //     headers: {
-                //         'Content-Type': data.fileType,
-                //         'x-amz-acl': 'public-read'
-                //     },
-                //     body: $scope.file,
-                //     file: $scope.file,
-                //     ignoreInterceptor: true
-                // })
-                // .then(function(res) {
-                //     console.log('img upload success!');
-                //     console.log(res);
-                // }, function(err) {
-                //     console.log('img upload fail');
-                //     console.log(err);
-                // });
 
 
             });
@@ -290,7 +235,6 @@ app.controller('EditProductCtrl', ['$scope', "$rootScope", 'ProductData', 'Uploa
         var products;
 
         ProductData.getProductData(function(res) {
-            console.log(res);
             products = res;
 
             for (var i = 0; i < products.length; i++) {
@@ -307,7 +251,6 @@ app.controller('EditProductCtrl', ['$scope', "$rootScope", 'ProductData', 'Uploa
 
         $rootScope.$on("refreshProductEdit", function() {
             ProductData.getProductData(function(res) {
-                console.log(res);
                 products = res;
 
                 for (var i = 0; i < products.length; i++) {
@@ -329,7 +272,6 @@ app.controller('EditProductCtrl', ['$scope', "$rootScope", 'ProductData', 'Uploa
         // tied to ok button
         $scope.ok = function() {
 
-            console.log($scope.file);
 
 
 
@@ -353,8 +295,6 @@ app.controller('EditProductCtrl', ['$scope', "$rootScope", 'ProductData', 'Uploa
             }
 
 
-            console.log("data");
-            console.log(data);
 
 
             ProductData.updateProduct(data, ProductData.getSelectedProductId(), function(res) {
@@ -363,7 +303,6 @@ app.controller('EditProductCtrl', ['$scope', "$rootScope", 'ProductData', 'Uploa
                 $uibModalInstance.close(err);
             }).success(function(res) {
 
-                console.log($scope.file);
                 var payload = {
                     url: res.signedUrl,
                     data: $scope.file,
@@ -375,7 +314,6 @@ app.controller('EditProductCtrl', ['$scope', "$rootScope", 'ProductData', 'Uploa
                     method: "PUT"
                 };
 
-                console.log(payload);
 
                 Upload.http(payload);
 

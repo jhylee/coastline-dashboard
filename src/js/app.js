@@ -197,21 +197,6 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
 
             return;
         }
-        // else {
-        //     if (fromState.name == 'dashboard.default.supply-chain.builder') {
-        //         if (SupplyChainService.getLeaveTicket()) {
-        //             console.log('yes');
-        //
-        //         } else {
-        //             console.log('no');
-        //
-        //             event.preventDefault();
-        //             SupplyChainService.setToState(toState.name);
-        //             $rootScope.$broadcast('leaving-supply-chain-builder');
-        //         }
-        //     }
-        // }
-
 
         // authenticated (previously) comming not to root main
         if (AuthService.isAuthenticated()) {
