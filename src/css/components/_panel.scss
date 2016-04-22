@@ -1,11 +1,18 @@
 .panel {
-  max-width: 92%;
+  max-width: 95%;
   height: 100%;
   border-color: $primary-border-color;
   background-color: $secondary-background-color;
   border-radius: 2px;
   border: none;
+
 }
+@media (min-width: 1000px) {
+  .panel {
+    max-width: 85%;
+  }
+}
+
 .panel-body {
   padding: none;
   margin-left: 0;
@@ -24,11 +31,20 @@
   background-color: #EEEEEE;
 }
 
+.panel-setting {
+  padding-top:50px;
+  padding-bottom:20px;
+}
+
 .panel-heading {
-    text-align: left;
+  text-align: left;
 	font-size: 18px;
 	font-weight: 300;
 	letter-spacing: 0.025em;
 	height: 66px;
-	line-height: 45px;
+
+  .panel-title {
+    text-align:center;
+    line-height: 20px;
+  }
 }
