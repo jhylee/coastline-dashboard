@@ -1,18 +1,43 @@
 <div ng-controller="OrderDisplayCtrl">
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header light-text">Users</h2>
+    <h2 class="page-header light-text">User Settings</h2>
     <div class="row placeholders">
       <div class="col-lg-8">
         <div class="container">
           <div class="panel-container">
-
-            <div class="panel">
-              <div class="panel-heading">User Settings</div>
-                  <!-- <div class="header-inner">
-                      <h2>Account</h2>
-                      <p>Change your basic user settings</p>
-
-                  </div> -->
+            <div class="panel panel-default">
+              <div class="panel-body alignleft">
+                <button ng-click="inviteUser()" class="btn-status-success">Invite New User</button>
+                <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default">Filter User <i class="fa fa-filter"></i></button>
+                <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default">Clear Filter <i class="fa fa-filter"></i></button>
+                <button ng-click="editUser(selectedUser)" class="btn-status-default">Manage User</button>
+                <button ng-click="deleteUser()" class="btn-status-danger">Delete User</button>
+              </div>
+            </div>
+            <div class="panel panel-body">
+              <div class="table-responsive">
+                <table class="table tableWhite">
+                  <thead>
+                    <tr>
+                      <th>Select</th>
+                      <th>User Name</th>
+                      <th>Employee Number</th>
+                      <th>User Type</th>
+                      <th>Date Added</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="order in orders track by $index">
+                      <td data-label="Select">
+                        <input type="radio" ng-model="$parent.selectedOrder" ng-value="$parent.orders[$index]">
+                      </td>
+                      <td data-label="Invoice">&nbsp; {{order.customerName}}</td>
+                      <td data-label="Name">3452123</td>
+                      <td data-label="Status">&nbsp;Admin</td>
+                      <td data-label="Status">&nbsp;{{order.date | date:'short'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
