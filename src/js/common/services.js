@@ -90,12 +90,21 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
             })
         },
 
-        fetchSelectedSupplyChain: function (supplyChainId) {
+        fetchSelectedSupplyChain: function () {
             // $localStorage.selectedSupplyChainId;
-            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + supplyChainId)
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId)
                 .then(function(res) {
                         supplyChain = res.data;
                         return supplyChain;
+                }).catch(function(err) {
+                    console.log(err);
+                })
+        },
+
+        updateSelectedSupplyChain: function(data) {
+            return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId, data)
+                .then(function(res) {
+                    return res.data;
                 }).catch(function(err) {
                     console.log(err);
                 })

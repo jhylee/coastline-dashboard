@@ -5,11 +5,13 @@ angular.module('coastlineWebApp.settings.services', ['coastlineWebApp.common.ser
     var baseUrl = apiUrl;
 
     return {
-        // fetchUsers: function () {
-        //     return $http.get(baseUrl + '/api/fisheries')
-        //         .then(function (res) {
-        //             // return res.data.
-        //         })
-        // }
+        fetchUser: function () {
+            return $http.get(baseUrl + '/api/user')
+                .then(function (res) {
+                    return res.data;
+                }).catch(function (err) {
+                    console.log(err);
+                })
+        }
     }
 }])

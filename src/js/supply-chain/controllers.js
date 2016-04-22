@@ -6,8 +6,17 @@ var app = angular.module('coastlineWebApp.supplyChain.controllers', ['ui.bootstr
 
 // SUPPLY CHAINS TAB
 
-app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService', 'FisheryService',
-    function($scope, $state, SupplyChainService, FisheryService) {
+app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService', 'FisheryService', '$uibModal',
+    function($scope, $state, SupplyChainService, FisheryService, $uibModal) {
+
+        var getSupplyChains = function() {
+            // Fishery.getFishery(function (fishery) {
+            SupplyChainService.fetchSupplyChains().then(function(supplyChains) {
+                $scope.supplyChains = supplyChains;
+                if (supplyChains.length > 0) $scope.selectedSupplyChain = $scope.supplyChains[0];
+            });
+
+        };
 
         $scope.createNewSupplyChain = function() {
             $state.go('dashboard.default.supply-chain.create');
@@ -22,17 +31,32 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
             });
         };
 
-        $scope.getSupplyChains = function() {
-            // Fishery.getFishery(function (fishery) {
-            SupplyChainService.fetchSupplyChains().then(function(supplyChains) {
-                $scope.supplyChains = supplyChains;
-                if (supplyChains.length > 0) $scope.selectedSupplyChain = $scope.supplyChains[0];
+        $scope.renameSupplyChain = function(selectedSupplyChainId) {
+            // TODO - make a route to get just IDs
+            SupplyChainService.setSupplyChainId($scope.selectedSupplyChain._id);
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'renameSupplyChain.html',
+                controller: 'RenameSupplyChainCtrl',
+                size: 'lg',
+                resolve: {}
             });
+
+            modalInstance.result.then(
+                function() {
+                    getSupplyChains();
+                },
+                function() {
+
+                });
 
         };
 
 
-        $scope.getSupplyChains();
+
+
+        getSupplyChains();
     }
 ]);
 
@@ -534,6 +558,30 @@ app.controller('ExitSupplyChainCtrl', ['$scope', 'VisDataSet', 'SupplyChainServi
         // tied to ok button
         $scope.ok = function() {
             $uibModalInstance.close(true);
+        };
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss(false);
+        };
+    }
+]);
+
+
+app.controller('RenameSupplyChainCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
+
+
+        SupplyChainService.fetchSelectedSupplyChain().then(function (data) {
+            $scope.supplyChain = data;
+        });
+
+        // tied to ok button
+        $scope.ok = function() {
+            SupplyChainService.updateSelectedSupplyChain($scope.supplyChain).then(function (data) {
+                console.log(data);
+                $uibModalInstance.close(true);
+            })
         };
 
         // tied to cancel button

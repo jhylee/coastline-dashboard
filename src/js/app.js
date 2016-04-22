@@ -4,6 +4,8 @@ var app = angular.module('coastlineWebApp', ['ui.router',
     'ngNotify',
     'coastlineWebApp.auth.controllers',
     'coastlineWebApp.auth.services',
+    'coastlineWebApp.settings.controllers',
+    'coastlineWebApp.settings.services',
     'coastlineWebApp.dashboard.controllers',
     'coastlineWebApp.dashboard.services',
     'coastlineWebApp.inventory.controllers',
@@ -68,6 +70,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
     .state('dashboard.settings.general', {
         url: '/settings.general',
         templateUrl: '/views/dashboard.settings.general.html'
+    })
+
+    .state('dashboard.settings.fishery', {
+        url: '/settings.fishery',
+        templateUrl: '/views/dashboard.settings.fishery.html'
     })
 
     .state('dashboard.settings.users', {
