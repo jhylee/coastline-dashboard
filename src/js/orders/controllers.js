@@ -255,6 +255,23 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.phone;
         $scope.items = [];
 
+        $scope.isSubmitButtonDisabled = function() {
+          if (!$scope.invoiceNumber ||
+              !$scope.paymentMethod ||
+              !$scope.status ||
+              !$scope.creditTerms ||
+              !$scope.customerName ||
+              !$scope.date ||
+              !$scope.email ||
+              !$scope.phone ||
+              $scope.items.length==0) {
+               return true;
+              }
+            else {
+              return false;
+            }
+          };
+
         $scope.$watch('quantity', function() {
             if ($scope.quantity && $scope.selectedBlock) {
                 if ($scope.quantity > $scope.selectedBlock.quantity) {
