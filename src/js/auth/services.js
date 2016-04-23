@@ -18,7 +18,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
             $localStorage.$save();
 
             FisheryService.fetchFishery().then(function(res) {
-                $state.go('dashboard.default.products');
+                $state.go('dashboard.default.overview');
             })
 
 
@@ -75,7 +75,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
                 $localStorage.user.fishery = res.name;
 
                 FisheryService.fetchFishery().then(function() {
-                    $state.go('dashboard.default.products');
+                    $state.go('dashboard.default.overview');
                 });
 
                 success();

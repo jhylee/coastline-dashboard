@@ -18,6 +18,18 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 
         });
 
+        $scope.isSubmitButtonDisabled = function() {
+          if (!$scope.name &&
+              !$scope.status &&
+              !$scope.email &&
+              !$scope.phone) {
+               return true;
+              }
+            else {
+              return false;
+            }
+          };
+
         $scope.saveChanges = function () {
             console.log("saveChanges");
         };
@@ -38,6 +50,22 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
             $scope.faxPhone = data.faxPhone;
 
         });
+
+        $scope.isSubmitButtonDisabled = function() {
+          if (!$scope.address &&
+              !$scope.city &&
+              !$scope.postalCode &&
+              !$scope.phone &&
+              !$scope.salesPhone &&
+              !$scope.faxPhone) {
+               return true;
+              }
+            else {
+              return false;
+            }
+          };
+
+
 
         $scope.saveChanges = function () {
             console.log("saveChanges");
