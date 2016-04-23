@@ -542,6 +542,17 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
             console.log(err);
         });
 
+        $scope.isSubmitButtonDisabled = function() {
+          if (!$scope.selectedProduct ||
+              !$scope.quantity ||
+              !$scope.units) {
+               return true;
+              }
+            else {
+              return false;
+            }
+          };
+
 
         $scope.ok = function() {
 
@@ -590,10 +601,6 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
 
 app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'SupplyChainService', '$state', '$uibModalInstance',
     function($scope, InventoryData, ProductData, SupplyChainService, $state, $uibModalInstance) {
-
-
-
-
 
         var block;
 

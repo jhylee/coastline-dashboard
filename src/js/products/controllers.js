@@ -168,6 +168,17 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
             console.log(err);
         });
 
+        $scope.isSubmitButtonDisabled = function() {
+          if (!$scope.name ||
+              !$scope.unit) {
+               return true;
+              }
+            else {
+              return false;
+            }
+          };
+
+
 
         // tied to ok button
         $scope.ok = function() {

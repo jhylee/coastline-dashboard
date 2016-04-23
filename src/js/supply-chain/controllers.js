@@ -31,6 +31,15 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
             });
         };
 
+        // $scope.isNodeSelected = function(){
+        //    if ( !=null){
+        //      return false;
+        //    }
+        //    else {
+        //      return false;
+        //    }
+        // }
+
         $scope.renameSupplyChain = function(selectedSupplyChainId) {
             // TODO - make a route to get just IDs
             SupplyChainService.setSupplyChainId($scope.selectedSupplyChain._id);
@@ -39,7 +48,7 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
                 animation: true,
                 templateUrl: 'renameSupplyChain.html',
                 controller: 'RenameSupplyChainCtrl',
-                size: 'lg',
+                size: 'md',
                 resolve: {}
             });
 
@@ -63,6 +72,15 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
 
 app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainService', 'FisheryService', '$localStorage',
     function($scope, $state, VisDataSet, SupplyChainService, FisheryService, $localStorage) {
+
+      $scope.isSubmitButtonDisabled = function() {
+          if (typeof $scope.name !=='string'){
+              return true;
+          }
+          else {
+            return false;
+          }
+      };
 
         // get stages - for option display
         $scope.createSupplyChain = function() {
