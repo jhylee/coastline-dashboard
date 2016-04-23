@@ -25,8 +25,20 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 ]);
 
 
-app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService',
-    function($scope, AuthService, $state, FisheryService) {
+app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService','SettingsService',
+    function($scope, AuthService, $state, FisheryService, SettingsService) {
+
+        SettingsService.fetchFishery().then(function (data) {
+            $scope.name = data.name;
+            $scope.address = data.address;
+            $scope.city = data.city;
+            $scope.postalCode = data.postalCode;
+            $scope.phone = data.phone;
+            $scope.salesPhone = data.salesPhone;
+            $scope.faxPhone = data.faxPhone;
+
+        });
+
         $scope.saveChanges = function () {
             console.log("saveChanges");
         };

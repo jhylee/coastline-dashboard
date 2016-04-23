@@ -12,6 +12,14 @@ angular.module('coastlineWebApp.settings.services', ['coastlineWebApp.common.ser
                 }).catch(function (err) {
                     console.log(err);
                 })
-        }
+        },
+        fetchFishery: function () {
+            return $http.get(baseUrl + '/api/user')
+                .then(function (res) {
+                    return res.data.fishery;
+                }).catch(function (err) {
+                    console.log(err);
+                })
+        },
     }
 }])
