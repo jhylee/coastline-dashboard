@@ -74,7 +74,7 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
     function($scope, $state, VisDataSet, SupplyChainService, FisheryService, $localStorage) {
 
       $scope.isSubmitButtonDisabled = function() {
-          if (typeof $scope.name !=='string'){
+          if (!$scope.name){
               return true;
           }
           else {

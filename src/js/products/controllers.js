@@ -170,7 +170,8 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
 
         $scope.isSubmitButtonDisabled = function() {
           if (!$scope.name ||
-              !$scope.unit) {
+              !$scope.unit ||
+              !$scope.unitPrice) {
                return true;
               }
             else {
