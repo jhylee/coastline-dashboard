@@ -30,7 +30,8 @@
   -webkit-filter: invert(35%);
 }
 .navbar-collapse .nav li {
-  margin: 10px 5px;
+  padding: 10px 5px;
+  height: 70px;
   @include border-radius(2px);
   &:hover {
     background-color: $btn-default-hover-color;
