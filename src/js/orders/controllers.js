@@ -39,7 +39,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                     }
                 }, function(err) {
                     console.log(err);
-                })
+                });
 
             }, function(err) {
                 console.log(err);
