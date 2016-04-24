@@ -2,6 +2,7 @@
  * Top navigation
  * Hide default border to remove 1px line.
  */
+
 .navbar-fixed-top {
   border: 0;
   background-color: $navbar-color;
@@ -51,7 +52,6 @@
 .navbar-inverse .navbar-toggle:hover {
   background-color: $btn-default-color;
 }
-
 @media screen and (max-width: 768px) {
   .hide {
     display: block!important;
