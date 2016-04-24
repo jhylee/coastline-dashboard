@@ -54,6 +54,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/sign-up.html'
     })
 
+    .state('sign-up-code', {
+        url: '/sign-up-code',
+        templateUrl: '/views/sign-up-code.html'
+    })
+
     .state('dashboard', {
         url: '/auth',
         templateUrl: '/views/dashboard.html'
@@ -194,9 +199,11 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
 
             if (toState.name === 'login') {
                 return;
+            } else if( toState.name === 'sign-up-code') {
+                RedirectService.setRedirectState("sign-up-code");
+            } else {
+                RedirectService.setRedirectState("login");
             }
-
-            RedirectService.setRedirectState("login");
 
             event.preventDefault();
 

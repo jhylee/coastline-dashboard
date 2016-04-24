@@ -43,7 +43,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
             }
         },
 
-        signUp: function(data, fisheryName, success, error) {
+        signUp: function(data, success, error) {
             $http.post(baseUrl + '/api/register', data).success(function(resp) {
 
                 $http.post(baseUrl + '/api/login', {
@@ -60,6 +60,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
                 }).error(error)
             }).error(error);
         },
+
 
         sendResetLink: function(data) {
             return $http.post(baseUrl + '/api/password/reset/send', data).then(function(res) {

@@ -32,10 +32,25 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
 
         var fisheryName = $scope.fisheryName
 
-        AuthService.signUp(formData, fisheryName, function(res) {
+        AuthService.signUp(formData, function(res) {
             //   AuthService.login(formData, function (res) {
             $state.go('fishery-setup');
             //   });
+        }, function(err) {
+        });
+
+    };
+
+    $scope.signUpWithCode = function() {
+
+        var formData = {
+            username: $scope.username,
+            password: $scope.password,
+            inviteCode: $scope.inviteCode
+        };
+
+        AuthService.signUp(formData, function(res) {
+            $state.go('dashboard.default.overview');
         }, function(err) {
         });
 
