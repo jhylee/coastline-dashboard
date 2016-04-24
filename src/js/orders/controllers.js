@@ -85,6 +85,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 function() {});
         };
 
+
         $scope.addFilter = function() {
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -254,6 +255,23 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.email;
         $scope.phone;
         $scope.items = [];
+
+        $scope.isSubmitButtonDisabled = function() {
+          if (!$scope.invoiceNumber ||
+              !$scope.paymentMethod ||
+              !$scope.status ||
+              !$scope.creditTerms ||
+              !$scope.customerName ||
+              !$scope.date ||
+              !$scope.email ||
+              !$scope.phone ||
+              $scope.items.length==0) {
+               return true;
+              }
+            else {
+              return false;
+            }
+          };
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity && $scope.selectedBlock) {
@@ -617,6 +635,18 @@ app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
         $scope.dateEnd.setHours(23);
         $scope.dateEnd.setMinutes(59);
         $scope.dateEnd.setSeconds(59);
+
+        $scope.isFilterDisabled = function(){
+          if (!$scope.customerName &&
+              !$scope.invoiceNumber &&
+              !$scope.paymentMethod &&
+              !$scope.dateStart) {
+               return true;
+              }
+            else {
+              return false;
+            }
+        };
 
 
         // tied to ok button

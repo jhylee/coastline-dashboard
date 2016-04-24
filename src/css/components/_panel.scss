@@ -19,6 +19,12 @@
   background-color: $secondary-background-color;
   border-color: $primary-border-color;
   border-radius: 3px;
+
+  .panel-setting-heading {
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.025em;
+  }
 }
 
 .panel-scroll {

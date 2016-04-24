@@ -8,7 +8,7 @@ $btn-success-hover-color;<div ng-controller="SupplyChainDisplayCtrl">
             <div class="panel panel-default">
               <div class="panel-body">
                 <button ng-click="addStage()" class="btn-status-success">Add</button>
-                <button ng-click="editStage()" class="btn-status-default">Edit</button>
+                <button ng-disabled="isNodeSelected()" ng-click="editStage()" class="btn-status-default">Edit</button>
                 <button ng-click="linkStages()" class="btn-status-default">Link</button>
                 <button ng-click="unlinkStages()" class="btn-status-default">Unlink</button>
                 <button ng-click="deleteStage()" class="btn-status-danger">Delete</button>
