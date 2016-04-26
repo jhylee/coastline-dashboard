@@ -11,12 +11,17 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
 
         var getSupplyChains = function() {
             // Fishery.getFishery(function (fishery) {
-            SupplyChainService.fetchSupplyChains().then(function(supplyChains) {
+            return SupplyChainService.fetchSupplyChains().then(function(supplyChains) {
                 $scope.supplyChains = supplyChains;
-                if (supplyChains.length > 0) $scope.selectedSupplyChain = $scope.supplyChains[0];
             });
 
         };
+
+        getSupplyChains().then(function () {
+            if ($scope.supplyChains.length > 0) $scope.selectedSupplyChain = $scope.supplyChains[0];
+        });
+
+
 
         $scope.createNewSupplyChain = function() {
             $state.go('dashboard.default.supply-chain.create');
@@ -40,9 +45,9 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
         //    }
         // }
 
-        $scope.renameSupplyChain = function(selectedSupplyChainId) {
+        $scope.renameSupplyChain = function(selectedSupplyChain) {
             // TODO - make a route to get just IDs
-            SupplyChainService.setSupplyChainId($scope.selectedSupplyChain._id);
+            SupplyChainService.setSupplyChainId(selectedSupplyChain._id);
 
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -65,7 +70,6 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
 
 
 
-        getSupplyChains();
     }
 ]);
 
