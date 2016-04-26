@@ -577,7 +577,8 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
                     catchRegion: $scope.catchRegion,
                     caughtBy: $scope.caughtBy,
                     catchType: $scope.catchType,
-                    waterDepth: $scope.waterDepth
+                    waterDepth: $scope.waterDepth,
+                    blockNumber: $scope.blockNumber
                     // jobNumber: $scope.jobNumber
                 };
 
