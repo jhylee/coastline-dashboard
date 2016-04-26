@@ -71,6 +71,12 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 
         });
 
+        SettingsService.fetchUser().then(function (data) {
+            if (data.accountType == "staff") {
+                $scope.isDisabled = true;
+            }
+        });
+
         $scope.isSubmitButtonDisabled = function() {
           if (!$scope.address &&
               !$scope.city &&
@@ -123,7 +129,13 @@ app.controller('UserSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryS
 
         SettingsService.fetchUsers().then(function (data) {
             $scope.users = data;
-        })
+        });
+
+        SettingsService.fetchUser().then(function (data) {
+            if (data.accountType == "staff") {
+                $scope.isInviteDisabled = true;
+            }
+        });
 
         $scope.inviteUser = function () {
             var modalInstance = $uibModal.open({

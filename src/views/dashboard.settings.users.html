@@ -7,7 +7,7 @@
           <div class="panel-container">
             <div class="panel panel-default">
               <div class="panel-body alignleft">
-                <button ng-click="inviteUser()" class="btn-status-success">Invite New User</button>
+                <button ng-disabled="isInviteDisabled" ng-click="inviteUser()" class="btn-status-success">Invite New User</button>
                 <!-- <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default">Filter User <i class="fa fa-filter"></i></button> -->
                 <!-- <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default">Clear Filter <i class="fa fa-filter"></i></button> -->
                 <!-- <button ng-click="editUser(selectedUser)" class="btn-status-default">Manage User</button> -->
