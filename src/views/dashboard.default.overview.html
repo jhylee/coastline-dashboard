@@ -49,9 +49,9 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat="order in upcomingOrders">
-                        <td>{{order.invoiceNumber}}</td>
-                        <td>{{order.paymentMethod}}</td>
-                        <td>
+                        <td data-label="Invoice #">{{order.invoiceNumber}}</td>
+                        <td data-label="Pay Method">{{order.paymentMethod}}</td>
+                        <td data-label="Details">
                           <div class="alignright">
                             <button ng-click="viewOrderDetail(order)" class="btn-status-default">View Details</button>
                           </div>
