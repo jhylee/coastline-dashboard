@@ -13,13 +13,17 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
             // Fishery.getFishery(function (fishery) {
             return SupplyChainService.fetchSupplyChains().then(function(supplyChains) {
                 $scope.supplyChains = supplyChains;
+                if ($scope.supplyChains.length > 0) {
+                    $scope.selectedSupplyChain = $scope.supplyChains[0];
+                    console.log($scope.supplyChains);
+                }
+
             });
 
         };
 
-        getSupplyChains().then(function () {
-            if ($scope.supplyChains.length > 0) $scope.selectedSupplyChain = $scope.supplyChains[0];
-        });
+        getSupplyChains();
+
 
 
 
@@ -48,6 +52,7 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
         $scope.renameSupplyChain = function(selectedSupplyChain) {
             // TODO - make a route to get just IDs
             SupplyChainService.setSupplyChainId(selectedSupplyChain._id);
+            // console.log(selectedSupplyChain);
 
             var modalInstance = $uibModal.open({
                 animation: true,
