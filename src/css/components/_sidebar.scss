@@ -52,7 +52,7 @@
       &:active {
         background-color: $btn-highlight-color;
         color: white;
-        font-weight: 100;
+        font-weight: 500;
 
       }
     }
@@ -60,7 +60,7 @@
       background-color: $btn-highlight-color;
       @include border-radius(2px);
       color: #fff;
-      font-weight:100;
+      font-weight:500;
 
     }
     padding-right: 15px;
@@ -75,7 +75,7 @@
   @include border-radius(2px);
   background-color: $btn-highlight-color;
   color: #fff;
-  font-weight:100;
+  font-weight:500;
 }
 
 input.search-side-nav {
