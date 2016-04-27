@@ -16,10 +16,9 @@ app.controller('TrackInventoryMenuCtrl', ['$scope', 'TrackInventoryManager', 'In
 
         var getSupplyChains = function() {
             TrackInventoryManager.getSupplyChains(function(res) {
-                console.log(res);
                 $scope.supplyChains = res;
             }, function(error) {
-                console.log(error);
+                console.log(err);
             })
         };
 
@@ -66,13 +65,11 @@ app.controller('InventoryCtrl', ['$scope', '$rootScope', 'InventoryData', 'Suppl
 
             modalInstance1.result.then(
                 function(block) {
-                    console.log("then");
                 },
                 function() {});
         };
 
         $scope.saveSupplyChain = function(supplyChain) {
-            console.log('$scope.saveSupplyChain');
         };
     }
 ]);
@@ -341,11 +338,9 @@ app.controller('ViewDetailsCtrl', ['$scope', 'InventoryData', 'SupplyChainServic
         SupplyChainService.fetchSelectedBlock()
             .then(function(res) {
                 $scope.block = res;
-                console.log($scope.block);
             });
         SupplyChainService.fetchSelectedBlockHistory()
             .then(function(res) {
-                console.log(res);
                 $scope.history = res;
                 $scope.stageNames = new Array($scope.history.events.length);
                 $scope.quantities = new Array($scope.history.events.length);
@@ -451,7 +446,6 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'InventoryData', 'SupplyChainS
 
         InventoryData.getSellingPoints(function(res) {
             $scope.stages = res;
-            console.log(res);
         }, function(err) {
             console.log(err);
         });
@@ -459,8 +453,6 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'InventoryData', 'SupplyChainS
         var supplyChainId = SupplyChainService.getSupplyChainId();
 
         $scope.ok = function() {
-            console.log($scope.toStage);
-
 
             if ($scope.quantity == $scope.block1.quantity) {
                 var data = {
@@ -473,16 +465,13 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'InventoryData', 'SupplyChainS
                     processType: $scope.processType
                 };
 
-                console.log($scope.toStage);
 
                 InventoryData.moveBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, data, function(res) {
-                    console.log(res);
                     $uibModalInstance.close(res);
                 }, function(err) {
                     $uibModalInstance.close(err);
                 });
             } else {
-                console.log($scope.selectedProduct);
 
                 var block2 = {
                     quantity: $scope.quantity,
@@ -504,7 +493,6 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'InventoryData', 'SupplyChainS
                 };
 
                 InventoryData.splitBlock(SupplyChainService.getSupplyChainId(), selectedBlock._id, data, function(res) {
-                    console.log(res);
                     $uibModalInstance.close(res);
                 }, function(err) {
                     $uibModalInstance.close(err);
@@ -526,10 +514,8 @@ app.controller('DeleteBlockCtrl', ['$scope', 'InventoryData', 'SupplyChainServic
         var supplyChainId = SupplyChainService.getSupplyChainId();
 
         $scope.ok = function() {
-            console.log("deleteBlock ok()");
 
             InventoryData.deleteBlock(SupplyChainService.getSupplyChainId(), selectedBlockId, function(res) {
-                console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {
                 $uibModalInstance.close(err);
@@ -556,10 +542,20 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
             console.log(err);
         });
 
+        $scope.isSubmitButtonDisabled = function() {
+          if (!$scope.selectedProduct ||
+              !$scope.quantity ||
+              !$scope.units) {
+               return true;
+              }
+            else {
+              return false;
+            }
+          };
+
 
         $scope.ok = function() {
 
-            console.log($scope.selectedProduct);
 
             if (!$scope.selectedProduct ||
                 !$scope.quantity ||
@@ -581,12 +577,12 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
                     catchRegion: $scope.catchRegion,
                     caughtBy: $scope.caughtBy,
                     catchType: $scope.catchType,
-                    waterDepth: $scope.waterDepth
+                    waterDepth: $scope.waterDepth,
+                    blockNumber: $scope.blockNumber
                     // jobNumber: $scope.jobNumber
                 };
 
                 InventoryData.addBlock(SupplyChainService.getSupplyChainId(), data, function(res) {
-                    console.log(res);
                     $uibModalInstance.close(res);
                 }, function(err) {
                     $uibModalInstance.close(err);
@@ -607,10 +603,6 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
 app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'SupplyChainService', '$state', '$uibModalInstance',
     function($scope, InventoryData, ProductData, SupplyChainService, $state, $uibModalInstance) {
 
-
-
-
-
         var block;
 
         SupplyChainService.fetchSelectedBlock()
@@ -622,7 +614,6 @@ app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Supp
                 ProductData.getProductData(function(res) {
                     $scope.products = res;
                     findCurrentProduct(block.productType._id);
-                    console.log(res);
                 }, function(err) {
                     console.log(err);
                 });
@@ -632,7 +623,6 @@ app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Supp
         var findCurrentProduct = function(id) {
             for (var i = 0; i < $scope.products.length; i++) {
                 if ($scope.products[i]._id == id) {
-                    console.log("match");
                     $scope.selectedProduct = $scope.products[i];
                 }
             }
@@ -640,7 +630,6 @@ app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Supp
 
         $scope.ok = function() {
 
-            console.log($scope.selectedProduct);
 
             var data = {
                 productId: $scope.selectedProduct._id,
@@ -651,7 +640,6 @@ app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Supp
 
 
             InventoryData.updateBlock(SupplyChainService.getSupplyChainId(), block._id, data, function(res) {
-                console.log(res);
                 $uibModalInstance.close(res);
             }, function(err) {
                 $uibModalInstance.close(err);

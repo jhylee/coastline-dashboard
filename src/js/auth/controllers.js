@@ -32,12 +32,26 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
 
         var fisheryName = $scope.fisheryName
 
-        AuthService.signUp(formData, fisheryName, function(res) {
+        AuthService.signUp(formData, function(res) {
             //   AuthService.login(formData, function (res) {
             $state.go('fishery-setup');
             //   });
         }, function(err) {
-            console.log(err);
+        });
+
+    };
+
+    $scope.signUpWithCode = function() {
+
+        var formData = {
+            username: $scope.username,
+            password: $scope.password,
+            inviteCode: $scope.inviteCode
+        };
+
+        AuthService.signUp(formData, function(res) {
+            $state.go('dashboard.default.overview');
+        }, function(err) {
         });
 
     };
@@ -48,7 +62,6 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         };
 
         AuthService.sendResetLink(data).then(function (res) {
-            console.log(res);
             $state.go('login');
         })
         ngNotify.set('Please Check Your Email for Reset Instructions ', {
@@ -67,7 +80,6 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         };
 
         AuthService.createFishery(formData, function(res) {
-                console.log(res);
                 // $state.go('dashboard.default.products');
             },
             function(err) {
@@ -84,9 +96,8 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         var loginPromise = AuthService.login(formData);
 
         loginPromise.then(function(res) {
-            console.log(res);
 
-            if (res.statusText === "Unauthorized"){
+            if (res.statusText === "Unauthorized" || !$scope.username || !$scope.password){
                       ngNotify.set('The credentials entered are incorrect. Please try again.', {
                             sticky: false,
                             button: false,
@@ -98,6 +109,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         });
 
     };
+
 
 
     $scope.me = function() {

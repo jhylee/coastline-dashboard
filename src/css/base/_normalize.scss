@@ -1,0 +1,98 @@
+$primary-background-color: #EEEEEE;
+$secondary-background-color: #E8E8E8;
+$background-color-3: #DDD;
+$inverse-background-color: #fff;
+$primary-font-color: #000;
+$hyperlink-font-color: #fff;
+$primary-border-color: #CFD8DC;
+$secondary-border-color: #dfe0e0;
+$primary-font: "Roboto";
+
+//Navigation Colours
+$navbar-color: #263238;
+$side-nav-color: #CFD8DC;
+
+//Button Colours
+$btn-default-color: #546E7A;
+$btn-default-hover-color: #455A64;
+$btn-highlight-color: #607D8B;
+$btn-highlight-hover-color: #78909C;
+$btn-danger-color: #D50000;
+$btn-danger-hover-color: #B71C1C;
+$btn-success-color: #388E3C;
+$btn-success-hover-color: #1B5E20;
+
+
+/*
+ * Base structure
+ */
+@import url('http://fonts.googleapis.com/css?family=Roboto');
+
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  background-color: $primary-background-color;
+  font-family: $primary-font;
+  color: $primary-font-color;
+  margin-left: 10px;
+}
+
+
+/*
+ * Main content
+ */
+.main {
+  padding: 20px;
+  max-width: 100%;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+    max-width: 100%;
+  }
+}
+.main .page-header {
+  margin-top: 25px;
+  margin-left: 20px;
+  font-weight: 100;
+  max-width: 88%;
+  border-bottom: 2px solid $primary-border-color;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.huge {
+  font-size: 30px;
+  font-weight: 400;
+  color: #000;
+}
+
+
+.div-align-right {
+  float: right;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}

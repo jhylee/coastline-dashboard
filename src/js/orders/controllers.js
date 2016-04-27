@@ -15,9 +15,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
         var updateOrders = function() {
             OrderData.getOrders(function(orders) {
-                // console.log("getOrders");
                 $scope.orders = orders;
-                console.log($scope.orders);
                 if ($scope.orders.length > 0) {
                     $scope.selectedOrder = $scope.orders[0];
                 }
@@ -25,17 +23,14 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 $scope.totals = [];
 
                 ProductData.getProductData(function(products) {
-                    // console.log(products);
                     for (var i = 0; i < $scope.orders.length; i++) {
                         var total = 0;
 
                         for (var j = 0; j < $scope.orders[i].items.length; j++) {
                             for (var k = 0; k < products.length; k++) {
-                                // console.log($scope.orders[i].items[j].product + " " + products[k]._id);
                                 if ($scope.orders[i].items[j].product == products[k]._id) {
                                     $scope.orders[i].items[j].product = products[k];
                                     total += Math.round($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity * 100) / 100
-                                    // console.log(total);
                                 }
                             }
                         }
@@ -44,7 +39,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                     }
                 }, function(err) {
                     console.log(err);
-                })
+                });
 
             }, function(err) {
                 console.log(err);
@@ -90,10 +85,11 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 function() {});
         };
 
+
         $scope.addFilter = function() {
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'addFilterModal.html',
+                templateUrl: 'views/modals/order-filter.html',
                 controller: 'AddFilterCtrl',
                 size: 'md',
                 resolve: {}
@@ -114,10 +110,8 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         };
 
         $scope.isFilterCleared = OrderData.isFilterCleared();
-        console.log($scope.isFilterCleared);
 
         $scope.editOrder = function() {
-            console.log("editOrder");
 
             OrderData.setSelectedOrder($scope.selectedOrder);
 
@@ -135,7 +129,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 // OK callback
                 function(order) {
                     // add the stage to the supply chain
-                    console.log(order);
                     updateOrders();
 
                     // CANCEL callback
@@ -160,7 +153,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 // OK callback
                 function(order) {
                     // add the stage to the supply chain
-                    console.log(order);
                     updateOrders();
 
 
@@ -171,7 +163,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
         // TODO - Filter orders
         // $scope.filterOrders = function() {
-        //     console.log("filterOrder");
         //
         //     // modal setup and preferences
         //     var modalInstance = $uibModal.open({
@@ -188,7 +179,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         //         // OK callback
         //         function(order) {
         //             // add the stage to the supply chain
-        //             console.log(order);
         //             updateOrders();
         //
         //             // CANCEL callback
@@ -205,7 +195,6 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
     function($scope, $window, OrderData, ProductData, AuthService, $state, $uibModalInstance) {
 
         $scope.order = OrderData.getSelectedOrder();
-        console.log($scope.order);
 
 
 
@@ -228,7 +217,6 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
                     var url = $window.URL || $window.webkitURL;
                     // var url = $window.URL || $window.webkitURL;
                     $scope.fileUrl = url.createObjectURL(blob);
-                    console.log($scope.fileUrl);
 
                     var anchor = angular.element('<a/>');
                     anchor.attr({
@@ -243,11 +231,9 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 
         $scope.getTotal = function() {
             var totalPrice = 0;
-            console.log(totalPrice);
             var order = OrderData.getSelectedOrder();
             for (var i = 0; i < order.items.length; i++) {
                 totalPrice += order.items[i].unitPrice * order.items[i].quantity;
-                console.log(totalPrice);
             }
             return Math.round(totalPrice * 100) / 100;
         }
@@ -269,6 +255,23 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.email;
         $scope.phone;
         $scope.items = [];
+
+        $scope.isSubmitButtonDisabled = function() {
+          if (!$scope.invoiceNumber ||
+              !$scope.paymentMethod ||
+              !$scope.status ||
+              !$scope.creditTerms ||
+              !$scope.customerName ||
+              !$scope.date ||
+              !$scope.email ||
+              !$scope.phone ||
+              $scope.items.length==0) {
+               return true;
+              }
+            else {
+              return false;
+            }
+          };
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity && $scope.selectedBlock) {
@@ -296,7 +299,6 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         };
 
         $scope.addItem = function() {
-            console.log('addItem');
             $scope.items.push({
                 quantity: $scope.quantity,
                 product: $scope.selectedProduct,
@@ -335,10 +337,8 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 
         $scope.getTotal = function() {
             var totalPrice = 0;
-            console.log(totalPrice);
             for (var i = 0; i < $scope.items.length; i++) {
                 totalPrice += $scope.items[i].unitPrice * $scope.items[i].quantity;
-                console.log(totalPrice);
             }
             return Math.round(totalPrice * 100) / 100;
         }
@@ -351,7 +351,6 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         });
 
         $scope.$watch('selectedProduct', function(newValue, oldValue) {
-            console.log($scope.selectedProduct);
             if ($scope.selectedProduct) {
                 SupplyChainService.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
                     $scope.blocks = []
@@ -360,7 +359,6 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 
                         for (j = 0; j < $scope.items.length; j++) {
                             if (res[i]._id == $scope.items[j].block._id) {
-                                console.log('HERE');
                                 isBlockInItems = true;
                             }
                         }
@@ -375,14 +373,12 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                         // $scope.selectedBlock = $scope.blocks[0];
                     }
 
-                    console.log($scope.blocks);
                 });
             }
 
         });
 
         $scope.$watch('selectedBlock', function(newValue, oldValue) {
-            console.log($scope.selectedBlock);
             if ($scope.selectedBlock) {
                 $scope.quantity = $scope.selectedBlock.quantity;
             }
@@ -438,9 +434,6 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 });
             };
 
-            console.log(data.items);
-
-
             OrderData.addOrder(data).then(function(res) {
                 $uibModalInstance.close(res);
             });
@@ -472,7 +465,6 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
         $scope.phone = order.phone;
         $scope.items = order.items;
 
-        console.log(order);
 
         var getProductData = function() {
             ProductData.getProductData(function(res) {
@@ -484,7 +476,6 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
         };
 
         $scope.addItem = function() {
-            console.log('addItem');
             $scope.items.push({
                 quantity: $scope.quantity,
                 product: $scope.selectedProduct,
@@ -529,7 +520,6 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
         });
 
         $scope.$watch('selectedProduct', function(newValue, oldValue) {
-            console.log($scope.selectedProduct);
             if ($scope.selectedProduct) {
                 SupplyChainService.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
                     $scope.blocks = []
@@ -538,7 +528,6 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
 
                         for (j = 0; j < $scope.items.length; j++) {
                             if (res[i]._id == $scope.items[j].block._id) {
-                                console.log('HERE');
                                 isBlockInItems = true;
                             }
                         }
@@ -553,14 +542,12 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
                         // $scope.selectedBlock = $scope.blocks[0];
                     }
 
-                    console.log($scope.blocks);
                 });
             }
 
         });
 
         $scope.$watch('selectedBlock', function(newValue, oldValue) {
-            console.log($scope.selectedBlock);
             if ($scope.selectedBlock) {
                 $scope.quantity = $scope.selectedBlock.quantity;
             }
@@ -596,7 +583,6 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
                 });
             };
 
-            console.log(data.items);
 
 
             OrderData.addOrder(data).then(function(res) {
@@ -645,6 +631,22 @@ app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
     function($scope, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
 
         // var order = OrderData.getSelectedOrder();
+        $scope.dateEnd = new Date();
+        $scope.dateEnd.setHours(23);
+        $scope.dateEnd.setMinutes(59);
+        $scope.dateEnd.setSeconds(59);
+
+        $scope.isFilterDisabled = function(){
+          if (!$scope.customerName &&
+              !$scope.invoiceNumber &&
+              !$scope.paymentMethod &&
+              !$scope.dateStart) {
+               return true;
+              }
+            else {
+              return false;
+            }
+        };
 
 
         // tied to ok button
@@ -655,6 +657,22 @@ app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
             if ($scope.invoiceNumber) filter.invoiceNumber = $scope.invoiceNumber;
             if ($scope.paymentMethod) filter.paymentMethod = $scope.paymentMethod;
             if ($scope.status) filter.status = $scope.status;
+
+            if ($scope.dateStart) {
+                console.log($scope.dateStart);
+                filter.dateStart = $scope.dateStart;
+            }
+
+            if ($scope.dateEnd) {
+                console.log(new Date($scope.dateEnd.getFullYear(),
+                    $scope.dateEnd.getMonth(),
+                    $scope.dateEnd.getDate(),
+                    23, 59, 59, 59, 0));
+                filter.dateEnd = new Date($scope.dateEnd.getFullYear(),
+                    $scope.dateEnd.getMonth(),
+                    $scope.dateEnd.getDate(),
+                    23, 59, 59, 59, 0)
+            }
 
             OrderData.setFilter(filter);
 

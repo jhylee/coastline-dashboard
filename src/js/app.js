@@ -4,6 +4,8 @@ var app = angular.module('coastlineWebApp', ['ui.router',
     'ngNotify',
     'coastlineWebApp.auth.controllers',
     'coastlineWebApp.auth.services',
+    'coastlineWebApp.settings.controllers',
+    'coastlineWebApp.settings.services',
     'coastlineWebApp.dashboard.controllers',
     'coastlineWebApp.dashboard.services',
     'coastlineWebApp.inventory.controllers',
@@ -11,6 +13,8 @@ var app = angular.module('coastlineWebApp', ['ui.router',
     'coastlineWebApp.inventory.services',
     'coastlineWebApp.orders.controllers',
     'coastlineWebApp.orders.services',
+    'coastlineWebApp.overview.controllers',
+    'coastlineWebApp.overview.services',
     'coastlineWebApp.products.controllers',
     'coastlineWebApp.products.services',
     'coastlineWebApp.salesManagement.controllers',
@@ -50,6 +54,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/sign-up.html'
     })
 
+    .state('sign-up-code', {
+        url: '/sign-up-code',
+        templateUrl: '/views/sign-up-code.html'
+    })
+
     .state('dashboard', {
         url: '/auth',
         templateUrl: '/views/dashboard.html'
@@ -63,6 +72,21 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
     .state('dashboard.settings', {
         url: '/settings',
         templateUrl: '/views/dashboard.settings.html'
+    })
+
+    .state('dashboard.settings.general', {
+        url: '/settings.general',
+        templateUrl: '/views/dashboard.settings.general.html'
+    })
+
+    .state('dashboard.settings.fishery', {
+        url: '/settings.fishery',
+        templateUrl: '/views/dashboard.settings.fishery.html'
+    })
+
+    .state('dashboard.settings.users', {
+        url: '/settings.users',
+        templateUrl: '/views/dashboard.settings.users.html'
     })
 
     .state('dashboard.default', {
@@ -175,9 +199,11 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
 
             if (toState.name === 'login') {
                 return;
+            } else if( toState.name === 'sign-up-code') {
+                RedirectService.setRedirectState("sign-up-code");
+            } else {
+                RedirectService.setRedirectState("login");
             }
-
-            RedirectService.setRedirectState("login");
 
             event.preventDefault();
 
@@ -187,21 +213,6 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
 
             return;
         }
-        // else {
-        //     if (fromState.name == 'dashboard.default.supply-chain.builder') {
-        //         if (SupplyChainService.getLeaveTicket()) {
-        //             console.log('yes');
-        //
-        //         } else {
-        //             console.log('no');
-        //
-        //             event.preventDefault();
-        //             SupplyChainService.setToState(toState.name);
-        //             $rootScope.$broadcast('leaving-supply-chain-builder');
-        //         }
-        //     }
-        // }
-
 
         // authenticated (previously) comming not to root main
         if (AuthService.isAuthenticated()) {

@@ -95,7 +95,7 @@
     </div>
   <div class="modal-footer">
     <div class="alignright">
-      <button type="submit" class="btn-status-success" ng-click="ok()">Submit</button>
+      <button ng-disabled="isSubmitButtonDisabled()" type="submit" class="btn-status-success" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
   </div>

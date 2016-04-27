@@ -1,19 +1,14 @@
-<div class="col-lg-12">
-  <h2 class="page-header light-text text-center"></h2>
-  <div class="row placeholders">
-    <div class="col-lg-8">
-      <div class="container">
-        <div class="panel-container">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="panel-heading">
-                <h3>Settings Panel</h3>
-                <hr class="short">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="col-sm-3 col-md-2 sidebar">
+    <ul ng-controller="SideNavCtrl" class="nav nav-sidebar">
+        <li><div class="sidebar-border"><h1>
+          <!--<input class="form-control search-side-nav" type="text" maxlength="15"  placeholder="Search"></input>-->
+          Account Settings
+        </h1></li>
+        <li>&nbsp;</li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.settings.general')}" ui-sref=".general">General</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.settings.fishery')}" ui-sref=".fishery">Fishery</a></li>
+        <li><a ng-class="{activeTab: state.includes('dashboard.settings.users')}" ui-sref=".users">Users</a></li>
+    </ul>
 </div>
+
+<div ui-view></div>

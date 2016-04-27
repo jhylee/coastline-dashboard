@@ -75,7 +75,6 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
             // $localStorage.selectedSupplyChainId;
                 $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + supplyChainId)
                 .then(function(res) {
-                    console.log(res.data);
                         supplyChain = res.data;
                         return supplyChain;
                 }).catch(function(err) {
@@ -91,13 +90,21 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
             })
         },
 
-        fetchSelectedSupplyChain: function (supplyChainId) {
+        fetchSelectedSupplyChain: function () {
             // $localStorage.selectedSupplyChainId;
-            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + supplyChainId)
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId)
                 .then(function(res) {
-                    console.log(res.data);
                         supplyChain = res.data;
                         return supplyChain;
+                }).catch(function(err) {
+                    console.log(err);
+                })
+        },
+
+        updateSelectedSupplyChain: function(data) {
+            return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId, data)
+                .then(function(res) {
+                    return res.data;
                 }).catch(function(err) {
                     console.log(err);
                 })
@@ -136,10 +143,8 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
         },
 
         fetchStages: function() {
-            console.log(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId + '/stages/normal');
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId + '/stages/normal')
                 .then(function(res) {
-                    console.log(res.data);
                     stages = res.data;
                     return stages;
                 })
@@ -148,13 +153,11 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
         fetchSelectedStage: function() {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/' + _selectedStageId)
                 .then(function(res) {
-                    console.log(res.data);
                     return res.data;
                 })
         },
 
         updateStages: function() {
-            console.log($localStorage.selectedSupplyChainId);
             return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId + '/stages', stages)
                 .then(function(res) {
                     stages = res.data;
@@ -165,7 +168,6 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
         updateStage: function(stageId, data) {
             return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/' + stageId, data)
                 .then(function(res) {
-                    console.log(res.data);
                     return res.data;
                 })
         },
@@ -254,14 +256,11 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
 
                         if (prev) {
                             var prevStage = stages[findStage(prev._id)];
-                            console.log(prevStage.next);
 
                             for (var i = 0; i < prevStage.next.length; i++) {
                                 var nextStage = stages[findStage(prevStage.next[i])];
-                                console.log(nextStage);
 
                                 if (lowestY == null || nextStage.y > lowestY) {
-                                    console.log("lowestY" + lowestY);
                                     lowestY = nextStage.y;
                                     lowestX = nextStage.x;
                                 }
@@ -278,7 +277,6 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
 
 
 
-                        console.log(stage);
 
                             var supplyChainStage = {};
 
@@ -295,10 +293,9 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                                 supplyChainStage.isTail = (supplyChainStage.next.length == 0);
                             stages.push(supplyChainStage);
 
-                            console.log(supplyChainStage);
+
                         if (prev) {
                                 stages[findStage(prev._id)].next.push(supplyChainStage.self._id)
-                            console.log(stages[findStage(prev._id)]);
 
                         }
 
@@ -307,7 +304,7 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
 
                         success();
                     }).error(function(error) {
-                    console.log(error);
+                    console.log(err);
                 });
             // }
         },
@@ -332,20 +329,16 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
             };
 
             if (!isTargetInSourceNext) {
-                console.log("!isTargetInSourceNext")
                 sourceStage.next.push(targetId);
             };
 
             if (!isSourceInTargetPrev) {
-                console.log("!isSourceInTargetPrev")
                 targetStage.prev.push(sourceId);
             };
 
-            console.log(stages);
         },
 
         unlinkStages: function(sourceId, targetId) {
-            console.log('unlinkStages');
             var sourceStage = stages[findStage(sourceId)];
             var targetStage = stages[findStage(targetId)];
 
@@ -364,8 +357,6 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                 }
             };
 
-            console.log(targetInSourceNext);
-            console.log(sourceInTargetPrev);
 
 
             if (targetInSourceNext != null) {
@@ -379,8 +370,6 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                     sourceStage.next = newSourceNext;
                 }
 
-                console.log("targetInSourceNext")
-                    // sourceStage.next.push(targetId);
             };
 
             if (sourceInTargetPrev != null) {
@@ -396,11 +385,8 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                 }
 
 
-                console.log("sourceInTargetPrev")
-                    // targetStage.prev.push(sourceId);
             };
 
-            console.log(stages);
         },
 
         getSellingPoints: function() {
@@ -455,7 +441,6 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                 edges: []
             };
 
-            console.log(stages);
 
             if (stages) {
                 for (var i = 0; i < stages.length; i++) {
@@ -536,14 +521,12 @@ app.factory('FisheryService', ['$http', 'apiUrl', '$localStorage', function($htt
     var fishery;
 
     $http.get(baseUrl + '/api/user').then(function(res) {
-        console.log(res);
         return res.data.fishery;
     }).then(function(res) {
         fishery = {
             name: res.name,
             _id: res._id
         };
-        console.log(fishery);
         return fishery;
     }).catch(function(err) {
         return err;
@@ -554,14 +537,12 @@ app.factory('FisheryService', ['$http', 'apiUrl', '$localStorage', function($htt
         fetchFishery: function() {
 
             return $http.get(baseUrl + '/api/user').then(function(res) {
-                console.log(res);
                 return res.data.fishery;
             }).then(function(res) {
                 fishery = {
                     name: res.name,
                     _id: res._id
                 };
-                console.log(fishery);
                 return fishery;
             }).catch(function(err) {
                 return err;

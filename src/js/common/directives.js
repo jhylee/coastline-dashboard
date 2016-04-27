@@ -36,7 +36,6 @@ app.directive('visTimeline', function() {
 
             scope.$watch('data', function() {
                 // Sanity check
-                console.log(scope.data);
                 if (scope.data == null) {
                     return;
                 }
@@ -48,7 +47,6 @@ app.directive('visTimeline', function() {
                 }
 
                 // Create the timeline object
-                console.log(scope.data);
                 timeline = new vis.Timeline(element[0], scope.data.items, scope.data.groups, scope.options);
 
                 // Attach an event handler if defined
@@ -139,7 +137,6 @@ app.directive('visNetwork', function() {
                 angular.forEach(scope.events, function(callback, event) {
                     if (networkEvents.indexOf(String(event)) >= 0) {
                         network.on(event, callback);
-                        console.log(String(event));
                     }
                 });
 

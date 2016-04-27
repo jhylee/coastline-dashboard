@@ -1,4 +1,4 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+<div ng-controller="OverviewCtrl" class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
   <h2 class="page-header light-text">Home</h2>
   <div class="row placeholders">
     <div class="col-lg-8">
@@ -10,7 +10,7 @@
               </div>
               <!--<div class="panel-scroll">-->
               <div class="col-lg-6">
-                <h3>Outstanding Payments Due in Two Weeks</h3>
+                <h3>Overdue payments</h3>
                 <hr class="short">
                 <div class="table-responsive">
                   <table class="table tableWhite">
@@ -22,9 +22,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1,010</td>
-                        <td>Subscription Pickup</td>
+                      <tr ng-repeat="order in overdueOrders">
+                        <td>{{order.invoiceNumber}}</td>
+                        <td>{{order.paymentMethod}}</td>
                         <td>
                           <div class="alignright">
                             <button ng-click="viewOrderDetail(order)" class="btn-status-default">View Details</button>
@@ -36,7 +36,7 @@
                 </div>
               </div>
               <div class="col-lg-6">
-                <h3>Payments Due in Two Weeks</h3>
+                <h3>Payments Due in One Week</h3>
                 <hr class="short">
                 <div class="table-responsive">
                   <table class="table tableWhite">
@@ -48,10 +48,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1,010</td>
-                        <td>Subscription Pickup</td>
-                        <td>
+                      <tr ng-repeat="order in upcomingOrders">
+                        <td data-label="Invoice #">{{order.invoiceNumber}}</td>
+                        <td data-label="Pay Method">{{order.paymentMethod}}</td>
+                        <td data-label="Details">
                           <div class="alignright">
                             <button ng-click="viewOrderDetail(order)" class="btn-status-default">View Details</button>
                           </div>
@@ -68,3 +68,58 @@
     </div>
   </div>
 </div>
+
+<!-- VIEW ORDER DETAIL MODAL-->
+<script type="text/ng-template" id="viewOrderDetailModal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Customer Order #{{order.invoiceNumber}}</h3>
+  </div>
+  <div class="modal-body">
+    <h4><b>Name :</b> {{order.customerName}}</h4>
+    <h4><b>Phone :</b> {{order.phone}}</h4>
+    <h4><b>Email :</b> {{order.email}}</h4>
+    <h4><b>Order Time :</b> {{order.date | date:'short' }}</h4>
+    <h4><b>Credit Terms :</b> {{order.creditTerms}}</h4>
+  </div>
+  <div class="modal-footer">
+    <!--<a class="btn-status-default" ng-href="{{ fileUrl }}" download="invoice.pdf"><i class="fa fa-file-pdf-o"></i>  Export to PDF</a>-->
+
+    <div ng-switch="pdfStatus">
+      <div ng-switch-default><a class="btn-status-default" href="javascript:void(0);" ng-click="getPDF()"><i class="fa fa-file-pdf-o"></i>  Export to PDF</a></div>
+      <div ng-switch-when="loading"><a class="btn-status-success" href="javascript:void(0);">Loading...</a></div>
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <div class="table-responsive">
+      <table class="table tableWhite">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Total Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in order.items track by $index">
+            <td data-label="Product">{{item.product.name}}</td>
+            <td data-label="Unit Price">${{item.unitPrice}} / {{item.product.unit}}</td>
+            <td data-label="Quantity">{{item.quantity}} {{item.product.unit}}</td>
+            <td data-label="Subtotal">{{item.unitPrice * item.quantity}}</td>
+          </tr>
+          <tr>
+            <td><b>Total</b></td>
+            <td></td>
+            <td></td>
+            <td>${{getTotal()}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-status-default" type="button" ng-click="dismiss()">Close</button>
+  </div>
+</script>

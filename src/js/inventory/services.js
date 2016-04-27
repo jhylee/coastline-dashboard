@@ -27,7 +27,6 @@ app.factory('InventoryData', ['$http', 'apiUrl', '$localStorage', 'FisheryServic
 
     return {
         getBlocks: function(supplyChainId, stageId, success, error) {
-            console.log(supplyChainId);
             $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/' + stageId + '/blocks').success(success).error(error);
         },
         addBlock: function(supplyChainId, data, success, error) {
@@ -71,8 +70,6 @@ app.factory('TrackInventoryManager', ['$http', 'apiUrl', '$localStorage', 'Fishe
 
         // reconstructs the graph and returns nodes and edges for graphical display
         getDisplayData: function() {
-            console.log("_supplyChain");
-            console.log(_supplyChain);
             var data = {
                 nodes: [],
                 edges: []

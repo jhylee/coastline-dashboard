@@ -28,22 +28,7 @@ angular.module('coastlineWebApp.redirect.services', ['ngStorage', 'coastlineCons
 
 .factory('HttpInterceptorForToken', ['$rootScope', '$localStorage', function($rootScope, $localStorage) {
     return {
-        // request : function(config) {
-        //     console.log("intercepting");
-        //     var access_token = $localStorage.token;
-        //
-        //     if (access_token !== null && access_token !== undefined && access_token !== "") {
-        //         config.headers.Authorization = "Bearer " + access_token;
-        //     }
-        //     return config;
-        // },
-        //
-        // responseError : function(response) {
-        //     if (response.status === 401) {
-        //         $rootScope.$broadcast('unauthorized');
-        //     }
-        //     return response;
-        // },
+        
 
         request: function(config) {
             if (config.ignoreInterceptor) {

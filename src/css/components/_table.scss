@@ -1,0 +1,80 @@
+table {
+  border-collapse: separate;
+  border: 0.18em solid $secondary-border-color;
+  display: table;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 2px;
+}
+table.tableWhite {
+  background-color: #f3f3f3;
+  border-radius: 2px;
+
+  th {
+    background-color: $primary-background-color;
+    vertical-align: middle;
+    border-radius: 0px;
+  }
+
+  td {
+    vertical-align: bottom;
+    background-color: #f3f3f3;
+  }
+}
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.panel>.table-responsive:last-child>.table:last-child, .panel>.table:last-child,
+.panel>.table-responsive:first-child>.table:first-child, .panel>.table:first-child {
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .table>tbody>tr>td,
+  .table>tbody>tr>th,
+  .table>tfoot>tr>td,
+  .table>tfoot>tr>th,
+  .table>thead>tr>td,
+  .table>thead>tr>th {
+    vertical-align: middle;
+    text-align: right;
+   }
+  .table>tbody>tr>td,
+  .table>tbody>tr>th {
+    background-color: #fff;
+  }
+
+
+  .table-responsive {
+    border: hidden;
+  }
+  table {
+    border: 2px solid $secondary-background-color;
+  }
+
+  table thead {
+    display: none;
+  }
+  table tr {
+    margin-bottom: 10px;
+    display: block;
+  }
+  table td {
+    content: attr(data-label);
+    display: block;
+    font-size: 13px;
+  }
+  table td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    vertical-align: middle;
+    float: left;
+  }
+}
