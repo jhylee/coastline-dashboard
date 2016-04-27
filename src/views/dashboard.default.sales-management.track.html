@@ -69,7 +69,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-success" type="button" ng-click="ok()">OK</button>
+    <button ng-disabled="isSubmitButtonDisabled()" class="btn-status-success" type="button" ng-click="ok()">OK</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
@@ -94,8 +94,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-status-success" type="button" ng-click="ok()">Save</button>
-    <button class="btn btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Save</button>
+    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>
 

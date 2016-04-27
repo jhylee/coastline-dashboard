@@ -233,7 +233,7 @@
     </form>
     </div>
     <div class="modal-footer">
-      <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
+      <button ng-disabled="isSubmitButtonDisabled()" class="btn-status-success" type="button" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
     </fieldset>
@@ -269,7 +269,7 @@
     </form>
     </div>
     <div class="modal-footer">
-      <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
+      <button ng-disabled="isSubmitButtonDisabled()" class="btn-status-success" type="button" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
     </fieldset>

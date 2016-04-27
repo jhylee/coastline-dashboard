@@ -269,6 +269,15 @@ app.controller('AddSellingPointCtrl', ['$scope', 'SupplyChainService', 'SellingP
 
         };
 
+        $scope.isSubmitButtonDisabled = function() {
+            if (!$scope.name){
+                return true;
+            }
+            else {
+              return false;
+            }
+        };
+
 
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');

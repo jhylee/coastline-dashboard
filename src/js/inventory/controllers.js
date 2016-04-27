@@ -317,6 +317,16 @@ app.controller('MoveBlockCtrl', ['$scope', 'InventoryData', 'SupplyChainService'
             }
         };
 
+        $scope.isSubmitButtonDisabled = function() {
+            if (!$scope.toStage){
+                return true;
+            }
+            else {
+              return false;
+            }
+        };
+
+
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
@@ -443,6 +453,14 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'InventoryData', 'SupplyChainS
                 return ($scope.block1.quantity - $scope.quantity);
             }
         }
+        $scope.isSubmitButtonDisabled = function() {
+            if (!$scope.toStage){
+                return true;
+            }
+            else {
+              return false;
+            }
+        };
 
         InventoryData.getSellingPoints(function(res) {
             $scope.stages = res;
