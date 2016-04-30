@@ -12,9 +12,9 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         $scope.fisheryName = "";
 
         //TODO - change this
-        $scope.addInvoice = function(){
-          $state.go('dashboard.default.orders.invoice');
-        }
+        // $scope.addInvoice = function(){
+        //   $state.go('dashboard.default.orders.invoice');
+        // }
 
         var updateOrders = function() {
             OrderData.getOrders(function(orders) {
@@ -72,25 +72,23 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
         };
 
-        //TODO - change this
-        $scope.addInvoice = function(){
-          $state.go('dashboard.default.orders.invoice');
-        }
 
         $scope.addOrder = function() {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'addOrderModal.html',
-                controller: 'AddOrderCtrl',
-                size: 'lg',
-                resolve: {}
-            });
+            $state.go('dashboard.default.orders.invoice');
 
-            modalInstance.result.then(
-                function(order) {
-                    updateOrders();
-                },
-                function() {});
+            // var modalInstance = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'addOrderModal.html',
+            //     controller: 'AddOrderCtrl',
+            //     size: 'lg',
+            //     resolve: {}
+            // });
+            //
+            // modalInstance.result.then(
+            //     function(order) {
+            //         updateOrders();
+            //     },
+            //     function() {});
         };
 
 
