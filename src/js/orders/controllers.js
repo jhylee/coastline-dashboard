@@ -11,7 +11,10 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
     function($scope, OrderData, ProductData, AuthService, $state, $uibModal) {
         $scope.fisheryName = "";
 
-
+        //TODO - change this
+        $scope.addInvoice = function(){
+          $state.go('dashboard.default.orders.invoice');
+        }
 
         var updateOrders = function() {
             OrderData.getOrders(function(orders) {
@@ -68,6 +71,11 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 function() {});
 
         };
+
+        //TODO - change this
+        $scope.addInvoice = function(){
+          $state.go('dashboard.default.orders.invoice');
+        }
 
         $scope.addOrder = function() {
             var modalInstance = $uibModal.open({
