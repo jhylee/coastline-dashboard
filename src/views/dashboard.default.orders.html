@@ -208,6 +208,7 @@
               <td data-label="Unit Price $">{{item.unitPrice}}</td>
               <td data-label="Units">{{item.units}}</td>
               <td data-label="Quantity">{{item.quantity}}</td>
+              <td data-lable="Select"><button ng-click="deleteItem()" class="btn-status-danger"><i class="fa fa-minus"></i></button></td>
             </tr>
             <tr>
               <td data-label="Product">
@@ -235,7 +236,7 @@
               </td>
 
               <td data-label="Add Entry">
-                <button ng-disabled="isAddButtonDisabled()" ng-click="addItem()" class="btn-status-success"><i class="fa fa-plus"></i></btn>
+                <button ng-disabled="isAddButtonDisabled()" ng-click="addItem()" class="btn-status-success"><i class="fa fa-plus"></i></button>
               </td>
             </tr>
           </tbody>
