@@ -2,25 +2,32 @@
  * Top navigation
  * Hide default border to remove 1px line.
  */
-
 .navbar-fixed-top {
   border: 0;
   background-color: $navbar-color;
   color: $primary-font-color;
 }
-.navbar-header .navbar-brand {
-  margin: 10px;
-  color: #fff;
-  letter-spacing: 0.1em;
-  font-size: 20px;
-  img {
-    display: inline-block;
-    margin-top: -5px;
-    margin-left: 30px;
+.navbar-header {
+  .navbar-brand {
+    margin: 10px;
+    color: #fff;
+    letter-spacing: 0.1em;
+    font-size: 18px;
+    img {
+      display: inline-block;
+      margin-top: -5px;
+      margin-left: 25px;
+    }
+    @media screen and (max-width: 768px) {
+      img {
+        margin-left: -5px;
+        width: 25px;
+      }
+    }
   }
   @media screen and (max-width: 768px) {
-    img {
-      margin-left: 0;
+    a.navbar-brand {
+      font-size: 14px;
     }
   }
 }
@@ -30,6 +37,7 @@
 .navbar-header a:hover {
   -webkit-filter: invert(15%);
 }
+
 .navbar-collapse .nav li {
   padding: 10px 5px;
   height: 70px;
@@ -50,7 +58,7 @@
 }
 .navbar-inverse .navbar-toggle:focus,
 .navbar-inverse .navbar-toggle:hover {
-  background-color: $btn-default-color;
+  background: none;
 }
 @media screen and (max-width: 768px) {
   .hide {
