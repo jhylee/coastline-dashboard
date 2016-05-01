@@ -74,21 +74,21 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
 
         $scope.addOrder = function() {
-            $state.go('dashboard.default.orders.invoice');
+            // $state.go('dashboard.default.orders.invoice');
 
-            // var modalInstance = $uibModal.open({
-            //     animation: true,
-            //     templateUrl: 'addOrderModal.html',
-            //     controller: 'AddOrderCtrl',
-            //     size: 'lg',
-            //     resolve: {}
-            // });
-            //
-            // modalInstance.result.then(
-            //     function(order) {
-            //         updateOrders();
-            //     },
-            //     function() {});
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'addOrderModal.html',
+                controller: 'AddOrderCtrl',
+                size: 'lg',
+                resolve: {}
+            });
+
+            modalInstance.result.then(
+                function(order) {
+                    updateOrders();
+                },
+                function() {});
         };
 
 
@@ -304,6 +304,31 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             });
         };
 
+        var refreshBatches = function () {
+            SupplyChainService.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
+                $scope.blocks = []
+                for (i = 0; i < res.length; i++) {
+                    var isBlockInItems = false;
+
+                    for (j = 0; j < $scope.items.length; j++) {
+                        if (res[i]._id == $scope.items[j].block._id) {
+                            isBlockInItems = true;
+                        }
+                    }
+
+                    if (!isBlockInItems) {
+                        $scope.blocks.push(res[i]);
+                    }
+
+                }
+
+                if ($scope.blocks.length > 0) {
+                    // $scope.selectedBlock = $scope.blocks[0];
+                }
+
+            });
+        }
+
         $scope.addItem = function() {
             $scope.items.push({
                 quantity: $scope.quantity,
@@ -319,6 +344,22 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             delete $scope.selectedBlock;
             delete $scope.unitPrice;
             delete $scope.units;
+
+            getProductData();
+        };
+
+        $scope.removeItem = function(index) {
+            var newItems = []
+
+            for (var i = 0; i < $scope.items.length; i++) {
+                if (i != index) {
+                    newItems.push($scope.items[i]);
+                }
+            }
+
+            $scope.items = newItems;
+
+            refreshBatches();
 
             getProductData();
         };
@@ -358,28 +399,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 
         $scope.$watch('selectedProduct', function(newValue, oldValue) {
             if ($scope.selectedProduct) {
-                SupplyChainService.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
-                    $scope.blocks = []
-                    for (i = 0; i < res.length; i++) {
-                        var isBlockInItems = false;
-
-                        for (j = 0; j < $scope.items.length; j++) {
-                            if (res[i]._id == $scope.items[j].block._id) {
-                                isBlockInItems = true;
-                            }
-                        }
-
-                        if (!isBlockInItems) {
-                            $scope.blocks.push(res[i]);
-                        }
-
-                    }
-
-                    if ($scope.blocks.length > 0) {
-                        // $scope.selectedBlock = $scope.blocks[0];
-                    }
-
-                });
+                refreshBatches();
             }
 
         });

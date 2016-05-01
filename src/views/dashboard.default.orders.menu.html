@@ -208,6 +208,8 @@
               <td data-label="Unit Price $">{{item.unitPrice}}</td>
               <td data-label="Units">{{item.units}}</td>
               <td data-label="Quantity">{{item.quantity}}</td>
+              <td data-label="Quantity"><button ng-click="removeItem($index)" class="btn-status-danger"><i class="fa fa-minus"></i></btn></td>
+
             </tr>
             <tr>
               <td data-label="Product">
