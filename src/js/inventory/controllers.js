@@ -350,23 +350,26 @@ app.controller('ViewDetailsCtrl', ['$scope', 'InventoryData', 'SupplyChainServic
                 $scope.block = res;
             });
         SupplyChainService.fetchSelectedBlockHistory()
-            .then(function(res) {
-                $scope.history = res;
+            .then(function(data) {
+                $scope.history = data;
                 $scope.stageNames = new Array($scope.history.events.length);
                 $scope.quantities = new Array($scope.history.events.length);
                 $scope.units = new Array($scope.history.events.length);
 
                 for (i = 0; i < $scope.stageNames.length; i++) {
-                    if ($scope.history.events[i].operation == "create") {
-                        $scope.quantities[i] = $scope.history.events[i].createDetails.block.quantity;
-                        $scope.units[i] = $scope.history.events[i].createDetails.block.units;
+                    if ($scope.history.events[i].operation == "Create") {
+                        $scope.quantities[i] = $scope.history.events[i].after.quantity;
+                        $scope.units[i] = $scope.history.events[i].after.units;
 
-                    } else if ($scope.history.events[i].operation == "move") {
-                        $scope.quantities[i] = $scope.history.events[i].moveDetails.after.quantity;
-                        $scope.units[i] = $scope.history.events[i].moveDetails.after.units;
-                    } else if ($scope.history.events[i].operation == "edit") {
-                        $scope.quantities[i] = $scope.history.events[i].editDetails.after.quantity;
-                        $scope.units[i] = $scope.history.events[i].editDetails.after.units;
+                    } else if ($scope.history.events[i].operation == "Move") {
+                        $scope.quantities[i] = $scope.history.events[i].after.quantity;
+                        $scope.units[i] = $scope.history.events[i].after.units;
+                    } else if ($scope.history.events[i].operation == "Edit") {
+                        $scope.quantities[i] = $scope.history.events[i].after.quantity;
+                        $scope.units[i] = $scope.history.events[i].after.units;
+                    } else if ($scope.history.events[i].operation == "Split") {
+                        $scope.quantities[i] = $scope.history.events[i].after.quantity;
+                        $scope.units[i] = $scope.history.events[i].after.units;
                     } else {
 
                     }
@@ -376,13 +379,14 @@ app.controller('ViewDetailsCtrl', ['$scope', 'InventoryData', 'SupplyChainServic
 
         $scope.getStageName = function(i) {
             // return $scope.stageNames[index];
-            if ($scope.history.events[i].operation == "create") {
-                return $scope.history.events[i].createDetails.block.stage.name;
-            } else if ($scope.history.events[i].operation == "move") {
-                return $scope.history.events[i].moveDetails.after.stage.name;
-            } else if ($scope.history.events[i].operation == "edit") {
-                return $scope.block.stage.name;
-
+            if ($scope.history.events[i].operation == "Create") {
+                return $scope.history.events[i].after.stage.name;
+            } else if ($scope.history.events[i].operation == "Move") {
+                return $scope.history.events[i].after.stage.name;
+            } else if ($scope.history.events[i].operation == "Edit") {
+                return $scope.history.events[i].after.stage.name;
+            } else if ($scope.history.events[i].operation == "Split") {
+                return $scope.history.events[i].after.stage.name;
             } else {
 
             }
@@ -390,13 +394,13 @@ app.controller('ViewDetailsCtrl', ['$scope', 'InventoryData', 'SupplyChainServic
 
         $scope.getDate = function(i) {
             // return $scope.stageNames[index];
-            if ($scope.history.events[i].operation == "create") {
+            if ($scope.history.events[i].operation == "Create") {
                 return $scope.history.events[i].date.substring(0, 10);
-            } else if ($scope.history.events[i].operation == "move") {
+            } else if ($scope.history.events[i].operation == "Move") {
                 return $scope.history.events[i].date.substring(0, 10);
-            } else if ($scope.history.events[i].operation == "edit") {
+            } else if ($scope.history.events[i].operation == "Edit") {
                 return $scope.history.events[i].date.substring(0, 10);
-            } else if ($scope.history.events[i].operation == "split") {
+            } else if ($scope.history.events[i].operation == "Split") {
                 return $scope.history.events[i].date.substring(0, 10);
             } else {
 
