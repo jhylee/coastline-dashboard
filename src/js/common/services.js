@@ -111,9 +111,9 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
         },
 
         fetchSelectedBlockHistory: function() {
-            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/history/' + _selectedBlockId)
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/blocks/' + _selectedBlockId)
                 .then(function(res) {
-                    return res.data;
+                    return res.data.history;
                 }).catch(function(err) {
                     console.log(err);
                     return err
