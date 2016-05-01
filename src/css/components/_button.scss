@@ -49,28 +49,14 @@
 .open > .dropdown-toggle.btn-status-default {
   background-image: none;
 }
-.btn-status-default.disabled,
 .btn-status-default[disabled],
-fieldset[disabled] .btn-status-default,
-.btn-status-default.disabled:hover,
 .btn-status-default[disabled]:hover,
-fieldset[disabled] .btn-status-default:hover,
-// .btn-status-default.disabled:focus,
 .btn-status-default[disabled]:focus,
-fieldset[disabled] .btn-status-default:focus,
-.btn-status-default.disabled.focus,
-.btn-status-default[disabled].focus,
-fieldset[disabled] .btn-status-default.focus,
-.btn-status-default.disabled:active,
-.btn-status-default[disabled]:active,
-fieldset[disabled] .btn-status-default:active,
-.btn-status-default.disabled.active,
-.btn-status-default[disabled].active,
-fieldset[disabled] .btn-status-default.active {
+.btn-status-default[disabled]:active {
   color: #fff;
   background-color: $btn-default-color;
   @include border-radius(2px);
-  opacity: 0.5;
+  opacity: 0.6;
   outline: none;
 }
 
@@ -104,24 +90,10 @@ a.btn-status-default:focus {
   border-color: $btn-danger-hover-color;
   outline: none;
 }
-.btn-status-danger.disabled,
 .btn-status-danger[disabled],
-fieldset[disabled] .btn-status-danger,
-.btn-status-danger.disabled:hover,
 .btn-status-danger[disabled]:hover,
-fieldset[disabled] .btn-status-danger:hover,
-.btn-status-danger.disabled:focus,
 .btn-status-danger[disabled]:focus,
-fieldset[disabled] .btn-status-danger:focus,
-.btn-status-danger.disabled.focus,
-.btn-status-danger[disabled].focus,
-fieldset[disabled] .btn-status-danger.focus,
-.btn-status-danger.disabled:active,
-.btn-status-danger[disabled]:active,
-fieldset[disabled] .btn-status-danger:active,
-.btn-status-danger.disabled.active,
-.btn-status-danger[disabled].active,
-fieldset[disabled] .btn-status-danger.active {
+.btn-status-danger[disabled]:active {
   @include border-radius(2px);
   color: $secondary-background-color;
   background-color: $btn-danger-color;
@@ -129,6 +101,7 @@ fieldset[disabled] .btn-status-danger.active {
   opacity: 0.3;
   outline: none;
 }
+
 .btn-status-success {
   @include border-radius(2px);
   color: $secondary-background-color;
@@ -142,6 +115,7 @@ fieldset[disabled] .btn-status-danger.active {
   padding-bottom: 8px;
   outline: none;
 }
+
 .btn-status-success:hover,
 .btn-status-success:focus,
 .btn-status-success.focus,
@@ -154,24 +128,10 @@ fieldset[disabled] .btn-status-danger.active {
   border-color: $btn-success-hover-color;
   outline: none;
 }
-.btn-status-success.disabled,
 .btn-status-success[disabled],
-fieldset[disabled] .btn-status-success,
-.btn-status-success.disabled:hover,
 .btn-status-success[disabled]:hover,
-fieldset[disabled] .btn-status-success:hover,
-.btn-status-success.disabled:focus,
 .btn-status-success[disabled]:focus,
-fieldset[disabled] .btn-status-success:focus,
-.btn-status-success.disabled.focus,
-.btn-status-success[disabled].focus,
-fieldset[disabled] .btn-status-success.focus,
-.btn-status-success.disabled:active,
-.btn-status-success[disabled]:active,
-fieldset[disabled] .btn-status-success:active,
-.btn-status-success.disabled.active,
-.btn-status-success[disabled].active,
-fieldset[disabled] .btn-status-success.active {
+.btn-status-success[disabled]:active {
   border-radius: 2px;
   color: #fff;
   background-color: $btn-success-color;
