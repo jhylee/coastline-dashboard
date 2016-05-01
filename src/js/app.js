@@ -154,13 +154,20 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/dashboard.default.inventory.track.html'
     })
 
-
     .state('dashboard.default.orders', {
         url: '/orders',
         templateUrl: '/views/dashboard.default.orders.html'
     })
 
+    .state('dashboard.default.orders.invoice', {
+        url: '/invoice',
+        templateUrl: '/views/dashboard.default.orders.invoice.html'
+    })
 
+    .state('dashboard.default.orders.menu', {
+        url: '/menu',
+        templateUrl: '/views/dashboard.default.orders.menu.html'
+    })
 
 
     .state('redirect', {
