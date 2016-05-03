@@ -48,7 +48,30 @@
   a {
     color: #fff;
   }
+  @media screen and (max-width: 600px) {
+    a {
+      font-size: 12px;
+    }
+  }
 }
+@media screen and (max-width: 768px) {
+  .navbar-collapse .nav li {
+    height: 40px;
+    margin: 0 auto;
+    display: inline-block;
+  }
+  .navbar-nav {
+    margin-left: 20px;
+  }
+  .navbar-nav>li>a {
+    align-items: center;
+    padding-top:0px;
+    padding-bottom: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+
 .navbar-right {
   margin-right: 30px;
 }
