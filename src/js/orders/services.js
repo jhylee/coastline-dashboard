@@ -69,6 +69,34 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
             // })
 
         },
+        fetchOrderExport: function(orderId) {
+            // var anchor = angular.element('<a/>');
+            // anchor.attr({
+            //     href: baseUrl + '/api/orders/' + orderId + '/pdf',
+            //     target: '_blank',
+            //     download: 'order.xlsx'
+            // })[0].click();
+
+            return $http({
+                url: baseUrl + '/api/orders/export',
+                method: 'GET',
+                responseType: 'arraybuffer',
+                // data: json, //this is your json data string
+                headers: {
+                    // 'Content-type': 'application/json',
+                    'Accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                }
+            }).then(function(res) {
+
+                return res.data;
+            })
+            //
+            // return $http.get(baseUrl + '/api/orders/' + orderId + '/pdf').then(function(res) {
+            //
+            //     return res.data;
+            // })
+
+        },
         addOrder: function(data) {
             return $http.post(baseUrl + '/api/orders/manual', data).then(function(res) {
                 return res.data;
