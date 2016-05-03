@@ -9,6 +9,7 @@
               <div class="panel-body alignleft">
                 <button ng-click="addOrder()" class="btn-status-success">Add Invoice Order</button>
                 <button ng-click="deleteOrder()" class="btn-status-danger">Delete Order</button>
+                <!-- <button ng-click="editOrder()" class="btn-status-default">Edit Order</button> -->
                 <button ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default">View Order Details</button>
                 <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default">Filter/Search <i class="fa fa-filter"></i></button>
                 <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default">Clear Filter <i class="fa fa-filter"></i></button>
@@ -182,11 +183,11 @@
           </select>
           <small class="text-muted">Choose the currency type.</small>
         </div>
-        <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
           <label>Tax Rate</label>
           <input class="form-control" maxlength="10" min="0" ng-model="taxRate" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 13"></input>
           <small class="text-muted">[Optional] Please enter the tax rate as a percentage.</small>
-        </div>
+        </div> -->
       </fieldset>
       <hr class="short">
       <div class="table-responsive">
@@ -198,17 +199,19 @@
               <th>Unit Price</th>
               <th>Units</th>
               <th>Quantity (Max: {{selectedBlock.quantity + selectedBlock.units}})</th>
+              <th>Tax Rate (%)</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="item in items track by $index">
               <td data-label="Product">{{item.product.name}}</td>
-              <td data-label="Data">{{item.block.displayData || item.block.catchDate}}</td>
+              <td data-label="Data">{{item.block.catchDate | date: "M/d/y"}}, {{item.block.stage.name}}</td>
               <td data-label="Unit Price $">{{item.unitPrice}}</td>
               <td data-label="Units">{{item.units}}</td>
               <td data-label="Quantity">{{item.quantity}}</td>
-              <td data-label="Quantity"><button ng-click="removeItem($index)" class="btn-status-danger"><i class="fa fa-minus"></i></btn></td>
+              <td data-label="Tax Rate">{{item.taxRate}}</td>
+              <td data-label="Remove"><button ng-click="removeItem($index)" class="btn-status-danger"><i class="fa fa-minus"></i></btn></td>
 
             </tr>
             <tr>
@@ -235,6 +238,11 @@
               <td data-label="Quantity">
                 <input type="number" min="0" ng-model="quantity" value="1" class="form-control" placeholder="ex. 10"></input>
               </td>
+
+              <td data-label="Tax">
+                <input class="form-control" maxlength="10" min="0" ng-model="taxRate" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 13"></input>
+              </td>
+
 
               <td data-label="Add Entry">
                 <button ng-disabled="isAddButtonDisabled()" ng-click="addItem()" class="btn-status-success"><i class="fa fa-plus"></i></btn>
