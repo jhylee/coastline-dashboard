@@ -157,6 +157,13 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                 })
         },
 
+        fetchStage: function(stageId) {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/' + stageId)
+                .then(function(res) {
+                    return res.data;
+                })
+        },
+
         updateStages: function() {
             return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId + '/stages', stages)
                 .then(function(res) {
