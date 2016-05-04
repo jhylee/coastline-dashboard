@@ -7,8 +7,8 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
 ]);
 
 
-app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModal',
-    function($scope, OrderData, ProductData, AuthService, $state, $uibModal) {
+app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModal', '$window',
+    function($scope, OrderData, ProductData, AuthService, $state, $uibModal, $window) {
         $scope.fisheryName = "";
 
         //TODO - change this
@@ -113,6 +113,36 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
             OrderData.clearFilter();
             $scope.isFilterCleared = OrderData.isFilterCleared();
             updateOrders();
+        };
+
+        $scope.exportOrders = function() {
+
+            $scope.isLoading = true;
+
+            OrderData.fetchOrderExport($scope.orders)
+                .then(function(res) {
+
+                    var blob = new Blob([res], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                    // var objectUrl = URL.createObjectURL(blob);
+                    // $window.open(objectUrl);
+                    var url = $window.URL || $window.webkitURL;
+                    // var url = $window.URL || $window.webkitURL;
+                    $scope.fileUrl = url.createObjectURL(blob);
+
+                    var anchor = angular.element('<a/>');
+                    anchor.attr({
+                        href: $scope.fileUrl,
+                        download: 'Order-export' + '.xlsx'
+                    })[0].click();
+
+                    $scope.isLoading = false;
+
+                    $uibModalInstance.close();
+
+
+                })
         };
 
         $scope.isFilterCleared = OrderData.isFilterCleared();
@@ -503,20 +533,20 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'SupplyChainService
 
         console.log($scope.items);
 
-        var populateItemStage = function (items, index) {
+        var populateItemStage = function(items, index) {
             if (index == items.length - 1) {
-                SupplyChainService.fetchStage($scope.items[index].block.stage).then(function (data) {
+                SupplyChainService.fetchStage($scope.items[index].block.stage).then(function(data) {
                     items[index].block.stage = data;
                 });
             } else {
-                SupplyChainService.fetchStage($scope.items[index].block.stage).then(function (data) {
+                SupplyChainService.fetchStage($scope.items[index].block.stage).then(function(data) {
                     items[index].block.stage = data;
                     populateItemStage(items, index + 1);
                 });
             }
         }
 
-        populateItemStage($scope.items,0);
+        populateItemStage($scope.items, 0);
 
         $scope.isSubmitButtonDisabled = function() {
             if (!$scope.invoiceNumber ||
@@ -598,8 +628,8 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'SupplyChainService
 
             var newRemovedItems = []
 
-            for (var i = 0; i < $scope.removedItems.length; i ++) {
-                if ($scope.removedItems[i].block._id != $scope.selectedBlock._id){
+            for (var i = 0; i < $scope.removedItems.length; i++) {
+                if ($scope.removedItems[i].block._id != $scope.selectedBlock._id) {
                     newRemovedItems.push($scope.removedItems[i]);
                 }
             }
@@ -669,13 +699,13 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'SupplyChainService
 
         $scope.$watch('selectedProduct', function(newValue, oldValue) {
             if ($scope.selectedProduct) {
-                refreshBatches().then(function () {
+                refreshBatches().then(function() {
 
                     console.log("here");
                     console.log($scope.blocks);
 
 
-                    for (var i = 0; i < $scope.removedItems.length; i ++) {
+                    for (var i = 0; i < $scope.removedItems.length; i++) {
                         var isInBlocks = false;
 
                         for (var j = 0; j < $scope.blocks.length; j++) {
@@ -843,6 +873,47 @@ app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
             OrderData.setFilter(filter);
 
             $uibModalInstance.close();
+
+
+        };
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+
+    }
+]);
+
+
+app.controller('OrderExportCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
+
+        // var order = OrderData.getSelectedOrder();
+        $scope.dateEnd = new Date();
+        $scope.dateEnd.setHours(23);
+        $scope.dateEnd.setMinutes(59);
+        $scope.dateEnd.setSeconds(59);
+
+        $scope.isFilterDisabled = function() {
+            if (!$scope.customerName &&
+                !$scope.invoiceNumber &&
+                !$scope.paymentMethod &&
+                !$scope.dateStart) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+
+
+
+        // tied to ok button
+        $scope.ok = function() {
+
+
 
 
         };
