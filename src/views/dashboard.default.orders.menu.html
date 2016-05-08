@@ -67,14 +67,6 @@
     <h4><b>Order Time :</b> {{order.date | date:'short' }}</h4>
     <h4><b>Credit Terms :</b> {{order.creditTerms}}</h4>
   </div>
-  <div class="modal-footer">
-    <!--<a class="btn-status-default" ng-href="{{ fileUrl }}" download="invoice.pdf"><i class="fa fa-file-pdf-o"></i>  Export to PDF</a>-->
-
-    <div ng-switch="pdfStatus">
-      <div ng-switch-default><a class="btn-status-default" href="javascript:void(0);" ng-click="getPDF()"><i class="fa fa-file-pdf-o"></i>  Export to PDF</a></div>
-      <div ng-switch-when="loading"><a class="btn-status-success" href="javascript:void(0);">Loading...</a></div>
-    </div>
-  </div>
 
   <div class="modal-body">
     <div class="table-responsive">
