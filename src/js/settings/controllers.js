@@ -12,7 +12,7 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 
         $scope.isLoading = true;
 
-        SettingsService.fetchUser().then(function (data) {
+        SettingsService.fetchUser().then(function(data) {
             $scope.username = data.username;
             $scope.name = data.name;
             $scope.email = data.email;
@@ -22,25 +22,24 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
         });
 
         $scope.isSubmitButtonDisabled = function() {
-          if (!$scope.name &&
-              !$scope.status &&
-              !$scope.email &&
-              !$scope.phone) {
-               return true;
-              }
-            else {
-              return false;
+            if (!$scope.name &&
+                !$scope.status &&
+                !$scope.email &&
+                !$scope.phone) {
+                return true;
+            } else {
+                return false;
             }
-          };
+        };
 
-        $scope.saveChanges = function () {
+        $scope.saveChanges = function() {
             $scope.isLoading = true;
 
             SettingsService.updateUser({
                 name: $scope.name,
                 email: $scope.email,
                 phone: $scope.phone,
-            }).then(function (data) {
+            }).then(function(data) {
                 $scope.name = data.name;
                 $scope.email = data.email;
                 $scope.phone = data.phone;
@@ -52,12 +51,12 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 ]);
 
 
-app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService','SettingsService',
+app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService',
     function($scope, AuthService, $state, FisheryService, SettingsService) {
 
         $scope.isLoading = true;
 
-        SettingsService.fetchFishery().then(function (data) {
+        SettingsService.fetchFishery().then(function(data) {
             $scope.name = data.name;
             $scope.address = data.address;
             $scope.city = data.city;
@@ -66,34 +65,25 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
             $scope.phone = data.phone;
             $scope.salesPhone = data.salesPhone;
             $scope.faxPhone = data.faxPhone;
+            $scope.faxPhone = data.faxPhone;
 
             $scope.isLoading = false;
 
         });
 
-        SettingsService.fetchUser().then(function (data) {
+        SettingsService.fetchUser().then(function(data) {
             if (data.accountType == "staff") {
                 $scope.isDisabled = true;
             }
         });
 
         $scope.isSubmitButtonDisabled = function() {
-          if (!$scope.address &&
-              !$scope.city &&
-              !$scope.postalCode &&
-              !$scope.phone &&
-              !$scope.salesPhone &&
-              !$scope.faxPhone) {
-               return true;
-              }
-            else {
-              return false;
-            }
-          };
+            return false;
+        };
 
 
 
-        $scope.saveChanges = function () {
+        $scope.saveChanges = function() {
 
             $scope.isLoading = true;
 
@@ -105,8 +95,9 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
                 postalCode: $scope.postalCode,
                 phone: $scope.phone,
                 salesPhone: $scope.salesPhone,
-                faxPhone: $scope.faxPhone
-            }).then(function (data) {
+                faxPhone: $scope.faxPhone,
+                taxNumber: $scope.taxNumber
+            }).then(function(data) {
                 $scope.name = data.name;
                 $scope.address = data.address;
                 $scope.city = data.city;
@@ -115,6 +106,7 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
                 $scope.phone = data.phone;
                 $scope.salesPhone = data.salesPhone;
                 $scope.faxPhone = data.faxPhone;
+                $scope.taxNumber = data.taxNumber;
 
                 $scope.isLoading = false;
 
@@ -127,17 +119,17 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 app.controller('UserSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'SettingsService',
     function($scope, AuthService, $state, FisheryService, $uibModal, SettingsService) {
 
-        SettingsService.fetchUsers().then(function (data) {
+        SettingsService.fetchUsers().then(function(data) {
             $scope.users = data;
         });
 
-        SettingsService.fetchUser().then(function (data) {
+        SettingsService.fetchUser().then(function(data) {
             if (data.accountType == "staff") {
                 $scope.isInviteDisabled = true;
             }
         });
 
-        $scope.inviteUser = function () {
+        $scope.inviteUser = function() {
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'inviteUser.html',
@@ -154,7 +146,7 @@ app.controller('UserSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryS
         };
 
 
-        $scope.saveChanges = function () {
+        $scope.saveChanges = function() {
             console.log($scope.email);
             console.log($scope.accountType);
         };
@@ -165,18 +157,18 @@ app.controller('UserSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryS
 app.controller('InviteUserCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService', '$uibModalInstance',
     function($scope, AuthService, $state, FisheryService, SettingsService, $uibModalInstance) {
 
-        $scope.ok = function () {
+        $scope.ok = function() {
             console.log($scope.email);
             console.log($scope.accountType);
             SettingsService.inviteUser({
                 email: $scope.email,
                 accountType: $scope.accountType
-            }).then(function (res) {
+            }).then(function(res) {
                 $uibModalInstance.close();
             })
         };
 
-        $scope.cancel = function () {
+        $scope.cancel = function() {
             $uibModalInstance.dismiss();
         };
 
