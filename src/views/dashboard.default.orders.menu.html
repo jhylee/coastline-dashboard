@@ -152,9 +152,9 @@
       </fieldset>
       <fieldset class="form-group">
         <div class="col-lg-4">
-          <label>Date &nbsp; <span class="input-required" ng-show="dateRequired"> * Required</span></label>
+          <label>Invoice Date &nbsp; <span class="input-required" ng-show="dateRequired"> * Required</span></label>
           <input class="form-control" type="date" ng-model="date" placeholder="ex. 12:44 PM, 2016/01/14" name="date" required>
-          <small class="text-muted">Press the triangle for the date widget</small>
+          <small class="text-muted">YYYY-MM-DD</small>
         </div>
         <div class="col-lg-4">
           <label>Credit Terms (in Days) &nbsp; <span class="input-required" ng-show="creditRequired"> * Required</span></label>
@@ -168,7 +168,7 @@
         </div>
       </fieldset>
       <fieldset class="form-group">
-        <div class="col-lg-6">
+        <div class="col-lg-4 col-centered">
           <label>Order Currency</label>
           <select ng-model="currency" class="form-control">
             <option value="USD">USD</option>
@@ -177,11 +177,6 @@
           </select>
           <small class="text-muted">Choose the currency type.</small>
         </div>
-        <!-- <div class="col-lg-6">
-          <label>Tax Rate</label>
-          <input class="form-control" maxlength="10" min="0" ng-model="taxRate" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 13"></input>
-          <small class="text-muted">[Optional] Please enter the tax rate as a percentage.</small>
-        </div> -->
       </fieldset>
       <hr class="short">
       <div class="table-responsive">
@@ -189,7 +184,7 @@
           <thead>
             <tr>
               <th>Product</th>
-              <th>Batch (M/D/Y)</th>
+              <th>Batch</th>
               <th>Unit Price</th>
               <th>Units</th>
               <th>Quantity (Max: {{selectedBlock.quantity + selectedBlock.units}})</th>
