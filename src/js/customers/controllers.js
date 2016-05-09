@@ -9,6 +9,17 @@ var app = angular.module('coastlineWebApp.customers.controllers', ['ui.bootstrap
 
 app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'CustomerService',
     function($scope, AuthService, $state, FisheryService, $uibModal, CustomerService) {
+
+        var refreshCustomers = function () {
+            CustomerService.getCustomers().then(function (data) {
+                $scope.customers = data;
+                console.log(data);
+                $scope.selectedCustomer = $scope.customers[0];
+            })
+        };
+
+        refreshCustomers();
+
         $scope.add = function() {
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -19,11 +30,14 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
             });
 
             modalInstance.result.then(
-                function() {},
+                function() {
+                    refreshCustomers();
+                },
                 function() {});
         };
 
         $scope.edit = function() {
+            CustomerService.setSelectedCustomerId($scope.selectedCustomer._id);
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'editCustomerModal.html',
@@ -33,11 +47,14 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
             });
 
             modalInstance.result.then(
-                function() {},
+                function() {
+                    refreshCustomers();
+                },
                 function() {});
         };
 
         $scope.delete = function() {
+            CustomerService.setSelectedCustomerId($scope.selectedCustomer._id);
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'deleteCustomerModal.html',
@@ -47,7 +64,9 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
             });
 
             modalInstance.result.then(
-                function() {},
+                function() {
+                    refreshCustomers();
+                },
                 function() {});
         };
     }
@@ -57,7 +76,15 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'CustomerService',
     function($scope, AuthService, $state, FisheryService, $uibModalInstance, CustomerService) {
         $scope.ok = function() {
-            console.log('ok');
+            CustomerService.addCustomer({
+                name: $scope.name,
+                email: $scope.email,
+                phone: $scope.phone
+            }).then(function (data) {
+                $scope.customers = data;
+                console.log(data);
+                $uibModalInstance.close();
+            })
         };
 
         $scope.cancel = function() {
@@ -69,8 +96,21 @@ app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisherySe
 
 app.controller('EditCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'CustomerService',
     function($scope, AuthService, $state, FisheryService, $uibModalInstance, CustomerService) {
+
+        CustomerService.getSelectedCustomer().then(function (data) {
+            $scope.name = data.name;
+            $scope.email = data.email;
+            $scope.phone = data.phone;
+        });
+
         $scope.ok = function() {
-            console.log('ok')
+            CustomerService.editCustomer({
+                name: $scope.name,
+                email: $scope.email,
+                phone: $scope.phone
+            }).then(function (data) {
+                $uibModalInstance.close();
+            })
         };
 
         $scope.cancel = function() {
@@ -82,7 +122,9 @@ app.controller('EditCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisheryS
 app.controller('DeleteCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'CustomerService',
     function($scope, AuthService, $state, FisheryService, $uibModalInstance, CustomerService) {
         $scope.ok = function() {
-            console.log('ok')
+            CustomerService.deleteCustomer().then(function (data) {
+                $uibModalInstance.close();
+            })
         };
 
         $scope.cancel = function() {

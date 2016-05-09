@@ -27,7 +27,7 @@
                   <tbody>
                     <tr ng-repeat="customer in customers track by $index">
                       <td data-label="Select">
-                        <input type="radio" ng-model="$parent.selectedOrder" ng-value="$parent.customers[$index]">
+                        <input type="radio" ng-model="$parent.selectedCustomer" ng-value="$parent.customers[$index]">
                       </td>
                       <td data-label="Name">{{customer.name}}</td>
                       <td data-label="Status">&nbsp;{{customer.email}}</td>
@@ -88,7 +88,7 @@
 <!-- MANUAL ORDER INPUT MODAL-->
 <script type="text/ng-template" id="editCustomerModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Add a Customer</h3>
+    <h3 class="modal-title text-center">Edit Customer</h3>
   </div>
   <div class="modal-body">
     <form>
