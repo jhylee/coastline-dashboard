@@ -41,9 +41,9 @@
             <thead>
               <tr>
                 <th>Select</th>
-                <th>Batch #</th>
                 <th>Product Type</th>
                 <th>Quantity</th>
+                <th>Batch #</th>
                 <th>Inventory Input Date</th>
               </tr>
             </thead>
@@ -52,9 +52,9 @@
                 <td data-label="Select">
                   <input type="radio" ng-model="$parent.selectedBlock" ng-value="$parent.blocks[$index]">
                 </td>
-                <td data-label="Job #">&nbsp;{{block.blockNumber}}</td>
                 <td data-label="Product">{{block.productType.name}}</td>
                 <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+                <td data-label="Batch #">&nbsp;{{block.blockNumber}}</td>
                 <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
 
               </tr>
