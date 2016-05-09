@@ -579,17 +579,19 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
         $scope.ok = function() {
 
 
-            if (!$scope.selectedProduct ||
-                !$scope.quantity ||
-                !$scope.units) {
-                ngNotify.set('Please fill out all mandatory product batch details.', {
-                    sticky: false,
-                    button: false,
-                    type: 'error',
-                    duration: 1000,
-                    position: 'top'
-                })
-            } else {
+            if (!$scope.selectedProduct) {
+                  $scope.productRequired = $scope.addBatchForm.name.$error.required;
+            }
+            if (!$scope.quantity){
+              $scope.quantityRequired = $scope.addBatchForm.quantity.$error.required;
+            }
+            if (!scope.units) {
+              $scope.unitsRequired = $scope.addBatchForm.units.$error.required;
+
+            }
+
+
+            else {
                 var data = {
                     productId: $scope.selectedProduct._id,
                     stageId: SupplyChainService.getSelectedStageId(),

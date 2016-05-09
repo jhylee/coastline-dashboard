@@ -292,21 +292,22 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.phone;
         $scope.items = [];
 
-        $scope.isSubmitButtonDisabled = function() {
-            if (!$scope.invoiceNumber ||
-                !$scope.paymentMethod ||
-                !$scope.status ||
-                !$scope.creditTerms ||
-                !$scope.customerName ||
-                !$scope.date ||
-                !$scope.email ||
-                !$scope.phone ||
-                $scope.items.length == 0) {
-                return true;
-            } else {
-                return false;
-            }
-        };
+        // $scope.isSubmitButtonDisabled = function() {
+        //     if (!$scope.invoiceNumber ||
+        //         !$scope.paymentMethod ||
+        //         !$scope.status ||
+        //         !$scope.creditTerms ||
+        //         !$scope.customerName ||
+        //         !$scope.date ||
+        //         !$scope.email ||
+        //         !$scope.phone ||
+        //         $scope.items.length == 0) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // };
+
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity && $scope.selectedBlock) {
@@ -460,21 +461,22 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 items: []
             };
 
-            if (angular.isUndefined(data.customerName) ||
-                angular.isUndefined(data.invoiceNumber) ||
-                angular.isUndefined(data.paymentMethod) ||
-                angular.isUndefined(data.status) ||
-                angular.isUndefined(data.customerName) ||
-                angular.isUndefined(data.creditTerms)) {
-                ngNotify.set('Please fill out all mandatory invoice fields.', {
-                    sticky: false,
-                    button: false,
-                    type: 'error',
-                    duration: 1500,
-                    position: 'top'
-                })
+            // if (angular.isUndefined(data.customerName) ||
+            //     angular.isUndefined(data.invoiceNumber) ||
+            //     angular.isUndefined(data.paymentMethod) ||
+            //     angular.isUndefined(data.status) ||
+            //     angular.isUndefined(data.customerName) ||
+            //     angular.isUndefined(data.creditTerms)) {
+            //     ngNotify.set('Please fill out all mandatory invoice fields.', {
+            //         sticky: false,
+            //         button: false,
+            //         type: 'error',
+            //         duration: 1500,
+            //         position: 'top'
+            //     })
+            //
+            // }
 
-            }
 
 
             for (i = 0; i < $scope.items.length; i++) {
@@ -489,11 +491,40 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 });
             };
 
-            OrderData.addOrder(data).then(function(res) {
-                $uibModalInstance.close(res);
-            });
+            var formValid =  true;
+
+            $scope.nameRequired = $scope.addOrderForm.name.$error.required;
+            $scope.emailRequired = $scope.addOrderForm.email.$error.required;
+            $scope.invoiceRequired = $scope.addOrderForm.invoice.$error.required;
+            $scope.paymentRequired = $scope.addOrderForm.payment.$error.required;
+            $scope.statusRequired = $scope.addOrderForm.status.$error.required;
+            $scope.dateRequired = $scope.addOrderForm.date.$error.required;
+            $scope.creditRequired = $scope.addOrderForm.credit.$error.required;
+            $scope.phoneRequired = $scope.addOrderForm.phone.$error.required;
+
+
+
+            if (!$scope.customerName || !$scope.email
+                || !$scope.invoiceNumber || !$scope.paymentMethod
+                || !$scope.status || !$scope.date
+                || !$scope.creditTerms || !$scope.phone) {
+                  console.log("here");
+                  formValid = false;
+
+            }
+
+            console.log(formValid);
+
+            if (formValid) {
+              OrderData.addOrder(data).then(function(res) {
+                  $uibModalInstance.close(res);
+              });
+            }
+
 
         };
+
+
 
         // tied to cancel button
         $scope.cancel = function() {

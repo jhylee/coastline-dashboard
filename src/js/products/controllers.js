@@ -116,25 +116,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
             // called when modal is closed
             modalInstance.result.then(
                 // OK callback
-                function(product) {
-                    // add the product to the products page
-                    if (product.error === "Fishery validation failed"){
-                        ngNotify.set('Please fill out all mandatory product fields.', {
-                          sticky: false,
-                          button: false,
-                          type: 'error',
-                          duration: 1000,
-                          position: 'top'
-                        })
 
-                    }
-
-
-                    updateProductData();
-
-
-                    // CANCEL callback
-                },
                 function() {});
         };
 
@@ -203,30 +185,30 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
                 };
             }
 
-
-            ProductData.addProduct(data, function(res) {
-                $uibModalInstance.close(res);
-            }, function(err) {
-                $uibModalInstance.close(err);
-            }).success(function(res) {
-
-                var payload = {
-                    url: res.signedUrl,
-                    data: $scope.file,
-                    headers: {
-                        'Content-Type': $scope.file.type,
-                        'x-amz-acl': 'public-read',
-                    },
-                    ignoreInterceptor: true,
-                    method: "PUT"
-                };
-
-
-                Upload.http(payload);
-
-
-
-            });
+            if (!$scope.name) {
+              $scope.productRequired = $scope.addProductForm.name.$error.required;
+            }
+            else {
+              ProductData.addProduct(data, function(res) {
+                  $uibModalInstance.close(res);
+              }, function(err) {
+                  $uibModalInstance.close(err);
+              }).success(function(res) {
+                if ($scope.file) {
+                  var payload = {
+                      url: res.signedUrl,
+                      data: $scope.file,
+                      headers: {
+                          'Content-Type': $scope.file.type,
+                          'x-amz-acl': 'public-read',
+                      },
+                      ignoreInterceptor: true,
+                      method: "PUT"
+                  };
+                }
+                  Upload.http(payload);
+              });
+            }
 
         };
 

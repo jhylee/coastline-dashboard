@@ -109,28 +109,28 @@
     <h3 class="modal-title text-center">Add an Invoice</h3>
   </div>
   <div class="modal-body">
-    <form>
+    <form name="addOrderForm">
       <fieldset class="form-group">
         <div class="col-lg-6">
-          <label>Customer Name</label>
-          <input class="form-control" type="text" maxlength="30" ng-model="customerName" placeholder="ex. John Doe">
+          <label>Customer Name &nbsp; <span class="input-required" ng-show="nameRequired"> * Required</span></label>
+          <input class="form-control" type="text" maxlength="30" ng-model="customerName" name="name" placeholder="ex. John Doe" required>
           <small class="text-muted">Maximum 30 characters</small>
         </div>
         <div class="col-lg-6">
-          <label>Email</label>
-          <input class="form-control" ng-model="email" placeholder="ex. fish@coastline.com">
+          <label>Email &nbsp; <span class="input-required" ng-show="emailRequired"> * Required</span></label>
+          <input class="form-control" ng-model="email" placeholder="ex. fish@coastline.com" name="email" required>
           <small class="text-muted">Please enter a valid email</small>
         </div>
       </fieldset>
       <fieldset class="form-group">
         <div class="col-lg-4">
-          <label>Invoice Number</label>
-          <input class="form-control" maxlength="10" ng-model="invoiceNumber" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 34937"></input>
+          <label>Invoice Number &nbsp; <span class="input-required" ng-show="invoiceRequired"> * Required</span></label>
+          <input class="form-control" maxlength="10" ng-model="invoiceNumber" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 34937" name="invoice" required></input>
           <small class="text-muted">Maximum 10 characters</small>
         </div>
         <div class="col-lg-4">
-          <label>Payment Method</label>
-          <select ng-model="paymentMethod" class="form-control">
+          <label>Payment Method &nbsp; <span class="input-required" ng-show="paymentRequired"> * Required</span></label>
+          <select ng-model="paymentMethod" class="form-control" name="payment" required>
             <option value="Cash">Cash</option>
             <option value="Cheque">Cheque</option>
             <option value="Credit">Credit</option>
@@ -139,8 +139,8 @@
           <small class="text-muted">Choose from the dropdown list</small>
         </div>
         <div class="col-lg-4">
-          <label>Status</label>
-          <select ng-model="status" class="form-control">
+          <label>Status &nbsp; <span class="input-required" ng-show="statusRequired"> * Required</span></label>
+          <select ng-model="status" class="form-control" name="status" required>
             <option value="pending">Pending</option>
             <option value="delivered">Delivered</option>
             <option value="paid">Paid</option>
@@ -152,18 +152,18 @@
       </fieldset>
       <fieldset class="form-group">
         <div class="col-lg-4">
-          <label>Date</label>
-          <input class="form-control" type="date" ng-model="date" placeholder="ex. 12:44 PM, 2016-01-14">
+          <label>Date &nbsp; <span class="input-required" ng-show="dateRequired"> * Required</span></label>
+          <input class="form-control" type="date" ng-model="date" placeholder="ex. 12:44 PM, 2016/01/14" name="date" required>
           <small class="text-muted">Press the triangle for the date widget</small>
         </div>
         <div class="col-lg-4">
-          <label>Credit Terms (in Days)</label>
-          <input class="form-control" type="number" min="0" max="99999" ng-model="creditTerms" placeholder="ex. 12">
+          <label>Credit Terms (in Days) &nbsp; <span class="input-required" ng-show="creditRequired"> * Required</span></label>
+          <input class="form-control" type="number" min="0" max="99999" ng-model="creditTerms" placeholder="ex. 12" name="credit" required>
           <small class="text-muted">Enter the invoice terms</small>
         </div>
         <div class="col-lg-4">
-          <label>Phone Number</label>
-          <input class="form-control" maxlength="10" ng-model="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 7789195029"></input>
+          <label>Phone Number &nbsp; <span class="input-required" ng-show="phoneRequired"> * Required</span></label>
+          <input class="form-control" maxlength="10" ng-model="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 7789195029" name="phone" required></input>
           <small class="text-muted">No spaces or dashes</small>
         </div>
       </fieldset>
@@ -194,7 +194,7 @@
               <th>Units</th>
               <th>Quantity (Max: {{selectedBlock.quantity + selectedBlock.units}})</th>
               <th>Tax Rate (%)</th>
-              <th>&nbsp;</th>
+              <th>&nbsp; <span class="input-required" ng-show="tableRequired"> *</span>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
@@ -210,19 +210,19 @@
             </tr>
             <tr>
               <td data-label="Product">
-                <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
+                <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products" name="product" required></select>
               </td>
 
               <td data-label="Choose Batch">
-                <select class="form-control" ng-model="selectedBlock" ng-options="block.displayData for block in blocks"></select>
+                <select class="form-control" ng-model="selectedBlock" ng-options="block.displayData for block in blocks" name="batch" required></select>
               </td>
 
               <td data-label="Unit Price">
-                <input type="number" min="0" ng-model="unitPrice" step="0.01" class="form-control" placeholder="ex. 12.99"></input>
+                <input type="number" min="0" ng-model="unitPrice" step="0.01" class="form-control" placeholder="ex. 12.99" name="price" required></input>
               </td>
 
               <td data-label="Units">
-                <select ng-model="units" class="form-control">
+                <select ng-model="units" class="form-control" name="units" required>
                   <option value="lbs">lbs</option>
                   <option value="half lbs">1/2 lbs</option>
                   <option value="kg">kg</option>
@@ -230,7 +230,7 @@
               </td>
 
               <td data-label="Quantity">
-                <input type="number" min="0" ng-model="quantity" value="1" class="form-control" placeholder="ex. 10"></input>
+                <input type="number" min="0" ng-model="quantity" value="1" class="form-control" placeholder="ex. 10" name="quantity" required></input>
               </td>
 
               <td data-label="Tax">
@@ -252,7 +252,7 @@
   </div>
   <div class="modal-footer">
     <div class="alignright">
-      <button type="submit" ng-disabled="isSubmitButtonDisabled()" class="btn-status-success" ng-click="ok()">Submit</button>
+      <button type="submit" class="btn-status-success" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
   </div>
