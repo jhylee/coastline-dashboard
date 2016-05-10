@@ -11,7 +11,8 @@ select {
   border-radius: 2px;
 }
 input.form-control,
-select.form-control {
+select.form-control,
+textarea.form-control  {
   border-radius: 2px;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -20,8 +21,17 @@ select.form-control {
   border: 1px solid $secondary-border-color;
   font-size: 14px;
 }
+textarea.form-control,
+textarea.form-control:focus,
+textarea.form-control:active,
+textarea.form-control:hover, {
+  height: 150px;
+  line-height: 25px;
+}
+
 input.form-control:focus,
-select.form-control:focus {
+select.form-control:focus,
+textarea.form-control:focus {
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 15px;

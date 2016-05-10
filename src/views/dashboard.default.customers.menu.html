@@ -1,6 +1,6 @@
 <div ng-controller="CustomerDisplayCtrl">
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header light-text">Manage Orders</h2>
+    <h2 class="page-header light-text">Customer Management</h2>
     <div class="row placeholders">
       <div class="col-lg-8">
         <div class="container">
@@ -22,6 +22,9 @@
                       <th>Customer Name</th>
                       <th>Email</th>
                       <th>Phone</th>
+                      <th>City</th>
+                      <th>Country</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -30,8 +33,10 @@
                         <input type="radio" ng-model="$parent.selectedCustomer" ng-value="$parent.customers[$index]">
                       </td>
                       <td data-label="Name">{{customer.name}}</td>
-                      <td data-label="Status">&nbsp;{{customer.email}}</td>
-                      <td data-label="Date">{{customer.phone}}</td>
+                      <td data-label="Email">&nbsp;{{customer.email}}</td>
+                      <td data-label="Phone">{{customer.phone}}</td>
+                      <td data-label="Country">{{customer.city}}</td>
+                      <td data-label="Country">{{customer.country}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -53,22 +58,64 @@
     <h3 class="modal-title text-center">Add a Customer</h3>
   </div>
   <div class="modal-body">
-    <form>
+    <form name="addCustomerForm">
       <fieldset class="form-group">
         <div class="col-lg-6">
-          <label>Name</label>
-          <input class="form-control" type="text" ng-model="name" placeholder="ex. John Doe">
+          <label>Name &nbsp;<span ng-show="nameRequired" class="input-required"> * Required</span></label>
+          <input class="form-control" type="text" ng-model="name" name="name" placeholder="ex. John Doe" required>
           <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
         <div class="col-lg-6">
-          <label>Email</label>
-          <input class="form-control" type="text" ng-model="email" placeholder="ex. john.doe@example.com">
+          <label>Email &nbsp;<span ng-show="emailRequired" class="input-required"> * Required</span></label>
+          <input class="form-control" type="text" ng-model="email" name="email" placeholder="ex. john.doe@example.com" required>
+          <!-- <small class="text-muted">Maximum 30 characters</small> -->
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <div class="col-lg-6">
+          <label>Company </label>
+          <input class="form-control" type="text" ng-model="company" name="company" placeholder="ex. Mark's Market">
           <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
         <div class="col-lg-6">
-          <label>Phone</label>
-          <input class="form-control" type="text" ng-model="phone" placeholder="ex. 555-555-5555">
+          <label>Phone &nbsp;<span ng-show="phoneRequired" class="input-required"> * Required</span></label>
+          <input class="form-control" type="text" ng-model="phone" name="phone" placeholder="ex. 7789395555" required>
           <!-- <small class="text-muted">Maximum 30 characters</small> -->
+        </div>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <div class="col-lg-4">
+          <label>Street/Avenue &nbsp;<span ng-show="streetRequired" class="input-required"> * Required</span></label>
+          <input class="form-control" name="street" type="text" ng-model="street" placeholder="ex. 14484 123 Ave" required>
+          <!-- <small class="text-muted">Maximum 30 characters</small> -->
+        </div>
+        <div class="col-lg-3">
+          <label>City &nbsp;<span ng-show="cityRequired" class="input-required"> * Required</span></label>
+          <input class="form-control" name="city"  type="text" ng-model="city" placeholder="ex. Surrey" required>
+          <!-- <small class="text-muted">Maximum 30 characters</small> -->
+        </div>
+        <div class="col-lg-2">
+          <label>Zip &nbsp;<span ng-show="zipRequired" class="input-required"> * Required</span></label>
+          <input class="form-control" name="zip"  ng-model="zip" type="text" maxlength="6" placeholder="ex. V3N 1V4" required>
+          <!-- <small class="text-muted">Maximum 30 characters</small> -->
+        </div>
+        <div class="col-lg-3">
+          <label>Country &nbsp;<span ng-show="countryRequired" class="input-required"> * Required</span></label>
+          <select class="form-control" name="country" type="text" ng-model="country" placeholder="ex. 14484 123 Ave Surrey" required>
+            <option value="CAN">Canada</option>
+            <option value="US">United States</option>
+            <option value="CHN">China</option>
+            <option value="JPN">Japan</option>
+            <option value="KOR">South Korea</option>
+            <option value="AUS">Australia</option>
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="col-lg-12">
+          <label>Note</label>
+          <textarea class="form-control" placeholder="ex. Deliver to back gate" ng-model="note"></textarea>
         </div>
       </fieldset>
 
