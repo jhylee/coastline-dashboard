@@ -82,14 +82,13 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
 app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainService', 'FisheryService', '$localStorage',
     function($scope, $state, VisDataSet, SupplyChainService, FisheryService, $localStorage) {
 
-      $scope.isSubmitButtonDisabled = function() {
-          if (!$scope.name){
-              return true;
-          }
-          else {
-            return false;
-          }
-      };
+        $scope.isSubmitButtonDisabled = function() {
+            if (!$scope.name) {
+                return true;
+            } else {
+                return false;
+            }
+        };
 
         // get stages - for option display
         $scope.createSupplyChain = function() {
@@ -157,20 +156,38 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                 enabled: false
             },
             nodes: {
-              color: {
-                background: '#000'
-              }
+                color: {
+                    background: '#3E525C',
+                    highlight: {
+                        // border: '#2B7CE9',
+                        background: '#202B31'
+                    },
+                },
+                font: {
+                    color: '#FFF',
+                    size: 16,
+                    face: 'Roboto'
+                },
+                shape: 'box',
+                scaling: {
+                    min: 10,
+                    max: 10,
+                    label: {
+                        min: 10,
+                        max: 24
+                    }
+                }
             },
 
             edges: {
-              color: {
-                color: '#000',
-                highlight:'#01579B'
-              },
+                color: {
+                    color: '#000',
+                    highlight: '#000å'
+                },
                 arrows: {
                     to: {
                         enabled: true,
-                        scaleFactor: 1.5
+                        scaleFactor: 1.1
                     }
                 },
                 smooth: {
@@ -599,13 +616,13 @@ app.controller('RenameSupplyChainCtrl', ['$scope', 'VisDataSet', 'SupplyChainSer
     function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
 
 
-        SupplyChainService.fetchSelectedSupplyChain().then(function (data) {
+        SupplyChainService.fetchSelectedSupplyChain().then(function(data) {
             $scope.supplyChain = data;
         });
 
         // tied to ok button
         $scope.ok = function() {
-            SupplyChainService.updateSelectedSupplyChain($scope.supplyChain).then(function (data) {
+            SupplyChainService.updateSelectedSupplyChain($scope.supplyChain).then(function(data) {
                 console.log(data);
                 $uibModalInstance.close(true);
             })

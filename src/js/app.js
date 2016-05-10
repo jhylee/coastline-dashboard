@@ -13,6 +13,8 @@ var app = angular.module('coastlineWebApp', ['ui.router',
     'coastlineWebApp.inventory.services',
     'coastlineWebApp.orders.controllers',
     'coastlineWebApp.orders.services',
+    'coastlineWebApp.customers.controllers',
+    'coastlineWebApp.customers.services',
     'coastlineWebApp.overview.controllers',
     'coastlineWebApp.overview.services',
     'coastlineWebApp.products.controllers',
@@ -33,7 +35,6 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider
-
         .state('login', {
         url: '/login',
         templateUrl: '/views/login.html'
@@ -167,6 +168,21 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
     .state('dashboard.default.orders.menu', {
         url: '/menu',
         templateUrl: '/views/dashboard.default.orders.menu.html'
+    })
+
+    .state('dashboard.default.customers', {
+        url: '/customers',
+        templateUrl: '/views/dashboard.default.customers.html'
+    })
+
+    .state('dashboard.default.customers.profile', {
+        url: '/profile',
+        templateUrl: '/views/dashboard.default.customers.profile.html'
+    })
+
+    .state('dashboard.default.customers.menu', {
+        url: '/menu',
+        templateUrl: '/views/dashboard.default.customers.menu.html'
     })
 
 

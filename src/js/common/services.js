@@ -454,19 +454,20 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                     var node = {};
                     node.label = stages[i].self.name;
                     node.id = stages[i].self._id;
-                    node.scaling = {
-                        min: 10,
-                        max: 10,
-                        label: {
-                            min: 10,
-                            max: 24
-                        }
-                    };
-                    node.value = 25;
-                    node.size = 25;
-                    node.color = "#93D276"
-                    node.shape = "box";
-                    node.shadow = false;
+                    // node.scaling = {
+                    //     min: 10,
+                    //     max: 10,
+                    //     label: {
+                    //         min: 10,
+                    //         max: 24
+                    //     }
+                    // };
+                    // node.value = 25;
+                    // node.size = 25;
+                    // node.color = "#4D6673"
+                    // node.font = {color: "#FFF", size: "11"};
+                    // node.shape = "box";
+                    // node.shadow = false;
                     node.x = stages[i].x;
                     node.y = stages[i].y;
                     data.nodes.push(node);
