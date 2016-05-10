@@ -41,9 +41,9 @@
             <thead>
               <tr>
                 <th>Select</th>
-                <th>Batch #</th>
                 <th>Product Type</th>
                 <th>Quantity</th>
+                <th>Batch #</th>
                 <th>Inventory Input Date</th>
               </tr>
             </thead>
@@ -52,9 +52,9 @@
                 <td data-label="Select">
                   <input type="radio" ng-model="$parent.selectedBlock" ng-value="$parent.blocks[$index]">
                 </td>
-                <td data-label="Job #">&nbsp;{{block.blockNumber}}</td>
                 <td data-label="Product">{{block.productType.name}}</td>
                 <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+                <td data-label="Batch #">&nbsp;{{block.blockNumber}}</td>
                 <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
 
               </tr>
@@ -75,23 +75,27 @@
     <h3 class="modal-title">Add Seafood Batch</h3>
   </div>
   <div class="modal-body">
-    <form>
+    <form name="addBatchForm">
       <fieldset class="form-group">
         <div class="col-lg-6">
-          <label>Product Type</label>
-          <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
+          <label>Product Type &nbsp;
+            <span ng-show="productRequired" class="input-required"> * Required</span></label>
+          <select class="form-control" name="name" ng-model="selectedProduct" ng-options="product.name for product in products" required></select>
           <small class="text-muted">Item must be added under Products tab.</small>
         </div>
         <div class="col-lg-6">
-          <label>Quantity</label>
-          <input class="form-control" ng-model="quantity" type="text" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 3500"></input>
+          <label>Quantity &nbsp;
+            <span ng-show="quantityRequired" class="input-required"> * Required</span>
+          </label>
+          <input class="form-control" name="quantity" ng-model="quantity" type="text" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 3500" required></input>
           <small class="text-muted">Please enter a numerical value.</small>
         </div>
       </fieldset>
       <fieldset class="form-group">
         <div class="col-lg-6">
-          <label>Units</label>
-          <select name="mydropdown" class="form-control" ng-model="units">
+          <label>Units &nbsp;
+            <span ng-show="unitsRequired" class="input-required"> * Required</label>
+          <select name="units" class="form-control" ng-model="units" required>
             <option value="lbs">lbs</option>
             <option value="half lbs">1/2 lbs</option>
             <option value="kg">kg</option>
@@ -101,7 +105,7 @@
         <div class="col-lg-6">
           <label>Catch Date</label>
           <input class="form-control" ng-model="catchDate" type="date" placeholder="ex. 5/14/2016">
-          <small class="text-muted">MM/DD/YYYY</small>
+          <small class="text-muted">YYYY/MM/DD</small>
         </div>
       </fieldset>
       <fieldset class="form-group">
@@ -145,7 +149,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button ng-disabled="isSubmitButtonDisabled()" class="btn-status-success" type="button" ng-click="ok()">Submit</button>
+    <button class="btn-status-success" type="button" ng-click="ok()">Submit</button>
     <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </script>

@@ -439,6 +439,7 @@ app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$
         // get stages - for option display
         $scope.stages = SupplyChainService.getStages();
 
+
         // tied to ok button
         $scope.ok = function() {
             if ($scope.prev) {
@@ -456,6 +457,15 @@ app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$
         // tied to cancel button
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
+        };
+
+        $scope.isSubmitButtonDisabled = function() {
+            if (!$scope.name){
+                return true;
+            }
+            else {
+              return false;
+            }
         };
     }
 ]);
@@ -560,6 +570,15 @@ app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '
         // tied to cancel button
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
+        };
+
+        $scope.isSubmitButtonDisabled = function() {
+            if (!$scope.name){
+                return true;
+            }
+            else {
+              return false;
+            }
         };
     }
 ]);

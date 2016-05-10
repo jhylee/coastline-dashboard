@@ -38,6 +38,15 @@ body {
   margin-left: 10px;
 }
 
+.login-body {
+  position:fixed;
+  z-index: 10;
+  top:0;
+  left:0;
+  background-color: $navbar-color;
+  height:100%;
+  width:100%;
+}
 
 /*
  * Main content
@@ -78,6 +87,10 @@ body {
   float: right;
 }
 
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
 
 /*
  * Placeholder dashboard ideas
