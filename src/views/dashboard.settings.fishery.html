@@ -121,6 +121,21 @@
                           </div>
                         </fieldset>
 
+                        <fieldset class="form-group">
+                          <div class="row">
+                          <div class="col-lg-3">
+                            <label>Fishery Logo</label>
+                          </div>
+                          <div class="col-lg-6">
+                            <input class="form-control" type="file" ngf-select ng-model="file" name="file">
+                              <small class="text-muted">PNG and JPG files only</small>
+                            <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 100, height: 100}"></div>
+                          </div>
+                          <div class="col-lg-3">
+                              <button ng-disabled="false" ng-click="saveChanges()" class="btn-status-default">Upload</button>
+                        </fieldset>
+
+
                       </div>
                     </div>
                     <div align="right" class="panel-setting">
