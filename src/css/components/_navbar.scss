@@ -91,3 +91,14 @@
     width: 10px;
   }
 }
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+  color: #000;
+}
+
+.nav-tabs>li, .nav-tabs>li:active {
+  border-radius: 2px;
+  a {
+    color: #000;
+  }
+}

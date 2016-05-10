@@ -110,14 +110,10 @@
   </div>
   <div class="modal-body">
     <ul class="nav nav-tabs">
-      <li ng-class="{active:item==1}"><a data-toggle="tab" ng-click="item=1">Customer Information</a></li>
-      <li ng-class="{active:item==2}"><a data-toggle="tab" ng-click="item=2">Payment Information</a></li>
+      <li ng-class="{active:item==1}"><a data-toggle="tab" ng-click="item=1" ng-href="">Customer Information</a></li>
+      <li ng-class="{active:item==2}"><a data-toggle="tab" ng-click="item=2" ng-href="">Payment Information</a></li>
     </ul>
-    <!--    <ul class="nav nav-tabs">
-          <li ng-repeat="tab in tabs" ng-class ="{active:isActiveTab(tab.url)}" ng-click="onClickTab(tab)"{{tab.title}}</li>
-        </ul>-->
     <br>
-
     <form name="addOrderForm" ng-init="item=1">
       <div id="customerInfo.html" ng-show="item==1">
       <fieldset class="form-group">
