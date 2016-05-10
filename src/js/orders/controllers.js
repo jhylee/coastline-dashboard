@@ -292,22 +292,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.phone;
         $scope.items = [];
 
-        // $scope.isSubmitButtonDisabled = function() {
-        //     if (!$scope.invoiceNumber ||
-        //         !$scope.paymentMethod ||
-        //         !$scope.status ||
-        //         !$scope.creditTerms ||
-        //         !$scope.customerName ||
-        //         !$scope.date ||
-        //         !$scope.email ||
-        //         !$scope.phone ||
-        //         $scope.items.length == 0) {
-        //         return true;
-        //     } else {
-        //         return false;
-        //     }
-        // };
-
+        $scope.state = $state;
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity && $scope.selectedBlock) {
@@ -461,23 +446,6 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 items: []
             };
 
-            // if (angular.isUndefined(data.customerName) ||
-            //     angular.isUndefined(data.invoiceNumber) ||
-            //     angular.isUndefined(data.paymentMethod) ||
-            //     angular.isUndefined(data.status) ||
-            //     angular.isUndefined(data.customerName) ||
-            //     angular.isUndefined(data.creditTerms)) {
-            //     ngNotify.set('Please fill out all mandatory invoice fields.', {
-            //         sticky: false,
-            //         button: false,
-            //         type: 'error',
-            //         duration: 1500,
-            //         position: 'top'
-            //     })
-            //
-            // }
-
-
 
             for (i = 0; i < $scope.items.length; i++) {
                 data.items.push({
@@ -533,6 +501,22 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
     }
 ]);
 
+// app.controller('TabCtrl', ['$scope', function($scope) {
+//   $scope.tabs = [{
+//     title: 'One',
+//     url: 'customerInfo.html'},
+//     { title: 'Two',
+//       url: 'paymentInfo.html'}];
+//
+//       $scope.currentTab = 'customerInfo.html';
+//       $scope.onClickTab = function(tab){
+//         $scope.currentTab =tab.url;
+//       }
+//
+//       $scope.isActiveTab = function(tabUrl) {
+//         return tabUrl == $scope.currentTab;
+//       }
+// }]);
 
 app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'SupplyChainService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
     function($scope, FisheryService, SupplyChainService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
