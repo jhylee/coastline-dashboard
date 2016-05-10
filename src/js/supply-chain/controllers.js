@@ -25,8 +25,6 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
         getSupplyChains();
 
 
-
-
         $scope.createNewSupplyChain = function() {
             $state.go('dashboard.default.supply-chain.create');
         };

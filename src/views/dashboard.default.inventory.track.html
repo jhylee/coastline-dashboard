@@ -56,11 +56,9 @@
                 <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
                 <td data-label="Batch #">&nbsp;{{block.blockNumber}}</td>
                 <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
-
               </tr>
             </tbody>
           </table>
-
     </div>
   </div>
   <div class="modal-footer">
@@ -328,6 +326,8 @@
               <th>Date</th>
               <th>Location</th>
               <th>Quantity</th>
+              <th>Job Number</th>
+              <th>Process Type</th>
             </tr>
           </thead>
           <tbody>
@@ -336,6 +336,8 @@
               <td data-label="Date">&nbsp;{{history.events[history.events.length-1-$index].date | date: "short"}}</td>
               <td data-label="Location">&nbsp;{{getStageName([history.events.length-1-$index])}}</td>
               <td data-label="Quantity">&nbsp;{{quantities[history.events.length-1-$index] + " " + units[history.events.length-1-$index]}}</td>
+              <td data-label="Job Number">&nbsp;{{history.events[history.events.length-1-$index].jobNumber}}</td>
+              <td data-label="Process Type">&nbsp;{{history.events[history.events.length-1-$index].processType}}</td>
             </tr>
           </tbody>
         </table>
