@@ -195,18 +195,18 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
                   $uibModalInstance.close(err);
               }).success(function(res) {
                 if ($scope.file) {
-                  var payload = {
-                      url: res.signedUrl,
-                      data: $scope.file,
-                      headers: {
-                          'Content-Type': $scope.file.type,
-                          'x-amz-acl': 'public-read',
-                      },
-                      ignoreInterceptor: true,
-                      method: "PUT"
-                  };
+                    var payload = {
+                        url: res.signedUrl,
+                        data: $scope.file,
+                        headers: {
+                            'Content-Type': $scope.file.type,
+                            'x-amz-acl': 'public-read',
+                        },
+                        ignoreInterceptor: true,
+                        method: "PUT"
+                    };
                 }
-                  Upload.http(payload);
+                Upload.http(payload);
               });
             }
 

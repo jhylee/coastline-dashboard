@@ -10,9 +10,9 @@
                 <button ng-click="addOrder()" class="btn-status-success">Add</button>
                 <button ng-click="deleteOrder()" class="btn-status-danger">Delete</button>
                 <!-- <button ng-click="editOrder()" class="btn-status-default">Edit Order</button> -->
-                <button ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default">View Details</button>
+                <button ng-hide="isLoadingPDF" ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default">View PDF</button>
+                <button ng-show="isLoadingPDF" class="btn-status-success">Loading...</button>
                 <button ng-click="exportOrders()" ng-hide="isLoading" class="btn-status-default">Export</button>
-                <button ng-show="isLoading" class="btn-status-success" type="button">Loading...</button>
                 <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default">Filter <i class="fa fa-filter"></i></button>
                 <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default">Clear Filter <i class="fa fa-filter"></i></button>
               </div>
