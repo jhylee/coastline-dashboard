@@ -542,8 +542,6 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             $scope.creditRequired = $scope.addOrderForm.credit.$error.required;
             $scope.phoneRequired = $scope.addOrderForm.phone.$error.required;
 
-
-
             if (!$scope.customerName || !$scope.email
                 || !$scope.invoiceNumber || !$scope.paymentMethod
                 || !$scope.status || !$scope.date
