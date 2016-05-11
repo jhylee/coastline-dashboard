@@ -1,6 +1,7 @@
 var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 'ngStorage',
     'coastlineWebApp.common.services',
     'coastlineWebApp.orders.services',
+    'coastlineWebApp.customers.services',
     'coastlineWebApp.products.services',
     'ui.router',
     'ngNotify'
@@ -279,8 +280,8 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 ]);
 
 
-app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'SupplyChainService', 'AuthService', 'ngNotify', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryService, OrderData, ProductData, SupplyChainService, AuthService, ngNotify, $state, $uibModalInstance, $http) {
+app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
+    function($scope, FisheryService, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
 
         $scope.invoiceNumber;
         $scope.paymentMethod;
@@ -291,6 +292,16 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.email;
         $scope.phone;
         $scope.items = [];
+
+        var refreshCustomerData = function () {
+            if (OrderData.getSelectedCustomerId()) {
+                CustomerService.getCustomer(OrderData.getSelectedCustomerId()).then(function (data) {
+                    $scope.customerName = data.name;
+                    $scope.email = data.email;
+                    $scope.phone = data.phone;
+                });
+            };
+        }
 
         // $scope.isSubmitButtonDisabled = function() {
         //     if (!$scope.invoiceNumber ||
@@ -307,6 +318,22 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         //         return false;
         //     }
         // };
+
+        $scope.loadCustomer = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'loadCustomerModal.html',
+                controller: 'LoadCustomerCtrl',
+                size: 'md',
+                resolve: {}
+            });
+
+            modalInstance.result.then(
+                function() {
+                    refreshCustomerData();
+                },
+                function() {});
+        }
 
 
         $scope.$watch('quantity', function() {
@@ -947,6 +974,32 @@ app.controller('OrderExportCtrl', ['$scope', 'FisheryService', 'OrderData', 'Pro
 
 
 
+        };
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+
+    }
+]);
+
+app.controller('LoadCustomerCtrl', ['$scope', 'FisheryService', 'OrderData', 'CustomerService', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, OrderData, CustomerService, AuthService, $state, $uibModalInstance, $http) {
+
+
+        CustomerService.getCustomers().then(function (data) {
+            $scope.customers = data;
+            console.log(data);
+        });
+
+
+
+        // tied to ok button
+        $scope.ok = function() {
+            OrderData.setSelectedCustomerId($scope.customers[0]._id);
+            $uibModalInstance.close();
         };
 
         // tied to cancel button

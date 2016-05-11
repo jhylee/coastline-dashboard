@@ -40,7 +40,7 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
             CustomerService.setSelectedCustomerId($scope.selectedCustomer._id);
             var modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'editCustomerModal.html',
+                templateUrl: 'addCustomerModal.html',
                 controller: 'EditCustomerCtrl',
                 size: 'md',
                 resolve: {}
@@ -82,14 +82,15 @@ app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisherySe
           $scope.nameRequired = $scope.addCustomerForm.name.$error.required;
           $scope.emailRequired = $scope.addCustomerForm.email.$error.required;
           $scope.phoneRequired = $scope.addCustomerForm.phone.$error.required;
-          $scope.streetRequired = $scope.addCustomerForm.street.$error.required;
+          $scope.addressRequired = $scope.addCustomerForm.address.$error.required;
           $scope.cityRequired = $scope.addCustomerForm.city.$error.required;
-          $scope.zipRequired = $scope.addCustomerForm.zip.$error.required;
+          $scope.stateRequired = $scope.addCustomerForm.state.$error.required;
+          $scope.postalCodeRequired = $scope.addCustomerForm.postalCode.$error.required;
           $scope.countryRequired = $scope.addCustomerForm.country.$error.required;
-          console.log($scope.note);
+          console.log($scope.notes);
 
           if (!$scope.name || !$scope.email
-              || !$scope.phone || !$scope.street || !$scope.city || !$scope.zip || !$scope.country) {
+              || !$scope.phone || !$scope.address || !$scope.city || !$scope.postalCode || !$scope.country) {
                 formValid = false;
           }
 
@@ -99,11 +100,12 @@ app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisherySe
                 email: $scope.email,
                 phone: $scope.phone,
                 company: $scope.company,
-                street: $scope.street,
+                address: $scope.address,
                 city: $scope.city,
-                zip: $scope.zip,
+                state: $scope.state,
+                postalCode: $scope.postalCode,
                 country: $scope.country,
-                note: $scope.note
+                notes: $scope.notes
             }).then(function (data) {
                 $scope.customers = data;
                 console.log(data);
@@ -129,11 +131,12 @@ app.controller('EditCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisheryS
             $scope.email = data.email;
             $scope.phone = data.phone;
             $scope.company = data.company;
-            $scope.street = data.street;
+            $scope.address = data.address;
             $scope.city = data.city;
-            $scope.zip = data.zip;
+            $scope.state = data.state;
+            $scope.postalCode = data.postalCode;
             $scope.country = data.country;
-            $scope.note = data.note;
+            $scope.notes = data.notes;
         });
 
         $scope.ok = function() {
@@ -142,11 +145,11 @@ app.controller('EditCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisheryS
                 email: $scope.email,
                 phone: $scope.phone,
                 company: $scope.company,
-                street: $scope.street,
+                address: $scope.address,
                 city: $scope.city,
-                zip: $scope.zip,
+                postalCode: $scope.postalCode,
                 country: $scope.country,
-                note: $scope.note
+                notes: $scope.notes
             }).then(function (data) {
                 $uibModalInstance.close();
             })
