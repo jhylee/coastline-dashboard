@@ -52,23 +52,51 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         updateOrders();
 
         $scope.viewOrderDetail = function(order) {
-            OrderData.setSelectedOrder(order);
+            // OrderData.setSelectedOrder(order);
+            //
+            // // modal setup and preferences
+            // var modalInstance = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'viewOrderDetailModal.html',
+            //     controller: 'ViewOrderDetailCtrl',
+            //     size: 'lg',
+            //     resolve: {}
+            // });
+            //
+            // // called when modal is closed
+            // modalInstance.result.then(
+            //     function(res) {
+            //
+            //     },
+            //     function() {});
+            //
+            $scope.isLoadingPDF = true;
 
-            // modal setup and preferences
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'viewOrderDetailModal.html',
-                controller: 'ViewOrderDetailCtrl',
-                size: 'lg',
-                resolve: {}
-            });
+            OrderData.fetchOrderPDF(order._id)
+                .then(function(res) {
 
-            // called when modal is closed
-            modalInstance.result.then(
-                function(res) {
+                    var blob = new Blob([res], {
+                        type: 'application/pdf'
+                    });
+                    // var objectUrl = URL.createObjectURL(blob);
+                    // $window.open(objectUrl);
+                    var url = $window.URL || $window.webkitURL;
+                    // var url = $window.URL || $window.webkitURL;
+                    $scope.fileUrl = url.createObjectURL(blob);
 
-                },
-                function() {});
+                    var anchor = angular.element('<a/>');
+                    anchor.attr({
+                        href: $scope.fileUrl,
+                        download: 'Order-' + order.customerName + '-' + (order.date.substring(0, 10)) + '.pdf'
+                    })[0].click();
+
+                    $scope.pdfStatus = "";
+                    $scope.isLoadingPDF = false;
+
+
+                });
+
+
 
         };
 
