@@ -42,7 +42,7 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
                 animation: true,
                 templateUrl: 'addCustomerModal.html',
                 controller: 'EditCustomerCtrl',
-                size: 'md',
+                size: 'lg',
                 resolve: {}
             });
 

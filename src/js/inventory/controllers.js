@@ -581,15 +581,19 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
 
           var formValid =  true;
 
-          $scope.productRequired = $scope.addBatchForm.name.$error.required;
+          $scope.productRequired = $scope.addBatchForm.selectedProduct.$error.required;
           $scope.quantityRequired = $scope.addBatchForm.quantity.$error.required;
           $scope.unitsRequired = $scope.addBatchForm.units.$error.required;
+          $scope.catchDateRequired = $scope.addBatchForm.catchDate.$error.required;
 
-          if (!$scope.productType || !$scope.quantity
-              || !$scope.units) {
+
+          if (!$scope.selectedProduct || !$scope.quantity
+              || !$scope.units || !$scope.catchDate) {
                 console.log("here");
                 formValid = false;
           }
+
+          console.log(formValid);
 
 
             if (formValid) {
@@ -607,13 +611,13 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
                     // jobNumber: $scope.jobNumber
                 };
 
+
                 InventoryData.addBlock(SupplyChainService.getSupplyChainId(), data, function(res) {
                     $uibModalInstance.close(res);
                 }, function(err) {
                     $uibModalInstance.close(err);
                 });
             }
-
 
 
         };

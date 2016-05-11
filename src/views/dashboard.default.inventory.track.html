@@ -78,7 +78,7 @@
         <div class="col-lg-6">
           <label>Product Type &nbsp;
             <span ng-show="productRequired" class="input-required"> * Required</span></label>
-          <select class="form-control" name="name" ng-model="selectedProduct" ng-options="product.name for product in products" required></select>
+          <select class="form-control" name="selectedProduct" ng-model="selectedProduct" ng-options="product.name for product in products" required></select>
           <small class="text-muted">Item must be added under Products tab.</small>
         </div>
         <div class="col-lg-6">
@@ -101,9 +101,10 @@
           <small class="text-muted">Please choose between the three options.</small>
         </div>
         <div class="col-lg-6">
-          <label>Catch Date</label>
-          <input class="form-control" ng-model="catchDate" type="date" placeholder="ex. 5/14/2016">
-          <small class="text-muted">YYYY/MM/DD</small>
+          <label>Catch Date &nbsp;
+            <span ng-show="catchDateRequired" class="input-required"> * Required</label></label>
+          <input class="form-control" name="catchDate" ng-model="catchDate" type="date" placeholder="ex. 5/14/2016" required>
+          <small class="text-muted">YYYY-MM-DD</small>
         </div>
       </fieldset>
       <fieldset class="form-group">
