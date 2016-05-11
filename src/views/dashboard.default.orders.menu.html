@@ -140,7 +140,6 @@
               <span class="input-required" ng-show="emailRequired"> * Required</span>
             </label>
             <input class="form-control" ng-model="email" placeholder="ex. fish@coastline.com" name="email" required>
-            <small class="text-muted">Please enter a valid email</small>
           </div>
         </fieldset>
         <fieldset class="form-group">
@@ -178,7 +177,6 @@
               <option value="Credit">Credit</option>
               <option value="Debit">Debit</option>
             </select>
-            <small class="text-muted">Choose from the dropdown list</small>
           </div>
           <div class="col-lg-4">
             <label>Status &nbsp;
@@ -191,7 +189,6 @@
               <option value="cancelled">Cancelled</option>
               <option value="refunded">Refunded</option>
             </select>
-            <small class="text-muted">Choose from the dropdown list</small>
           </div>
         </fieldset>
         <fieldset class="form-group">
@@ -202,21 +199,23 @@
             <input class="form-control" type="date" ng-model="date" placeholder="ex. 12:44 PM, 2016/01/14" name="date" required>
             <small class="text-muted">YYYY-MM-DD</small>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-3">
             <label>Credit Terms (in Days) &nbsp;
               <span class="input-required" ng-show="creditRequired"> * Required</span>
             </label>
             <input class="form-control" type="number" min="0" max="99999" ng-model="creditTerms" placeholder="ex. 12" name="credit" required>
-            <small class="text-muted">Enter the invoice terms</small>
           </div>
-          <div class="col-lg-4">
-            <label>Order Currency</label>
+          <div class="col-lg-2">
+            <label>Currency</label>
             <select ng-model="currency" class="form-control">
               <option value="USD">USD</option>
               <option value="CAD">CAD</option>
               <option value="Euro">Euro</option>
             </select>
-            <small class="text-muted">Choose the currency type.</small>
+          </div>
+          <div class="col-lg-3">
+            <label>Delivery Charge</label>
+            <input class="form-control" type="number" min="0" max="99999" ng-model="deliveryCharge" placeholder="ex. 40">
           </div>
         </fieldset>
       </div>
