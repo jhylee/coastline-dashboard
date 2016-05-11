@@ -22,12 +22,10 @@ $btn-danger-hover-color: #B71C1C;
 $btn-success-color: #388E3C;
 $btn-success-hover-color: #1B5E20;
 
-
 /*
  * Base structure
  */
 @import url('http://fonts.googleapis.com/css?family=Roboto');
-
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
@@ -37,15 +35,14 @@ body {
   color: $primary-font-color;
   margin-left: 10px;
 }
-
 .login-body {
-  position:fixed;
+  position: fixed;
   z-index: 10;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   background-color: $navbar-color;
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
 }
 
 /*
@@ -69,28 +66,42 @@ body {
   max-width: 88%;
   border-bottom: 2px solid $primary-border-color;
 }
-
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
-
-
 .huge {
   font-size: 30px;
   font-weight: 400;
   color: #000;
 }
-
-
 .div-align-right {
   float: right;
 }
-
-.col-centered{
+.col-centered {
   float: none;
   margin: 0 auto;
 }
+.pagination>li>a, .pagination>li>a:hover, .pagination>li>a:active {
+  color: #000;
+}
+.pagination>li:first-child>a {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.pagination>li:last-child>a {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.pagination {
+  border: solid 0.12em #cfcfcf;
+}
+.pagination>.active>a,.pagination>.active>a:hover,.pagination>.active>a:visited {
+  background-color: #607D8B;
+  border-color: #607D8B;
+}
+
 
 /*
  * Placeholder dashboard ideas

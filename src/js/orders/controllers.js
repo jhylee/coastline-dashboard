@@ -353,7 +353,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 animation: true,
                 templateUrl: 'loadCustomerModal.html',
                 controller: 'LoadCustomerCtrl',
-                size: 'md',
+                size: 'lg',
                 resolve: {}
             });
 
@@ -1015,19 +1015,26 @@ app.controller('OrderExportCtrl', ['$scope', 'FisheryService', 'OrderData', 'Pro
 app.controller('LoadCustomerCtrl', ['$scope', 'FisheryService', 'OrderData', 'CustomerService', 'AuthService', '$state', '$uibModalInstance', '$http',
     function($scope, FisheryService, OrderData, CustomerService, AuthService, $state, $uibModalInstance, $http) {
 
+      $scope.selectedCustomer = 0;
 
         CustomerService.getCustomers().then(function (data) {
             $scope.customers = data;
             console.log(data);
         });
 
+        $scope.rowClick = function() {
+          //TODO
+        }
 
 
         // tied to ok button
         $scope.ok = function() {
-            OrderData.setSelectedCustomerId($scope.customers[0]._id);
+            // OrderData.setSelectedCustomerId($scope.customers[0]._id);
+            OrderData.setSelectedCustomerId($scope.selectedCustomer._id);
             $uibModalInstance.close();
+            console.log($scope.selectedCustomer);
         };
+
 
         // tied to cancel button
         $scope.cancel = function() {
