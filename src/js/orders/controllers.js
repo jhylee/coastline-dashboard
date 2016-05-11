@@ -319,6 +319,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.date;
         $scope.email;
         $scope.phone;
+        $scope.deliveryCharge;
         $scope.items = [];
 
         var refreshCustomerData = function () {
@@ -511,6 +512,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 date: $scope.date,
                 email: $scope.email,
                 phone: $scope.phone,
+                deliveryCharge: $scope.deliveryCharge,
                 currency: $scope.currency,
                 // taxRate: $scope.taxRate / 100,
                 items: []
