@@ -8,9 +8,18 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
     var baseUrl = apiUrl;
     var selectedOrder;
 
+    var _selectedCustomerId;
+
+
     var _filter = null;
 
     return {
+        getSelectedCustomerId: function() {
+            return _selectedCustomerId;
+        },
+        setSelectedCustomerId: function (customerId) {
+            _selectedCustomerId = customerId;
+        },
         getOrders: function(success, error) {
             var url = baseUrl + '/api/orders?';
 
@@ -76,9 +85,25 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
             //     target: '_blank',
             //     download: 'order.xlsx'
             // })[0].click();
+            //
+            var url = baseUrl + '/api/orders/export?';
+
+            var counter = 0;
+
+            for (var key in _filter) {
+                counter += 1
+
+                if (!_filter.hasOwnProperty(key)) continue;
+
+                if (counter == 1) {
+                    url = url + key + "=" + _filter[key]
+                } else {
+                    url = url + "&" + key + "=" + _filter[key]
+                }
+            }
 
             return $http({
-                url: baseUrl + '/api/orders/export',
+                url: url,
                 method: 'GET',
                 responseType: 'arraybuffer',
                 // data: json, //this is your json data string

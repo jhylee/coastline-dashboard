@@ -1,6 +1,7 @@
 var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 'ngStorage',
     'coastlineWebApp.common.services',
     'coastlineWebApp.orders.services',
+    'coastlineWebApp.customers.services',
     'coastlineWebApp.products.services',
     'ui.router',
     'ngNotify'
@@ -52,23 +53,51 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         updateOrders();
 
         $scope.viewOrderDetail = function(order) {
-            OrderData.setSelectedOrder(order);
+            // OrderData.setSelectedOrder(order);
+            //
+            // // modal setup and preferences
+            // var modalInstance = $uibModal.open({
+            //     animation: true,
+            //     templateUrl: 'viewOrderDetailModal.html',
+            //     controller: 'ViewOrderDetailCtrl',
+            //     size: 'lg',
+            //     resolve: {}
+            // });
+            //
+            // // called when modal is closed
+            // modalInstance.result.then(
+            //     function(res) {
+            //
+            //     },
+            //     function() {});
+            //
+            $scope.isLoadingPDF = true;
 
-            // modal setup and preferences
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'viewOrderDetailModal.html',
-                controller: 'ViewOrderDetailCtrl',
-                size: 'lg',
-                resolve: {}
-            });
+            OrderData.fetchOrderPDF(order._id)
+                .then(function(res) {
 
-            // called when modal is closed
-            modalInstance.result.then(
-                function(res) {
+                    var blob = new Blob([res], {
+                        type: 'application/pdf'
+                    });
+                    // var objectUrl = URL.createObjectURL(blob);
+                    // $window.open(objectUrl);
+                    var url = $window.URL || $window.webkitURL;
+                    // var url = $window.URL || $window.webkitURL;
+                    $scope.fileUrl = url.createObjectURL(blob);
 
-                },
-                function() {});
+                    var anchor = angular.element('<a/>');
+                    anchor.attr({
+                        href: $scope.fileUrl,
+                        download: 'Order-' + order.customerName + '-' + (order.date.substring(0, 10)) + '.pdf'
+                    })[0].click();
+
+                    $scope.pdfStatus = "";
+                    $scope.isLoadingPDF = false;
+
+
+                });
+
+
 
         };
 
@@ -279,8 +308,8 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 ]);
 
 
-app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'SupplyChainService', 'AuthService', 'ngNotify', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryService, OrderData, ProductData, SupplyChainService, AuthService, ngNotify, $state, $uibModalInstance, $http) {
+app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
+    function($scope, FisheryService, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
 
         $scope.invoiceNumber;
         $scope.paymentMethod;
@@ -290,9 +319,51 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.date;
         $scope.email;
         $scope.phone;
+        $scope.deliveryCharge;
         $scope.items = [];
 
-        $scope.state = $state;
+        var refreshCustomerData = function () {
+            if (OrderData.getSelectedCustomerId()) {
+                CustomerService.getCustomer(OrderData.getSelectedCustomerId()).then(function (data) {
+                    $scope.customerName = data.name;
+                    $scope.email = data.email;
+                    $scope.phone = data.phone;
+                });
+            };
+        }
+
+        // $scope.isSubmitButtonDisabled = function() {
+        //     if (!$scope.invoiceNumber ||
+        //         !$scope.paymentMethod ||
+        //         !$scope.status ||
+        //         !$scope.creditTerms ||
+        //         !$scope.customerName ||
+        //         !$scope.date ||
+        //         !$scope.email ||
+        //         !$scope.phone ||
+        //         $scope.items.length == 0) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // };
+
+        $scope.loadCustomer = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'loadCustomerModal.html',
+                controller: 'LoadCustomerCtrl',
+                size: 'md',
+                resolve: {}
+            });
+
+            modalInstance.result.then(
+                function() {
+                    refreshCustomerData();
+                },
+                function() {});
+        }
+
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity && $scope.selectedBlock) {
@@ -441,6 +512,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 date: $scope.date,
                 email: $scope.email,
                 phone: $scope.phone,
+                deliveryCharge: $scope.deliveryCharge,
                 currency: $scope.currency,
                 // taxRate: $scope.taxRate / 100,
                 items: []
@@ -931,6 +1003,32 @@ app.controller('OrderExportCtrl', ['$scope', 'FisheryService', 'OrderData', 'Pro
 
 
 
+        };
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+
+    }
+]);
+
+app.controller('LoadCustomerCtrl', ['$scope', 'FisheryService', 'OrderData', 'CustomerService', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, OrderData, CustomerService, AuthService, $state, $uibModalInstance, $http) {
+
+
+        CustomerService.getCustomers().then(function (data) {
+            $scope.customers = data;
+            console.log(data);
+        });
+
+
+
+        // tied to ok button
+        $scope.ok = function() {
+            OrderData.setSelectedCustomerId($scope.customers[0]._id);
+            $uibModalInstance.close();
         };
 
         // tied to cancel button

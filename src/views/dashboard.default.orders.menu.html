@@ -10,7 +10,9 @@
                 <button ng-click="addOrder()" class="btn-status-success">Add</button>
                 <button ng-click="deleteOrder()" class="btn-status-danger">Delete</button>
                 <!-- <button ng-click="editOrder()" class="btn-status-default">Edit Order</button> -->
-                <button ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default">View Details</button>
+                <!-- <button ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default">View Details</button> -->
+                <button ng-hide="isLoadingPDF" ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default">View PDF</button>
+                <button ng-show="isLoadingPDF" class="btn-status-success">Loading...</button>
                 <button ng-click="exportOrders()" ng-hide="isLoading" class="btn-status-default"><i class="fa fa-file-excel-o"></i> Export</button>
                 <button ng-show="isLoading" class="btn-status-success" type="button">Loading...</button>
                 <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Filter</button>
@@ -216,6 +218,7 @@
         </fieldset>
       </div>
 
+
       <hr class="short">
       <div class="table-responsive">
         <table class="table tableWhite">
@@ -287,6 +290,7 @@
   </div>
   <div class="modal-footer">
     <div class="alignright">
+        <button class="btn-status-default" type="button" ng-click="loadCustomer()">Load Customer</button>
       <button type="submit" class="btn-status-success" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
@@ -358,6 +362,23 @@
 
 <!-- DELETE ORDER MODAL-->
 <script type="text/ng-template" id="deleteOrderModal.html">
+  <div class="modal-header">
+    <h3 class="modal-title">Delete Product</h3>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this order?
+      <br>
+      <br> Note that this will add back any inventory quantities from the batches corresponding to each item.</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-status-success" type="button" ng-click="ok()">Yes</button>
+    <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
+  </div>
+</script>
+
+
+<!-- DELETE ORDER MODAL-->
+<script type="text/ng-template" id="loadCustomerModal.html">
   <div class="modal-header">
     <h3 class="modal-title">Delete Product</h3>
   </div>

@@ -51,8 +51,8 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 ]);
 
 
-app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService',
-    function($scope, AuthService, $state, FisheryService, SettingsService) {
+app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService', 'Upload',
+    function($scope, AuthService, $state, FisheryService, SettingsService, Upload) {
 
         $scope.isLoading = true;
 
@@ -96,7 +96,10 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
                 phone: $scope.phone,
                 salesPhone: $scope.salesPhone,
                 faxPhone: $scope.faxPhone,
-                taxNumber: $scope.taxNumber
+                taxNumber: $scope.taxNumber,
+                fileName: $scope.file.name,
+                fileType: $scope.file.type,
+                fileSize: $scope.file.size
             }).then(function(data) {
                 $scope.name = data.name;
                 $scope.address = data.address;
@@ -107,6 +110,22 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
                 $scope.salesPhone = data.salesPhone;
                 $scope.faxPhone = data.faxPhone;
                 $scope.taxNumber = data.taxNumber;
+
+                console.log(data);
+
+                if (data.signedUrl) {
+                    var payload = {
+                        url: data.signedUrl,
+                        data: $scope.file,
+                        headers: {
+                            'Content-Type': $scope.file.type,
+                            'x-amz-acl': 'public-read',
+                        },
+                        ignoreInterceptor: true,
+                        method: "PUT"
+                    };
+                }
+                Upload.http(payload);
 
                 $scope.isLoading = false;
 
