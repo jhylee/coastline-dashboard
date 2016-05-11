@@ -11,9 +11,9 @@
                 <button ng-click="deleteOrder()" class="btn-status-danger">Delete</button>
                 <!-- <button ng-click="editOrder()" class="btn-status-default">Edit Order</button> -->
                 <!-- <button ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default">View Details</button> -->
-                <button ng-hide="isLoadingPDF" ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default">View PDF</button>
+                <button ng-hide="isLoadingPDF" ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default"><i class="fa fa-file-pdf-o"></i> PDF</button>
                 <button ng-show="isLoadingPDF" class="btn-status-success">Loading...</button>
-                <button ng-click="exportOrders()" ng-hide="isLoading" class="btn-status-default"><i class="fa fa-file-excel-o"></i> Export</button>
+                <button ng-click="exportOrders()" ng-hide="isLoading" class="btn-status-default"><i class="fa fa-file-excel-o"></i> Excel</button>
                 <button ng-show="isLoading" class="btn-status-success" type="button">Loading...</button>
                 <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Filter</button>
                 <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Clear Filter</button>
@@ -29,7 +29,7 @@
                       <th>Invoice #</th>
                       <th>Customer Name</th>
                       <th>Status</th>
-                      <th>Date and Time </th>
+                      <th>Invoice Date </th>
                       <th>Total Amount</th>
                     </tr>
                   </thead>
@@ -41,7 +41,7 @@
                       <td data-label="Invoice">&nbsp; {{order.invoiceNumber}}</td>
                       <td data-label="Name">{{order.customerName}}</td>
                       <td data-label="Status">&nbsp;{{order.status}}</td>
-                      <td data-label="Date">{{order.date | date:'short' }}</td>
+                      <td data-label="Date">{{order.date | date:'M/d/yyyy'}}</td>
                       <td data-label="Subtotal">${{totals[$index]}}</td>
                     </tr>
                   </tbody>
@@ -69,11 +69,11 @@
     <h4>Name: {{order.customerName}}</h4>
     <h4>Name: {{order.customerName}}</h4>
 
-      <h4><b>Name :</b> {{order.customerName}}</h4>
-      <h4><b>Phone :</b> {{order.phone}}</h4>
-      <h4><b>Email :</b> {{order.email}}</h4>
-      <h4><b>Order Time :</b> {{order.date | date:'short' }}</h4>
-      <h4><b>Credit Terms :</b> {{order.creditTerms}}</h4>
+    <h4><b>Name :</b> {{order.customerName}}</h4>
+    <h4><b>Phone :</b> {{order.phone}}</h4>
+    <h4><b>Email :</b> {{order.email}}</h4>
+    <h4><b>Order Time :</b> {{order.date | date:'short' }}</h4>
+    <h4><b>Credit Terms :</b> {{order.creditTerms}}</h4>
   </div>
 
   <div class="modal-body">
@@ -118,8 +118,10 @@
   </div>
   <div class="modal-body">
     <ul class="nav nav-tabs">
-      <li ng-class="{active:item==1}"><a data-toggle="tab" ng-click="item=1" ng-href="">Customer Information</a></li>
-      <li ng-class="{active:item==2}"><a data-toggle="tab" ng-click="item=2" ng-href="">Payment Information</a></li>
+      <li ng-class="{active:item==1}"><a data-toggle="tab" ng-click="item=1" ng-href="">Customer Information &nbsp;
+        <span class="input-required" ng-show="nameRequired || emailRequired || phoneRequired"> * </span></a></li>
+      <li ng-class="{active:item==2}"><a data-toggle="tab" ng-click="item=2" ng-href="">Payment Information &nbsp;
+        <span class="input-required" ng-show="invoiceNumber || paymentRequired || statusRequired || dateRequired || creditRequired"> * </span></a></li>
     </ul>
     <br>
     <form name="addOrderForm" ng-init="item=1">
@@ -132,6 +134,7 @@
             <input class="form-control" type="text" maxlength="30" ng-model="customerName" name="name" placeholder="ex. John Doe" required>
             <small class="text-muted">Maximum 30 characters</small>
           </div>
+
           <div class="col-lg-6">
             <label>Email &nbsp;
               <span class="input-required" ng-show="emailRequired"> * Required</span>
@@ -290,7 +293,7 @@
   </div>
   <div class="modal-footer">
     <div class="alignright">
-        <button class="btn-status-default" type="button" ng-click="loadCustomer()">Load Customer</button>
+      <button class="btn-status-default" type="button" ng-click="loadCustomer()"><i class="fa fa-group"></i></button>
       <button type="submit" class="btn-status-success" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
