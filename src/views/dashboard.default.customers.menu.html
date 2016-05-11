@@ -24,7 +24,6 @@
                       <th>Phone</th>
                       <th>City</th>
                       <th>Country</th>
-
                     </tr>
                   </thead>
                   <tbody>
@@ -41,6 +40,12 @@
                   </tbody>
                 </table>
               </div>
+              <ul class="pagination pagination-md" ng-init="item=1">
+                <li ng-class="{active:item==1}"><a ng-click="item=1">1</a></li>
+                <li ng-class="{active:item==2}"><a ng-click="item=2" href="">2</a></li>
+                <li ng-class="{active:item==3}"><a ng-click="item=3" href="">3</a></li>
+                <li ng-class="{active:item==4}"><a ng-click="item=4" href="">4</a></li>
+              </ul>
             </div>
           </div>
         </div>

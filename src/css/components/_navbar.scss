@@ -92,11 +92,14 @@
   }
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
-  color: #000;
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:visited{
+  border-radius: 2px;
 }
 
-.nav-tabs>li, .nav-tabs>li:active {
+.nav-tabs>li, .nav-tabs>li:active, .nav-tabs>li:hover {
   border-radius: 2px;
   a {
     color: #000;
