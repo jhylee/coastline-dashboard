@@ -20,6 +20,7 @@ textarea.form-control  {
   background-color: #fff;
   border: 1px solid $secondary-border-color;
   font-size: 14px;
+  max-width: 100%;
 }
 textarea.form-control,
 textarea.form-control:focus,

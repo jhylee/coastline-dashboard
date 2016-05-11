@@ -67,7 +67,7 @@
         </div>
         <div class="col-lg-6">
           <label>Email &nbsp;<span ng-show="emailRequired" class="input-required"> * Required</span></label>
-          <input class="form-control" type="text" ng-model="email" name="email" placeholder="ex. john.doe@example.com" required>
+          <input class="form-control" type="email" ng-model="email" name="email" placeholder="ex. john.doe@example.com" required>
           <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
       </fieldset>
@@ -79,7 +79,7 @@
         </div>
         <div class="col-lg-6">
           <label>Phone &nbsp;<span ng-show="phoneRequired" class="input-required"> * Required</span></label>
-          <input class="form-control" type="text" ng-model="phone" name="phone" placeholder="ex. 7789395555" required>
+          <input class="form-control" type="phone" ng-model="phone" name="phone" maxlength="10" placeholder="ex. 7789395555" required>
           <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
       </fieldset>
@@ -102,7 +102,7 @@
         </div>
         <div class="col-lg-2">
           <label>Zip/Postal Code &nbsp;<span ng-show="postalCodeRequired" class="input-required"> * Required</span></label>
-          <input class="form-control" name="postalCode"  ng-model="postalCode" type="text" maxlength="6" placeholder="ex. V3N 1V4" required>
+          <input class="form-control" name="postalCode"  ng-model="postalCode" type="text" maxlength="6" placeholder="ex. V3N1V4" required>
           <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
         <div class="col-lg-3">
