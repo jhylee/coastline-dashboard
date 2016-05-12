@@ -125,9 +125,9 @@
   <div class="modal-body">
     <ul class="nav nav-tabs">
       <li ng-class="{active:item==1}"><a data-toggle="tab" ng-click="item=1" ng-href="">Customer Information &nbsp;
-        <span class="input-required" ng-show="nameRequired || emailRequired || phoneRequired"> * </span></a></li>
+        <span class="section-required" ng-show="nameRequired || emailRequired || phoneRequired"> * </span></a></li>
       <li ng-class="{active:item==2}"><a data-toggle="tab" ng-click="item=2" ng-href="">Payment Information &nbsp;
-        <span class="input-required" ng-show="invoiceNumber || paymentRequired || statusRequired || dateRequired || creditRequired"> * </span></a></li>
+        <span class="section-required" ng-show="invoiceNumber || paymentRequired || statusRequired || dateRequired || creditRequired"> * </span></a></li>
     </ul>
     <br>
     <form name="addOrderForm" ng-init="item=1">
@@ -205,13 +205,13 @@
             <input class="form-control" type="date" ng-model="date" placeholder="ex. 12:44 PM, 2016/01/14" name="date" required>
             <small class="text-muted">YYYY-MM-DD</small>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-4">
             <label>Credit Terms (in Days) &nbsp;
               <span class="input-required" ng-show="creditRequired"> * Required</span>
             </label>
             <input class="form-control" type="number" min="0" max="99999" ng-model="creditTerms" placeholder="ex. 12" name="credit" required>
           </div>
-          <div class="col-lg-2">
+          <div class="col-lg-4">
             <label>Currency</label>
             <select ng-model="currency" class="form-control">
               <option value="USD">USD</option>
@@ -219,11 +219,18 @@
               <option value="Euro">Euro</option>
             </select>
           </div>
-          <div class="col-lg-3">
+        </fieldset>
+        <fieldset class="form-group">
+          <div class="col-lg-4">
             <label>Delivery Charge</label>
             <input class="form-control" type="number" min="0" max="99999" ng-model="deliveryCharge" placeholder="ex. 40">
           </div>
+          <div class="col-lg-4">
+            <label>Delivery Tax</label>
+            <input class="form-control" type="number" min="0" max="99999" ng-model="deliveryTax" placeholder="ex. 10">
+          </div>
         </fieldset>
+
       </div>
 
 

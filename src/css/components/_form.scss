@@ -12,7 +12,7 @@ select {
 }
 input.form-control,
 select.form-control,
-textarea.form-control  {
+textarea.form-control {
   border-radius: 2px;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -25,11 +25,11 @@ textarea.form-control  {
 textarea.form-control,
 textarea.form-control:focus,
 textarea.form-control:active,
-textarea.form-control:hover, {
+textarea.form-control:hover,
+ {
   height: 150px;
   line-height: 25px;
 }
-
 input.form-control:focus,
 select.form-control:focus,
 textarea.form-control:focus {
@@ -41,14 +41,65 @@ textarea.form-control:focus {
   font-size: 14px;
   box-shadow: none;
 }
-
 .input-required {
   border-radius: 2px;
-  padding-top:2px;
+  padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 5px;
   padding-right: 5px;
   background-color: #FF5722;
   color: #ffffff;
   font-weight: 100;
+}
+.section-required {
+  font-weight: bold;
+  color: #D50000;
+  padding-left: 1px;
+  font-size:16px;
+}
+.input-wrapper {
+  border-radius: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #fff;
+  border: 1px solid $secondary-border-color;
+  font-size: 14px;
+  max-width: 100%;
+
+  input.form-control,
+  select.form-control,
+  textarea.form-control {
+    border-radius: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: none;
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .btn-status-danger {
+    @include border-radius(2px);
+    color: $secondary-background-color;
+    border-style: none;
+    background-color: $btn-default-color;
+    border-color: $btn-default-color;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    float: right;
+    padding-bottom: 5px;
+    outline: none;
+    position: relative;
+    margin-top: -32px;
+  }
+  .btn-status-danger:hover,
+  .btn-status-danger:focus,
+  .btn-status-danger:active,
+  .open > .dropdown-toggle.btn-status-danger {
+    @include border-radius(2px);
+    color: $secondary-background-color;
+    background-color: $btn-default-hover-color;
+    border-color: $btn-danger-hover-color;
+    outline: none;
+  }
 }
