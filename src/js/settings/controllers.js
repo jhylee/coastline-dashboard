@@ -65,7 +65,7 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
             $scope.phone = data.phone;
             $scope.salesPhone = data.salesPhone;
             $scope.faxPhone = data.faxPhone;
-            $scope.faxPhone = data.faxPhone;
+            $scope.disclaimer = data.disclaimer;
 
             $scope.isLoading = false;
 
@@ -99,7 +99,8 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
                 taxNumber: $scope.taxNumber,
                 fileName: $scope.file.name,
                 fileType: $scope.file.type,
-                fileSize: $scope.file.size
+                fileSize: $scope.file.size,
+                disclaimer: $scope.disclaimer
             }).then(function(data) {
                 $scope.name = data.name;
                 $scope.address = data.address;
@@ -110,6 +111,7 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
                 $scope.salesPhone = data.salesPhone;
                 $scope.faxPhone = data.faxPhone;
                 $scope.taxNumber = data.taxNumber;
+                $scope.disclaimer = data.disclaimer;
 
                 console.log(data);
 
