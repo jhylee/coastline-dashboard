@@ -36,6 +36,17 @@
   border-color: $primary-border-color;
   border-radius: 3px;
 
+  .panel-login-error {
+    margin-top: 10px;
+    margin-right: -15px;
+    margin-left: -15px;
+    padding-top: 10px;
+    padding-bottom: 3px;
+    background-color: #E57373;
+    border-radius: 2px;
+    color: #fff;
+  }
+
 }
 
 .panel-scroll {

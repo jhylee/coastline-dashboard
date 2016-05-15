@@ -93,7 +93,20 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
             password: $scope.password
         };
 
-        var loginPromise = AuthService.login(formData);
+
+        var formValid =  true;
+        $scope.usernameRequired = $scope.loginForm.username.$error.required;
+        $scope.passwordRequired = $scope.loginForm.password.$error.required;
+
+        if (!$scope.username || !$scope.password) {
+          formValid = false;
+        }
+        console.log(formValid);
+
+
+        if (formValid) {
+          var loginPromise = AuthService.login(formData);
+        }
 
         loginPromise.then(function(res) {
 
