@@ -7,42 +7,52 @@
 </div>
  -->
 <div class="login-body">
- <div class="container">
-   <div class="row">
-     <div class="col-md-5 col-centered">
-       <div class="panel-login panel panel-default">
-         <div class="panel-heading">
-           <h4 class="panel-title"></h4>
-         </div>
-         <div class="panel-login-body">
-           <h3 class="text-center">Welcome Back!</h3><br>
-           <form role="form" ng-controller="loginCtrl" ng-submit="login()">
-             <fieldset>
-               <div class="form-group">
-                 <input type="username" class="form-control" id="username" ng-model="username" placeholder="Username or Email" autofocus>
-               </div>
-               <div class="form-group">
-                 <input type="password" class="form-control" id="pwd" ng-model="password" placeholder="Password">
-                 <center><small><a ui-sref="forgot-password">Forgot your password?</a></small></center>
-               </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-centered">
+        <div class="panel-login panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"></h4>
+          </div>
+          <form role="form" ng-controller="loginCtrl" ng-submit="login()" name="loginForm">
+            <div class="panel-login-body">
+              <div class="panel-login-error" ng-show="usernameRequired || passwordRequired">
+                <p class="text-center">The credentials below are incorrect. Please try again.</p>
+              </div>
+              <h3 class="text-center">Welcome Back!</h3>
+              <br>
+              <fieldset>
+                <div class="form-group">
+                  <input type="username" class="form-control" id="username" ng-model="username" name="username" placeholder="Username or Email" autofocus>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" id="pwd" ng-model="password" name="password" placeholder="Password">
+                  <center>
+                    <small><a ui-sref="forgot-password">Forgot your password?</a></small>
+                  </center>
+                </div>
 
-               <div class="form-group">
-                 <center><label>Don't have an account? <a ui-sref="sign-up">Sign Up</a> today!</label></center>
-               </div>
+                <div class="form-group">
+                  <center>
+                    <label>Don't have an account? <a ui-sref="sign-up">Sign Up</a> today!</label>
+                  </center>
+                </div>
 
-               <!-- Change this to a button or input when using this as a form -->
-               <center><button type="submit" class="btn-status-success">Login</button></center>
-               <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
-             </fieldset>
-           </form>
-         </div>
-       </div>
-     </div>
-   </div>
- </div>
+                <!-- Change this to a button or input when using this as a form -->
+                <center>
+                  <button type="submit" class="btn-status-success">Login</button>
+                </center>
+                <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
+              </fieldset>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
- <!-- <div class="container-fluid wrap2">
+  <!-- <div class="container-fluid wrap2">
    <div class="container">
      <div class="auth-form">
        <form role="form" ng-controller="loginCtrl" ng-submit="login()">

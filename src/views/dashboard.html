@@ -12,14 +12,14 @@
           <img src="https://s3.amazonaws.com/coastline-us/coastline-logo.png" alt="coastline logo"> {{fisheryName}}
         </a>
       </div>
-      <div id="navbar" class="navbar-collapse collapse" collapse="isCollapsed">
+      <div id="navbar" class="navbar-collapse collapse" ng-init="isCollapsed=true" uib-collapse="isCollapsed">
         <ul class="nav navbar-nav nav-pills navbar-right">
+          <li class="hide"><a ui-sref=".default.overview">Overview</a></li>
           <li class="hide"><a ui-sref=".default.products">Products</a></li>
           <li class="hide"><a ui-sref=".default.supply-chain.menu">Supply Chain</a></li>
           <li class="hide"><a ui-sref=".default.inventory.menu">Inventory</a></li>
           <li class="hide"><a ui-sref=".default.sales-management.track">Sales</a></li>
           <li class="hide"><a ui-sref=".default.orders.menu">Orders</a></li>
-          <!-- <li><a ui-sref=".default.overview">Home</a></li> -->
           <li><a ui-sref=".settings.general">Settings</a></li>
           <li><a ui-sref=".help">Help</a></li>
           <li><a ng-click="logout()" href="#">Logout</a></li>
