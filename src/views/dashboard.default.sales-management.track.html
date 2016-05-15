@@ -129,7 +129,7 @@
               <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
             </td>
             <!--<td data-label="#">{{$index + 1}}</td>-->
-            <td data-label="Product">{{block.productType.name}}</td>
+            <td data-label="Product">{{getProductDisplay(block)}}</td>
             <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
             <td data-label="Date Added">{{block.dateCreated | date: 'short'}}</td>
           </tr>
