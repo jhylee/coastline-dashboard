@@ -240,6 +240,7 @@
           <thead>
             <tr>
               <th>Product</th>
+              <th>Finished Good</th>
               <th>Batch</th>
               <th>Unit Price</th>
               <th>Units</th>
@@ -252,6 +253,7 @@
           <tbody>
             <tr ng-repeat="item in items track by $index">
               <td data-label="Product">{{item.product.name}}</td>
+              <td>&nbsp;</td>
               <td data-label="Data">{{item.block.catchDate | date: "M/d/y"}}, {{item.block.stage.name}}</td>
               <td data-label="Unit Price $">{{item.unitPrice}}</td>
               <td data-label="Units">{{item.units}}</td>
@@ -263,8 +265,12 @@
 
             </tr>
             <tr>
+                <td data-label="Sourced Product">
+                  <select class="form-control" ng-model="selectedSourcedProduct" ng-options="sourcedProduct.name for sourcedProduct in sourcedProducts"></select>
+                </td>
+
               <td data-label="Product">
-                <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products" name="product" required></select>
+                  <select class="form-control" ng-model="selectedFinishedProduct" ng-options="finishedProduct.name for finishedProduct in finishedProducts" ng-disabled="!selectedSourcedProduct"></select>
               </td>
 
               <td data-label="Choose Batch">
