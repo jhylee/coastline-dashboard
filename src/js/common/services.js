@@ -426,8 +426,9 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                 });
         },
 
-        fetchBlocksByProduct: function(productId) {
-            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products/' + productId + '/blocks')
+        fetchBlocksByProduct: function(sourcedProductId, finishedProductId) {
+            var productId;
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products/' + productId + '/blocks?sourcedProductId=' + sourcedProductId + '&finishedProductId=' + finishedProductId)
                 .then(function(res) {
                     return res.data;
                 });

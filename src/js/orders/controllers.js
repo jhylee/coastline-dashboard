@@ -322,48 +322,103 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.deliveryCharge;
         $scope.items = [];
 
-        var refreshCustomerData = function () {
+        var refreshCustomerData = function() {
             if (OrderData.getSelectedCustomerId()) {
-                CustomerService.getCustomer(OrderData.getSelectedCustomerId()).then(function (data) {
+                CustomerService.getCustomer(OrderData.getSelectedCustomerId()).then(function(data) {
                     $scope.customerName = data.name;
                     $scope.email = data.email;
                     $scope.phone = data.phone;
                 });
             };
-        }
+        };
 
-        // $scope.isSubmitButtonDisabled = function() {
-        //     if (!$scope.invoiceNumber ||
-        //         !$scope.paymentMethod ||
-        //         !$scope.status ||
-        //         !$scope.creditTerms ||
-        //         !$scope.customerName ||
-        //         !$scope.date ||
-        //         !$scope.email ||
-        //         !$scope.phone ||
-        //         $scope.items.length == 0) {
-        //         return true;
-        //     } else {
-        //         return false;
-        //     }
-        // };
-
-        $scope.loadCustomer = function () {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'loadCustomerModal.html',
-                controller: 'LoadCustomerCtrl',
-                size: 'lg',
-                resolve: {}
+        var refreshSourcedProducts = function() {
+            ProductData.getSourcedProductData(function(res) {
+                $scope.sourcedProducts = res;
+                if (res.length > 0) $scope.selectedProduct = res[0];
+            }, function(err) {
+                console.log(err);
             });
+        };
 
-            modalInstance.result.then(
-                function() {
-                    refreshCustomerData();
-                },
-                function() {});
-        }
+        var refreshFinishedProducts = function() {
+            if ($scope.selectedSourcedProduct) {
+                ProductData.getFinishedProductData($scope.selectedSourcedProduct._id, function(res) {
+                    $scope.finishedProducts = res;
+                }, function(err) {
+                    console.log(err);
+                });
+            }
 
+        };
+
+        var refreshBatches = function() {
+            if ($scope.selectedSourcedProduct && !$scope.selectedFinishedProduct) {
+                console.log('fds');
+                return SupplyChainService.fetchBlocksByProduct($scope.selectedSourcedProduct._id).then(function(res) {
+                    $scope.blocks = []
+                    for (i = 0; i < res.length; i++) {
+                        var isBlockInItems = false;
+                        for (j = 0; j < $scope.items.length; j++) {
+                            if (res[i]._id == $scope.items[j].block._id) {
+                                isBlockInItems = true;
+                            }
+                        }
+                        if (!isBlockInItems) {
+                            $scope.blocks.push(res[i]);
+                        }
+                    }
+
+                    if ($scope.blocks.length > 0) {
+                        // $scope.selectedBlock = $scope.blocks[0];
+                    }
+                    return;
+                });
+            } else {
+                return SupplyChainService.fetchBlocksByProduct($scope.selectedSourcedProduct._id, $scope.selectedFinishedProduct._id).then(function(res) {
+                    $scope.blocks = []
+                    for (i = 0; i < res.length; i++) {
+                        var isBlockInItems = false;
+                        for (j = 0; j < $scope.items.length; j++) {
+                            if (res[i]._id == $scope.items[j].block._id) {
+                                isBlockInItems = true;
+                            }
+                        }
+                        if (!isBlockInItems) {
+                            $scope.blocks.push(res[i]);
+                        }
+                    }
+
+                    if ($scope.blocks.length > 0) {
+                        // $scope.selectedBlock = $scope.blocks[0];
+                    }
+                    return;
+                });
+            }
+
+        };
+
+        refreshSourcedProducts();
+
+        $scope.$watch('selectedSourcedProduct', function(newValue, oldValue) {
+            if ($scope.selectedProduct) {
+                refreshFinishedProducts();
+                refreshBatches();
+            }
+        });
+
+        $scope.$watch('selectedFinishedProduct', function(newValue, oldValue) {
+            if ($scope.selectedProduct) {
+                refreshBatches();
+            }
+        });
+
+        $scope.$watch('selectedBlock', function(newValue, oldValue) {
+            if ($scope.selectedBlock) {
+                $scope.quantity = $scope.selectedBlock.quantity;
+            }
+
+        });
 
         $scope.$watch('quantity', function() {
             if ($scope.quantity && $scope.selectedBlock) {
@@ -381,6 +436,26 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             }
         });
 
+
+        $scope.loadCustomer = function() {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'loadCustomerModal.html',
+                controller: 'LoadCustomerCtrl',
+                size: 'lg',
+                resolve: {}
+            });
+
+            modalInstance.result.then(
+                function() {
+                    refreshCustomerData();
+                },
+                function() {});
+        }
+
+
+
+
         var getProductData = function() {
             ProductData.getProductData(function(res) {
                 $scope.products = res;
@@ -390,32 +465,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             });
         };
 
-        var refreshBatches = function() {
-            return SupplyChainService.fetchBlocksByProduct($scope.selectedProduct._id).then(function(res) {
-                $scope.blocks = []
-                for (i = 0; i < res.length; i++) {
-                    var isBlockInItems = false;
 
-                    for (j = 0; j < $scope.items.length; j++) {
-                        if (res[i]._id == $scope.items[j].block._id) {
-                            isBlockInItems = true;
-                        }
-                    }
-
-                    if (!isBlockInItems) {
-                        $scope.blocks.push(res[i]);
-                    }
-
-                }
-
-                if ($scope.blocks.length > 0) {
-                    // $scope.selectedBlock = $scope.blocks[0];
-                }
-
-                return;
-
-            });
-        }
 
         $scope.addItem = function() {
             $scope.items.push({
@@ -480,25 +530,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             return Math.round(totalPrice * 100) / 100;
         }
 
-        ProductData.getProductData(function(res) {
-            $scope.products = res;
-            // if (res.length > 0) $scope.selectedProduct = res[0];
-        }, function(err) {
-            console.log(err);
-        });
 
-        $scope.$watch('selectedProduct', function(newValue, oldValue) {
-            if ($scope.selectedProduct) {
-                refreshBatches();
-            }
-        });
-
-        $scope.$watch('selectedBlock', function(newValue, oldValue) {
-            if ($scope.selectedBlock) {
-                $scope.quantity = $scope.selectedBlock.quantity;
-            }
-
-        });
 
         // tied to ok button
         $scope.ok = function() {
@@ -531,7 +563,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 });
             };
 
-            var formValid =  true;
+            var formValid = true;
 
             $scope.nameRequired = $scope.addOrderForm.name.$error.required;
             $scope.emailRequired = $scope.addOrderForm.email.$error.required;
@@ -542,21 +574,18 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             $scope.creditRequired = $scope.addOrderForm.credit.$error.required;
             $scope.phoneRequired = $scope.addOrderForm.phone.$error.required;
 
-            if (!$scope.customerName || !$scope.email
-                || !$scope.invoiceNumber || !$scope.paymentMethod
-                || !$scope.status || !$scope.date
-                || !$scope.creditTerms || !$scope.phone) {
-                  console.log("here");
-                  formValid = false;
+            if (!$scope.customerName || !$scope.email || !$scope.invoiceNumber || !$scope.paymentMethod || !$scope.status || !$scope.date || !$scope.creditTerms || !$scope.phone) {
+                console.log("here");
+                formValid = false;
 
             }
 
             console.log(formValid);
 
             if (formValid) {
-              OrderData.addOrder(data).then(function(res) {
-                  $uibModalInstance.close(res);
-              });
+                OrderData.addOrder(data).then(function(res) {
+                    $uibModalInstance.close(res);
+                });
             }
 
 
@@ -1015,15 +1044,15 @@ app.controller('OrderExportCtrl', ['$scope', 'FisheryService', 'OrderData', 'Pro
 app.controller('LoadCustomerCtrl', ['$scope', 'FisheryService', 'OrderData', 'CustomerService', 'AuthService', '$state', '$uibModalInstance', '$http',
     function($scope, FisheryService, OrderData, CustomerService, AuthService, $state, $uibModalInstance, $http) {
 
-      $scope.selectedCustomer = 0;
+        $scope.selectedCustomer = 0;
 
-        CustomerService.getCustomers().then(function (data) {
+        CustomerService.getCustomers().then(function(data) {
             $scope.customers = data;
             console.log(data);
         });
 
         $scope.rowClick = function() {
-          //TODO
+            //TODO
         }
 
 
