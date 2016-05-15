@@ -36,7 +36,7 @@
   </div>
   <div class="modal-body">
 
-    <div class="table-responsive">
+    <div class="table-responsive table-card-responsive">
       <table class="table tableWhite">
         <thead>
           <tr>
@@ -52,7 +52,7 @@
             <td data-label="Select">
               <input type="radio" ng-model="$parent.selectedBlock" ng-value="$parent.blocks[$index]">
             </td>
-            <td data-label="Product">{{block.productType.name}}</td>
+            <td data-label="Product">&nbsp;{{block.productType.name}}</td>
             <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
             <td data-label="Batch #">&nbsp;{{block.blockNumber}}</td>
             <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
@@ -294,7 +294,7 @@
   <div class="modal-body">
     <h4 class="text-center">Initial Catch Audit</h4>
     <hr class="short">
-    <div class="table-responsive">
+    <div class="table-responsive table-card-responsive">
       <table class="table tableWhite">
         <thead>
           <tr>
@@ -309,7 +309,7 @@
         </thead>
         <tbody>
           <tr>
-            <td data-label="Product">{{block.productType.name}}</td>
+            <td data-label="Product">&nbsp;{{block.productType.name}}</td>
             <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
             <td data-label="Catch Date">{{block.catchDate | date:"M/d/y"}}</td>
             <td data-label="Region">{{block.catchRegion}}</td>
@@ -324,7 +324,7 @@
   <div class="modal-body">
     <h4 class="text-center">Lot History</h4>
     <hr class="short">
-    <div class="table-responsive">
+    <div class="table-responsive table-card-responsive">
       <table class="table tableWhite">
         <thead>
           <tr>

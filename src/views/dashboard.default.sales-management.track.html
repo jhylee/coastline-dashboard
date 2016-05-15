@@ -14,7 +14,7 @@
             </div>
             <div class="panel panel-default">
               <div class="panel-body">
-                <div class="table-responsive">
+                <div class="table-responsive table-card-responsive">
                   <table class="table tableWhite">
                     <thead>
                       <tr>
@@ -111,7 +111,7 @@
     <button class="btn-status-danger" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
   </div>
   <div class="modal-body">
-
+    <div class="table-responsive table-card-responsive">
     <div class="tableWhite">
       <table class="table tableWhite">
         <thead>
@@ -129,13 +129,14 @@
               <input type="radio" ng-model="$parent.selectedBlock" ng-value="$index">
             </td>
             <!--<td data-label="#">{{$index + 1}}</td>-->
-            <td data-label="Product">{{block.productType.name}}</td>
+            <td data-label="Product">&nbsp;{{block.productType.name}}</td>
             <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
             <td data-label="Date Added">{{block.dateCreated | date: 'short'}}</td>
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
   </div>
   <div class="modal-footer">
     <button class="btn-status-default" type="button" ng-click="cancel()">Close</button>
@@ -205,7 +206,7 @@
   <div class="modal-body">
       <h4 class="text-center">Initial Catch Audit</h4>
       <hr class="short">
-      <div class="table-responsive">
+      <div class="table-responsive table-card-responsive">
         <table class="table tableWhite">
           <thead>
             <tr>
@@ -220,7 +221,7 @@
           </thead>
           <tbody>
             <tr>
-              <td data-label="Product">{{block.productType.name}}</td>
+              <td data-label="Product">&nbsp;{{block.productType.name}}</td>
               <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
               <td data-label="Catch Date">{{block.catchDate | date:"M/d/y"}}</td>
               <td data-label="Region">{{block.catchRegion}}</td>
@@ -236,7 +237,7 @@
   <div class="modal-body">
     <h4 class="text-center">Lot History</h4>
     <hr class="short">
-    <div class="table-responsive">
+    <div class="table-responsive table-card-responsive">
       <table class="table tableWhite">
         <thead>
           <tr>
