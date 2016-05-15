@@ -95,31 +95,37 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
 
 
         var formValid =  true;
-        $scope.usernameRequired = $scope.loginForm.username.$error.required;
-        $scope.passwordRequired = $scope.loginForm.password.$error.required;
 
         if (!$scope.username || !$scope.password) {
           formValid = false;
         }
+        if (!$scope.username || !$scope.password){
+          formValid =false;
+          $scope.usernameRequired = true;
+          $scope.passwordRequired = true;
+        }
+        else {
+          formValid=true;
+          $scope.usernameRequired = false;
+          $scope.passwordRequired = false;
+        }
+
         console.log(formValid);
 
 
         if (formValid) {
           var loginPromise = AuthService.login(formData);
+          loginPromise.then(function(res) {
+
+              if (res.statusText === "Unauthorized" || res.statusText === "Not Found" ){
+                $scope.usernameRequired = true;
+                $scope.passwordRequired = true;
+              }
+          });
         }
 
-        loginPromise.then(function(res) {
 
-            if (res.statusText === "Unauthorized" || !$scope.username || !$scope.password){
-                      ngNotify.set('The credentials entered are incorrect. Please try again.', {
-                            sticky: false,
-                            button: false,
-                            type: 'error',
-                            duration: 1000,
-                            position: 'top'
-                  })
-            }
-        });
+
 
     };
 
