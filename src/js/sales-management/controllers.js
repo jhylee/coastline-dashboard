@@ -139,6 +139,13 @@ app.controller('ViewSellingPointBlocksCtrl', ['$scope', 'InventoryData', 'Supply
         })
 
         $scope.blocks = sellingPoint.blocks;
+        $scope.getProductDisplay = function(block) {
+            if (block.finishedProduct) {
+                return block.finishedProduct.name;
+            } else {
+                return block.sourcedProduct.name
+            }
+        }
 
         $scope.deleteBlock = function() {
 

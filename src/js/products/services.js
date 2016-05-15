@@ -20,8 +20,13 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
                 success(res);
             }).error(error);
         },
-        getFinishedProductData: function(success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/finishedProducts').success(function(res) {
+        getProductData: function(success, error) {
+            $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/sourcedProducts').success(function(res) {
+                success(res);
+            }).error(error);
+        },
+        getFinishedProductData: function(sourcedProductId, success, error) {
+            $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/finishedProducts?sourcedProductId=' + sourcedProductId).success(function(res) {
                 success(res);
             }).error(error);
         },
