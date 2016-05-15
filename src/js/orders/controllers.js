@@ -328,6 +328,14 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                     $scope.customerName = data.name;
                     $scope.email = data.email;
                     $scope.phone = data.phone;
+                    $scope.address = data.address;
+                    $scope.city = data.city;
+                    $scope.state = data.state;
+                    $scope.postalCode = data.postalCode;
+                    $scope.company = data.company;
+                    $scope.country = data.country;
+                    $scope.notes = data.notes;
+
                 });
             };
         };

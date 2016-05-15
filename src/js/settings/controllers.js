@@ -5,7 +5,30 @@ var app = angular.module('coastlineWebApp.settings.controllers', ['ui.bootstrap'
     'ui.router'
 ]);
 
+app.controller('MobileNavCtrl', ['$scope', 'AuthService', '$state', '$window', 'FisheryService', 'SettingsService',
+    function($scope, AuthService, $state, $window, FisheryService, SettingsService) {
 
+      $scope.window = $window;
+
+
+      //TODO dynamic changing navButons
+      // $scope.$watch('window.innerWidth', function() {
+
+                if ($window.innerWidth <= 768) {
+                  $scope.showMobileTab = true;
+                  console.log(true);
+                  return true;
+                }
+                else {
+                  console.log(false);
+                  return false;
+                }
+
+      // })
+
+
+
+    }]);
 
 app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService',
     function($scope, AuthService, $state, FisheryService, SettingsService) {
