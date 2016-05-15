@@ -18,11 +18,11 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
                 console.log(err);
             });
 
-            ProductData.getFinishedProductData(function(finishedProducts) {
-                $scope.finishedProducts = finishedProducts;
-            }, function(err) {
-                console.log(err);
-            });
+            // ProductData.getFinishedProductData(function(finishedProducts) {
+            //     $scope.finishedProducts = finishedProducts;
+            // }, function(err) {
+            //     console.log(err);
+            // });
         };
 
         $scope.logout = function() {
