@@ -64,13 +64,11 @@ app.controller('InventoryCtrl', ['$scope', '$rootScope', 'InventoryData', 'Suppl
             });
 
             modalInstance1.result.then(
-                function(block) {
-                },
+                function(block) {},
                 function() {});
         };
 
-        $scope.saveSupplyChain = function(supplyChain) {
-        };
+        $scope.saveSupplyChain = function(supplyChain) {};
     }
 ]);
 
@@ -98,6 +96,15 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'InventoryData', 'Supp
                 $scope.selectedBlock = $scope.blocks[0];
             }
         });
+
+
+        $scope.getProductDisplay = function(block) {
+            if (block.finishedProduct) {
+                return block.finishedProduct.name;
+            } else {
+                return block.sourcedProduct.name
+            }
+        }
 
         $scope.ok = function() {
             $uibModalInstance.dismiss('ok');
@@ -274,7 +281,6 @@ app.controller('MoveBlockCtrl', ['$scope', 'InventoryData', 'SupplyChainService'
         $scope.ok = function() {
             if ($scope.quantity == $scope.block1.quantity) {
                 var data = {
-                    productId: selectedBlock.productType._id,
                     stageId: $scope.toStage.self,
                     quantity: $scope.quantity,
                     units: $scope.units,
@@ -318,11 +324,10 @@ app.controller('MoveBlockCtrl', ['$scope', 'InventoryData', 'SupplyChainService'
         };
 
         $scope.isSubmitButtonDisabled = function() {
-            if (!$scope.toStage){
+            if (!$scope.toStage) {
                 return true;
-            }
-            else {
-              return false;
+            } else {
+                return false;
             }
         };
 
@@ -458,11 +463,10 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'InventoryData', 'SupplyChainS
             }
         }
         $scope.isSubmitButtonDisabled = function() {
-            if (!$scope.toStage){
+            if (!$scope.toStage) {
                 return true;
-            }
-            else {
-              return false;
+            } else {
+                return false;
             }
         };
 
@@ -478,7 +482,6 @@ app.controller('MoveBlockToSalesCtrl', ['$scope', 'InventoryData', 'SupplyChainS
 
             if ($scope.quantity == $scope.block1.quantity) {
                 var data = {
-                    productId: selectedBlock.productType._id,
                     stageId: $scope.toStage,
                     quantity: $scope.quantity,
                     units: $scope.units,
@@ -564,41 +567,68 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
             console.log(err);
         });
 
-        $scope.isSubmitButtonDisabled = function() {
-          if (!$scope.selectedProduct ||
-              !$scope.quantity ||
-              !$scope.units) {
-               return true;
-              }
-            else {
-              return false;
+        var refreshSourcedProducts = function() {
+            ProductData.getSourcedProductData(function(res) {
+                $scope.sourcedProducts = res;
+            }, function(err) {
+                console.log(err);
+            });
+        };
+
+        var refreshFinishedProducts = function(sourcedProductId) {
+            ProductData.getFinishedProductData(sourcedProductId, function(res) {
+                $scope.finishedProducts = res;
+            }, function(err) {
+                console.log(err);
+            });
+        };
+
+
+        $scope.$watch('selectedSourcedProduct', function(newValue, oldValue) {
+            if ($scope.selectedSourcedProduct) {
+                refreshFinishedProducts($scope.selectedSourcedProduct._id);
             }
-          };
+        });
+
+        refreshSourcedProducts();
+        refreshFinishedProducts();
+
+
+        $scope.isSubmitButtonDisabled = function() {
+            if (!$scope.selectedProduct ||
+                !$scope.quantity ||
+                !$scope.units) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
 
 
         $scope.ok = function() {
 
 
-          var formValid =  true;
+            var formValid = true;
 
-          $scope.productRequired = $scope.addBatchForm.selectedProduct.$error.required;
-          $scope.quantityRequired = $scope.addBatchForm.quantity.$error.required;
-          $scope.unitsRequired = $scope.addBatchForm.units.$error.required;
-          $scope.catchDateRequired = $scope.addBatchForm.catchDate.$error.required;
+            $scope.sourcedProductRequired = $scope.addBatchForm.selectedSourcedProduct.$error.required;
+            $scope.quantityRequired = $scope.addBatchForm.quantity.$error.required;
+            $scope.unitsRequired = $scope.addBatchForm.units.$error.required;
+            $scope.catchDateRequired = $scope.addBatchForm.catchDate.$error.required;
 
 
-          if (!$scope.selectedProduct || !$scope.quantity
-              || !$scope.units || !$scope.catchDate) {
+            if (!$scope.selectedSourcedProduct || !$scope.quantity || !$scope.units || !$scope.catchDate) {
                 console.log("here");
                 formValid = false;
-          }
+            }
 
-          console.log(formValid);
+            console.log(formValid);
 
 
             if (formValid) {
                 var data = {
-                    productId: $scope.selectedProduct._id,
+                    sourcedProductId: $scope.selectedSourcedProduct,
+                    finishedProductId: $scope.selectedFinishedProduct,
                     stageId: SupplyChainService.getSelectedStageId(),
                     quantity: $scope.quantity,
                     units: $scope.units,
@@ -608,7 +638,7 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
                     catchType: $scope.catchType,
                     waterDepth: $scope.waterDepth,
                     blockNumber: $scope.blockNumber
-                    // jobNumber: $scope.jobNumber
+                        // jobNumber: $scope.jobNumber
                 };
 
 
@@ -661,8 +691,8 @@ app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Supp
 
 
             var data = {
-                productId: $scope.selectedProduct._id,
-                stageId: SupplyChainService.getSelectedStageId(),
+                // productId: $scope.selectedProduct._id,
+                // stageId: SupplyChainService.getSelectedStageId(),
                 quantity: $scope.quantity,
                 units: $scope.units
             };

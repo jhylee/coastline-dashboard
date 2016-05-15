@@ -52,7 +52,7 @@
             <td data-label="Select">
               <input type="radio" ng-model="$parent.selectedBlock" ng-value="$parent.blocks[$index]">
             </td>
-            <td data-label="Product">&nbsp;{{block.productType.name}}</td>
+            <td data-label="Product">&nbsp;{{getProductDisplay(block)}}</td>
             <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
             <td data-label="Batch #">&nbsp;{{block.blockNumber}}</td>
             <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
@@ -84,17 +84,16 @@
         <fieldset class="form-group">
           <div class="col-lg-6">
             <label>Product Type &nbsp;
-              <span ng-show="productRequired" class="input-required"> * Required</span>
+              <span ng-show="sourcedProductRequired" class="input-required"> * Required</span>
             </label>
-            <select class="form-control" name="selectedProduct" ng-model="selectedProduct" ng-options="product.name for product in products" required></select>
+            <select class="form-control" name="selectedSourcedProduct" ng-model="selectedSourcedProduct" ng-options="sourcedProduct.name for sourcedProduct in sourcedProducts" required></select>
             <small class="text-muted">Item must be added under Products tab.</small>
           </div>
           <div class="col-lg-6">
-            <label>Quantity &nbsp;
-              <span ng-show="quantityRequired" class="input-required"> * Required</span>
+            <label>Finished Good Type &nbsp;
             </label>
-            <input class="form-control" name="quantity" ng-model="quantity" type="text" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 3500" required></input>
-            <small class="text-muted">Please enter a numerical value.</small>
+            <select class="form-control" name="selectedFinishedProduct" ng-disabled="!selectedSourcedProduct" ng-model="selectedFinishedProduct" ng-options="finishedProduct.name for finishedProduct in finishedProducts"></select>
+            <small class="text-muted">Item must be added under Products tab.</small>
           </div>
         </fieldset>
         <fieldset class="form-group">
@@ -112,6 +111,15 @@
             <label>Batch Number</label>
             <input class="form-control" ng-model="blockNumber" type="text" step="1" placeholder="ex. A5432">
             <small class="text-muted">[Optional] For custom batch numbers.</small>
+          </div>
+        </fieldset>
+        <fieldset class="form-group">
+          <div class="col-lg-6">
+            <label>Quantity &nbsp;
+              <span ng-show="quantityRequired" class="input-required"> * Required</span>
+            </label>
+            <input class="form-control" name="quantity" ng-model="quantity" type="text" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 3500" required></input>
+            <small class="text-muted">Please enter a numerical value.</small>
           </div>
         </fieldset>
       </div>
@@ -167,11 +175,11 @@
   <div class="modal-body">
     <form>
       <fieldset class="form-group">
-        <div class="col-lg-12">
+        <!-- <div class="col-lg-12">
           <label>Product Type</label>
           <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
           <small class="text-muted">Item must be added under Products tab.</small>
-        </div>
+        </div> -->
         <div class="col-lg-12">
           <label>Quantity</label>
           <input class="form-control" type="number" ng-model="quantity" placeholder="ex. 4000">
