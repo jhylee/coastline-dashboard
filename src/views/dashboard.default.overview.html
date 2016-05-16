@@ -69,27 +69,39 @@
   </div>
 </div>
 
+
+
 <!-- VIEW ORDER DETAIL MODAL-->
 <script type="text/ng-template" id="viewOrderDetailModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Customer Order #{{order.invoiceNumber}}</h3>
+    <h3 class="modal-title text-center">Invoice #{{order.invoiceNumber}}</h3>
   </div>
   <div class="modal-body">
-    <h4><b>Name :</b> {{order.customerName}}</h4>
-    <h4><b>Phone :</b> {{order.phone}}</h4>
-    <h4><b>Email :</b> {{order.email}}</h4>
-    <h4><b>Order Time :</b> {{order.date | date:'short' }}</h4>
-    <h4><b>Credit Terms :</b> {{order.creditTerms}}</h4>
-  </div>
-  <div class="modal-footer">
-    <!--<a class="btn-status-default" ng-href="{{ fileUrl }}" download="invoice.pdf"><i class="fa fa-file-pdf-o"></i>  Export to PDF</a>-->
+    <div class="row modal-detail-container">
+    <div class="col-lg-6">
+      <h4><span>Name:</span> {{order.customerName}}</h4>
+      <h4><span>Company:</span> {{order.company}}</h4>
+      <h4><span>Phone:</span> {{order.phone}}</h4>
+      <h4><span>Email:</span> {{order.email}}</h4>
+      <h4><span>Address:</span> {{order.address}} &nbsp; {{order.city}} &nbsp; {{order.state}} &nbsp; {{order.postal}} &nbsp; {{order.country}}</h4>
+    </div>
+    <div class="col-lg-6">
+      <h4><span>Order Date:</span> {{order.date | date:'M/d/yyyy' }}</h4>
+      <h4><span>Payment Method:</span> {{order.paymentMethod}} &nbsp; {{order.currency}}</h4>
+      <h4><span>Credit Terms:</span> {{order.creditTerms}}</h4>
+      <h4><span>Delivery Terms:</span> {{order.deliveryCharge}} &nbsp; {{deliveryTaxRate}}%</h4>
 
-    <div ng-switch="pdfStatus">
-      <div ng-switch-default><a class="btn-status-default" href="javascript:void(0);" ng-click="getPDF()"><i class="fa fa-file-pdf-o"></i>  Export to PDF</a></div>
-      <div ng-switch-when="loading"><a class="btn-status-success" href="javascript:void(0);">Loading...</a></div>
     </div>
   </div>
+</div>
+<br>
 
+  <div class="modal-footer">
+    <div ng-switch="pdfStatus">
+      <div ng-switch-default><a class="btn-status-default" href="javascript:void(0);" ng-click="getPDF()"><i class="fa fa-file-pdf-o"></i> Export to PDF</a></div>
+      <div ng-switch-when="loading"><a class="btn-status-success" href="javascript:void(0);">Loading...</a></div>
+    </div>
+</div>
   <div class="modal-body">
     <div class="table-responsive">
       <table class="table tableWhite">
