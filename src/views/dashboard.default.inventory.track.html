@@ -175,11 +175,11 @@
   <div class="modal-body">
     <form>
       <fieldset class="form-group">
-        <!-- <div class="col-lg-12">
-          <label>Product Type</label>
-          <select class="form-control" ng-model="selectedProduct" ng-options="product.name for product in products"></select>
+        <div class="col-lg-12">
+          <label>Set Finished Good Type:</label>
+          <select class="form-control" ng-model="selectedFinishedProduct" ng-init="block.finishedProduct" ng-options="finishedProduct.name for finishedProduct in finishedProducts"></select>
           <small class="text-muted">Item must be added under Products tab.</small>
-        </div> -->
+        </div>
         <div class="col-lg-12">
           <label>Quantity</label>
           <input class="form-control" type="number" ng-model="quantity" placeholder="ex. 4000">
@@ -317,7 +317,7 @@
         </thead>
         <tbody>
           <tr>
-            <td data-label="Product">&nbsp;{{block.productType.name}}</td>
+            <td data-label="Product">&nbsp;{{getProductDisplay()}}</td>
             <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
             <td data-label="Catch Date">{{block.catchDate | date:"M/d/y"}}</td>
             <td data-label="Region">{{block.catchRegion}}</td>

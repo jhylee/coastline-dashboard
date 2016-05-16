@@ -15,8 +15,6 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 <div class="table-responsive table-card-responsive">
-                  <h4> Sourced Products (ex. Raw)</h4>
-                    <br>
                     <table class="table tableWhite">
                       <thead>
                         <tr>
@@ -59,7 +57,7 @@
           <label>Product Name &nbsp;
             <span ng-show="productRequired" class="input-required"> * Required</span>
           </label>
-          <input class="form-control" name="name" ng-model="name" maxlength="45" placeholder="ex. Atlantic Cod" required='true'>
+          <input class="form-control" name="name" ng-model="name" maxlength="45" placeholder="ex. Atlantic Cod">
           <small class="text-muted">Please enter the product name.</small>
         </div>
         <div class="col-lg-6">
@@ -70,14 +68,14 @@
             <table class="table tableWhite">
               <tbody>
                 <tr ng-repeat="finishedProduct in finishedProducts track by $index">
-                  <td data-label="Select">
+                  <!-- <td data-label="Select">
                     <input type="radio" ng-model="$parent.selectedFinishedProduct" ng-value="$parent.finishedProducts[$index]">
-                  </td>
+                  </td> -->
                   <td data-label="Name">&nbsp; {{finishedProducts[$index].name}}</td>
-                  <td>&nbsp; <button class="btn-table-danger align-right" ng-click="deleteFinishedProduct($parent.selectedFinishedProduct)"><i class="fa fa-minus"></i></button></td>
+                  <td>&nbsp; <button class="btn-table-danger align-right" ng-click="removeFinishedProduct($index)"><i class="fa fa-minus"></i></button></td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <!-- <td>&nbsp;</td> -->
                   <td>&nbsp;</td>
                 <td class ="table-button-wrapper">&nbsp;
                   <button class="btn-table-success align-right" ng-click="addFinishedProduct()"><i class="fa fa-plus"></i></button>

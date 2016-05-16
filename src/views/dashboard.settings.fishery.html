@@ -138,7 +138,7 @@
                         <fieldset class="form-group">
                           <div class="row">
                               <label>Invoice Purchase Disclaimer</label>
-                              <textarea class="form-control" type="text" name="disclaimer" ng-model="disclaimer"
+                              <textarea ng-disabled="(isLoading || isDisabled)" class="form-control" type="text" name="disclaimer" ng-model="disclaimer"
                               placeholder="ex. TERMS: Due to the nature of seafood, please check your order immediately.
                               1. All quality problems must be reported to your sales rep within 12 hours.
                               2. Any short shipments must be marked on carrier's waybill or if delivered by our truck on the delivery copy of the invoice.

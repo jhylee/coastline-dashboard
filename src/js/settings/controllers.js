@@ -8,27 +8,27 @@ var app = angular.module('coastlineWebApp.settings.controllers', ['ui.bootstrap'
 app.controller('MobileNavCtrl', ['$scope', 'AuthService', '$state', '$window', 'FisheryService', 'SettingsService',
     function($scope, AuthService, $state, $window, FisheryService, SettingsService) {
 
-      $scope.window = $window;
+        $scope.window = $window;
 
 
-      //TODO dynamic changing navButons
-      // $scope.$watch('window.innerWidth', function() {
+        //TODO dynamic changing navButons
+        // $scope.$watch('window.innerWidth', function() {
 
-                if ($window.innerWidth <= 768) {
-                  $scope.showMobileTab = true;
-                  console.log(true);
-                  return true;
-                }
-                else {
-                  console.log(false);
-                  return false;
-                }
+        if ($window.innerWidth <= 768) {
+            $scope.showMobileTab = true;
+            console.log(true);
+            return true;
+        } else {
+            console.log(false);
+            return false;
+        }
 
-      // })
-
+        // })
 
 
-    }]);
+
+    }
+]);
 
 app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService',
     function($scope, AuthService, $state, FisheryService, SettingsService) {
@@ -109,8 +109,9 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
         $scope.saveChanges = function() {
 
             $scope.isLoading = true;
+            console.log($scope.taxNumber);
 
-            SettingsService.updateFishery({
+            var data = {
                 name: $scope.name,
                 address: $scope.address,
                 city: $scope.city,
@@ -120,38 +121,43 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
                 salesPhone: $scope.salesPhone,
                 faxPhone: $scope.faxPhone,
                 taxNumber: $scope.taxNumber,
-                fileName: $scope.file.name,
-                fileType: $scope.file.type,
-                fileSize: $scope.file.size,
                 disclaimer: $scope.disclaimer
-            }).then(function(data) {
-                $scope.name = data.name;
-                $scope.address = data.address;
-                $scope.city = data.city;
-                $scope.state = data.state;
-                $scope.postalCode = data.postalCode;
-                $scope.phone = data.phone;
-                $scope.salesPhone = data.salesPhone;
-                $scope.faxPhone = data.faxPhone;
-                $scope.taxNumber = data.taxNumber;
-                $scope.disclaimer = data.disclaimer;
+            };
+
+            if ($scope.file) {
+                data.fileName = $scope.file.name;
+                data.fileType = $scope.file.type;
+                data.fileSize = $scope.file.size;
+            };
+
+            SettingsService.updateFishery(data).then(function(data) {
+                $scope.name = data.fishery.name;
+                $scope.address = data.fishery.address;
+                $scope.city = data.fishery.city;
+                $scope.state = data.fishery.state;
+                $scope.postalCode = data.fishery.postalCode;
+                $scope.phone = data.fishery.phone;
+                $scope.salesPhone = data.fishery.salesPhone;
+                $scope.faxPhone = data.fishery.faxPhone;
+                $scope.taxNumber = data.fishery.taxNumber;
+                $scope.disclaimer = data.fishery.disclaimer;
 
                 console.log(data);
-
-                if (data.signedUrl) {
-                    var payload = {
-                        url: data.signedUrl,
-                        data: $scope.file,
-                        headers: {
-                            'Content-Type': $scope.file.type,
-                            'x-amz-acl': 'public-read',
-                        },
-                        ignoreInterceptor: true,
-                        method: "PUT"
-                    };
+                if ($scope.file) {
+                    if (data.signedUrl) {
+                        var payload = {
+                            url: data.signedUrl,
+                            data: $scope.file,
+                            headers: {
+                                'Content-Type': $scope.file.type,
+                                'x-amz-acl': 'public-read',
+                            },
+                            ignoreInterceptor: true,
+                            method: "PUT"
+                        };
+                    }
+                    Upload.http(payload);
                 }
-                Upload.http(payload);
-
                 $scope.isLoading = false;
 
             })

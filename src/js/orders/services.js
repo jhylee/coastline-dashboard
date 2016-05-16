@@ -130,6 +130,14 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
             })
 
         },
+        editOrder: function(orderId, data) {
+            return $http.put(baseUrl + '/api/orders/' + orderId, data).then(function(res) {
+                return res.data;
+            }).catch(function(err) {
+                return err;
+            })
+
+        },
         deleteOrder: function(orderId) {
             return $http.delete(baseUrl + '/api/orders/' + orderId).then(function(res) {
                 return res.data;

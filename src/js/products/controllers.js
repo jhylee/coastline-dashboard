@@ -141,6 +141,16 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
             });
         };
 
+        $scope.removeFinishedProduct = function(index) {
+            var newFinishedProducts = []
+            for (var i = 0; i < $scope.finishedProducts.length; i ++) {
+                if (i != index) {
+                    newFinishedProducts.push($scope.finishedProducts[i]);
+                }
+            }
+            $scope.finishedProducts = newFinishedProducts;
+        };
+
 
         $scope.ok = function() {
 
@@ -151,7 +161,7 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
             };
 
             if (!$scope.name) {
-                $scope.productRequired = $scope.addProductForm.name.$error.required;
+                $scope.productRequired = (!$scope.name);
             } else {
                 ProductData.addSourcedProduct(data, function(res) {
                     $uibModalInstance.close(res);

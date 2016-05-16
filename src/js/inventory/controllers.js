@@ -397,6 +397,14 @@ app.controller('ViewDetailsCtrl', ['$scope', 'InventoryData', 'SupplyChainServic
             }
         };
 
+        $scope.getProductDisplay = function () {
+            if ($scope.block.finishedProduct) {
+                return $scope.block.finishedProduct.name;
+            } else if ($scope.block.sourcedProduct) {
+                return $scope.block.sourcedProduct.name;
+            }
+        }
+
         $scope.getDate = function(i) {
             // return $scope.stageNames[index];
             if ($scope.history.events[i].operation == "Create") {
@@ -662,21 +670,23 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
 app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'SupplyChainService', '$state', '$uibModalInstance',
     function($scope, InventoryData, ProductData, SupplyChainService, $state, $uibModalInstance) {
 
-        var block;
+        $scope.block;
 
         SupplyChainService.fetchSelectedBlock()
             .then(function(res) {
-                block = res;
-                $scope.quantity = block.quantity;
-                $scope.units = block.units;
+                $scope.block = res;
+                $scope.quantity = $scope.block.quantity;
+                $scope.units = $scope.block.units;
             }).then(function() {
-                ProductData.getProductData(function(res) {
-                    $scope.products = res;
-                    findCurrentProduct(block.productType._id);
+                ProductData.getFinishedProductData($scope.block.sourcedProduct._id, function(res) {
+                    $scope.finishedProducts = res;
+                    $scope.selectedFinishedProduct = $scope.block.finishedProduct;
                 }, function(err) {
                     console.log(err);
                 });
             });
+
+
 
 
         var findCurrentProduct = function(id) {
@@ -693,12 +703,13 @@ app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Supp
             var data = {
                 // productId: $scope.selectedProduct._id,
                 // stageId: SupplyChainService.getSelectedStageId(),
+                finishedProduct: $scope.selectedFinishedProduct,
                 quantity: $scope.quantity,
                 units: $scope.units
             };
 
 
-            InventoryData.updateBlock(SupplyChainService.getSupplyChainId(), block._id, data, function(res) {
+            InventoryData.updateBlock(SupplyChainService.getSupplyChainId(), $scope.block._id, data, function(res) {
                 $uibModalInstance.close(res);
             }, function(err) {
                 $uibModalInstance.close(err);
