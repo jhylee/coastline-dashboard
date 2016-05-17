@@ -494,7 +494,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.addItem = function() {
             $scope.items.push({
                 quantity: $scope.quantity,
-                product: $scope.selectedProduct,
+                product: $scope.selectedFinishedProduct || $scope.selectedSourcedProduct,
                 fisheryId: FisheryService.getFisheryId(),
                 block: $scope.selectedBlock,
                 unitPrice: $scope.unitPrice,

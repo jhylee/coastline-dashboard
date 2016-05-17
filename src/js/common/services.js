@@ -238,7 +238,7 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
 
         },
 
-        addStage: function(name, prev, success) {
+        addStage: function(success, name, prev, isSellingPoint, sellingTargets) {
                 var id = Date.now();
                 var x;
                 refreshStageFurthestRight();
@@ -248,7 +248,9 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
 
 
                 var stageData = {
-                    name: name
+                    name: name,
+                    isSellingPoint: isSellingPoint
+                    // sellingTargets: sellingTargets || []
                 };
                 $http.post(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages', stageData).success(
                     function(stage) {
@@ -472,6 +474,11 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                     node.x = stages[i].x;
                     node.y = stages[i].y;
                     data.nodes.push(node);
+
+                    if (stages[i].self.isSellingPoint) {
+                        node.color = "#348A35";
+                        console.log("here");
+                    }
                 }
 
                 // link nodes

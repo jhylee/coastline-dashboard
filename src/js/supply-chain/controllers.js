@@ -38,7 +38,7 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
             });
         };
 
-        // $scope.isNodeSelected = function(){
+        // $scope.noNodeSelected = function(){
         //    if ( !=null){
         //      return false;
         //    }
@@ -137,6 +137,8 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
         // refresh the graph display - done when changes are made
         $scope.refreshGraph = function() {
             SupplyChainService.updateStages();
+            $scope.noNodeSelected = !SupplyChainService.getSelectedStageId();
+            console.log($scope.noNodeSelected);
             $scope.data = SupplyChainService.getDisplayData();
         };
 
@@ -200,17 +202,28 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
         // callback for selectNode events
         $scope.events.selectNode = function(items) {
             SupplyChainService.setSelectedStageId(items.nodes[0]);
+            $scope.noNodeSelected = false;
+            console.log('selectNode' + $scope.noNodeSelected);
+            console.log($scope.noNodeSelected);
+
+
         };
 
         // callback for deselectNode events
         $scope.events.deselectNode = function(items) {
             SupplyChainService.setSelectedStageId(null);
+            $scope.noNodeSelected = true;
+            console.log('deselectNode' + $scope.noNodeSelected);
+            console.log($scope.noNodeSelected);
 
         };
 
         $scope.events.dragEnd = function(items) {
             if (items.nodes.length > 0) SupplyChainService.moveStage(items.nodes[0], items.pointer.canvas.x, items.pointer.canvas.y);
             SupplyChainService.updateStages();
+            SupplyChainService.setSelectedStageId(items.nodes[0]);
+            // $scope.noNodeSelected = !SupplyChainService.getSelectedStageId();
+
 
         };
 
@@ -232,10 +245,10 @@ app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$ui
                 function(stage) {
                     // add the stage to the supply chain
 
-                    SupplyChainService.addStage(stage.name, stage.prev, function(res, stages) {
+                    SupplyChainService.addStage(function(res, stages) {
                         // refresh the graph to show the changes
                         $scope.refreshGraph();
-                    });
+                    }, stage.name, stage.prev, stage.isSellingPoint, stage.sellingTargets);
 
                     // CANCEL callback
                 },
@@ -440,14 +453,19 @@ app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$
 
         // tied to ok button
         $scope.ok = function() {
+
             if ($scope.prev) {
                 $uibModalInstance.close({
                     name: $scope.name,
+                    isSellingPoint: $scope.isSellingPoint,
+                    // sellingTargets: sellingTargets,
                     prev: $scope.prev.self
                 });
             } else {
                 $uibModalInstance.close({
-                    name: $scope.name
+                    name: $scope.name,
+                    isSellingPoint: $scope.isSellingPoint
+                        // sellingTargets: sellingTargets
                 });
             }
         };
@@ -458,11 +476,10 @@ app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$
         };
 
         $scope.isSubmitButtonDisabled = function() {
-            if (!$scope.name){
+            if (!$scope.name) {
                 return true;
-            }
-            else {
-              return false;
+            } else {
+                return false;
             }
         };
     }
@@ -538,6 +555,11 @@ app.controller('UnlinkStagesCtrl', ['$scope', 'VisDataSet', 'SupplyChainService'
 app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
     function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
 
+        SupplyChainService.fetchSelectedStage().then(function(data) {
+            $scope.name = data.name;
+            $scope.isSellingPoint = data.isSellingPoint;
+        })
+
         // get stages - for option display
         $scope.getStages = function() {
             return SupplyChainService.getStages();
@@ -551,7 +573,8 @@ app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '
             };
 
             SupplyChainService.updateStage(res._id, {
-                    name: $scope.name
+                    name: $scope.name,
+                    isSellingPoint: $scope.isSellingPoint
                 })
                 .then(function(res) {
                     SupplyChainService.fetchStages().then(function(res) {
@@ -571,11 +594,10 @@ app.controller('EditStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '
         };
 
         $scope.isSubmitButtonDisabled = function() {
-            if (!$scope.name){
+            if (!$scope.name) {
                 return true;
-            }
-            else {
-              return false;
+            } else {
+                return false;
             }
         };
     }
