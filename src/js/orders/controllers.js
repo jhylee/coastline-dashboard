@@ -610,13 +610,13 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             $scope.nameRequired = $scope.addOrderForm.name.$error.required;
             // $scope.emailRequired = $scope.addOrderForm.email.$error.required;
             $scope.invoiceRequired = $scope.addOrderForm.invoice.$error.required;
-            $scope.paymentRequired = $scope.addOrderForm.payment.$error.required;
+            // $scope.paymentRequired = $scope.addOrderForm.payment.$error.required;
             $scope.statusRequired = $scope.addOrderForm.status.$error.required;
             $scope.dateRequired = $scope.addOrderForm.date.$error.required;
             $scope.creditRequired = $scope.addOrderForm.credit.$error.required;
             $scope.phoneRequired = $scope.addOrderForm.phone.$error.required;
 
-            if (!$scope.customerName || !$scope.invoiceNumber || !$scope.paymentMethod || !$scope.status || !$scope.date || !$scope.creditTerms || !$scope.phone) {
+            if (!$scope.customerName || !$scope.invoiceNumber || !$scope.status || !$scope.date || !$scope.creditTerms || !$scope.phone) {
                 console.log("here");
                 formValid = false;
 
