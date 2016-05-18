@@ -30,14 +30,35 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
             accountType: $scope.accountType
         };
 
-        var fisheryName = $scope.fisheryName
+        var formValid =  true;
 
-        AuthService.signUp(formData, function(res) {
-            //   AuthService.login(formData, function (res) {
-            $state.go('fishery-setup');
-            //   });
-        }, function(err) {
-        });
+        if (!$scope.username || !$scope.password || !$scope.email || !$scope.accountType || res.statusText === "Unauthorized" || res.statusText === "Not Found"){
+          formValid =false;
+          $scope.usernameRequired = true;
+          $scope.passwordRequired = true;
+          $scope.emailRequired = true;
+          $scope.accountTypeRequired = true;
+
+        }
+        else {
+          formValid=true;
+          $scope.usernameRequired = false;
+          $scope.passwordRequired = false;
+          $scope.emailRequired = false;
+          $scope.accountTypeRequired = false;
+        }
+
+        if (formValid) {
+          var fisheryName = $scope.fisheryName
+
+          AuthService.signUp(formData, function(res) {
+              //   AuthService.login(formData, function (res) {
+              $state.go('fishery-setup');
+              //   });
+          }, function(err) {
+          });
+
+        }
 
     };
 
@@ -49,10 +70,27 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
             inviteCode: $scope.inviteCode
         };
 
-        AuthService.signUp(formData, function(res) {
-            $state.go('dashboard.default.overview');
-        }, function(err) {
-        });
+        var formValid =  true;
+
+        if (!$scope.username || !$scope.password || !$scope.inviteCode || res.statusText === "Unauthorized" || res.statusText === "Not Found"){
+          formValid =false;
+          $scope.usernameRequired = true;
+          $scope.passwordRequired = true;
+          $scope.inviteCodeRequired = true;
+        }
+        else {
+          formValid=true;
+          $scope.usernameRequired = false;
+          $scope.passwordRequired = false;
+          $scope.inviteCodeRequired = false;
+        }
+
+        if (formValid) {
+          AuthService.signUp(formData, function(res) {
+              $state.go('dashboard.default.overview');
+          }, function(err) {
+          });
+        }
 
     };
 
@@ -61,16 +99,28 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
             username: $scope.username
         };
 
-        AuthService.sendResetLink(data).then(function (res) {
-            $state.go('login');
-        })
-        ngNotify.set('Please Check Your Email for Reset Instructions ', {
-            sticky: false,
-            button: true,
-            type: 'success',
-            duration: 1500,
-            position: 'top'
-        })
+        var formValid =  true;
+
+        if (!$scope.username || res.statusText==="Unauthorized" || res.statusText==="Not Found"){
+          formValid = false;
+          $scope.usernameRequired = true;
+        }
+        else {
+          formValid=true;
+          $scope.usernameRequired = false;
+        }
+        if (formValid) {
+          AuthService.sendResetLink(data).then(function (res) {
+              $state.go('login');
+          })
+          ngNotify.set('Please Check Your Email for Reset Instructions ', {
+              sticky: false,
+              button: true,
+              type: 'success',
+              duration: 1500,
+              position: 'top'
+          })
+        }
     };
 
 
@@ -79,12 +129,27 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
             name: $scope.fisheryName,
         };
 
-        AuthService.createFishery(formData, function(res) {
-                // $state.go('dashboard.default.products');
-            },
-            function(err) {
-                $rootScope.error = 'Failed to createFishery';
-            });
+        var formValid =  true;
+
+        if (!$scope.fisheryName || res.statusText === "Unauthorized" || res.statusText === "Not Found"){
+          formValid =false;
+          $scope.fisheryNameRequired = true;
+        }
+        else {
+          formValid=true;
+          $scope.fisheryNameRequired = false;
+        }
+
+        if (formValid) {
+          AuthService.createFishery(formData, function(res) {
+                  // $state.go('dashboard.default.products');
+              },
+              function(err) {
+                  $rootScope.error = 'Failed to createFishery';
+              });
+        }
+
+
     };
 
     $scope.login = function() {
@@ -109,9 +174,6 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
           $scope.usernameRequired = false;
           $scope.passwordRequired = false;
         }
-
-        console.log(formValid);
-
 
         if (formValid) {
           var loginPromise = AuthService.login(formData);
