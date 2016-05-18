@@ -101,7 +101,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
 
         var formValid =  true;
 
-        if (!$scope.username || res.statusText==="Unauthorized" || res.statusText==="Not Found"){
+        if (!$scope.username){
           formValid = false;
           $scope.usernameRequired = true;
         }
