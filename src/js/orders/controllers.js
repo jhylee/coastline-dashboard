@@ -16,8 +16,25 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         // $scope.addInvoice = function(){
         //   $state.go('dashboard.default.orders.invoice');
         // }
+        //
 
-        var updateOrders = function() {
+
+
+        OrderData.getOrdersLength().then(function(data) {
+            $scope.numberOfCustomers = data.length;
+            var length = Math.ceil(data.length / 10)
+            $scope.paginationArray = [];
+            console.log($scope.numberOfCustomers);
+            // console.log(Math.ceil(data.length / 10));
+            for (var i = 0; i < length; i ++) {
+                $scope.paginationArray.push(0);
+            }
+
+            console.log($scope.paginationArray);
+
+        });
+
+        var updateOrders = function(startIndex, endIndex) {
             OrderData.getOrders(function(orders) {
                 $scope.orders = orders;
                 if ($scope.orders.length > 0) {
@@ -42,14 +59,14 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
                             var itemTax = $scope.orders[i].items[j].taxRate || 0;
                             totalPrice += (1 + itemTax/100) * ($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity);
-                            console.log(totalPrice);
+                            // console.log(totalPrice);
                         }
 
                         var deliveryCharge = $scope.orders[i].deliveryCharge || 0;
                         var deliveryChargeTax = $scope.orders[i].deliveryChargeTax || 0;;
 
                         totalPrice += deliveryCharge + deliveryChargeTax;
-                        console.log(totalPrice);
+                        // console.log(totalPrice);
 
                         total = Math.round(totalPrice * 100) / 100;
                         $scope.totals.push(total);
@@ -63,10 +80,19 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
             }, function(err) {
                 console.log(err);
-            });
+            }, startIndex, endIndex);
         };
 
-        updateOrders();
+        // updateOrders(0, 10);
+
+        $scope.setPageIndex = function (index) {
+            $scope.pageIndex = index;
+
+            updateOrders(index * 10, (index + 1) * 10);
+
+        };
+
+        $scope.setPageIndex(0);
 
         $scope.viewOrderDetail = function(order) {
             // OrderData.setSelectedOrder(order);
@@ -131,7 +157,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
             modalInstance.result.then(
                 function(order) {
-                    updateOrders();
+                    updateOrders($scope.index * 10, ($scope.index + 1) * 10);
                 },
                 function() {});
         };
@@ -148,7 +174,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
             modalInstance.result.then(
                 function() {
-                    updateOrders();
+                    updateOrders($scope.index * 10, ($scope.index + 1) * 10);
                     $scope.isFilterCleared = OrderData.isFilterCleared();
                 },
                 function() {});
@@ -157,7 +183,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         $scope.clearFilter = function() {
             OrderData.clearFilter();
             $scope.isFilterCleared = OrderData.isFilterCleared();
-            updateOrders();
+            updateOrders($scope.index * 10, ($scope.index + 1) * 10);
         };
 
         $scope.exportOrders = function() {
@@ -210,7 +236,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 // OK callback
                 function(order) {
                     // add the stage to the supply chain
-                    updateOrders();
+                    updateOrders($scope.index * 10, ($scope.index + 1) * 10);
 
                     // CANCEL callback
                 },
@@ -234,7 +260,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 // OK callback
                 function(order) {
                     // add the stage to the supply chain
-                    updateOrders();
+                    updateOrders($scope.index * 10, ($scope.index + 1) * 10);
 
 
                     // CANCEL callback
@@ -266,6 +292,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         //         },
         //         function() {});
         // };
+
 
 
     }
