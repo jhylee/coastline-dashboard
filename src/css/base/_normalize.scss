@@ -96,8 +96,10 @@ body {
 
 .pagination {
   border: solid 0.12em #cfcfcf;
+  background-color: #607D8B;
+
 }
-.pagination>.active>a,.pagination>.active>a:hover,.pagination>.active>a:visited {
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
   background-color: #607D8B;
   border-color: #607D8B;
 }
