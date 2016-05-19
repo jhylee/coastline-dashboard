@@ -18,8 +18,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         // }
         //
 
-
-
         OrderData.getOrdersLength().then(function(data) {
             $scope.numberOfCustomers = data.length;
             var length = Math.ceil(data.length / 10)
@@ -467,8 +465,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.$watch('selectedBlock', function(newValue, oldValue) {
             if ($scope.selectedBlock) {
                 $scope.quantity = $scope.selectedBlock.quantity;
-            }
-
+              }
         });
 
         $scope.$watch('quantity', function() {
@@ -476,13 +473,15 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 if ($scope.quantity > $scope.selectedBlock.quantity) {
                     $scope.quantity = $scope.selectedBlock.quantity;
 
-                    ngNotify.set('Quantity exceeds availability in this batch', {
+                    ngNotify.set('The quantity entered exceeds availabilty.', {
                         sticky: false,
-                        button: true,
+                        button: false,
                         type: 'error',
-                        duration: 700,
+                        duration: 1500,
                         position: 'top'
-                    })
+                    });
+
+                    console.log("hello world");
                 }
             }
         });
@@ -633,19 +632,30 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             };
 
             var formValid = true;
-
+            //
             $scope.nameRequired = $scope.addOrderForm.name.$error.required;
-            // $scope.emailRequired = $scope.addOrderForm.email.$error.required;
             $scope.invoiceRequired = $scope.addOrderForm.invoice.$error.required;
-            // $scope.paymentRequired = $scope.addOrderForm.payment.$error.required;
             $scope.statusRequired = $scope.addOrderForm.status.$error.required;
             $scope.dateRequired = $scope.addOrderForm.date.$error.required;
             $scope.creditRequired = $scope.addOrderForm.credit.$error.required;
             $scope.phoneRequired = $scope.addOrderForm.phone.$error.required;
+            // $scope.sourcedProductRequired = $scope.addOrderForm.selectedSourcedProduct.$error.required;
+            // $scope.batchRequired = $scope.addOrderForm.selectedBlock.$error.required;
+
+
 
             if (!$scope.customerName || !$scope.invoiceNumber || !$scope.status || !$scope.date || !$scope.creditTerms || !$scope.phone) {
                 console.log("here");
                 formValid = false;
+            }
+
+            if (!$scope.selectedSourcedProduct || !$scope.selectedBlock || !$scope.unitPrice || !$scope.quantity){
+              formValid = false;
+              $scope.productRequired = true;
+              $scope.sourcedProductRequired = true;
+              $scope.batchRequired = true;
+              $scope.unitPriceRequired = true;
+              $scope.quantityRequired = true;
 
             }
 
