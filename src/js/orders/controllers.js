@@ -35,52 +35,69 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         });
 
         var updateOrders = function(startIndex, endIndex) {
-            OrderData.getOrders(function(orders) {
-                $scope.orders = orders;
-                if ($scope.orders.length > 0) {
-                    $scope.selectedOrder = $scope.orders[0];
+            OrderData.getOrdersLength().then(function(data) {
+                $scope.numberOfCustomers = data.length;
+                var length = Math.ceil(data.length / 10)
+                $scope.paginationArray = [];
+                console.log($scope.numberOfCustomers);
+                // console.log(Math.ceil(data.length / 10));
+                for (var i = 0; i < length; i ++) {
+                    $scope.paginationArray.push(0);
                 }
 
-                $scope.totals = [];
-
-                ProductData.getProductData(function(products) {
-                    for (var i = 0; i < $scope.orders.length; i++) {
-                        var total = 0;
-                        var totalPrice = 0;
+                console.log($scope.paginationArray);
 
 
-                        for (var j = 0; j < $scope.orders[i].items.length; j++) {
-                            for (var k = 0; k < products.length; k++) {
-                                if ($scope.orders[i].items[j].product == products[k]._id) {
-                                    $scope.orders[i].items[j].product = products[k];
-                                    // total += Math.round($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity * 100) / 100
+
+
+                OrderData.getOrders(function(orders) {
+                    $scope.orders = orders;
+                    if ($scope.orders.length > 0) {
+                        $scope.selectedOrder = $scope.orders[0];
+                    }
+
+                    $scope.totals = [];
+
+                    ProductData.getProductData(function(products) {
+                        for (var i = 0; i < $scope.orders.length; i++) {
+                            var total = 0;
+                            var totalPrice = 0;
+
+
+                            for (var j = 0; j < $scope.orders[i].items.length; j++) {
+                                for (var k = 0; k < products.length; k++) {
+                                    if ($scope.orders[i].items[j].product == products[k]._id) {
+                                        $scope.orders[i].items[j].product = products[k];
+                                        // total += Math.round($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity * 100) / 100
+                                    }
                                 }
+
+                                var itemTax = $scope.orders[i].items[j].taxRate || 0;
+                                totalPrice += (1 + itemTax/100) * ($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity);
+                                // console.log(totalPrice);
                             }
 
-                            var itemTax = $scope.orders[i].items[j].taxRate || 0;
-                            totalPrice += (1 + itemTax/100) * ($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity);
+                            var deliveryCharge = $scope.orders[i].deliveryCharge || 0;
+                            var deliveryChargeTax = $scope.orders[i].deliveryChargeTax || 0;;
+
+                            totalPrice += deliveryCharge + deliveryChargeTax;
                             // console.log(totalPrice);
+
+                            total = Math.round(totalPrice * 100) / 100;
+                            $scope.totals.push(total);
+
+
+
                         }
+                    }, function(err) {
+                        console.log(err);
+                    });
 
-                        var deliveryCharge = $scope.orders[i].deliveryCharge || 0;
-                        var deliveryChargeTax = $scope.orders[i].deliveryChargeTax || 0;;
-
-                        totalPrice += deliveryCharge + deliveryChargeTax;
-                        // console.log(totalPrice);
-
-                        total = Math.round(totalPrice * 100) / 100;
-                        $scope.totals.push(total);
-
-
-
-                    }
                 }, function(err) {
                     console.log(err);
-                });
+                }, startIndex, endIndex);
+            });
 
-            }, function(err) {
-                console.log(err);
-            }, startIndex, endIndex);
         };
 
         // updateOrders(0, 10);
@@ -178,6 +195,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                     $scope.isFilterCleared = OrderData.isFilterCleared();
                 },
                 function() {});
+
         };
 
         $scope.clearFilter = function() {
@@ -211,7 +229,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                     $scope.isLoading = false;
 
                     $uibModalInstance.close();
-
 
                 })
         };
@@ -381,6 +398,16 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 
                 });
             };
+        };
+
+        var refreshTotal = function() {
+            var totalPrice = 0;
+            var order = OrderData.getSelectedOrder();
+            for (var i = 0; i < order.items.length; i++) {
+                totalPrice += order.items[i].unitPrice * order.items[i].quantity;
+            }
+            $scope.total = Math.round(totalPrice * 100) / 100;
+            console.log($scope.total);
         };
 
         var refreshSourcedProducts = function() {
@@ -592,6 +619,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             }
 
 
+        refreshTotal();
 
         // tied to ok button
         $scope.ok = function() {

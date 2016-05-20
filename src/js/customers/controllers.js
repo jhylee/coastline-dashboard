@@ -9,29 +9,40 @@ var app = angular.module('coastlineWebApp.customers.controllers', ['ui.bootstrap
 
 app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'CustomerService',
     function($scope, AuthService, $state, FisheryService, $uibModal, CustomerService) {
-
         var refreshCustomers = function(startIndex, endIndex) {
-            CustomerService.getCustomers(startIndex, endIndex).then(function(data) {
-                $scope.customers = data;
-                console.log(data);
-                $scope.selectedCustomer = $scope.customers[0];
+            CustomerService.getCustomersLength().then(function(data) {
+                $scope.numberOfCustomers = data.length;
+                var length = Math.ceil(data.length / 10);
+                $scope.paginationArray = [];
+                console.log($scope.numberOfCustomers);
+                // console.log(Math.ceil(data.length / 10));
+                for (var i = 0; i < length; i ++) {
+                    $scope.paginationArray.push(0);
+                }
+
+                console.log($scope.paginationArray);
+                CustomerService.getCustomers(startIndex, endIndex).then(function(data) {
+                    $scope.customers = data;
+                    console.log(data);
+                    $scope.selectedCustomer = $scope.customers[0];
+                })
             })
         };
 
 
-        CustomerService.getCustomersLength().then(function(data) {
-            $scope.numberOfCustomers = data.length;
-            var length = Math.ceil(data.length / 10)
-            $scope.paginationArray = [];
-            console.log($scope.numberOfCustomers);
-            // console.log(Math.ceil(data.length / 10));
-            for (var i = 0; i < length; i ++) {
-                $scope.paginationArray.push(0);
-            }
-
-            console.log($scope.paginationArray);
-
-        });
+        // CustomerService.getCustomersLength().then(function(data) {
+        //     $scope.numberOfCustomers = data.length;
+        //     var length = Math.ceil(data.length / 10)
+        //     $scope.paginationArray = [];
+        //     console.log($scope.numberOfCustomers);
+        //     // console.log(Math.ceil(data.length / 10));
+        //     for (var i = 0; i < length; i ++) {
+        //         $scope.paginationArray.push(0);
+        //     }
+        //
+        //     console.log($scope.paginationArray);
+        //
+        // });
 
 
 
@@ -46,7 +57,7 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 
             modalInstance.result.then(
                 function() {
-                    refreshCustomers();
+                    refreshCustomers($scope.pageIndex * 10, ($scope.pageIndex + 1) * 10);
                 },
                 function() {});
         };
@@ -63,7 +74,7 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 
             modalInstance.result.then(
                 function() {
-                    refreshCustomers();
+                    refreshCustomers($scope.pageIndex * 10, ($scope.pageIndex + 1) * 10);
                 },
                 function() {});
         };
@@ -80,7 +91,7 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 
             modalInstance.result.then(
                 function() {
-                    refreshCustomers();
+                    refreshCustomers($scope.pageIndex * 10, ($scope.pageIndex + 1) * 10);
                 },
                 function() {});
         };
@@ -88,12 +99,12 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
         $scope.setPageIndex = function (index) {
             $scope.pageIndex = index;
 
-            refreshCustomers(index * 10, (index + 1) * 10);
+            refreshCustomers($scope.pageIndex * 10, ($scope.pageIndex + 1) * 10);
 
         };
 
         $scope.setPageIndex(0);
-        
+
     }
 ]);
 
