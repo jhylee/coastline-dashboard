@@ -116,16 +116,15 @@ app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisherySe
             var formValid = true;
 
             $scope.nameRequired = $scope.addCustomerForm.name.$error.required;
-            $scope.emailRequired = $scope.addCustomerForm.email.$error.required;
+            $scope.companyRequired = $scope.addCustomerForm.company.$error.required;
             $scope.phoneRequired = $scope.addCustomerForm.phone.$error.required;
             $scope.addressRequired = $scope.addCustomerForm.address.$error.required;
             $scope.cityRequired = $scope.addCustomerForm.city.$error.required;
             $scope.stateRequired = $scope.addCustomerForm.state.$error.required;
             $scope.postalCodeRequired = $scope.addCustomerForm.postalCode.$error.required;
             $scope.countryRequired = $scope.addCustomerForm.country.$error.required;
-            console.log($scope.notes);
 
-            if (!$scope.name || !$scope.email || !$scope.phone || !$scope.address || !$scope.city || !$scope.postalCode || !$scope.country) {
+            if (!$scope.name || !$scope.company || !$scope.phone || !$scope.address || !$scope.city || !$scope.postalCode || !$scope.country) {
                 formValid = false;
             }
 
