@@ -24,7 +24,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
             $scope.paginationArray = [];
             console.log($scope.numberOfCustomers);
             // console.log(Math.ceil(data.length / 10));
-            for (var i = 0; i < length; i ++) {
+            for (var i = 0; i < length; i++) {
                 $scope.paginationArray.push(0);
             }
 
@@ -39,7 +39,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 $scope.paginationArray = [];
                 console.log($scope.numberOfCustomers);
                 // console.log(Math.ceil(data.length / 10));
-                for (var i = 0; i < length; i ++) {
+                for (var i = 0; i < length; i++) {
                     $scope.paginationArray.push(0);
                 }
 
@@ -71,7 +71,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                                 }
 
                                 var itemTax = $scope.orders[i].items[j].taxRate || 0;
-                                totalPrice += (1 + itemTax/100) * ($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity);
+                                totalPrice += (1 + itemTax / 100) * ($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity);
                                 // console.log(totalPrice);
                             }
 
@@ -100,7 +100,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
         // updateOrders(0, 10);
 
-        $scope.setPageIndex = function (index) {
+        $scope.setPageIndex = function(index) {
             $scope.pageIndex = index;
 
             updateOrders(index * 10, (index + 1) * 10);
@@ -400,12 +400,22 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 
         var refreshTotal = function() {
             var totalPrice = 0;
-            var order = OrderData.getSelectedOrder();
-            for (var i = 0; i < order.items.length; i++) {
-                totalPrice += order.items[i].unitPrice * order.items[i].quantity;
-            }
+            var deliveryCharge = $scope.deliveryCharge || 0;
+            var deliveryChargeTax;
+            if (deliveryCharge && $scope.deliveryChargeTaxRate) {
+                deliveryChargeTax = deliveryCharge * $scope.deliveryChargeTaxRate / 100;
+            } else {
+                deliveryChargeTax = 0;
+            };
+            console.log(totalPrice);
+            for (var i = 0; i < $scope.items.length; i++) {
+                var itemTax = $scope.items[i].taxRate / 100 || 0;
+                totalPrice += (1 + itemTax / 100) * ($scope.items[i].unitPrice * $scope.items[i].quantity);
+                console.log(totalPrice);
+            };
+            totalPrice += deliveryCharge + deliveryChargeTax;
+
             $scope.total = Math.round(totalPrice * 100) / 100;
-            console.log($scope.total);
         };
 
         var refreshSourcedProducts = function() {
@@ -492,7 +502,15 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.$watch('selectedBlock', function(newValue, oldValue) {
             if ($scope.selectedBlock) {
                 $scope.quantity = $scope.selectedBlock.quantity;
-              }
+            }
+        });
+
+        $scope.$watch('deliveryCharge', function(newValue, oldValue) {
+            refreshTotal();
+        });
+
+        $scope.$watch('deliveryChargeTaxRate', function(newValue, oldValue) {
+            refreshTotal();
         });
 
         $scope.$watch('quantity', function() {
@@ -563,6 +581,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             delete $scope.taxRate;
 
             getProductData();
+            refreshTotal();
         };
 
         $scope.removeItem = function(index) {
@@ -577,7 +596,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             $scope.items = newItems;
 
             refreshBatches();
-
+            refreshTotal();
             getProductData();
         };
 
@@ -615,7 +634,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             totalPrice += deliveryCharge + deliveryChargeTax;
 
             $scope.totalPrice = Math.round(totalPrice * 100) / 100;
-            }
+        }
 
 
         refreshTotal();
@@ -677,13 +696,13 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 formValid = false;
             }
 
-            if (!$scope.selectedSourcedProduct || !$scope.selectedBlock || !$scope.unitPrice || !$scope.quantity){
-              formValid = false;
-              $scope.productRequired = true;
-              $scope.sourcedProductRequired = true;
-              $scope.batchRequired = true;
-              $scope.unitPriceRequired = true;
-              $scope.quantityRequired = true;
+            if (!$scope.selectedSourcedProduct || !$scope.selectedBlock || !$scope.unitPrice || !$scope.quantity) {
+                formValid = false;
+                $scope.productRequired = true;
+                $scope.sourcedProductRequired = true;
+                $scope.batchRequired = true;
+                $scope.unitPriceRequired = true;
+                $scope.quantityRequired = true;
 
             }
 
