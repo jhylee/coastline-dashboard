@@ -291,7 +291,7 @@
           <tbody>
             <tr ng-repeat="item in items track by $index">
               <td data-label="Product">{{item.product.name}}</td>
-              <td>&nbsp;</td>
+              <td>&nbsp;{{item.finishedProduct.name}}</td>
               <td data-label="Data">{{item.block.catchDate | date: "M/d/y"}}, {{item.block.stage.name}}</td>
               <td data-label="Unit Price $">{{item.unitPrice}}</td>
               <td data-label="Quantity">{{item.quantity}}</td>

@@ -99,11 +99,11 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'InventoryData', 'Supp
 
 
         $scope.getProductDisplay = function(block) {
-            if (block.finishedProduct) {
-              return block.sourcedProduct.name + " " + block.finishedProduct.name;
-            } else {
-                return block.sourcedProduct.name
-            }
+          if (block.finishedProduct) {
+            return block.finishedProduct.name;
+          } else {
+            return block.sourcedProduct.name;
+          }
         }
 
         $scope.ok = function() {
@@ -398,9 +398,8 @@ app.controller('ViewDetailsCtrl', ['$scope', 'InventoryData', 'SupplyChainServic
         };
 
         $scope.getProductDisplay = function () {
-          // console.log($scope.block.finishedProduct.name);
             if ($scope.block.finishedProduct) {
-              return $scope.block.sourcedProduct.name + " " + $scope.block.finishedProduct.name;
+                return $scope.block.finishedProduct.name;
             } else if ($scope.block.sourcedProduct) {
                 return $scope.block.sourcedProduct.name;
             }

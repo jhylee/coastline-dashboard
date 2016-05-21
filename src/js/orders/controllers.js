@@ -398,6 +398,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             };
         };
 
+
         var refreshTotal = function() {
             var totalPrice = 0;
             var deliveryCharge = $scope.deliveryCharge || 0;

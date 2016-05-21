@@ -20,6 +20,7 @@
                     <tr>
                       <th>Select</th>
                       <th>Customer Name</th>
+                      <th>Company</th>
                       <th>Email</th>
                       <th>Phone</th>
                       <th>City</th>
@@ -31,11 +32,12 @@
                       <td data-label="Select">
                         <input type="radio" ng-model="$parent.selectedCustomer" ng-value="$parent.customers[$index]">
                       </td>
-                      <td data-label="Name">{{customer.name}}</td>
+                      <td data-label="Name">&nbsp;{{customer.name}}</td>
+                      <td data-label="Company">&nbsp;{{customer.company}}</td>
                       <td data-label="Email">&nbsp;{{customer.email}}</td>
-                      <td data-label="Phone">{{customer.phone}}</td>
-                      <td data-label="Country">{{customer.city}}</td>
-                      <td data-label="Country">{{customer.country}}</td>
+                      <td data-label="Phone">&nbsp;{{customer.phone}}</td>
+                      <td data-label="Country">&nbsp;{{customer.city}}</td>
+                      <td data-label="Country">&nbsp;{{customer.country}}</td>
                     </tr>
                   </tbody>
                 </table>
