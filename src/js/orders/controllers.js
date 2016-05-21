@@ -696,7 +696,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 formValid = false;
             }
 
-            if (!$scope.selectedSourcedProduct || !$scope.selectedBlock || !$scope.unitPrice || !$scope.quantity) {
+            if ($scope.items.length == 0) {
                 formValid = false;
                 $scope.productRequired = true;
                 $scope.sourcedProductRequired = true;
