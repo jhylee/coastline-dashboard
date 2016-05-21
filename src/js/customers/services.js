@@ -30,8 +30,15 @@ angular.module('coastlineWebApp.customers.services', ['ngStorage', 'coastlineWeb
                 return err;
             })
         },
-        getCustomers: function () {
-            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/customers').then(function(res) {
+        getCustomers: function (startIndex, endIndex) {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/customers?startIndex=' + startIndex + "&endIndex=" + endIndex).then(function(res) {
+                return res.data;
+            }).catch(function(err) {
+                return err;
+            })
+        },
+        getCustomersLength: function () {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/customers/length').then(function(res) {
                 return res.data;
             }).catch(function(err) {
                 return err;

@@ -39,8 +39,8 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
         updateProduct: function(data, productId, success, error) {
             return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products/' + productId, data).success(success).error(error);
         },
-        deleteProduct: function(productId) {
-            return $http.delete(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products/' + productId)
+        deleteSourcedProduct: function(productId) {
+            return $http.delete(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/sourcedProducts/' + productId)
                 .then(function(res) {
                     return res.data;
                 }).catch(function(err) {

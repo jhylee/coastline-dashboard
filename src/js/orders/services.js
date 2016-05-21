@@ -20,25 +20,33 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
         setSelectedCustomerId: function (customerId) {
             _selectedCustomerId = customerId;
         },
-        getOrders: function(success, error) {
+        getOrders: function(success, error, startIndex, endIndex) {
             var url = baseUrl + '/api/orders?';
 
             var counter = 0;
+
+            url += "startIndex=" + startIndex;
+            url += "&endIndex=" + endIndex;
 
             for (var key in _filter) {
                 counter += 1
 
                 if (!_filter.hasOwnProperty(key)) continue;
 
-                if (counter == 1) {
-                    url = url + key + "=" + _filter[key]
-                } else {
-                    url = url + "&" + key + "=" + _filter[key]
-                }
+                url = url + "&" + key + "=" + _filter[key]
             }
 
 
             $http.get(url).success(success).error(error);
+        },
+        getOrdersLength: function(startIndex, endIndex) {
+            var url = baseUrl + '/api/orders/length';
+
+
+            return $http.get(url).then(function (res) {
+                // console.log(res.data);
+                return res.data;
+            });
         },
         setFilter: function(filter) {
             _filter = filter;

@@ -16,57 +16,98 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         // $scope.addInvoice = function(){
         //   $state.go('dashboard.default.orders.invoice');
         // }
+        //
 
-        var updateOrders = function() {
-            OrderData.getOrders(function(orders) {
-                $scope.orders = orders;
-                if ($scope.orders.length > 0) {
-                    $scope.selectedOrder = $scope.orders[0];
+        OrderData.getOrdersLength().then(function(data) {
+            $scope.numberOfCustomers = data.length;
+            var length = Math.ceil(data.length / 10)
+            $scope.paginationArray = [];
+            console.log($scope.numberOfCustomers);
+            // console.log(Math.ceil(data.length / 10));
+            for (var i = 0; i < length; i++) {
+                $scope.paginationArray.push(0);
+            }
+
+            console.log($scope.paginationArray);
+
+        });
+
+        var updateOrders = function(startIndex, endIndex) {
+            OrderData.getOrdersLength().then(function(data) {
+                $scope.numberOfCustomers = data.length;
+                var length = Math.ceil(data.length / 10)
+                $scope.paginationArray = [];
+                console.log($scope.numberOfCustomers);
+                // console.log(Math.ceil(data.length / 10));
+                for (var i = 0; i < length; i++) {
+                    $scope.paginationArray.push(0);
                 }
 
-                $scope.totals = [];
-
-                ProductData.getProductData(function(products) {
-                    for (var i = 0; i < $scope.orders.length; i++) {
-                        var total = 0;
-                        var totalPrice = 0;
+                console.log($scope.paginationArray);
 
 
-                        for (var j = 0; j < $scope.orders[i].items.length; j++) {
-                            for (var k = 0; k < products.length; k++) {
-                                if ($scope.orders[i].items[j].product == products[k]._id) {
-                                    $scope.orders[i].items[j].product = products[k];
-                                    // total += Math.round($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity * 100) / 100
+
+
+                OrderData.getOrders(function(orders) {
+                    $scope.orders = orders;
+                    if ($scope.orders.length > 0) {
+                        $scope.selectedOrder = $scope.orders[0];
+                    }
+
+                    $scope.totals = [];
+
+                    ProductData.getProductData(function(products) {
+                        for (var i = 0; i < $scope.orders.length; i++) {
+                            var total = 0;
+                            var totalPrice = 0;
+
+
+                            for (var j = 0; j < $scope.orders[i].items.length; j++) {
+                                for (var k = 0; k < products.length; k++) {
+                                    if ($scope.orders[i].items[j].product == products[k]._id) {
+                                        $scope.orders[i].items[j].product = products[k];
+                                        // total += Math.round($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity * 100) / 100
+                                    }
                                 }
+
+                                var itemTax = $scope.orders[i].items[j].taxRate || 0;
+                                totalPrice += (1 + itemTax / 100) * ($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity);
+                                // console.log(totalPrice);
                             }
 
-                            var itemTax = $scope.orders[i].items[j].taxRate || 0;
-                            totalPrice += (1 + itemTax/100) * ($scope.orders[i].items[j].unitPrice * $scope.orders[i].items[j].quantity);
-                            console.log(totalPrice);
+                            var deliveryCharge = $scope.orders[i].deliveryCharge || 0;
+                            var deliveryChargeTax = $scope.orders[i].deliveryChargeTax || 0;;
+
+                            totalPrice += deliveryCharge + deliveryChargeTax;
+                            // console.log(totalPrice);
+
+                            total = Math.round(totalPrice * 100) / 100;
+                            $scope.totals.push(total);
+
+
+
                         }
+                    }, function(err) {
+                        console.log(err);
+                    });
 
-                        var deliveryCharge = $scope.orders[i].deliveryCharge || 0;
-                        var deliveryChargeTax = $scope.orders[i].deliveryChargeTax || 0;;
-
-                        totalPrice += deliveryCharge + deliveryChargeTax;
-                        console.log(totalPrice);
-
-                        total = Math.round(totalPrice * 100) / 100;
-                        $scope.totals.push(total);
-
-
-
-                    }
                 }, function(err) {
                     console.log(err);
-                });
-
-            }, function(err) {
-                console.log(err);
+                }, startIndex, endIndex);
             });
+
         };
 
-        updateOrders();
+        // updateOrders(0, 10);
+
+        $scope.setPageIndex = function(index) {
+            $scope.pageIndex = index;
+
+            updateOrders(index * 10, (index + 1) * 10);
+
+        };
+
+        $scope.setPageIndex(0);
 
         $scope.viewOrderDetail = function(order) {
             // OrderData.setSelectedOrder(order);
@@ -131,7 +172,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
             modalInstance.result.then(
                 function(order) {
-                    updateOrders();
+                    updateOrders($scope.index * 10, ($scope.index + 1) * 10);
                 },
                 function() {});
         };
@@ -148,16 +189,17 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
             modalInstance.result.then(
                 function() {
-                    updateOrders();
+                    updateOrders($scope.index * 10, ($scope.index + 1) * 10);
                     $scope.isFilterCleared = OrderData.isFilterCleared();
                 },
                 function() {});
+
         };
 
         $scope.clearFilter = function() {
             OrderData.clearFilter();
             $scope.isFilterCleared = OrderData.isFilterCleared();
-            updateOrders();
+            updateOrders($scope.index * 10, ($scope.index + 1) * 10);
         };
 
         $scope.exportOrders = function() {
@@ -186,7 +228,6 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
                     $uibModalInstance.close();
 
-
                 })
         };
 
@@ -210,7 +251,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 // OK callback
                 function(order) {
                     // add the stage to the supply chain
-                    updateOrders();
+                    updateOrders($scope.index * 10, ($scope.index + 1) * 10);
 
                     // CANCEL callback
                 },
@@ -234,7 +275,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
                 // OK callback
                 function(order) {
                     // add the stage to the supply chain
-                    updateOrders();
+                    updateOrders($scope.index * 10, ($scope.index + 1) * 10);
 
 
                     // CANCEL callback
@@ -266,6 +307,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         //         },
         //         function() {});
         // };
+
 
 
     }
@@ -356,6 +398,27 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             };
         };
 
+
+        var refreshTotal = function() {
+            var totalPrice = 0;
+            var deliveryCharge = $scope.deliveryCharge || 0;
+            var deliveryChargeTax;
+            if (deliveryCharge && $scope.deliveryChargeTaxRate) {
+                deliveryChargeTax = deliveryCharge * $scope.deliveryChargeTaxRate / 100;
+            } else {
+                deliveryChargeTax = 0;
+            };
+            console.log(totalPrice);
+            for (var i = 0; i < $scope.items.length; i++) {
+                var itemTax = $scope.items[i].taxRate / 100 || 0;
+                totalPrice += (1 + itemTax / 100) * ($scope.items[i].unitPrice * $scope.items[i].quantity);
+                console.log(totalPrice);
+            };
+            totalPrice += deliveryCharge + deliveryChargeTax;
+
+            $scope.total = Math.round(totalPrice * 100) / 100;
+        };
+
         var refreshSourcedProducts = function() {
             ProductData.getSourcedProductData(function(res) {
                 $scope.sourcedProducts = res;
@@ -441,7 +504,14 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             if ($scope.selectedBlock) {
                 $scope.quantity = $scope.selectedBlock.quantity;
             }
+        });
 
+        $scope.$watch('deliveryCharge', function(newValue, oldValue) {
+            refreshTotal();
+        });
+
+        $scope.$watch('deliveryChargeTaxRate', function(newValue, oldValue) {
+            refreshTotal();
         });
 
         $scope.$watch('quantity', function() {
@@ -449,13 +519,15 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
                 if ($scope.quantity > $scope.selectedBlock.quantity) {
                     $scope.quantity = $scope.selectedBlock.quantity;
 
-                    ngNotify.set('Quantity exceeds availability in this batch', {
+                    ngNotify.set('The quantity entered exceeds availabilty.', {
                         sticky: false,
-                        button: true,
+                        button: false,
                         type: 'error',
-                        duration: 700,
+                        duration: 1500,
                         position: 'top'
-                    })
+                    });
+
+                    console.log("hello world");
                 }
             }
         });
@@ -510,6 +582,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             delete $scope.taxRate;
 
             getProductData();
+            refreshTotal();
         };
 
         $scope.removeItem = function(index) {
@@ -524,7 +597,7 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             $scope.items = newItems;
 
             refreshBatches();
-
+            refreshTotal();
             getProductData();
         };
 
@@ -562,9 +635,10 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             totalPrice += deliveryCharge + deliveryChargeTax;
 
             $scope.totalPrice = Math.round(totalPrice * 100) / 100;
-            }
+        }
 
 
+        refreshTotal();
 
         // tied to ok button
         $scope.ok = function() {
@@ -606,19 +680,30 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
             };
 
             var formValid = true;
-
+            //
             $scope.nameRequired = $scope.addOrderForm.name.$error.required;
-            // $scope.emailRequired = $scope.addOrderForm.email.$error.required;
             $scope.invoiceRequired = $scope.addOrderForm.invoice.$error.required;
-            // $scope.paymentRequired = $scope.addOrderForm.payment.$error.required;
             $scope.statusRequired = $scope.addOrderForm.status.$error.required;
             $scope.dateRequired = $scope.addOrderForm.date.$error.required;
             $scope.creditRequired = $scope.addOrderForm.credit.$error.required;
             $scope.phoneRequired = $scope.addOrderForm.phone.$error.required;
+            // $scope.sourcedProductRequired = $scope.addOrderForm.selectedSourcedProduct.$error.required;
+            // $scope.batchRequired = $scope.addOrderForm.selectedBlock.$error.required;
+
+
 
             if (!$scope.customerName || !$scope.invoiceNumber || !$scope.status || !$scope.date || !$scope.creditTerms || !$scope.phone) {
                 console.log("here");
                 formValid = false;
+            }
+
+            if ($scope.items.length == 0) {
+                formValid = false;
+                $scope.productRequired = true;
+                $scope.sourcedProductRequired = true;
+                $scope.batchRequired = true;
+                $scope.unitPriceRequired = true;
+                $scope.quantityRequired = true;
 
             }
 

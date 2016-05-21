@@ -32,7 +32,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
         };
 
         $scope.deleteProduct = function() {
-            ProductData.setSelectedProductId($scope.products[$scope.selectedProduct]._id);
+            ProductData.setSelectedProductId($scope.selectedProduct._id);
             // modal setup and preferences
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -363,7 +363,7 @@ app.controller('DeleteProductCtrl', ['$scope', 'ProductData', 'AuthService', '$s
         // tied to ok button
         $scope.ok = function() {
 
-            ProductData.deleteProduct(ProductData.getSelectedProductId()).then(function(res) {
+            ProductData.deleteSourcedProduct(ProductData.getSelectedProductId()).then(function(res) {
                 $uibModalInstance.close(res);
             }, function(err) {
                 $uibModalInstance.close(err);

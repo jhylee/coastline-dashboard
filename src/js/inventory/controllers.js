@@ -99,11 +99,11 @@ app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'InventoryData', 'Supp
 
 
         $scope.getProductDisplay = function(block) {
-            if (block.finishedProduct) {
-                return block.finishedProduct.name;
-            } else {
-                return block.sourcedProduct.name
-            }
+          if (block.finishedProduct) {
+            return block.finishedProduct.name;
+          } else {
+            return block.sourcedProduct.name;
+          }
         }
 
         $scope.ok = function() {

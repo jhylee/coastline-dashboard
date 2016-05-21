@@ -24,7 +24,7 @@
 <!-- VIEW INVENTORY MODAL-->
 <script type="text/ng-template" id="viewBlocksModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Inventory in {{stageName}}</h3>
+    <h3 class="modal-title text-center">Inventory in {{stageName}}</h3>
   </div>
   <div class="modal-footer">
     <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="moveBlock()">Move</button>
@@ -70,7 +70,7 @@
 <!-- ADD BATCH MODAL-->
 <script type="text/ng-template" id="addBlockModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Add Seafood Batch</h3>
+    <h3 class="modal-title text-center">Add Seafood Batch</h3>
   </div>
   <div class="modal-body">
     <ul class="nav nav-tabs" ng-init="item=1">
@@ -87,13 +87,13 @@
               <span ng-show="sourcedProductRequired" class="input-required"> * Required</span>
             </label>
             <select class="form-control" name="selectedSourcedProduct" ng-model="selectedSourcedProduct" ng-options="sourcedProduct.name for sourcedProduct in sourcedProducts" required></select>
-            <small class="text-muted">Item must be added under Products tab.</small>
+            <small class="text-muted">Item must be listed within the Products tab.</small>
           </div>
           <div class="col-lg-6">
             <label>Finished Good Type &nbsp;
             </label>
             <select class="form-control" name="selectedFinishedProduct" ng-disabled="!selectedSourcedProduct" ng-model="selectedFinishedProduct" ng-options="finishedProduct.name for finishedProduct in finishedProducts"></select>
-            <small class="text-muted">Item must be added under Products tab.</small>
+            <!-- <small class="text-muted">ex. Filleted, Frozen.</small> -->
           </div>
         </fieldset>
         <fieldset class="form-group">
@@ -105,12 +105,12 @@
               <option value="half lbs">1/2 lbs</option>
               <option value="kg">kg</option>
             </select>
-            <small class="text-muted">Please choose between the three options.</small>
+            <!-- <small class="text-muted">Please choose between the three options.</small> -->
           </div>
           <div class="col-lg-6">
             <label>Batch Number</label>
             <input class="form-control" ng-model="blockNumber" type="text" step="1" placeholder="ex. A5432">
-            <small class="text-muted">[Optional] For custom batch numbers.</small>
+            <small class="text-muted">[Optional] For custom batch/lot numbers.</small>
           </div>
         </fieldset>
         <fieldset class="form-group">
@@ -119,7 +119,7 @@
               <span ng-show="quantityRequired" class="input-required"> * Required</span>
             </label>
             <input class="form-control" name="quantity" ng-model="quantity" type="text" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 3500" required></input>
-            <small class="text-muted">Please enter a numerical value.</small>
+            <!-- <small class="text-muted">Please enter a numerical value.</small> -->
           </div>
         </fieldset>
       </div>
@@ -136,24 +136,24 @@
           <div class="col-lg-4">
             <label>Catch Region</label>
             <input class="form-control" ng-model="catchRegion" placeholder="ex. Gulf of St. Lawrence">
-            <small class="text-muted">Enter the Catch Location</small>
+            <!-- <small class="text-muted">Enter the Catch Location</small> -->
           </div>
           <div class="col-lg-4">
             <label>Water Depth (Meters)</label>
             <input class="form-control" ng-model="waterDepth" type="number" step="1" placeholder="ex. 500">
-            <small class="text-muted">Enter the water depth in meters.</small>
+            <!-- <small class="text-muted">Enter the water depth in meters.</small> -->
           </div>
         </fieldset>
         <fieldset class="form-group">
           <div class="col-lg-6">
             <label>Catch Type</label>
             <input class="form-control" ng-model="catchType" placeholder="ex. Gillnetting">
-            <small class="text-muted">Enter the method of catching.</small>
+            <!-- <small class="text-muted">Enter the method of catching.</small> -->
           </div>
           <div class="col-lg-6">
             <label>Caught By</label>
             <input class="form-control" ng-model="caughtBy" placeholder="ex. Joey Fisher">
-            <small class="text-muted">Enter in the fisherman/fishery</small>
+            <!-- <small class="text-muted">Enter in the fisherman/fishery</small> -->
           </div>
         </fieldset>
       </div>
@@ -170,7 +170,7 @@
 <!-- EDIT BATCH MODAL-->
 <script type="text/ng-template" id="editBlockModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Edit Seafood Batch</h3>
+    <h3 class="modal-title text-center">Edit Seafood Batch</h3>
   </div>
   <div class="modal-body">
     <form>
@@ -178,12 +178,12 @@
         <div class="col-lg-12">
           <label>Set Finished Good Type:</label>
           <select class="form-control" ng-model="selectedFinishedProduct" ng-options="finishedProduct.name for finishedProduct in finishedProducts"></select>
-          <small class="text-muted">Item must be added under Products tab.</small>
+          <small class="text-muted"><br></small>
         </div>
         <div class="col-lg-12">
           <label>Quantity</label>
           <input class="form-control" type="number" ng-model="quantity" placeholder="ex. 4000">
-          <small class="text-muted">Please enter a numerical value.</small>
+          <!-- <small class="text-muted">Please enter a numerical value.</small> -->
         </div>
       </fieldset>
     </form>
@@ -198,7 +198,7 @@
 <!-- DELETE BATCH MODAL-->
 <script type="text/ng-template" id="deleteBlockModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Delete Batch</h3>
+    <h3 class="modal-title text-center">Delete Batch</h3>
   </div>
   <div class="modal-body">
     <p>Are you sure you want to delete this seafood batch?</p>
@@ -213,7 +213,7 @@
 <!-- MOVE BATCH MODAL-->
 <script type="text/ng-template" id="moveBlockModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Move Inventory Batch</h3>
+    <h3 class="modal-title text-center">Move Inventory Batch</h3>
   </div>
   <div class="modal-body">
     <form>
@@ -231,7 +231,7 @@
         <div class="col-lg-12">
           <label>Moving chosen inventory batch to: </label>
           <select ng-model="toStage" ng-options="stage as stage.self.name for stage in stages" class="form-control"></select>
-          <small class="text-muted">Please select the target destination for your inventory.</small>
+          <!-- <small class="text-muted">Please select the target destination for your inventory.</small> -->
         </div>
       </fieldset>
       <fieldset class="form-group">
@@ -261,7 +261,7 @@
 <!-- MOVE BATCH TO SALES MODAL-->
 <script type="text/ng-template" id="moveBlockToSalesModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Move Inventory Batch to Sales</h3>
+    <h3 class="modal-title text-center">Move Inventory Batch to Sales</h3>
   </div>
   <div class="modal-body">
     <form>
@@ -297,7 +297,7 @@
 <!-- VIEW BATCH DETAILS MODAL-->
 <script type="text/ng-template" id="viewDetailsModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Inventory Batch Details</h3>
+    <h3 class="modal-title text-center">Inventory Batch Details</h3>
   </div>
   <div class="modal-body">
     <h4 class="text-center">Initial Catch Audit</h4>
