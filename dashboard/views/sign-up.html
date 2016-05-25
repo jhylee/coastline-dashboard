@@ -1,0 +1,54 @@
+<div class="login-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-centered">
+        <div class="panel-login panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Sign Up</h3>
+          </div>
+          <div class="panel-body">
+            <form role="form" ng-controller="loginCtrl" ng-submit="signUp()">
+              <div class="panel-login-body">
+                <div class="panel-login-error" ng-show="usernameRequired || passwordRequired ||emailRequired || accountTypeRequired">
+                  <p class="text-center">Please fill out all of the fields below.</p>
+                </div><br>
+                <fieldset>
+                  <div class="row">
+                    <div class="form-group">
+                      <div class="col-lg-6">
+                        <h6>Username:</h6>
+                        <input ng-model="username" type="username" class="form-control" placeholder="coastalfishery">
+                      </div>
+                      <div class="col-lg-6">
+                        <h6>Email:</h6>
+                        <input ng-model="email" type="email" class="form-control" placeholder="fish@coastline.com">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group">
+                      <div class="col-lg-6">
+                        <h6>Password:</h6>
+                        <input ng-model="password" type="password" class="form-control" placeholder="Make it secure!">
+                      </div>
+                      <div class="col-lg-6">
+                        <h6>Account Type:</h6>
+                        <select ng-model="accountType" ng-options="type as type for type in ['admin']" class="form-control"></select>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+                <!-- Change this to a button or input when using this as a form -->
+                <center>
+                  <br>
+                  <button type="submit" class="btn-status-success">Submit</button>
+                </center>
+                <!-- <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a> -->
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

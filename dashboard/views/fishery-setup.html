@@ -1,0 +1,34 @@
+<div class="login-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-centered">
+        <div class="panel-login panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Fishery Name</h3>
+          </div>
+          <div class="panel-body">
+            <form role="form" ng-controller="loginCtrl" ng-submit="createFishery()">
+              <div class="panel-login-body">
+                <div class="panel-login-error" ng-show="fisheryNameRequired">
+                  <p class="text-center">The credentials below are incorrect. Please try again.</p>
+                </div>
+                <br>
+                <fieldset>
+                  <div class="form-group">
+                    <input type="name" class="form-control" id="name" ng-model="fisheryName" placeholder="Your fishery name..." autofocus>
+                  </div>
+
+                  <!-- Change this to a button or input when using this as a form -->
+                  <center>
+                    <button type="submit" class="btn-status-success">Submit</button>
+                  </center>
+                </fieldset>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,35 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header light-text">Sales Management</h2>
+    <div class="row placeholders">
+        <div class="col-lg-8">
+            <div ng-controller="SalesManagementMenuCtrl" class="container">
+                <div class="panel-container">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                    <table class="table tableWhite">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Date Created</th>
+                                                <th>Last Updated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="supplyChain in supplyChains track by $index">
+                                                <td>{{$index + 1}}</td>
+                                                <td>{{supplyChain.name}}</td>
+                                                <td>{{supplyChain.dateCreated.substring(0,10)}}</td>
+                                                <td><button ng-click="setSupplyChain(supplyChain)" class="btn-status-default">View/Edit</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

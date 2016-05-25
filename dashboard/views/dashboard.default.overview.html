@@ -1,0 +1,137 @@
+<div ng-controller="OverviewCtrl" class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+  <h2 class="page-header light-text">Home</h2>
+  <div class="row placeholders">
+    <div class="col-lg-8">
+      <div class="container">
+        <div class="panel-container">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="panel-header">
+              </div>
+              <!--<div class="panel-scroll">-->
+              <div class="col-lg-6">
+                <h3>Overdue payments</h3>
+                <hr class="short">
+                <div class="table-responsive table-card-responsive">
+                  <table class="table tableWhite">
+                    <thead>
+                      <tr>
+                        <th>Invoice #</th>
+                        <th>Payment Method</th>
+                        <th>View Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="order in overdueOrders">
+                        <td data-label="Invoice #">{{order.invoiceNumber}}</td>
+                        <td data-label="Pay Method">{{order.paymentMethod}}</td>
+                        <td data-label="Details">
+                          <div class="alignright">
+                            <button ng-click="viewOrderDetail(order)" class="btn-status-default">View Details</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <h3>Payments Due in One Week</h3>
+                <hr class="short">
+                <div class="table-responsive table-card-responsive">
+                  <table class="table tableWhite">
+                    <thead>
+                      <tr>
+                        <th>Invoice #</th>
+                        <th>Payment Method</th>
+                        <th>View Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="order in upcomingOrders">
+                        <td data-label="Invoice #">{{order.invoiceNumber}}</td>
+                        <td data-label="Pay Method">{{order.paymentMethod}}</td>
+                        <td data-label="Details">
+                          <div class="alignright">
+                            <button ng-click="viewOrderDetail(order)" class="btn-status-default">View Details</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- VIEW ORDER DETAIL MODAL-->
+<script type="text/ng-template" id="viewOrderDetailModal.html">
+  <div class="modal-header">
+    <h3 class="modal-title text-center">Invoice #{{order.invoiceNumber}}</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row modal-detail-container">
+    <div class="col-lg-6">
+      <h4><span>Name:</span> {{order.customerName}}</h4>
+      <h4><span>Company:</span> {{order.company}}</h4>
+      <h4><span>Phone:</span> {{order.phone}}</h4>
+      <h4><span>Email:</span> {{order.email}}</h4>
+      <h4><span>Address:</span> {{order.address}}&nbsp;{{order.city}}&nbsp;{{order.state}}&nbsp;{{order.postal}}&nbsp;{{order.country}}</h4>
+    </div>
+    <div class="col-lg-6">
+      <h4><span>Order Date:</span> {{order.date | date:'M/d/yyyy' }}</h4>
+      <h4><span>Payment Method:</span> {{order.paymentMethod}}&nbsp;{{order.currency}}</h4>
+      <h4><span>Credit Terms:</span> {{order.creditTerms}}</h4>
+      <h4><span>Delivery Terms:</span> {{order.deliveryCharge}}&nbsp;{{deliveryTaxRate}}%</h4>
+
+    </div>
+  </div>
+</div>
+<br>
+
+  <div class="modal-footer">
+    <div ng-switch="pdfStatus">
+      <div ng-switch-default><a class="btn-status-default" href="javascript:void(0);" ng-click="getPDF()"><i class="fa fa-file-pdf-o"></i> Export to PDF</a></div>
+      <div ng-switch-when="loading"><a class="btn-status-success" href="javascript:void(0);">Loading...</a></div>
+    </div>
+</div>
+  <div class="modal-body">
+    <div class="table-responsive">
+      <table class="table tableWhite">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Total Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in order.items track by $index">
+            <td data-label="Product">{{item.product.name}}</td>
+            <td data-label="Unit Price">${{item.unitPrice}} / {{item.product.unit}}</td>
+            <td data-label="Quantity">{{item.quantity}} {{item.product.unit}}</td>
+            <td data-label="Subtotal">{{item.unitPrice * item.quantity}}</td>
+          </tr>
+          <tr>
+            <td><b>Total</b></td>
+            <td></td>
+            <td></td>
+            <td>${{getTotal()}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-status-default" type="button" ng-click="dismiss()">Close</button>
+  </div>
+</script>
