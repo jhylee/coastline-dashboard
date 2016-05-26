@@ -29,9 +29,9 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
             $state.go('dashboard.default.supply-chain.create');
         };
 
-        $scope.editSupplyChain = function(selectedSupplyChainId) {
+        $scope.editSupplyChain = function(index) {
             // TODO - make a route to get just IDs
-            SupplyChainService.setSupplyChainId($scope.selectedSupplyChain._id);
+            SupplyChainService.setSupplyChainId($scope.supplyChains[index]._id);
 
             SupplyChainService.fetchStages().then(function(res) {
                 $state.go('dashboard.default.supply-chain.builder');
