@@ -47,9 +47,9 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
         //    }
         // }
 
-        $scope.renameSupplyChain = function(selectedSupplyChain) {
+        $scope.renameSupplyChain = function(index) {
             // TODO - make a route to get just IDs
-            SupplyChainService.setSupplyChainId(selectedSupplyChain._id);
+            SupplyChainService.setSupplyChainId($scope.supplyChains[index]._id);
             // console.log(selectedSupplyChain);
 
             var modalInstance = $uibModal.open({
@@ -71,6 +71,28 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
         };
 
 
+        $scope.deleteSupplyChain = function(index) {
+            // TODO - make a route to get just IDs
+            SupplyChainService.setSupplyChainId($scope.supplyChains[index]._id);
+            // console.log(selectedSupplyChain);
+
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'deleteSupplyChain.html',
+                controller: 'DeleteSupplyChainCtrl',
+                size: 'md',
+                resolve: {}
+            });
+
+            modalInstance.result.then(
+                function() {
+                    getSupplyChains();
+                },
+                function() {
+
+                });
+
+        };
 
 
     }
@@ -662,6 +684,29 @@ app.controller('RenameSupplyChainCtrl', ['$scope', 'VisDataSet', 'SupplyChainSer
         // tied to ok button
         $scope.ok = function() {
             SupplyChainService.updateSelectedSupplyChain($scope.supplyChain).then(function(data) {
+                console.log(data);
+                $uibModalInstance.close(true);
+            })
+        };
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss(false);
+        };
+    }
+]);
+
+app.controller('DeleteSupplyChainCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
+
+
+        SupplyChainService.fetchSelectedSupplyChain().then(function(data) {
+            $scope.supplyChain = data;
+        });
+
+        // tied to ok button
+        $scope.ok = function() {
+            SupplyChainService.deleteSelectedSupplyChain().then(function(data) {
                 console.log(data);
                 $uibModalInstance.close(true);
             })

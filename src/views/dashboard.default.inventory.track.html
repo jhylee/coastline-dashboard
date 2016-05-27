@@ -350,8 +350,8 @@
             <td data-label="Date">&nbsp;{{history.events[history.events.length-1-$index].date | date: "short"}}</td>
             <td data-label="Location">&nbsp;{{getStageName([history.events.length-1-$index])}}</td>
             <td data-label="Quantity">&nbsp;{{quantities[history.events.length-1-$index] + " " + units[history.events.length-1-$index]}}</td>
-            <td data-label="Job Number">&nbsp;{{history.events[history.events.length-1-$index].jobNumber}}</td>
-            <td data-label="Process Type">&nbsp;{{history.events[history.events.length-1-$index].processType}}</td>
+            <td data-label="Job Number">&nbsp;{{history.events[history.events.length-1-$index].jobNumber || "N/A"}}</td>
+            <td data-label="Process Type">&nbsp;{{history.events[history.events.length-1-$index].processType || "N/A"}}</td>
           </tr>
         </tbody>
       </table>

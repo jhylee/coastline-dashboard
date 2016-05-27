@@ -110,6 +110,15 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                 })
         },
 
+        deleteSelectedSupplyChain: function() {
+            return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId, {isDeleted: true})
+                .then(function(res) {
+                    return res.data;
+                }).catch(function(err) {
+                    console.log(err);
+                })
+        },
+
         fetchSelectedBlockHistory: function() {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/blocks/' + _selectedBlockId)
                 .then(function(res) {
@@ -322,6 +331,11 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
             var sourceStage = stages[findStage(sourceId)];
             var targetStage = stages[findStage(targetId)];
 
+            console.log("sourceStage before:");
+            console.log(sourceStage);
+            console.log("targetStage before:");
+            console.log(targetStage);
+
             var isTargetInSourceNext;
             var isSourceInTargetPrev;
 
@@ -345,11 +359,25 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                 targetStage.prev.push(sourceId);
             };
 
+            console.log("sourceStage after:");
+            console.log(sourceStage);
+            console.log("targetStage after:");
+            console.log(targetStage);
+
         },
 
         unlinkStages: function(sourceId, targetId) {
+
+
+
+
             var sourceStage = stages[findStage(sourceId)];
             var targetStage = stages[findStage(targetId)];
+
+            console.log("sourceStage before:");
+            console.log(sourceStage);
+            console.log("targetStage before:");
+            console.log(targetStage);
 
             var targetInSourceNext = null;
             var sourceInTargetPrev = null;
@@ -395,6 +423,11 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
 
 
             };
+
+            console.log("sourceStage after:");
+            console.log(sourceStage);
+            console.log("targetStage after:");
+            console.log(targetStage);
 
         },
 
