@@ -70,6 +70,38 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/dashboard.help.html'
     })
 
+        .state('dashboard.help.customer', {
+            url: '/customer',
+            templateUrl: '/views/dashboard.help.customer.html'
+        })
+
+        .state('dashboard.help.inventory', {
+            url: '/inventory',
+            templateUrl: '/views/dashboard.help.inventory.html'
+        })
+        .state('dashboard.help.orders-invoices', {
+            url: '/order-invoice',
+            templateUrl: '/views/dashboard.help.orders-invoices.html'
+        })
+        .state('dashboard.help.product', {
+            url: '/product',
+            templateUrl: '/views/dashboard.help.product.html'
+        })
+        .state('dashboard.help.supply-chain', {
+            url: '/supply-chain',
+            templateUrl: '/views/dashboard.help.supply-chain.html'
+        })
+        .state('dashboard.help.overview', {
+            url: '/overview',
+            templateUrl: '/views/dashboard.help.overview.html'
+        })
+        .state('dashboard.help.catch-history', {
+            url: '/history',
+            templateUrl: '/views/dashboard.help.catch-history.html'
+        })
+
+
+
     .state('dashboard.settings', {
         url: '/settings',
         templateUrl: '/views/dashboard.settings.html'
@@ -184,7 +216,6 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         url: '/menu',
         templateUrl: '/views/dashboard.default.customers.menu.html'
     })
-
 
     .state('redirect', {
         url: '/redirect',
