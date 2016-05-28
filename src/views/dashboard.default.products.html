@@ -106,7 +106,7 @@
 <!-- EDIT SOURCED PRODUCT MODAL-->
 <script type="text/ng-template" id="editProductModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Add a Product</h3>
+    <h3 class="modal-title text-center">Edit Product</h3>
   </div>
   <div class="modal-body">
     <form name="addProductForm" ng-init="item=0">
@@ -115,8 +115,8 @@
           <label>Product Name &nbsp;
             <span ng-show="productRequired" class="input-required"> * Required</span>
           </label>
-          <input class="form-control" name="name" ng-model="name" placeholder="ex. Atlantic Cod">
-          <small class="text-muted">Please enter the product name.</small>
+          <input class="form-control" name="name" ng-model="name" placeholder="ex. Atlantic Cod" disabled>
+          <small class="text-muted">The product name cannot be changed due to traceability reasons.</small>
         </div>
         <div class="col-lg-6">
           <!-- <div class="panel-scroll"> -->
@@ -127,7 +127,7 @@
               <tbody>
                 <tr ng-repeat="finishedProduct in finishedProducts track by $index">
                   <td data-label="Name">&nbsp; {{finishedProducts[$index].name}}</td>
-                  <td><button class="btn-table-danger align-right" ng-click="removeFinishedProduct($index)"><i class="fa fa-minus"></i></button><a class='table-edit align-right' ng-click="addFinishedProduct()">Edit&nbsp;&nbsp;</a></td>
+                  <td><button class="btn-table-danger align-right" ng-click="removeFinishedProduct($index)"><i class="fa fa-minus"></i></button><a class='table-edit align-right' ng-click="editFinishedProduct()">Edit&nbsp;&nbsp;</a></td>
                 </tr>
                 <tr>
                   <td>&nbsp;</td>

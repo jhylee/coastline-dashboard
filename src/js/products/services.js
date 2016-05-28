@@ -13,6 +13,7 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
     var fisheryName;
     var baseUrl = apiUrl;
     var selectedProductId;
+    var selectedFinishedProductId;
 
     return {
         getSourcedProductData: function(success, error) {
@@ -25,10 +26,10 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
                 success(res);
             }).error(error);
         },
-        getFinishedProductData: function(sourcedProductId, success, error) {
-            $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/finishedProducts?sourcedProductId=' + sourcedProductId).success(function(res) {
-                success(res);
-            }).error(error);
+        getFinishedProductData: function(sourcedProductId) {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/finishedProducts?sourcedProductId=' + sourcedProductId).then(function(res) {
+                return res.data;
+            });
         },
         addProduct: function(data, success, error) {
             return $http.post(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products', data).success(success).error(error);
@@ -52,6 +53,12 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
         },
         setSelectedProductId: function(productId) {
             selectedProductId = productId;
+        },
+        getSelectedFinishedProductId: function() {
+            return selectedFinishedProductId;
+        },
+        setSelectedFinishedProductId: function(productId) {
+            selectedFinishedProductId = productId;
         }
 
     };
