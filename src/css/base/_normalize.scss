@@ -62,7 +62,7 @@ body {
 .main .page-header {
   margin-top: 25px;
   margin-left: 20px;
-  font-weight: 100;
+  font-weight: 300;
   max-width: 88%;
   border-bottom: 2px solid $primary-border-color;
 }
@@ -108,6 +108,10 @@ body {
 
 .align-right {
   float:right;
+}
+.align-right-table {
+  position: relative;
+  margin-left: 1000;
 }
 
 /*
