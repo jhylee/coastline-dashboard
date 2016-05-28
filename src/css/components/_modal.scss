@@ -1,6 +1,10 @@
 .modal-body {
   padding-left: 35px;
   padding-right: 35px;
+
+  label {
+    font-weight: 400;
+  }
 }
 
 .modal-order-body {
@@ -11,6 +15,10 @@
 
 div.modal-text {
   width: 80%;
+}
+
+.modal-title {
+  font-weight: 300;
 }
 
 .modal-detail-container {

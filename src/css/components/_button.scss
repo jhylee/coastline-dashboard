@@ -4,8 +4,6 @@
   -ms-border-radius: $radius;
   border-radius: $radius;
 }
-
-
 .btn {
   background-image: linear-gradient(#fcfcfc, #eee);
   border: 1px solid #d5d5d5;
@@ -18,7 +16,6 @@
     outline: none;
   }
 }
-
 .btn-status-default {
   @include border-radius(2px);
   color: $secondary-background-color;
@@ -32,7 +29,6 @@
   padding-bottom: 8px;
   outline: none;
 }
-
 .btn-status-default:hover,
 .btn-status-default:focus,
 .btn-status-default.focus,
@@ -59,7 +55,6 @@
   opacity: 0.6;
   outline: none;
 }
-
 a.btn-status-default:hover,
 a.btn-status-default:active,
 a.btn-status-default:focus {
@@ -101,7 +96,6 @@ a.btn-status-default:focus {
   opacity: 0.3;
   outline: none;
 }
-
 .btn-status-success {
   @include border-radius(2px);
   color: $secondary-background-color;
@@ -115,7 +109,6 @@ a.btn-status-default:focus {
   padding-bottom: 8px;
   outline: none;
 }
-
 .btn-status-success:hover,
 .btn-status-success:focus,
 .btn-status-success.focus,
@@ -149,7 +142,6 @@ a.btn-size-large:active,
 a.btn-size-large:focus {
   text-decoration: none;
 }
-
 .btn-table-success {
   @include border-radius(2px);
   color: $secondary-background-color;
@@ -163,19 +155,40 @@ a.btn-size-large:focus {
   margin-right: -5px;
   padding-top: 5px;
   padding-bottom: 5px;
-  outline: none;}
+  outline: none;
+}
+.btn-table-danger {
+  @include border-radius(2px);
+  color: $secondary-background-color;
+  border-style: none;
+  background-color: $btn-danger-color;
+  border-color: $btn-danger-color;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-right: -5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  outline: none;
+}
+.btn-table-default {
+  @include border-radius(2px);
+  color: $secondary-background-color;
+  border-style: none;
+  background-color: $btn-default-color;
+  border-color: $btn-default-color;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-right: -5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  outline: none;
+}
 
-  .btn-table-danger {
-    @include border-radius(2px);
-    color: $secondary-background-color;
-    border-style: none;
-    background-color: $btn-danger-color;
-    border-color: $btn-danger-color;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-top: -5px;
-    margin-bottom: -5px;
-    margin-right: -5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    outline: none;}
+.table-edit, .table-edit:hover {
+  color: #000;
+  text-decoration: none;
+}
