@@ -12,7 +12,7 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
     };
     var fisheryName;
     var baseUrl = apiUrl;
-    var selectedProductId;
+    var selectedSourcedProductId;
     var selectedFinishedProductId;
 
     return {
@@ -31,14 +31,34 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
                 return res.data;
             });
         },
+        getSelectedFinishedProduct: function() {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/finishedProducts/' + selectedFinishedProductId).then(function(res) {
+                return res.data;
+            });
+        },
+        getSelectedSourcedProduct: function() {
+            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/sourcedProducts/' + selectedSourcedProductId).then(function(res) {
+                return res.data;
+            });
+        },
         addProduct: function(data, success, error) {
             return $http.post(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products', data).success(success).error(error);
         },
         addSourcedProduct: function(data, success, error) {
             return $http.post(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/sourcedProducts/group', data).success(success).error(error);
         },
+        addFinishedProduct: function(data) {
+            return $http.post(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/finishedProducts', data).then(function (res) {
+                return res.data;
+            });
+        },
         updateProduct: function(data, productId, success, error) {
             return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/products/' + productId, data).success(success).error(error);
+        },
+        updateSelectedFinishedProduct: function(data) {
+            return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/finishedProducts/' + selectedFinishedProductId, data).then(function (res) {
+                return res.data;
+            });
         },
         deleteSourcedProduct: function(productId) {
             return $http.delete(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/sourcedProducts/' + productId)
@@ -48,11 +68,19 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
                     console.log(err);
                 })
         },
+        deleteFinishedProduct: function(productId) {
+            return $http.delete(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/finishedProducts/' + productId)
+                .then(function(res) {
+                    return res.data;
+                }).catch(function(err) {
+                    console.log(err);
+                })
+        },
         getSelectedProductId: function() {
-            return selectedProductId;
+            return selectedSourcedProductId;
         },
         setSelectedProductId: function(productId) {
-            selectedProductId = productId;
+            selectedSourcedProductId = productId;
         },
         getSelectedFinishedProductId: function() {
             return selectedFinishedProductId;

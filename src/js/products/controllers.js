@@ -74,7 +74,7 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
                 resolve: {}
             });
 
-            // called when modal is closed
+            // called when modabl is closed
             modalInstance.result.then(
                 // OK callback
                 function(product) {
@@ -143,7 +143,7 @@ app.controller('AddProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthServic
 
         $scope.removeFinishedProduct = function(index) {
             var newFinishedProducts = []
-            for (var i = 0; i < $scope.finishedProducts.length; i ++) {
+            for (var i = 0; i < $scope.finishedProducts.length; i++) {
                 if (i != index) {
                     newFinishedProducts.push($scope.finishedProducts[i]);
                 }
@@ -232,7 +232,7 @@ app.controller('AddFinishedProductCtrl', ['$scope', 'ProductData', 'Upload', 'Au
             var data = {
                 name: $scope.name,
                 description: $scope.description,
-                finishedProductNumber: $scope.finishedProductNumber
+                productNumber: $scope.productNumber
             };
 
             if (!$scope.name) {
@@ -256,149 +256,174 @@ app.controller('AddFinishedProductCtrl', ['$scope', 'ProductData', 'Upload', 'Au
 app.controller('EditProductCtrl', ['$scope', "$rootScope", 'ProductData', 'Upload', 'AuthService', '$state', '$uibModalInstance', '$http', '$uibModal',
     function($scope, $rootScope, ProductData, Upload, AuthService, $state, $uibModalInstance, $http, $uibModal) {
 
-      ProductData.getFinishedProductData(ProductData.getSelectedProductId()).then(function (data) {
-         $scope.finishedProducts = data;
-      });
+
+        ProductData.getFinishedProductData(ProductData.getSelectedProductId()).then(function(data) {
+            $scope.finishedProducts = data;
+        });
+
+        ProductData.getSelectedSourcedProduct().then(function(data) {
+            $scope.name = data.name;
+            $scope.description = data.description;
+        });
 
 
+        $scope.isSubmitButtonDisabled = function() {
+            if (!$scope.name ||
+                !$scope.unit ||
+                !$scope.unitPrice) {
+                return true;
+            } else {
+                return false;
+            }
+        };
 
-      $scope.isSubmitButtonDisabled = function() {
-           if (!$scope.name ||
-               !$scope.unit ||
-               !$scope.unitPrice) {
-               return true;
-           } else {
-               return false;
-           }
-      };
+        $scope.addFinishedProduct = function() {
 
-      $scope.addFinishedProduct = function() {
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'addFinishedProductModal.html',
+                controller: 'AddFinishedProductCtrl',
+                size: 'md',
+                resolve: {}
+            });
 
-           // modal setup and preferences
-           var modalInstance = $uibModal.open({
-               animation: true,
-               templateUrl: 'addFinishedProductModal.html',
-               controller: 'AddFinishedProductCtrl',
-               size: 'md',
-               resolve: {}
-           });
+            modalInstance.result.then(function(data) {
+                ProductData.addFinishedProduct(data).then(function(data) {
+                    ProductData.getFinishedProductData(ProductData.getSelectedProductId()).then(function(data) {
+                        $scope.finishedProducts = data;
+                    });
+                });
+            });
+        };
 
-           modalInstance.result.then(function(data) {
-               $scope.finishedProducts.push(data);
-           });
-      };
+        $scope.editFinishedProduct = function(productId, isServer) {
+            ProductData.setSelectedFinishedProductId(productId);
+            console.log(ProductData.getSelectedFinishedProductId());
 
-      $scope.editFinishedProduct = function(productId) {
-            ProductData.setSelectedFinishedProductId
+            // modal setup and preferences
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'addFinishedProductModal.html',
+                controller: 'EditFinishedProductCtrl',
+                size: 'md',
+                resolve: {}
+            });
 
-           // modal setup and preferences
-           var modalInstance = $uibModal.open({
-               animation: true,
-               templateUrl: 'addFinishedProductModal.html',
-               controller: 'EditFinishedProductCtrl',
-               size: 'md',
-               resolve: {}
-           });
-
-           modalInstance.result.then(function(data) {
-               $scope.finishedProducts.push(data);
-           });
-      };
-
-      $scope.removeFinishedProduct = function(index) {
-           var newFinishedProducts = []
-           for (var i = 0; i < $scope.finishedProducts.length; i ++) {
-               if (i != index) {
-                   newFinishedProducts.push($scope.finishedProducts[i]);
-               }
-           }
-           $scope.finishedProducts = newFinishedProducts;
-      };
+            modalInstance.result.then(function(data) {
+                ProductData.updateSelectedFinishedProduct(data).then(function(data) {
+                    ProductData.getFinishedProductData(ProductData.getSelectedProductId()).then(function(data) {
+                        $scope.finishedProducts = data;
+                    });
+                });
+            });
+        };
 
 
-      $scope.ok = function() {
+        $scope.removeFinishedProduct = function(finishedProductId) {
+            ProductData.deleteFinishedProduct(finishedProductId).then(function() {
+                ProductData.getFinishedProductData(ProductData.getSelectedProductId()).then(function(data) {
+                    $scope.finishedProducts = data;
+                });
+            });
+        };
 
-           var data = {
-               name: $scope.name,
-               description: $scope.description,
-               finishedProducts: $scope.finishedProducts
-           };
 
-           if (!$scope.name) {
-               $scope.productRequired = (!$scope.name);
-           } else {
-               ProductData.addSourcedProduct(data, function(res) {
-                   $uibModalInstance.close(res);
-               }, function(err) {
-                   $uibModalInstance.close(err);
-               });
-           }
+        $scope.ok = function() {
 
-           // if ($scope.file) {
-           //     var data = {
-           //         name: $scope.name,
-           //         description: $scope.description,
-           //         unit: $scope.unit,
-           //         unitPrice: $scope.unitPrice,
-           //         fileName: $scope.file.name,
-           //         fileType: $scope.file.type,
-           //         fileSize: $scope.file.size
-           //     };
-           // } else {
-           //     var data = {
-           //         name: $scope.name,
-           //         description: $scope.description,
-           //         unit: $scope.unit,
-           //         unitPrice: $scope.unitPrice,
-           //     };
-           // }
-           //
-           // if (!$scope.name) {
-           //     $scope.productRequired = $scope.addProductForm.name.$error.required;
-           // } else {
-           //     ProductData.addProduct(data, function(res) {
-           //         $uibModalInstance.close(res);
-           //     }, function(err) {
-           //         $uibModalInstance.close(err);
-           //     }).success(function(res) {
-           //         if ($scope.file) {
-           //             var payload = {
-           //                 url: res.signedUrl,
-           //                 data: $scope.file,
-           //                 headers: {
-           //                     'Content-Type': $scope.file.type,
-           //                     'x-amz-acl': 'public-read',
-           //                 },
-           //                 ignoreInterceptor: true,
-           //                 method: "PUT"
-           //             };
-           //         }
-           //         Upload.http(payload);
-           //     });
-           // }
+            var data = {
+                name: $scope.name,
+                description: $scope.description,
+                finishedProducts: $scope.finishedProducts
+            };
 
-      };
+            if (!$scope.name) {
+                $scope.productRequired = (!$scope.name);
+            } else {
+                ProductData.addSourcedProduct(data, function(res) {
+                    $uibModalInstance.close(res);
+                }, function(err) {
+                    $uibModalInstance.close(err);
+                });
+            }
 
-      // tied to cancel button
-      $scope.cancel = function() {
-           $uibModalInstance.dismiss('cancel');
-      };
+            // if ($scope.file) {
+            //     var data = {
+            //         name: $scope.name,
+            //         description: $scope.description,
+            //         unit: $scope.unit,
+            //         unitPrice: $scope.unitPrice,
+            //         fileName: $scope.file.name,
+            //         fileType: $scope.file.type,
+            //         fileSize: $scope.file.size
+            //     };
+            // } else {
+            //     var data = {
+            //         name: $scope.name,
+            //         description: $scope.description,
+            //         unit: $scope.unit,
+            //         unitPrice: $scope.unitPrice,
+            //     };
+            // }
+            //
+            // if (!$scope.name) {
+            //     $scope.productRequired = $scope.addProductForm.name.$error.required;
+            // } else {
+            //     ProductData.addProduct(data, function(res) {
+            //         $uibModalInstance.close(res);
+            //     }, function(err) {
+            //         $uibModalInstance.close(err);
+            //     }).success(function(res) {
+            //         if ($scope.file) {
+            //             var payload = {
+            //                 url: res.signedUrl,
+            //                 data: $scope.file,
+            //                 headers: {
+            //                     'Content-Type': $scope.file.type,
+            //                     'x-amz-acl': 'public-read',
+            //                 },
+            //                 ignoreInterceptor: true,
+            //                 method: "PUT"
+            //             };
+            //         }
+            //         Upload.http(payload);
+            //     });
+            // }
+
+        };
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
     }
 ]);
 
 app.controller('EditFinishedProductCtrl', ['$scope', 'ProductData', 'Upload', 'AuthService', '$state', '$uibModalInstance', '$http', '$uibModal',
     function($scope, ProductData, Upload, AuthService, $state, $uibModalInstance, $http, $uibModal) {
 
+        ProductData.getSelectedFinishedProduct().then(function(data) {
+            $scope.name = data.name;
+            $scope.description = data.description;
+            $scope.productNumber = data.productNumber;
+            console.log(data);
+        });
+
         $scope.ok = function() {
             var data = {
                 name: $scope.name,
                 description: $scope.description,
-                finishedProductNumber: $scope.finishedProductNumber
+                productNumber: $scope.productNumber
             };
 
             if (!$scope.name) {
                 $scope.productRequired = $scope.addProductForm.name.$error.required;
             } else {
+                ProductData.updateSelectedFinishedProduct(data).then(function(res) {
+                    $uibModalInstance.close(res);
+                }).catch(function(err) {
+                    $uibModalInstance.close(err);
+                });
                 $uibModalInstance.close(data);
             }
 
