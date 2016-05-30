@@ -232,7 +232,7 @@ app.controller('AddFinishedProductCtrl', ['$scope', 'ProductData', 'Upload', 'Au
          var data = {
             name: $scope.name,
             description: $scope.description,
-            finishedProductNumber: $scope.finishedProductNumber
+            productNumber: $scope.productNumber
          };
 
          if (!$scope.name) {
