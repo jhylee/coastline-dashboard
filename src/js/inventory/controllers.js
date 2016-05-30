@@ -584,14 +584,12 @@ app.controller('AddBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Suppl
       };
 
       var refreshFinishedProducts = function(sourcedProductId) {
-         ProductData.getFinishedProductData(sourcedProductId, function(res) {
+         ProductData.getFinishedProductData(sourcedProductId).then(function(res) {
             // $scope.finishedProducts = ['No finished product'];
             var arr = [{name: 'No finished product'}];
             $scope.finishedProducts = arr.concat(res);
             console.log($scope.finishedProducts);
             $scope.selectedFinishedProduct = $scope.finishedProducts[0];
-         }, function(err) {
-            console.log(err);
          });
       };
 
@@ -685,11 +683,9 @@ app.controller('EditBlockCtrl', ['$scope', 'InventoryData', 'ProductData', 'Supp
             $scope.quantity = $scope.block.quantity;
             $scope.units = $scope.block.units;
          }).then(function() {
-            ProductData.getFinishedProductData($scope.block.sourcedProduct._id, function(res) {
+            ProductData.getFinishedProductData($scope.block.sourcedProduct._id).then(function(res) {
                $scope.finishedProducts = res;
                $scope.selectedFinishedProduct = $scope.block.finishedProduct;
-            }, function(err) {
-               console.log(err);
             });
          });
 

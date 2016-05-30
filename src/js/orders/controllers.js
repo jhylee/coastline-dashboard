@@ -430,10 +430,8 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 
         var refreshFinishedProducts = function() {
             if ($scope.selectedSourcedProduct) {
-                ProductData.getFinishedProductData($scope.selectedSourcedProduct._id, function(res) {
+                ProductData.getFinishedProductData($scope.selectedSourcedProduct._id).then(function(res) {
                     $scope.finishedProducts = res;
-                }, function(err) {
-                    console.log(err);
                 });
             }
 

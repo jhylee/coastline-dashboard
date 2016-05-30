@@ -60,6 +60,11 @@ app.factory('ProductData', ['$http', '$localStorage', 'apiUrl', 'FisheryService'
                 return res.data;
             });
         },
+        updateSelectedSourcedProduct: function(data) {
+            return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/sourcedProducts/' + selectedSourcedProductId, data).then(function (res) {
+                return res.data;
+            });
+        },
         deleteSourcedProduct: function(productId) {
             return $http.delete(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/sourcedProducts/' + productId)
                 .then(function(res) {
