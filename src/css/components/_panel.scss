@@ -116,6 +116,9 @@
   background-color: $secondary-background-color;
   border-color: $primary-border-color;
   border-radius: 3px;
+  h4 {
+    font-weight: 300;
+  }
   .panel-setting-heading {
     font-size: 18px;
     font-weight: 300;
@@ -152,8 +155,10 @@
   background-color: #EEEEEE;
 }
 .panel-setting {
-  padding-top: 50px;
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .panel-login {
   margin-top: 100px;

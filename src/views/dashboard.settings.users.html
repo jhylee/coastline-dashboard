@@ -1,48 +1,36 @@
 <div ng-controller="UserSettingsCtrl">
-  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header light-text">User Settings</h2>
-    <div class="row placeholders">
-      <div class="col-lg-8">
-        <div class="container">
-          <div class="panel-container">
-            <div class="panel panel-default">
-              <div class="panel-body alignleft">
-                <button ng-disabled="isInviteDisabled" ng-click="inviteUser()" class="btn-status-success">Invite New User</button>
-                <!-- <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default">Filter User <i class="fa fa-filter"></i></button> -->
-                <!-- <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default">Clear Filter <i class="fa fa-filter"></i></button> -->
-                <!-- <button ng-click="editUser(selectedUser)" class="btn-status-default">Manage User</button> -->
-                <!-- <button ng-click="deleteUser()" class="btn-status-danger">Delete User</button> -->
-              </div>
-            </div>
-            <div class="panel panel-body">
-              <div class="table-responsive table-card-responsive">
-                <table class="table ">
-                  <thead>
-                    <tr>
-                      <th>User Name</th>
-                      <th>Account Type</th>
-                      <th>Email</th>
-                      <th>Name</th>
-                      <th>Date Added</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="user in users track by $index">
-                      <!-- <td data-label="Select">
-                        <input type="radio" ng-model="$parent.selectedUser" ng-value="$parent.users[$index]">
-                      </td> -->
-                      <td data-label="Invoice">&nbsp; {{user.username}}</td>
-                      <td data-label="Name">&nbsp; {{user.accountType}}</td>
-                      <td data-label="Status">&nbsp;{{user.email}}</td>
-                      <td data-label="Status">&nbsp;{{user.name}}</td>
-                      <td data-label="Status">&nbsp;{{user.dateCreated | date: 'short'}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+  <div class="col-lg-10 main">
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h2>User Settings</h2>
+        <div class="card-panel-options">
+          <button ng-disabled="isInviteDisabled" ng-click="inviteUser()" class="btn-status-success"><i class="fa fa-plus"></i> Invite New User</button>
         </div>
+      </div>
+      <div class="table-responsive table-card-responsive">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th>User Name</th>
+              <th>Account Type</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Date Added</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="user in users track by $index">
+              <!-- <td data-label="Select">
+                <input type="radio" ng-model="$parent.selectedUser" ng-value="$parent.users[$index]">
+              </td> -->
+              <td data-label="Invoice">&nbsp; {{user.username}}</td>
+              <td data-label="Name">&nbsp; {{user.accountType}}</td>
+              <td data-label="Status">&nbsp;{{user.email}}</td>
+              <td data-label="Status">&nbsp;{{user.name}}</td>
+              <td data-label="Status">&nbsp;{{user.dateCreated | date: 'short'}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -50,7 +38,7 @@
 
 <script type="text/ng-template" id="inviteUser.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Add user to fishery</h3>
+    <h3 class="modal-title">Add user to fishery</h3>
   </div>
   <div class="modal-body">
     <form>
