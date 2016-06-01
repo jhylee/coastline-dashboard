@@ -1,56 +1,39 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-  <h2 class="page-header light-text">Supply Chains</h2>
-  <div class="row placeholders">
-    <div class="col-lg-8">
-      <div class="container">
-        <div class="panel-container">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <!-- TODO - make it so that selectedSupplyChain does NOT have to be passed into the function. -->
-              <button ng-click="createNewSupplyChain()" class="btn-status-success">Add</button>
-              <button ng-click="editSupplyChain(selectedSupplyChain)" class="btn-status-default">Edit</button>
-              <button ng-click="renameSupplyChain(selectedSupplyChain)" class="btn-status-default">Rename</button>
-              <button ng-click="deleteSupplyChain(selectedSupplyChain)" class="btn-status-danger">Delete</button>
-            </div>
-          </div>
+  <div class="col-lg-10 main">
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h2>Supply Chains</h2>
+        <div class="card-panel-options">
+          <button class="btn-status-success" ng-click="createNewSupplyChain()"><i class="fa fa-plus"></i> Add</button>
+          <button class="btn-status-default" ng-click="editSupplyChain(selectedSupplyChain)"><i class="fa fa-pencil"></i> Edit</button>
+          <button ng-click="renameSupplyChain(selectedSupplyChain)" class="btn-status-default"><i class="fa fa-font"></i> Rename</button>
+          <button ng-click="deleteSupplyChain(selectedSupplyChain)" class="btn-status-danger"><i class="fa fa-trash"></i> Delete</button>
         </div>
-        <div class="panel-container">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="table-responsive table-card-responsive">
-                <table class="table tableWhite">
-                  <thead>
-                    <tr>
-                      <th>Select</th>
-                      <th>Name</th>
-                      <!-- <th>Date Created</th> -->
-                      <th></th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="supplyChain in supplyChains track by $index">
-                      <td data-label="Select">
-                        <input type="radio" ng-model="$parent.selectedSupplyChain" ng-value="$index">
-                      </td>
-                      <td data-label="Name">{{supplyChain.name}}</td>
-                      <td></td>
-                      <td></td>
-                      <!-- <td data-label="Date Created">{{supplyChain.dateCreated | date: 'short'}}</td> -->
-                      <!-- <td data-label="Details">
-                        <button ng-click="editSupplyChain(supplyChain)" class="btn-status-default">View/Edit</button>
-                      </td> -->
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+      <div class="table-responsive table-card-responsive">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Name</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="supplyChain in supplyChains track by $index">
+              <td data-label="Select">
+                <input type="radio" ng-model="$parent.selectedSupplyChain" ng-value="$index">
+              </td>
+              <td data-label="Name">{{supplyChain.name}}</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-</div>
+
 
 <!-- DELETE BATCH MODAL-->
 <script type="text/ng-template" id="deleteSupplyChain.html">

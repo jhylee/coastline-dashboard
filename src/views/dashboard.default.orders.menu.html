@@ -1,4 +1,57 @@
 <div ng-controller="OrderDisplayCtrl">
+  <div class="col-lg-10 main">
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h2>Manage Orders</h2>
+        <div class="card-panel-options" >
+          <div class="col-lg-12 invisible-block">Invisible</div>
+          <button ng-click="addOrder()" class="btn-status-success"><i class="fa fa-plus"></i> Add</button>
+          <button ng-click="editOrder()" class="btn-status-default"><i class="fa fa-pencil"></i> Edit</button>
+          <button ng-hide="isLoadingPDF" ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default"><i class="fa fa-file-pdf-o"></i> PDF</button>
+          <button ng-show="isLoadingPDF" class="btn-status-success">Loading...</button>
+          <button ng-click="exportOrders()" ng-hide="isLoading" class="btn-status-default"><i class="fa fa-file-excel-o"></i> Excel</button>
+          <button ng-show="isLoading" class="btn-status-success" type="button">Loading...</button>
+          <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Filter</button>
+          <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Clear Filter</button>
+          <button ng-click="deleteOrder()" class="btn-status-danger"><i class="fa fa-trash"></i> Delete</button>
+
+        </div>
+      </div>
+      <div class="table-responsive table-card-responsive">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Invoice #</th>
+              <th>Customer Name</th>
+              <th>Status</th>
+              <th>Invoice Date </th>
+              <th>Total Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="order in orders track by $index">
+              <td data-label="Select">
+                <input type="radio" ng-model="$parent.selectedOrder" ng-value="$parent.orders[$index]">
+              </td>
+              <td data-label="Invoice">&nbsp; {{order.invoiceNumber}}</td>
+              <td data-label="Name">{{order.customerName}}</td>
+              <td data-label="Status">&nbsp;{{order.status}}</td>
+              <td data-label="Date">{{order.date | date:'M/d/yyyy'}}</td>
+              <td data-label="Subtotal">${{totals[$index]}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="text-center">
+    <ul class="pagination pagination-md">
+      <li ng-repeat="page in paginationArray track by $index" ng-class="{active:pageIndex==$index}"><a href="javascript:void()" ng-click="setPageIndex($index)">{{$index + 1}}</a></li>
+    </ul>
+  </div>
+  </div>
+
+<!--
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header light-text">Manage Orders</h2>
     <div class="row placeholders">
@@ -19,9 +72,8 @@
               </div>
             </div>
             <div class="panel panel-body">
-              <!--<div class="panel-scroll">-->
               <div class="table-responsive table-card-responsive">
-                <table class="table tableWhite">
+                <table class="table ">
                   <thead>
                     <tr>
                       <th>Select</th>
@@ -53,9 +105,8 @@
           </div>
         </div>
       </div>
-      <!--</div>-->
     </div>
-  </div>
+  </div> -->
 </div>
 
 
@@ -80,7 +131,7 @@
 
   <div class="modal-body">
     <div class="table-responsive">
-      <table class="table tableWhite">
+      <table class="table ">
         <thead>
           <tr>
             <th>Product</th>
@@ -100,7 +151,6 @@
             <td><b>Total</b></td>
             <td></td>
             <td></td>
-            <!-- <td>${{getTotal()}}</td> -->
           </tr>
         </tbody>
       </table>
@@ -273,7 +323,7 @@
       <hr class="short">
       <p class="text-center input-required" ng-show="productRequired">Please fill out the required fields below:</p>
       <div class="table-responsive table-card-responsive">
-        <table class="table tableWhite">
+        <table class="table ">
           <thead>
             <tr>
               <th>Product <span class="section-required" ng-show="sourcedProductRequired"> * </span></th>
@@ -611,7 +661,7 @@
   <div class="modal-body">
     <div class="panel-scroll">
       <div class="table-responsive">
-        <table class="table tableWhite">
+        <table class="table">
           <thead>
             <tr>
               <th>Select</th>

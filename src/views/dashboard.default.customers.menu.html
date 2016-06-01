@@ -1,55 +1,48 @@
 <div ng-controller="CustomerDisplayCtrl">
-  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header light-text">Customer Management</h2>
-    <div class="row placeholders">
-      <div class="col-lg-8">
-        <div class="container">
-          <div class="panel-container">
-            <div class="panel panel-default">
-              <div class="panel-body alignleft">
-                <button ng-click="add()" class="btn-status-success">Add</button>
-                <button ng-click="edit()" class="btn-status-default">Edit</button>
-                <button ng-click="delete()" class="btn-status-danger">Delete</button>
-              </div>
-            </div>
-            <div class="panel panel-body">
-              <!--<div class="panel-scroll">-->
-              <div class="table-responsive table-card-responsive">
-                <table class="table tableWhite">
-                  <thead>
-                    <tr>
-                      <th>Select</th>
-                      <th>Customer Name</th>
-                      <th>Company</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>City</th>
-                      <th>Country</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="customer in customers track by $index">
-                      <td data-label="Select">
-                        <input type="radio" ng-model="$parent.selectedCustomer" ng-value="$parent.customers[$index]">
-                      </td>
-                      <td data-label="Name">&nbsp;{{customer.name}}</td>
-                      <td data-label="Company">&nbsp;{{customer.company}}</td>
-                      <td data-label="Email">&nbsp;{{customer.email}}</td>
-                      <td data-label="Phone">&nbsp;{{customer.phone}}</td>
-                      <td data-label="Country">&nbsp;{{customer.city}}</td>
-                      <td data-label="Country">&nbsp;{{customer.country}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <ul class="pagination pagination-md">
-                <li ng-repeat="page in paginationArray track by $index" ng-class="{active:pageIndex==$index}"><a href="javascript:void()" ng-click="setPageIndex($index)">{{$index + 1}}</a></li>
-              </ul>
-            </div>
-          </div>
+  <div class="col-lg-10 main">
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h2>Customer Management</h2>
+        <div class="card-panel-options">
+          <div class="col-lg-12 invisible-block">Invisible</div>
+          <button ng-click="add()" class="btn-status-success"><i class="fa fa-plus"></i> Add</button>
+          <button ng-click="edit()" class="btn-status-default"><i class="fa fa-pencil"></i> Edit</button>
+          <button ng-click="delete()" class="btn-status-danger"><i class="fa fa-trash"></i> Delete</button>
         </div>
       </div>
-      <!--</div>-->
+      <div class="table-responsive table-card-responsive">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Customer Name</th>
+              <th>Company</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>City</th>
+              <th>Country</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="customer in customers track by $index">
+              <td data-label="Select">
+                <input type="radio" ng-model="$parent.selectedCustomer" ng-value="$parent.customers[$index]">
+              </td>
+              <td data-label="Name">&nbsp;{{customer.name}}</td>
+              <td data-label="Company">&nbsp;{{customer.company}}</td>
+              <td data-label="Email">&nbsp;{{customer.email}}</td>
+              <td data-label="Phone">&nbsp;{{customer.phone}}</td>
+              <td data-label="Country">&nbsp;{{customer.city}}</td>
+              <td data-label="Country">&nbsp;{{customer.country}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="text-center">
+      <ul class="pagination pagination-md">
+        <li ng-repeat="page in paginationArray track by $index" ng-class="{active:pageIndex==$index}"><a href="javascript:void()" ng-click="setPageIndex($index)">{{$index + 1}}</a></li>
+      </ul>
     </div>
   </div>
 </div>

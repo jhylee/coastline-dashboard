@@ -1,18 +1,115 @@
+.card-panel {
+  width: 100%;
+  height: auto;
+  background-color: #FFF;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.30);
+  .card-panel-header {
+    width: 100%;
+    background-color: $navbar-color;
+    height: 75px;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    .card-panel-options {
+      float: right;
+      margin-top: -68px;
+      a {
+        color: #FFF;
+        font-size: 20px;
+        outline: 0;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    }
+    h2 {
+      font-weight: 200;
+      display: block;
+      line-height: 75px;
+      color: #FFF;
+    }
+    @media (max-width: 768px) {
+      .card-panel-options {
+        float: right;
+        margin-top: -50px;
+      }
+      h2 {
+        font-size: 20px;
+        line-height: 50px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .card-panel-header {
+       max-height: 70px;
+    }
+  }
+}
+
+.card-panel-half {
+  width: 50%;
+  height: auto;
+  background-color: #FFF;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.30);
+  .card-panel-header {
+    width: 100%;
+    background-color: $navbar-color;
+    height: 75px;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    .card-panel-options {
+      float: right;
+      margin-top: -60px;
+      a {
+        color: #FFF;
+        font-size: 20px;
+        outline: 0;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    }
+    h2 {
+      font-weight: 200;
+      display: block;
+      line-height: 75px;
+      color: #FFF;
+    }
+    @media (max-width: 800px) {
+      .card-panel-options {
+        float: right;
+        margin-top: -50px;
+      }
+      h2 {
+        font-size: 18px;
+        line-height: 50px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .card-panel-header {
+      height: 50px;
+    }
+  }
+}
+
+
 .panel {
-  max-width: 95%;
+  width: 100%;
   height: 100%;
   border-color: $primary-border-color;
   background-color: $secondary-background-color;
   border-radius: 3px;
   border: none;
-
 }
-@media (min-width: 1000px) {
+@media (max-width: 1000px) {
   .panel {
-    max-width: 85%;
+    width: 100%;
   }
 }
-
 .panel-body {
   padding: none;
   margin-left: 0;
@@ -20,25 +117,19 @@
   border-color: $primary-border-color;
   border-radius: 3px;
   .panel-setting-heading {
-    h1 {
-      font-weight: 300;
-    }
-  }
-
-  h3, h4 {
+    font-size: 18px;
     font-weight: 300;
+    letter-spacing: 0.025em;
   }
 }
-
 .panel-login-body {
   padding-left: 30px;
   padding-right: 30px;
-  padding-bottom:20px;
+  padding-bottom: 20px;
   margin-left: 0;
   background-color: $secondary-background-color;
   border-color: $primary-border-color;
   border-radius: 3px;
-
   .panel-login-error {
     margin-top: 10px;
     margin-right: -15px;
@@ -49,48 +140,50 @@
     border-radius: 2px;
     color: #fff;
   }
-
 }
-
 .panel-scroll {
   @extend .panel-body;
-  height: 500px;
+  height: 250px;
   overflow-y: scroll;
-}
+  background-color: #FFF;
 
+}
 .panel-footer {
   background-color: #EEEEEE;
 }
-
 .panel-setting {
-  padding-top:50px;
-  padding-bottom:20px;
-
-  label {
-    font-weight: 400;
-  }
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
-
 .panel-login {
   margin-top: 100px;
 }
-
 .panel-default {
   .panel-heading {
     text-align: left;
-  	font-size: 18px;
-  	font-weight: 300;
-  	letter-spacing: 0.025em;
-  	height: 40px;
-
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.025em;
+    height: 40px;
     .panel-title {
-      text-align:center;
+      text-align: center;
       line-height: 20px;
     }
   }
 }
-
 .mobile-nav-panel {
   margin-top: 50px;
   margin-bottom: -30px;
+}
+
+.invisible-block {
+  opacity: 0;
+  padding-bottom: 10px;
+  display: none;
+}
+
+@media (max-width: 800px) {
+.invisible-block {
+    display: block;
+  }
 }
