@@ -49,13 +49,18 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         }
 
         if (formValid) {
-          var fisheryName = $scope.fisheryName
-
+          var fisheryName = $scope.fisheryName;
           AuthService.signUp(formData, function(res) {
-              //   AuthService.login(formData, function (res) {
+            if (res.statusText === "Unauthorized" || res.statusText === "Not Found" ){
+              $scope.usernameRequired = true;
+              $scope.passwordRequired = true;
+            }
+
               $state.go('fishery-setup');
               //   });
           }, function(err) {
+            $scope.usernameRequired = true;
+            $scope.passwordRequired = true;
           });
 
         }
@@ -111,14 +116,12 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
         }
         if (formValid) {
           AuthService.sendResetLink(data).then(function (res) {
+            if (res.statusText === "Unauthorized" || res.statusText === "Not Found" ){
+              $scope.usernameRequired = true;
+            }
+            else {
               $state.go('login');
-          })
-          ngNotify.set('Please Check Your Email for Reset Instructions ', {
-              sticky: false,
-              button: true,
-              type: 'success',
-              duration: 1500,
-              position: 'top'
+            }
           })
         }
     };
