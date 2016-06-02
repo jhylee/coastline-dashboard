@@ -6,7 +6,16 @@
   </ul>
 </div>
 
-<div ng-controller="MobileNavCtrl" class="col-lg-12 mobile-nav-panel" ng-show='showMobileTab'>
+
+<div class="col-lg-12">
+  <div class="mobile-navigation text-center">
+    <a ui-sref=".general" ng-disabled="isInviteDisabled" class="btn-status-default">General</a>
+    <a ui-sref=".fishery" ng-disabled="isInviteDisabled" class="btn-status-default">Fishery</a>
+    <a ui-sref=".users" ng-disabled="isInviteDisabled" class="btn-status-default">Users</a>
+  </div>
+</div>
+
+<!-- <div class="col-lg-12 mobile-nav-panel">
   <div class="row placeholders">
     <div class="col-lg-12 col-centered">
       <div class="container">
@@ -18,6 +27,6 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div ui-view></div>

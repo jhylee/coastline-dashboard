@@ -1,13 +1,24 @@
 <div class="col-sm-3 col-md-2 sidebar">
-    <ul ng-controller="SideNavCtrl" class="nav nav-sidebar">
-        <li><a ng-class="{activeTab: state.includes('dashboard.help.overview')}" ui-sref=".overview">PDF Guide</a></li>
-        <li><a ng-class="{activeTab: state.includes('dashboard.help.product')}" ui-sref=".product">Products</a></li>
-        <li><a ng-class="{activeTab: state.includes('dashboard.help.supply-chain')}" ui-sref=".supply-chain">Supply Chain</a></li>
-        <li><a ng-class="{activeTab: state.includes('dashboard.help.inventory')}" ui-sref=".inventory">Inventory</a></li>
-        <li><a ng-class="{activeTab: state.includes('dashboard.help.orders-invoices')}" ui-sref=".orders-invoices">Orders</a></li>
-        <li><a ng-class="{activeTab: state.includes('dashboard.help.customer')}" ui-sref=".customer">Customers</a></li>
-        <li><a ng-class="{activeTab: state.includes('dashboard.help.catch-history')}" ui-sref=".catch-history">Catch History</a></li>
-    </ul>
+  <ul ng-controller="SideNavCtrl" class="nav nav-sidebar">
+    <li><a ng-class="{activeTab: state.includes('dashboard.help.overview')}" ui-sref=".overview">PDF Guide</a></li>
+    <li><a ng-class="{activeTab: state.includes('dashboard.help.product')}" ui-sref=".product">Products</a></li>
+    <li><a ng-class="{activeTab: state.includes('dashboard.help.supply-chain')}" ui-sref=".supply-chain">Supply Chain</a></li>
+    <li><a ng-class="{activeTab: state.includes('dashboard.help.inventory')}" ui-sref=".inventory">Inventory</a></li>
+    <li><a ng-class="{activeTab: state.includes('dashboard.help.orders-invoices')}" ui-sref=".orders-invoices">Orders</a></li>
+    <li><a ng-class="{activeTab: state.includes('dashboard.help.customer')}" ui-sref=".customer">Customers</a></li>
+    <li><a ng-class="{activeTab: state.includes('dashboard.help.catch-history')}" ui-sref=".catch-history">Catch History</a></li>
+  </ul>
 </div>
 
+<div class="col-lg-12">
+  <div class="mobile-navigation text-center">
+    <button ui-sref=".overview" class="btn-status-default">PDF</button>
+    <button class="btn-status-default" ui-sref=".product">Products</button>
+    <button ui-sref=".supply-chain" class="btn-status-default">Supply Chain</button>
+    <button class="btn-status-default" ui-sref=".inventory">Inventory</button>
+    <button class="btn-status-default" ui-sref=".orders-invoices">Orders</button>
+    <button class="btn-status-default" ui-sref=".customer">Customers</button>
+    <button class="btn-status-default" ui-sref=".catch-history">Traceability</button>
+  </div>
+</div>
 <div ui-view></div>

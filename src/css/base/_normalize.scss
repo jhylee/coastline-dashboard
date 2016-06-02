@@ -132,3 +132,12 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+.mobile-navigation {
+  margin-top: 30px;
+}
+@media (min-width: 768px) {
+  .mobile-navigation {
+    display: none;
+  }
+}
