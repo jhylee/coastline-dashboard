@@ -28,6 +28,7 @@
   padding-top: 8px;
   padding-bottom: 8px;
   outline: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .btn-status-default:hover,
 .btn-status-default:focus,
@@ -72,6 +73,8 @@ a.btn-status-default:focus {
   padding-top: 8px;
   padding-bottom: 8px;
   outline: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 .btn-status-danger:hover,
 .btn-status-danger:focus,
@@ -108,6 +111,8 @@ a.btn-status-default:focus {
   padding-top: 8px;
   padding-bottom: 8px;
   outline: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 .btn-status-success:hover,
 .btn-status-success:focus,
@@ -136,6 +141,8 @@ a.btn-status-default:focus {
   padding-bottom: 15px;
   padding-left: 25px;
   padding-right: 25px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 a.btn-size-large:hover,
 a.btn-size-large:active,
@@ -156,6 +163,8 @@ a.btn-size-large:focus {
   padding-top: 5px;
   padding-bottom: 5px;
   outline: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 .btn-table-danger {
   @include border-radius(2px);
@@ -171,6 +180,8 @@ a.btn-size-large:focus {
   padding-top: 5px;
   padding-bottom: 5px;
   outline: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 .btn-table-default {
   @include border-radius(2px);
@@ -186,9 +197,23 @@ a.btn-size-large:focus {
   padding-top: 5px;
   padding-bottom: 5px;
   outline: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 
 .table-edit, .table-edit:hover {
   color: #000;
   text-decoration: none;
+}
+
+@media screen and (max-width: 1008px) {
+  .btn-status-danger, .btn-status-success, .btn-status-default {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 11px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  }
 }

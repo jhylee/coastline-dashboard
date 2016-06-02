@@ -1,9 +1,5 @@
 <div class="col-sm-3 col-md-2 sidebar">
     <ul ng-controller="SideNavCtrl" class="nav nav-sidebar">
-        <li>
-          <div class="sidebar-border"><h1>
-          Navigation
-        </h1></li>
         <li><a ng-class="{activeTab: state.includes('dashboard.default.overview')}" ui-sref=".overview">Overview</a></li>
         <li><a ng-class="{activeTab: state.includes('dashboard.default.products')}" ui-sref=".products">Products</a></li>
         <li><a ng-class="{activeTab: state.includes('dashboard.default.supply-chain')}" ui-sref=".supply-chain.menu">Supply Chain</a></li>

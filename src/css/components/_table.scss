@@ -1,29 +1,21 @@
 table {
   border-collapse: separate;
-  border: 1px solid $secondary-border-color;
   display: table;
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: 2px;
-}
-table.tableWhite {
-  background: none;
-  border-radius: 2px;
+  font-family: $primary-font;
+
+
   th {
-    background-color: $primary-background-color;
-    vertical-align: middle;
-    border-radius: 0;
-    font-weight: 400;
-  }
+     font-weight: 400;
+ }
   td {
-    vertical-align: bottom;
-    background-color: #fff;
-  }
+     font-weight: 300;
+     vertical-align: middle;
+ }
 }
 
-// .table>tbody>tr:first-child>td{
-//   border-top: none;
-// }
+
 .table>tbody>tr>td,
 .table>tbody>tr>th,
 .table>tfoot>tr>td,
@@ -33,12 +25,10 @@ table.tableWhite {
   vertical-align: middle;
   text-align: center;
 }
-.panel>.table-responsive:last-child>.table:last-child,
-.panel>.table:last-child,
-.panel>.table-responsive:first-child>.table:first-child,
-.panel>.table:first-child {
-  border-radius: 5px;
-}
+
+
+
+
 @media screen and (max-width: 768px) {
   .table-card-responsive {
     border: hidden;
@@ -55,30 +45,27 @@ table.tableWhite {
     .table>tbody>tr>th {
       background-color: #fff;
       border-bottom: none;
+    }
 
-      // border-top: none;
-      border: 0.15em solid $primary-border-color;
-    }
-    .table>tbody>tr>td:first-child {
-      border-top-left-radius: 2px;
-      border-top-right-radius: 2px;
-    }
-    .table>tbody>tr>td:last-child {
-      border-bottom-left-radius: 2px;
-      border-bottom-right-radius: 2px;
-    }
     .table-responsive {
       border: hidden;
     }
     table {
-      border: 2px solid $secondary-background-color;
+      border: 1px solid $primary-background-color;
     }
+
     table thead {
       display: none;
     }
     table tr {
-      margin-bottom: 10px;
+      margin-bottom: 0px;
       display: block;
+    }
+    table tr {
+      border-bottom: 2px dotted #BDBDBD;
+    }
+    table tr:last-child {
+      border-bottom: none;
     }
     table td {
       content: attr(data-label);
@@ -87,7 +74,7 @@ table.tableWhite {
     }
     table td:before {
       content: attr(data-label);
-      font-weight: bold;
+      font-weight: 400;
       vertical-align: middle;
       float: left;
     }
@@ -95,4 +82,8 @@ table.tableWhite {
 }
 table.table-button-wrapper td {
   background-color: #000;
+}
+
+.table-edit {
+  float:right;
 }

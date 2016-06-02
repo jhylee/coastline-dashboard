@@ -1,20 +1,14 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-  <h2 class="page-header light-text">Track Inventory</h2>
-  <div class="row placeholders">
-    <div class="col-lg-8">
-      <div class="container">
-        <div class="panel-container">
-          <div class="panel panel-default">
-            <div ng-controller="InventoryCtrl" class="panel-body">
-              <button ng-click="viewBlocks()" class="btn-status-default">View/Edit Inventory</button>
-            </div>
-          </div>
-          <div ng-controller="SupplyChainDisplayCtrl" class="panel panel-default">
-            <div class="panel-body" style="height:500px">
-              <vis-network-track data="data" options="options" events="events" height="500px"></vis-network-track>
-            </div>
-          </div>
-        </div>
+<div class="col-lg-10 main">
+  <div class="card-panel">
+    <div class="card-panel-header">
+      <h2>Track Inventory</h2>
+      <div class="card-panel-options">
+        <button ng-click="viewBlocks()" ng-controller="InventoryCtrl" class="btn-status-default"><i class="fa fa-search"></i> View/Edit Inventory</button>
+      </div>
+    </div>
+    <div ng-controller="SupplyChainDisplayCtrl" class="panel panel-default">
+      <div class="panel-body" style="height:500px">
+        <vis-network-track data="data" options="options" events="events" height="500px"></vis-network-track>
       </div>
     </div>
   </div>
@@ -24,20 +18,24 @@
 <!-- VIEW INVENTORY MODAL-->
 <script type="text/ng-template" id="viewBlocksModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Inventory in {{stageName}}</h3>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="moveBlock()">Move</button>
-    <!-- <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="moveBlockToSales()">Move to Sales</button> -->
-    <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="viewDetails()">Batch Detail</button>
-    <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()">Edit</button>
-    <button class="btn-status-success" type="button" ng-click="addBlock()">Add</button>
-    <button class="btn-status-danger" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()">Delete</button>
+    <h3 class="modal-title">Inventory in {{stageName}}</h3>
   </div>
   <div class="modal-body">
-
+    <div class="row">
+    <div class="col-lg-12">
+      <div class="alignright">
+      <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="moveBlock()"><i class="fa fa-truck"></i> Move</button>
+      <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="viewDetails()"><i class="fa fa-book"></i> Batch Detail</button>
+      <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()"><i class="fa fa-pencil"></i> Edit</button>
+      <button class="btn-status-success" type="button" ng-click="addBlock()"><i class="fa fa-plus"></i> Add</button>
+      <button class="btn-status-danger" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()"><i class="fa fa-trash"></i> Delete</button>
+    </div>
+  </div>
+  </div>
+  <div class="row"><br>
+    <div class="col-lg-12">
     <div class="table-responsive table-card-responsive">
-      <table class="table tableWhite">
+      <table class="table ">
         <thead>
           <tr>
             <th>Select</th>
@@ -61,6 +59,9 @@
       </table>
     </div>
   </div>
+</div>
+</div>
+
   <div class="modal-footer">
     <button class="btn-status-default" type="button" ng-click="ok()">Close</button>
   </div>
@@ -70,7 +71,7 @@
 <!-- ADD BATCH MODAL-->
 <script type="text/ng-template" id="addBlockModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Add Seafood Batch</h3>
+    <h3 class="modal-title">Add Seafood Batch</h3>
   </div>
   <div class="modal-body">
     <ul class="nav nav-tabs" ng-init="item=1">
@@ -170,7 +171,7 @@
 <!-- EDIT BATCH MODAL-->
 <script type="text/ng-template" id="editBlockModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Edit Seafood Batch</h3>
+    <h3 class="modal-title">Edit Seafood Batch</h3>
   </div>
   <div class="modal-body">
     <form>
@@ -178,7 +179,9 @@
         <div class="col-lg-12">
           <label>Set Finished Good Type:</label>
           <select class="form-control" ng-model="selectedFinishedProduct" ng-options="finishedProduct.name for finishedProduct in finishedProducts"></select>
-          <small class="text-muted"><br></small>
+          <small class="text-muted">
+            <br>
+          </small>
         </div>
         <div class="col-lg-12">
           <label>Quantity</label>
@@ -198,7 +201,7 @@
 <!-- DELETE BATCH MODAL-->
 <script type="text/ng-template" id="deleteBlockModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Delete Batch</h3>
+    <h3 class="modal-title">Delete Batch</h3>
   </div>
   <div class="modal-body">
     <p>Are you sure you want to delete this seafood batch?</p>
@@ -213,7 +216,7 @@
 <!-- MOVE BATCH MODAL-->
 <script type="text/ng-template" id="moveBlockModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Move Inventory Batch</h3>
+    <h3 class="modal-title">Move Inventory Batch</h3>
   </div>
   <div class="modal-body">
     <form>
@@ -261,7 +264,7 @@
 <!-- MOVE BATCH TO SALES MODAL-->
 <script type="text/ng-template" id="moveBlockToSalesModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Move Inventory Batch to Sales</h3>
+    <h3 class="modal-title">Move Inventory Batch to Sales</h3>
   </div>
   <div class="modal-body">
     <form>
@@ -297,64 +300,68 @@
 <!-- VIEW BATCH DETAILS MODAL-->
 <script type="text/ng-template" id="viewDetailsModal.html">
   <div class="modal-header">
-    <h3 class="modal-title text-center">Inventory Batch Details</h3>
+    <h3 class="modal-title">Inventory Batch Details</h3>
   </div>
   <div class="modal-body">
-    <h4 class="text-center">Initial Catch Audit</h4>
-    <hr class="short">
-    <div class="table-responsive table-card-responsive">
-      <table class="table tableWhite">
-        <thead>
-          <tr>
-            <th>Product Type</th>
-            <th>Quantity</th>
-            <th>Catch Date</th>
-            <th>Catch Region</th>
-            <th>Caught By</th>
-            <th>Catch Type</th>
-            <th>Water Depth</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td data-label="Product">&nbsp;{{getProductDisplay()}}</td>
-            <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
-            <td data-label="Catch Date">{{block.catchDate | date:"M/d/y"}}</td>
-            <td data-label="Region">{{block.catchRegion}}</td>
-            <td data-label="Catcher">{{block.caughtBy}}</td>
-            <td data-label="Method">{{block.catchType}}</td>
-            <td data-label="Depth">{{block.waterDepth}}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h2>Initial Catch Audit</h2>
+      </div>
+      <div class="table-responsive table-card-responsive">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th>Product Type</th>
+              <th>Quantity</th>
+              <th>Catch Date</th>
+              <th>Catch Region</th>
+              <th>Caught By</th>
+              <th>Catch Type</th>
+              <th>Water Depth</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Product">&nbsp;{{getProductDisplay()}}</td>
+              <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
+              <td data-label="Catch Date">{{block.catchDate | date:"M/d/y"}}</td>
+              <td data-label="Region">{{block.catchRegion}}</td>
+              <td data-label="Catcher">{{block.caughtBy}}</td>
+              <td data-label="Method">{{block.catchType}}</td>
+              <td data-label="Depth">{{block.waterDepth}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <div class="modal-body">
-    <h4 class="text-center">Lot History</h4>
-    <hr class="short">
-    <div class="table-responsive table-card-responsive">
-      <table class="table tableWhite">
-        <thead>
-          <tr>
-            <th>Operation</th>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Quantity</th>
-            <th>Job Number</th>
-            <th>Process Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="event in history.events track by $index">
-            <td data-label="Operation">&nbsp;{{history.events[history.events.length-1-$index].operation}}</td>
-            <td data-label="Date">&nbsp;{{history.events[history.events.length-1-$index].date | date: "short"}}</td>
-            <td data-label="Location">&nbsp;{{getStageName([history.events.length-1-$index])}}</td>
-            <td data-label="Quantity">&nbsp;{{quantities[history.events.length-1-$index] + " " + units[history.events.length-1-$index]}}</td>
-            <td data-label="Job Number">&nbsp;{{history.events[history.events.length-1-$index].jobNumber || "N/A"}}</td>
-            <td data-label="Process Type">&nbsp;{{history.events[history.events.length-1-$index].processType || "N/A"}}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h2>Seafood Lot History</h2>
+      </div>
+      <div class="table-responsive table-card-responsive">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Quantity</th>
+              <th>Job Number</th>
+              <th>Process Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="event in history.events track by $index">
+              <td data-label="Operation">&nbsp;{{history.events[history.events.length-1-$index].operation}}</td>
+              <td data-label="Date">&nbsp;{{history.events[history.events.length-1-$index].date | date: "short"}}</td>
+              <td data-label="Location">&nbsp;{{getStageName([history.events.length-1-$index])}}</td>
+              <td data-label="Quantity">&nbsp;{{quantities[history.events.length-1-$index] + " " + units[history.events.length-1-$index]}}</td>
+              <td data-label="Job Number">&nbsp;{{history.events[history.events.length-1-$index].jobNumber || "N/A"}}</td>
+              <td data-label="Process Type">&nbsp;{{history.events[history.events.length-1-$index].processType || "N/A"}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   </div>

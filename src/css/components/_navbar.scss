@@ -6,6 +6,8 @@
   border: 0;
   background-color: $navbar-color;
   color: $primary-font-color;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 .navbar-header {
   .navbar-brand {
@@ -48,8 +50,9 @@
   &:hover {
     background-color: $btn-default-hover-color;
   }
-  a {
+  a, a:focus, a:active {
     color: #fff;
+    font-weight: 300;
   }
   @media screen and (max-width: 600px) {
     a {

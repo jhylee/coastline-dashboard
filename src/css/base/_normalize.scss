@@ -17,15 +17,17 @@ $btn-default-color: #546E7A;
 $btn-default-hover-color: #455A64;
 $btn-highlight-color: #607D8B;
 $btn-highlight-hover-color: #78909C;
-$btn-danger-color: #D50000;
-$btn-danger-hover-color: #B71C1C;
-$btn-success-color: #388E3C;
-$btn-success-hover-color: #1B5E20;
+$btn-danger-color: #c62828;
+$btn-danger-hover-color: #b71c1c;
+$btn-success-color: #2E7D32;
+$btn-success-hover-color: #33691E;
 
 /*
  * Base structure
  */
-@import url('http://fonts.googleapis.com/css?family=Roboto');
+
+ // <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,100italic,300italic' rel='stylesheet' type='text/css'>
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,100italic,300italic');
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
@@ -49,20 +51,22 @@ body {
  * Main content
  */
 .main {
-  padding: 20px;
+  padding: 10px;
+  margin-left: -5px;
   max-width: 100%;
+  overflow-x: hidden;
 }
 @media (min-width: 768px) {
   .main {
-    padding-right: 40px;
-    padding-left: 40px;
+     margin-left: 220px;
+    padding: 50px;
     max-width: 100%;
   }
 }
 .main .page-header {
   margin-top: 25px;
   margin-left: 20px;
-  font-weight: 300;
+  font-weight: 100;
   max-width: 88%;
   border-bottom: 2px solid $primary-border-color;
 }
@@ -72,7 +76,7 @@ body {
 }
 .huge {
   font-size: 30px;
-  font-weight: 400;
+  font-weight: 200;
   color: #000;
 }
 .div-align-right {
@@ -85,6 +89,7 @@ body {
 
 .pagination>li>a, .pagination>li>a:hover, .pagination>li>a:active {
   color: #000;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .pagination>li:first-child>a {
   border-top-left-radius: 2px;
@@ -106,12 +111,8 @@ body {
 }
 
 
-.align-right {
+.alignright {
   float:right;
-}
-.align-right-table {
-  position: relative;
-  margin-left: 1000;
 }
 
 /*
