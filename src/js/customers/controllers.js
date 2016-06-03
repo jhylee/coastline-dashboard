@@ -62,7 +62,7 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
                 function() {});
         };
 
-        $scope.edit = function() {
+        $scope.editCustomer = function() {
             CustomerService.setSelectedCustomerId($scope.selectedCustomer._id);
             var modalInstance = $uibModal.open({
                 animation: true,

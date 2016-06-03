@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="table-responsive table-card-responsive">
-        <table class="table ">
+        <table class="table">
           <thead>
             <tr>
               <th>Select</th>
@@ -18,20 +18,19 @@
               <th>Description</th>
             </tr>
           </thead>
-          <tbody ng-repeat="sourcedProduct in sourcedProducts track by $index">
-            <tr>
+          <tbody>
+            <tr ng-repeat="sourcedProduct in sourcedProducts track by $index">
               <td data-label="Select">
                 <input type="radio" ng-model="$parent.selectedProduct" ng-value="$parent.sourcedProducts[$index]">
               </td>
               <td data-label="Product">{{sourcedProduct.name}}</td>
-              <td data-label="Description">{{sourcedProduct.description}}</td>
+              <td data-label="Description">&nbsp;{{sourcedProduct.description}}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 

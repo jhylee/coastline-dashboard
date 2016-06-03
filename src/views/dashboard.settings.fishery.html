@@ -38,62 +38,39 @@
             <div class="row">
               <fieldset class="form-group">
                 <div class="col-lg-6">
+                  <label>Sales Phone</label>
+                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="salesPhone" placeholder="555-555-5555" type="text"></input>
+                  <small class="text-muted">Change the sales phone number of your fishery.</small>
+                </div>
+                <div class="col-lg-6">
                   <label>Tax Number (i.e. HST #)</label>
                   <input class="form-control" ng-disabled="(isLoading || isDisabled)" placeholder="896437985" ng-model="taxNumber" type="text"></input>
                   <small class="text-muted">Change the tax redemption number that appears on your invoices.</small>
                 </div>
+              </fieldset>
+            </div>
+            <div class="row">
+              <fieldset class="form-group">
                 <div class="col-lg-6">
                   <label>Business Address</label>
                   <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="address" type="text" placeholder="80 Whycliff Road"></input>
                   <small class="text-muted">Change the address of your fishery.</small>
                 </div>
-              </fieldset>
-            </div>
-            <div class="row">
-              <fieldset class="form-group">
                 <div class="col-lg-6">
                   <label>State/Province</label>
                   <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="state" type="text" placeholder="i.e. Maine"></input>
                   <small class="text-muted">Change the state/province of your fishery.</small>
                 </div>
+              </fieldset>
+            </div>
+            <div class="row">
+              <fieldset class="form-group">
                 <div class="col-lg-6">
                   <label>Postal/Zip Code</label>
                   <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="postalCode" type="text" placeholder="i.e. N6G 1N1 or 48120"></input>
                   <small class="text-muted">Change the address of your fishery.</small>
                 </div>
-              </fieldset>
-            </div>
-            <div class="row">
-              <fieldset class="form-group">
                 <div class="col-lg-6">
-                  <label>Postal/Zip Code</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="postalCode" type="text" placeholder="i.e. N6G 1N1 or 48120"></input>
-                  <small class="text-muted">Change the postal/postalCode code of your fishery.</small>
-                </div>
-                <div class="col-lg-6">
-                  <label>Sales Phone</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="salesPhone" placeholder="555-555-5555" type="text"></input>
-                  <small class="text-muted">Change the sales phone number of your fishery.</small>
-                </div>
-              </fieldset>
-            </div>
-            <div class="row">
-              <fieldset class="form-group">
-                <div class="col-lg-6">
-                  <label>Postal/Zip Code</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="postalCode" type="text" placeholder="i.e. N6G 1N1 or 48120"></input>
-                  <small class="text-muted">Change the postal/postalCode code of your fishery.</small>
-                </div>
-                <div class="col-lg-6">
-                  <label>Sales Phone</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="salesPhone" placeholder="555-555-5555" type="text"></input>
-                  <small class="text-muted">Change the sales phone number of your fishery.</small>
-                </div>
-              </fieldset>
-            </div>
-            <div class="row">
-              <fieldset class="form-group">
-                <div class="col-lg-6 alignright">
                   <label>Fishery Logo</label>
                   <input class="form-control" type="file" ngf-select ng-model="file" name="file">
                   <small class="text-muted">PNG and JPG files only</small>
@@ -101,20 +78,21 @@
                 </div>
               </fieldset>
             </div>
+
             <div class="row">
               <fieldset class="form-group">
                 <div class="col-lg-12">
-                <label>Invoice Purchase Disclaimer</label>
-                <textarea ng-disabled="(isLoading || isDisabled)" class="form-control" type="text" name="disclaimer" ng-model="disclaimer" placeholder="ex. TERMS: Due to the nature of seafood, please check your order immediately.
+                  <label>Invoice Purchase Disclaimer</label>
+                  <textarea ng-disabled="(isLoading || isDisabled)" class="form-control" type="text" name="disclaimer" ng-model="disclaimer" placeholder="ex. TERMS: Due to the nature of seafood, please check your order immediately.
       1. All quality problems must be reported to your sales rep within 12 hours.
       2. Any short shipments must be marked on carrier's waybill or if delivered by our truck on the delivery copy of the invoice.
       3. Any shrink or mortality in excess of allowable amounts must be reported within 12 hours.
       4. Do not dispose of disputed stock without written approval of sales rep.
       5. Interest will be charged on past due invoices at the rate of 2% per month (24% per year)."></textarea>
-                <small class="text-muted">Please enter the disclaimer to be displayed on your invoice</small>
+                  <small class="text-muted">Please enter the disclaimer to be displayed on your invoice</small>
               </fieldset>
+              </div>
             </div>
-          </div>
             <button ng-disabled="isSubmitButtonDisabled() || isDisabled" ng-click="saveChanges()" class="btn-status-success alignright">Save Changes</button>
           </form>
         </div>
