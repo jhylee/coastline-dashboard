@@ -414,7 +414,7 @@ app.controller('EditFinishedProductCtrl', ['$scope', 'ProductData', 'Upload', 'A
          var data = {
             name: $scope.name,
             description: $scope.description,
-            finishedProductNumber: $scope.finishedProductNumber
+            productNumber: $scope.productNumber
          };
 
          if (!$scope.name) {
