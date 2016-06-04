@@ -422,7 +422,6 @@ app.controller('EditFinishedProductCtrl', ['$scope', 'ProductData', 'Upload', 'A
          } else {
             $uibModalInstance.close(data);
          };
-
       };
 
       // tied to cancel button
