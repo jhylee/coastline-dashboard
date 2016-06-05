@@ -27,13 +27,15 @@ app.controller('EcommerceCtrl', ['$scope', 'AuthService', '$state', '$uibModal',
 
          modalInstance.result.then(
             function() {
-               refreshCustomers($scope.pageIndex * 10, ($scope.pageIndex + 1) * 10);
+               EcommerceService.getEcommerceBlocks().then(function(data) {
+                  $scope.blocks = data;
+               });
             },
             function() {});
       };
 
       $scope.remove = function(blockId) {
-         // EcommerceService.setSelectedBlockId(blockId);
+         EcommerceService.setSelectedBlockId(blockId);
          var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'removeEcommerceBlockModal.html',
@@ -43,7 +45,11 @@ app.controller('EcommerceCtrl', ['$scope', 'AuthService', '$state', '$uibModal',
          });
 
          modalInstance.result.then(
-            function() {},
+            function() {
+               EcommerceService.getEcommerceBlocks().then(function(data) {
+                  $scope.blocks = data;
+               });
+            },
             function() {});
       };
 
@@ -74,6 +80,13 @@ app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'Fis
          SupplyChainService.fetchBlocksBySelectedStage().then(function(data) {
             $scope.blocks = data;
          });
+      });
+
+      $scope.$watch('selectedBlock', function() {
+         $scope.unitPrice = $scope.selectedBlock.finishedProduct ? $scope.selectedBlock.finishedProduct.unitPrice : $scope.selectedBlock.sourcedProduct.unitPrice;
+         $scope.imageUrl = $scope.selectedBlock.finishedProduct ? $scope.selectedBlock.finishedProduct.imageUrl : $scope.selectedBlock.sourcedProduct.imageUrl;
+         $scope.file.name = $scope.selectedBlock.finishedProduct ? $scope.selectedBlock.finishedProduct.imageName : $scope.selectedBlock.sourcedProduct.imageName;
+         $scope.units = $scope.selectedBlock.units;
       });
 
 
@@ -116,6 +129,7 @@ app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'Fis
             unitPrice: $scope.unitPrice,
             units: $scope.selectedBlock.units,
             imageUrl: $scope.imageUrl,
+            imageName: $scope.imageName,
             description: $scope.description
          };
          EcommerceService.addBlockToEcommerce(data, $scope.selectedBlock._id).then(function() {
@@ -144,10 +158,12 @@ app.controller('EditEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'Fi
    }
 ]);
 
-app.controller('RemoveEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance',
-   function($scope, AuthService, $state, FisheryService, $uibModalInstance) {
+app.controller('RemoveEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'EcommerceService',
+   function($scope, AuthService, $state, FisheryService, $uibModalInstance, EcommerceService) {
       $scope.ok = function() {
-         $uibModalInstance.close();
+         EcommerceService.removeBlockFromEcommerce().then(function () {
+            $uibModalInstance.close();
+         })
       };
 
       $scope.cancel = function() {

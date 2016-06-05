@@ -9,6 +9,7 @@ app.factory('EcommerceService', ['$http', '$localStorage', 'apiUrl', 'FisherySer
     'use strict';
     var baseUrl = apiUrl;
     var selectedSellingPoint;
+    var _selectedBlockId;
 
     return {
         getEcommerceBlocks: function() {
@@ -31,5 +32,17 @@ app.factory('EcommerceService', ['$http', '$localStorage', 'apiUrl', 'FisherySer
                return res.data;
             });
         },
+        removeBlockFromEcommerce: function() {
+            return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/blocks/' + _selectedBlockId + '/ecommerce/remove').then(function (res) {
+               console.log(res);
+               return res.data;
+            });
+        },
+        getSelectedBlockId: function () {
+           return _selectedBlockId;
+        },
+        setSelectedBlockId: function (blockId) {
+           _selectedBlockId = blockId;
+        }
     };
 }]);
