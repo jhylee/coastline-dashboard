@@ -109,13 +109,16 @@
 <!-- MANUAL ORDER INPUT MODAL-->
 <script type="text/ng-template" id="addOrderModal.html">
   <div class="modal-header">
-    <h3 class="modal-title">Add an Invoice</h3>
+    <h3 class="modal-title">Add Invoice</h3>
+    <div class="card-panel-options">
+      <a class="btn-status-default" ng-href="javascript:void(0)" type="button" ng-click="loadCustomer()">Use Existing Customer</a>
+    </div>
   </div>
   <div class="modal-body">
     <ul class="nav nav-tabs">
-      <li ng-class="{active:item==1}"><a data-toggle="tab" ng-click="item=1" ng-href="">Customer Information &nbsp;
+      <li ng-class="{active:item==1}"><a data-toggle="tab" ng-click="item=1" ng-href="">Customer Info &nbsp;
         <span class="section-required" ng-show="nameRequired || emailRequired || phoneRequired"> * </span></a></li>
-      <li ng-class="{active:item==2}"><a data-toggle="tab" ng-click="item=2" ng-href="">Payment Information &nbsp;
+      <li ng-class="{active:item==2}"><a data-toggle="tab" ng-click="item=2" ng-href="">Payment Info &nbsp;
         <span class="section-required" ng-show="invoiceNumber || paymentRequired || statusRequired || dateRequired || creditRequired"> * </span></a></li>
     </ul>
     <br>
@@ -334,7 +337,6 @@
   </div>
   <div class="modal-footer">
     <div class="alignright">
-      <button class="btn-status-default" type="button" ng-click="loadCustomer()"><i class="fa fa-group"></i> Existing Customer</button>
       <button type="submit" class="btn-status-success" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
