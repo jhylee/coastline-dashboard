@@ -14,7 +14,7 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
             return SupplyChainService.fetchSupplyChains().then(function(supplyChains) {
                 $scope.supplyChains = supplyChains;
                 if ($scope.supplyChains.length > 0) {
-                    $scope.selectedSupplyChain = $scope.supplyChains[0];
+                    $scope.selectedSupplyChain = 0;
                     console.log($scope.supplyChains);
                 }
 
