@@ -22,6 +22,16 @@ textarea.form-control {
   font-size: 14px;
   max-width: 100%;
 }
+
+.modal-body select.form-control:disabled {
+  background-color: #eee;
+  border-radius: 3px;
+  &:hover{
+    background-color: #eee;
+    border-radius: 3px;
+  }
+}
+
 textarea.form-control,
 textarea.form-control:focus,
 textarea.form-control:active,
@@ -41,6 +51,7 @@ textarea.form-control:focus {
   font-size: 14px;
   box-shadow: none;
 }
+
 .input-required {
   border-radius: 2px;
   padding-top: 2px;
