@@ -28,12 +28,12 @@
               <td data-label="Select">
                 <input type="radio" ng-model="$parent.selectedCustomer" ng-value="$parent.customers[$index]">
               </td>
-              <td data-label="Name">&nbsp;{{customer.name}}</td>
-              <td data-label="Company">&nbsp;{{customer.company}}</td>
-              <td data-label="Email">&nbsp;{{customer.email}}</td>
-              <td data-label="Phone">&nbsp;{{customer.phone}}</td>
-              <td data-label="Country">&nbsp;{{customer.city}}</td>
-              <td data-label="Country">&nbsp;{{customer.country}}</td>
+              <td data-label="Name">&nbsp;{{customer.name || "Not Specified"}}</td>
+              <td data-label="Company">&nbsp;{{customer.company || "Not Specified"}}</td>
+              <td data-label="Email">&nbsp;{{customer.email || "Not Specified"}}</td>
+              <td data-label="Phone">&nbsp;{{customer.phone || "Not Specified"}}</td>
+              <td data-label="Country">&nbsp;{{customer.city || "Not Specified"}}</td>
+              <td data-label="Country">&nbsp;{{customer.country || "Not Specified"}}</td>
             </tr>
           </tbody>
         </table>

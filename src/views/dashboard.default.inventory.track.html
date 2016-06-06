@@ -50,9 +50,9 @@
             <td data-label="Select">
               <input type="radio" ng-model="$parent.selectedBlock" ng-value="$parent.blocks[$index]">
             </td>
-            <td data-label="Product">&nbsp;{{getProductDisplay(block)}}</td>
+            <td data-label="Product">{{getProductDisplay(block)}}</td>
             <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
-            <td data-label="Batch #">&nbsp;{{block.blockNumber}}</td>
+            <td data-label="Batch #">{{block.blockNumber || "N/A"}}</td>
             <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
           </tr>
         </tbody>
@@ -325,10 +325,10 @@
               <td data-label="Product">&nbsp;{{getProductDisplay()}}</td>
               <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
               <td data-label="Catch Date">{{block.catchDate | date:"M/d/y"}}</td>
-              <td data-label="Region">&nbsp;{{block.catchRegion}}</td>
-              <td data-label="Catcher">&nbsp;{{block.caughtBy}}</td>
-              <td data-label="Method">&nbsp;{{block.catchType}}</td>
-              <td data-label="Depth">&nbsp;{{block.waterDepth}}</td>
+              <td data-label="Region">&nbsp;{{block.catchRegion || "Not Specified"}}</td>
+              <td data-label="Catcher">&nbsp;{{block.caughtBy || "Not Specified"}}</td>
+              <td data-label="Method">&nbsp;{{block.catchType || "Not Specified"}}</td>
+              <td data-label="Depth">&nbsp;{{block.waterDepth || "Not Specified"}}</td>
             </tr>
           </tbody>
         </table>

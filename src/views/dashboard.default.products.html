@@ -24,7 +24,7 @@
                 <input type="radio" ng-model="$parent.selectedProduct" ng-value="$parent.sourcedProducts[$index]">
               </td>
               <td data-label="Product">{{sourcedProduct.name}}</td>
-              <td data-label="Description">&nbsp;{{sourcedProduct.description}}</td>
+              <td data-label="Description">{{sourcedProduct.description != NULL? sourcedProduct.description  : "Not Specified"}}</td>
             </tr>
           </tbody>
         </table>
