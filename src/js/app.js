@@ -19,8 +19,8 @@ var app = angular.module('coastlineWebApp', ['ui.router',
     'coastlineWebApp.overview.services',
     'coastlineWebApp.products.controllers',
     'coastlineWebApp.products.services',
-    'coastlineWebApp.salesManagement.controllers',
-    'coastlineWebApp.salesManagement.services',
+    'coastlineWebApp.ecommerce.controllers',
+    'coastlineWebApp.ecommerce.services',
     'coastlineWebApp.redirect.controllers',
     'coastlineWebApp.redirect.services',
     'coastlineWebApp.supplyChain.controllers',
@@ -122,6 +122,12 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/dashboard.settings.users.html'
     })
 
+    .state('dashboard.settings.security', {
+        url: '/settings.security',
+        templateUrl: '/views/dashboard.settings.security.html'
+    })
+
+
     .state('dashboard.default', {
         url: '/home',
         templateUrl: '/views/dashboard.default.html'
@@ -142,19 +148,9 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/dashboard.default.supply-chain.html'
     })
 
-    .state('dashboard.default.sales-management', {
-        url: '/sales-management',
-        templateUrl: '/views/dashboard.default.sales-management.html'
-    })
-
-    .state('dashboard.default.sales-management.menu', {
-        url: '/menu',
-        templateUrl: '/views/dashboard.default.sales-management.menu.html'
-    })
-
-    .state('dashboard.default.sales-management.track', {
-        url: '/track',
-        templateUrl: '/views/dashboard.default.sales-management.track.html'
+    .state('dashboard.default.ecommerce', {
+        url: '/ecommerce',
+        templateUrl: '/views/dashboard.default.ecommerce.html'
     })
 
     .state('dashboard.default.supply-chain.menu', {
