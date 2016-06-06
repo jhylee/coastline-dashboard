@@ -50,7 +50,7 @@
     a.activeTab {
       text-decoration: none;
       @include border-radius(0px);
-      background-color: $btn-highlight-color;
+      background-color: $navbar-color;
       border-right: 0.372em solid #FFF;
       color: #fff;
       font-weight: 400;
@@ -71,7 +71,7 @@
 .nav-sidebar>li>a:active {
   text-decoration: none;
   @include border-radius(0px);
-  background-color: $btn-highlight-color;
+  background-color: $navbar-color;
   border-right: 0.372em solid #FFF;
   color: #fff;
 }

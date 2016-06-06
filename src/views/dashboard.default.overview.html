@@ -16,10 +16,10 @@
             </thead>
             <tbody>
               <tr ng-repeat="order in overdueOrders">
-                <td data-label="Invoice #">{{order.invoiceNumber}}</td>
-                <td data-label="Pay Method">{{order.paymentMethod}}</td>
+                <td data-label="Invoice #">{{order.invoiceNumber != NULL? order.invoiceNumber : "Not Specified"}}</td>
+                <td data-label="Pay Method">{{order.paymentMethod != NULL? order.paymentMethod : "Not Specified"}}</td>
                 <td data-label="Details">
-                    <button ng-click="viewOrderDetail(order)" class="btn-status-default"><i class="fa fa-search"></i> View Details</button>
+                  <button ng-click="viewOrderDetail(order)" class="btn-status-default"><i class="fa fa-search"></i> View Details</button>
                 </td>
               </tr>
             </tbody>
@@ -43,10 +43,10 @@
             </thead>
             <tbody>
               <tr ng-repeat="order in upcomingOrders">
-                <td data-label="Invoice #">{{order.invoiceNumber}}</td>
-                <td data-label="Pay Method">{{order.paymentMethod}}</td>
+                <td data-label="Invoice #">{{order.invoiceNumber != NULL? order.invoiceNumber : "Not Specified"}}</td>
+                <td data-label="Pay Method">{{order.paymentMethod != NULL? order.paymentMethod : "Not Specified"}}</td>
                 <td data-label="Details">
-                    <button ng-click="viewOrderDetail(order)" class="btn-status-default"><i class="fa fa-search"></i> View Details</button>
+                  <button ng-click="viewOrderDetail(order)" class="btn-status-default"><i class="fa fa-search"></i> View Details</button>
                 </td>
               </tr>
             </tbody>
@@ -64,64 +64,97 @@
   <div class="modal-header">
     <h3 class="modal-title">Invoice #{{order.invoiceNumber}}</h3>
 
-<div class="card-panel-options">
-  <div ng-switch="pdfStatus">
-    <div ng-switch-default><a class="btn-status-default" href="javascript:void(0);" ng-click="getPDF()"><i class="fa fa-file-pdf-o"></i> Export to PDF</a></div>
-    <div ng-switch-when="loading"><a class="btn-status-success" href="javascript:void(0);">Loading...</a></div>
-  </div>
-</div>
+    <div class="card-panel-options">
+      <div ng-switch="pdfStatus">
+        <div ng-switch-default><a class="btn-status-default" href="javascript:void(0);" ng-click="getPDF()"><i class="fa fa-file-pdf-o"></i> Export to PDF</a></div>
+        <div ng-switch-when="loading"><a class="btn-status-success" href="javascript:void(0);">Loading...</a></div>
+      </div>
+    </div>
   </div>
   <div class="modal-body">
     <div class="row modal-detail-container">
       <div class="col-lg-6">
-        <h4>
-          <span>Name:</span> {{order.customerName}}</h4>
-        <h4>
-          <span>Company:</span> {{order.company}}</h4>
-        <h4>
-          <span>Phone:</span> {{order.phone}}</h4>
-        <h4>
-          <span>Email:</span> {{order.email}}</h4>
-        <h4>
-          <span>Address:</span> {{order.address}}&nbsp;{{order.city}}&nbsp;{{order.state}}&nbsp;{{order.postal}}&nbsp;{{order.country}}</h4>
+        <table class="table-overview">
+          <tbody>
+            <tr>
+              <td><span>Name: </span></td>
+              <td>{{order.customerName != NULL? order.customerName : "Not Specified"}}</td>
+            </tr>
+            <tr>
+              <td><span>Company: </span></td>
+              <td>{{order.company != NULL? order.company : "Not Specified"}}</td>
+            </tr>
+            <tr>
+              <td><span>Phone: </span></td>
+              <td>{{order.phone != NULL? order.phone : "Not Specified"}}</td>
+            </tr>
+            <tr>
+              <td><span>Email: </span></td>
+              <td>{{order.email != NULL? order.email : "Not Specified"}}</td>
+            </tr>
+            <tr>
+              <td><span>Address: </span></td>
+              <td>{{order.address != NULL? order.address + " " + order.city + " " +  order.state + " " +  order.postal + " " +  order.country : "Not Specified"}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div class="col-lg-6">
-        <h4>
-          <span>Order Date:</span> {{order.date | date:'M/d/yyyy' }}</h4>
-        <h4>
-          <span>Payment Method:</span> {{order.paymentMethod}}&nbsp;{{order.currency}}</h4>
-        <h4>
-          <span>Credit Terms:</span> {{order.creditTerms}}</h4>
-        <h4>
-          <span>Delivery Terms:</span> {{order.deliveryCharge}}&nbsp;{{deliveryTaxRate}}%</h4>
-
+        <table class="table-overview">
+          <tbody>
+            <tr>
+              <td><span>Order Date: </span></td>
+              <td>{{order.date | date:'M/d/yyyy'}}</td>
+            </tr>
+            <tr>
+              <td><span>Payment Method: </span></td>
+              <td>{{order.paymentMethod || "Not Specified"}}</td>
+            </tr>
+            <tr>
+              <td><span>Credit Terms: </span></td>
+              <td>{{order.creditTerms + " days"}}</td>
+            </tr>
+            <tr>
+              <td><span>Delivery Charge: </span></td>
+              <td>{{order.deliveryCharge || "Not Specified"}}</td>
+            </tr>
+            <tr>
+              <td><span>Delivery Tax Rate: </span></td>
+              <td>{{order.deliveryTaxRate || "Not Specified"}}</td>
+            </tr>
+            <tr>
+              <td><span>Species Note: </span></td>
+              <td>{{order.note || "Not Specified"}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 
   <div class="modal-body">
-    <div class="table-responsive">
+    <div class="table-card-responsive">
       <table class="table ">
         <thead>
           <tr>
             <th>Product</th>
-            <th>Unit Price</th>
+            <th>Unit Price {{order.currency != NULL? "(" + order.currency + ")" : "(CAD)"}}</th>
             <th>Quantity</th>
             <th>Total Cost</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="item in order.items track by $index">
-            <td data-label="Product">{{item.product.name}}</td>
-            <td data-label="Unit Price">${{item.unitPrice}} / {{item.product.unit}}</td>
-            <td data-label="Quantity">{{item.quantity}} {{item.product.unit}}</td>
+            <td data-label="Product">{{item.product}}</td>
+            <td data-label="Unit Price">${{item.unitPrice}}/{{item.units}}</td>
+            <td data-label="Quantity">{{item.quantity}} {{item.units}}</td>
             <td data-label="Subtotal">{{item.unitPrice * item.quantity}}</td>
           </tr>
           <tr>
             <td><b>Total</b></td>
-            <td></td>
-            <td></td>
-            <td>${{getTotal()}}</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><b>${{getTotal()}}</b></td>
           </tr>
         </tbody>
       </table>

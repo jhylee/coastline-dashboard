@@ -61,7 +61,7 @@ table {
       margin-bottom: 0px;
       display: block;
     }
-    
+
     table tr {
       border-bottom: 2px dotted #BDBDBD;
     }
@@ -81,6 +81,20 @@ table {
     }
   }
 }
+
+.table-overview {
+  td {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    span {
+      font-size: 14px;
+    }
+  }
+}
+
 table.table-button-wrapper td {
   background-color: #000;
 }

@@ -13,8 +13,8 @@ $navbar-color: #263238;
 $side-nav-color: #CFD8DC;
 
 //Button Colours
-$btn-default-color: #546E7A;
-$btn-default-hover-color: #455A64;
+$btn-default-color: #455A64;
+$btn-default-hover-color: #37474F;
 $btn-highlight-color: #607D8B;
 $btn-highlight-hover-color: #78909C;
 $btn-danger-color: #c62828;
@@ -87,27 +87,32 @@ body {
   margin: 0 auto;
 }
 
-.pagination>li>a, .pagination>li>a:hover, .pagination>li>a:active {
+
+.pagination>li>a, .pagination>li>a:hover, .pagination>li>a:focus, .pagination>li>a:active {
   color: #000;
+  border: none;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .pagination>li:first-child>a {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 .pagination>li:last-child>a {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
 }
 
 .pagination {
-  border: solid 0.12em #cfcfcf;
-  background-color: #607D8B;
+  border: none;
+  background-color: $navbar-color;
 
 }
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-  background-color: #607D8B;
-  border-color: #607D8B;
+  background-color: $navbar-color;
 }
 
 
