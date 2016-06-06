@@ -12,6 +12,9 @@
                 <div class="panel-login-error" ng-show="usernameRequired || passwordRequired ||emailRequired || accountTypeRequired">
                   <p class="text-center">The credentials below are already in use or incomplete. Please try again.</p>
                 </div><br>
+                <div class="panel-login-error" ng-show="passwordNotMatching">
+                  <p class="text-center">Your passwords do not match.</p>
+                </div>
                 <fieldset>
                   <div class="row">
                     <div class="form-group">
@@ -32,8 +35,8 @@
                         <input ng-model="password" type="password" class="form-control" placeholder="Make it secure!">
                       </div>
                       <div class="col-lg-6">
-                        <h6>Account Type:</h6>
-                        <select ng-model="accountType" ng-options="type as type for type in ['admin']" class="form-control"></select>
+                        <h6>Repeat Password:</h6>
+                        <input ng-model="passwordAgain" type="password" class="form-control" placeholder="Make it secure!">
                       </div>
                     </div>
                   </div>

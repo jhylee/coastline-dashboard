@@ -14,6 +14,9 @@ app.controller('EcommerceCtrl', ['$scope', 'AuthService', '$state', '$uibModal',
 
       EcommerceService.getEcommerceBlocks().then(function(data) {
          $scope.blocks = data;
+         if ($scope.blocks.length > 0) {
+            $scope.selectedBlock = $scope.blocks[0];
+         }
       });
 
       $scope.add = function() {
@@ -78,6 +81,10 @@ app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'Fis
       $scope.$watch('selectedStage', function() {
          SupplyChainService.setSelectedStageId($scope.selectedStage.self._id);
          SupplyChainService.fetchBlocksBySelectedStage().then(function(data) {
+            for (var i = 0; i < data.length; i ++) {
+               var date = new Date(data[i].catchDate);
+               data[i].displayName = date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear() + ", " + (data[i].finishedProduct ? data[i].finishedProduct.name : data[i].sourcedProduct.name);
+            }
             $scope.blocks = data;
          });
       });

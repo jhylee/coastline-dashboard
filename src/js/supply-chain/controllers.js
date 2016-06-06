@@ -6,8 +6,8 @@ var app = angular.module('coastlineWebApp.supplyChain.controllers', ['ui.bootstr
 
 // SUPPLY CHAINS TAB
 
-app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService', 'FisheryService', '$uibModal',
-    function($scope, $state, SupplyChainService, FisheryService, $uibModal) {
+app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService', 'FisheryService', '$uibModal', '$rootScope',
+    function($scope, $state, SupplyChainService, FisheryService, $uibModal, $rootScope) {
 
         var getSupplyChains = function() {
             // Fishery.getFishery(function (fishery) {
@@ -21,6 +21,10 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
             });
 
         };
+
+        $rootScope.$on("createSupplyChain", function(){
+           getSupplyChains();
+         });
 
         getSupplyChains();
 
@@ -99,8 +103,8 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
 ]);
 
 
-app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainService', 'FisheryService', '$localStorage',
-    function($scope, $state, VisDataSet, SupplyChainService, FisheryService, $localStorage) {
+app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainService', 'FisheryService', '$localStorage', '$rootScope',
+    function($scope, $state, VisDataSet, SupplyChainService, FisheryService, $localStorage, $rootScope) {
 
         $scope.isSubmitButtonDisabled = function() {
             if (!$scope.name) {
@@ -122,6 +126,7 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
 
             SupplyChainService.postSupplyChain(fisheryId, data).then(function(res) {
                 SupplyChainService.setSupplyChainId(res._id);
+                $rootScope.$broadcast('createSupplyChain');
                 $state.go('dashboard.default.supply-chain.builder');
             });
 

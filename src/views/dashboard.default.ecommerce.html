@@ -82,7 +82,7 @@
          <fieldset ng-show="selectedStage" class="form-group">
             <div class="col-lg-6">
                <label>Choose batch: </label>
-               <select ng-model="selectedBlock" ng-options="(block.catchDate | date: 'M/d/y') for block in blocks" ng-disabled="allDisabled" class="form-control"></select>
+               <select ng-model="selectedBlock" ng-options="(block.displayName) for block in blocks" ng-disabled="allDisabled" class="form-control"></select>
             </div>
             <div class="col-lg-6" ng-show="selectedBlock">
                <label>Attach Product Photo</label>

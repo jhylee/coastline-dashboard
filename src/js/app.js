@@ -122,6 +122,12 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/dashboard.settings.users.html'
     })
 
+    .state('dashboard.settings.security', {
+        url: '/settings.security',
+        templateUrl: '/views/dashboard.settings.security.html'
+    })
+
+
     .state('dashboard.default', {
         url: '/home',
         templateUrl: '/views/dashboard.default.html'
