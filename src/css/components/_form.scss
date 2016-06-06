@@ -1,19 +1,19 @@
 select {
   padding: 6px 10px;
   border: 1px solid #bfbfbf;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
-  border-radius: 2px;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  -ms-border-radius: 1px;
+  -o-border-radius: 1px;
+  border-radius: 1px;
 }
 .form-control {
-  border-radius: 2px;
+  border-radius: 1px;
 }
 input.form-control,
 select.form-control,
 textarea.form-control {
-  border-radius: 2px;
+  border-radius: 1px;
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 15px;
@@ -49,11 +49,15 @@ textarea.form-control:focus {
   background-color: #fff;
   border: 1px solid $secondary-border-color;
   font-size: 14px;
-  box-shadow: none;
+  // box-shadow: 1px 1px 2px 2px $secondary-border-color;
+}
+
+.star-required {
+    color: #D50000;
 }
 
 .input-required {
-  border-radius: 2px;
+  border-radius: 1px;
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 5px;
@@ -69,7 +73,7 @@ textarea.form-control:focus {
   font-size:16px;
 }
 .input-wrapper {
-  border-radius: 2px;
+  border-radius: 1px;
   padding-top: 0px;
   padding-bottom: 0px;
   background-color: #fff;
@@ -80,7 +84,7 @@ textarea.form-control:focus {
   input.form-control,
   select.form-control,
   textarea.form-control {
-    border-radius: 2px;
+    border-radius: 1px;
     padding-top: 2px;
     padding-bottom: 2px;
     border: none;

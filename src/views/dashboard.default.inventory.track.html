@@ -84,8 +84,8 @@
       <div id="productInfo.html" ng-show="item==1">
         <fieldset class="form-group">
           <div class="col-lg-6">
-            <label>Product Type &nbsp;
-              <span ng-show="sourcedProductRequired" class="input-required"> * Required</span>
+            <label>Product Type <span class="section-required" ng-hide="sourcedProductRequired">*</span>
+              <span ng-show="sourcedProductRequired" class="input-required">Required</span>
             </label>
             <select class="form-control" name="selectedSourcedProduct" ng-model="selectedSourcedProduct" ng-options="sourcedProduct.name for sourcedProduct in sourcedProducts" required></select>
             <small class="text-muted">Item must be listed within the Products tab.</small>
@@ -99,8 +99,8 @@
         </fieldset>
         <fieldset class="form-group">
           <div class="col-lg-6">
-            <label>Units &nbsp;
-              <span ng-show="unitsRequired" class="input-required"> * Required</label>
+            <label>Units <span class="section-required" ng-hide="unitsRequired">*</span>
+              <span ng-show="unitsRequired" class="input-required">Required</label>
             <select name="units" class="form-control" ng-model="units" required>
               <option value="lbs">lbs</option>
               <option value="half lbs">1/2 lbs</option>
@@ -116,8 +116,8 @@
         </fieldset>
         <fieldset class="form-group">
           <div class="col-lg-6">
-            <label>Quantity &nbsp;
-              <span ng-show="quantityRequired" class="input-required"> * Required</span>
+            <label>Quantity <span class="section-required" ng-hide="quantityRequired">*</span>
+              <span ng-show="quantityRequired" class="input-required">Required</span>
             </label>
             <input class="form-control" name="quantity" ng-model="quantity" type="text" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 3500" required></input>
             <!-- <small class="text-muted">Please enter a numerical value.</small> -->
@@ -128,8 +128,8 @@
       <div id="auditInfo.html" ng-show="item==2">
         <fieldset class="form-group">
           <div class="col-lg-4">
-            <label>Catch Date &nbsp;
-              <span ng-show="catchDateRequired" class="input-required"> * Required</label>
+            <label>Catch Date <span class="section-required" ng-hide="catchDateRequired">*</span>
+              <span ng-show="catchDateRequired" class="input-required">Required</label>
             </label>
             <input class="form-control" name="catchDate" ng-model="catchDate" type="date" placeholder="ex. 5/14/2016" required>
             <small class="text-muted">YYYY-MM-DD</small>

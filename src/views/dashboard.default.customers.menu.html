@@ -58,52 +58,53 @@
     <form name="addCustomerForm">
       <fieldset class="form-group">
         <div class="col-lg-6">
-          <label>Name &nbsp;<span ng-show="nameRequired" class="input-required"> * Required</span></label>
+          <label>Name <span class="section-required" ng-hide="nameRequired">*</span>
+            <span ng-show="nameRequired" class="input-required">Required</span></label>
           <input class="form-control" type="text" ng-model="name" name="name" placeholder="ex. John Doe" required>
-          <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
         <div class="col-lg-6">
-          <label>Email &nbsp;<span ng-show="emailRequired" class="input-required"> * Required</span></label>
+          <label>Email
+            <span ng-show="emailRequired" class="input-required">Required</span></label>
           <input class="form-control" type="email" ng-model="email" name="email" placeholder="ex. john.doe@example.com">
-          <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
       </fieldset>
       <fieldset class="form-group">
         <div class="col-lg-6">
-          <label>Company &nbsp;<span ng-show="companyRequired" class="input-required"> * Required</span></label>
+          <label>Company <span class="section-required" ng-hide="companyRequired">*</span>
+            <span ng-show="companyRequired" class="input-required">Required</span></label>
           <input class="form-control" type="text" ng-model="company" name="company" placeholder="ex. Mark's Market" required>
-          <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
         <div class="col-lg-6">
-          <label>Phone &nbsp;<span ng-show="phoneRequired" class="input-required"> * Required</span></label>
+          <label>Phone <span class="section-required" ng-hide="phoneRequired">*</span>
+            <span ng-show="phoneRequired" class="input-required">Required</span></label>
           <input class="form-control" type="phone" ng-model="phone" name="phone" maxlength="10" placeholder="ex. 7789395555" required>
-          <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
       </fieldset>
 
       <fieldset class="form-group">
         <div class="col-lg-3">
-          <label>Street/Avenue &nbsp;<span ng-show="addressRequired" class="input-required"> * Required</span></label>
+          <label>Street/Avenue <span class="section-required" ng-hide="addressRequired">*</span>
+            <span ng-show="addressRequired" class="input-required">Required</span></label>
           <input class="form-control" name="address" type="text" ng-model="address" placeholder="ex. 14484 123 Ave" required>
-          <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
         <div class="col-lg-2">
-          <label>City &nbsp;<span ng-show="cityRequired" class="input-required"> * Required</span></label>
+          <label>City <span class="section-required" ng-hide="cityRequired">*</span>
+            <span ng-show="cityRequired" class="input-required">Required</span></label>
           <input class="form-control" name="city"  type="text" ng-model="city" placeholder="ex. Surrey" required>
-          <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
         <div class="col-lg-2">
-          <label>State/Province &nbsp;<span ng-show="stateRequired" class="input-required"> * Required</span></label>
+          <label>State/Province <span class="section-required" ng-hide="stateRequired">*</span>
+            <span ng-show="stateRequired" class="input-required">Required</span></label>
           <input class="form-control" name="state"  type="text" ng-model="state" placeholder="ex. Michigan" required>
-          <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
         <div class="col-lg-2">
-          <label>Zip/Postal Code &nbsp;<span ng-show="postalCodeRequired" class="input-required"> * Required</span></label>
+          <label>Zip Code <span class="section-required" ng-hide="postalCodeRequired">*</span>
+            <span ng-show="postalCodeRequired" class="input-required">Required</span></label>
           <input class="form-control" name="postalCode"  ng-model="postalCode" type="text" maxlength="6" placeholder="ex. V3N1V4" required>
-          <!-- <small class="text-muted">Maximum 30 characters</small> -->
         </div>
         <div class="col-lg-3">
-          <label>Country &nbsp;<span ng-show="countryRequired" class="input-required"> * Required</span></label>
+          <label>Country <span class="section-required" ng-hide="nameRequired">*</span>
+            <span ng-show="countryRequired" class="input-required">Required</span></label>
           <select class="form-control" name="country" type="text" ng-model="country" placeholder="ex. 14484 123 Ave Surrey" required>
             <option value="CAN">Canada</option>
             <option value="US">United States</option>

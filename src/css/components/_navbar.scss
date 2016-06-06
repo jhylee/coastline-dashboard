@@ -103,7 +103,7 @@
 .nav-tabs>li.active>a:focus,
 .nav-tabs>li.active>a:hover,
 .nav-tabs>li.active>a:visited{
-  border-radius: 2px;
+  border-radius: 1px;
 }
 
 @media screen and (max-width: 768px) {
@@ -118,7 +118,7 @@
 }
 
 .nav-tabs>li, .nav-tabs>li:active, .nav-tabs>li:hover {
-  border-radius: 2px;
+  border-radius: 1px;
   a {
     color: #000;
   }

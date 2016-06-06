@@ -10,14 +10,16 @@
             <thead>
               <tr>
                 <th>Invoice #</th>
-                <th>Payment Method</th>
-                <th>View Details</th>
+                <th>Pay Method</th>
+                <th>Invoice Date</th>
+                <th>Details</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="order in overdueOrders">
                 <td data-label="Invoice #">{{order.invoiceNumber != NULL? order.invoiceNumber : "Not Specified"}}</td>
                 <td data-label="Pay Method">{{order.paymentMethod != NULL? order.paymentMethod : "Not Specified"}}</td>
+                <td data-label="Date">{{order.date | date:'M/d/yyyy' || "Not Specified"}}</td>
                 <td data-label="Details">
                   <button ng-click="viewOrderDetail(order)" class="btn-status-default"><i class="fa fa-search"></i> View Details</button>
                 </td>
@@ -37,14 +39,16 @@
             <thead>
               <tr>
                 <th>Invoice #</th>
-                <th>Payment Method</th>
-                <th>View Details</th>
+                <th>Pay Method</th>
+                <th>Invoice Date</th>
+                <th>Details</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="order in upcomingOrders">
                 <td data-label="Invoice #">{{order.invoiceNumber != NULL? order.invoiceNumber : "Not Specified"}}</td>
                 <td data-label="Pay Method">{{order.paymentMethod != NULL? order.paymentMethod : "Not Specified"}}</td>
+                <td data-label="Date">{{order.date | date:'M/d/yyyy' || "Not Specified"}}</td>
                 <td data-label="Details">
                   <button ng-click="viewOrderDetail(order)" class="btn-status-default"><i class="fa fa-search"></i> View Details</button>
                 </td>
@@ -162,6 +166,6 @@
   </div>
   </div>
   <div class="modal-footer">
-    <button class="btn-status-default" type="button" ng-click="dismiss()">Close</button>
+    <button class="btn-status-danger" type="button" ng-click="dismiss()">Close</button>
   </div>
 </script>

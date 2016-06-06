@@ -13,8 +13,8 @@ $navbar-color: #263238;
 $side-nav-color: #CFD8DC;
 
 //Button Colours
-$btn-default-color: #455A64;
-$btn-default-hover-color: #37474F;
+$btn-default-color: #37474F;
+$btn-default-hover-color: #2f3f46;
 $btn-highlight-color: #607D8B;
 $btn-highlight-hover-color: #78909C;
 $btn-danger-color: #c62828;
@@ -145,4 +145,9 @@ body {
   .mobile-navigation {
     display: none;
   }
+}
+
+a, a:hover, a:active, a:focus, a:visited {
+  text-decoration: none;
+  outline: none;
 }

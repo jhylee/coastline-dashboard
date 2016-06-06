@@ -43,8 +43,8 @@
     <form name="addProductForm" ng-init="item=0">
       <fieldset class="form-group">
         <div class="col-lg-6">
-          <label>Product Name &nbsp;
-            <span ng-show="productRequired" class="input-required"> * Required</span>
+          <label>Product Name <span class="section-required" ng-hide="productRequired">*</span>
+            <span ng-show="productRequired" class="input-required">Required</span>
           </label>
           <input class="form-control" name="name" ng-model="name" placeholder="ex. Atlantic Cod">
           <small class="text-muted">Please enter the product name.</small>
@@ -98,8 +98,8 @@
     <form name="addProductForm" ng-init="item=0">
       <fieldset class="form-group">
         <div class="col-lg-6">
-          <label>Product Name &nbsp;
-            <span ng-show="productRequired" class="input-required"> * Required</span>
+          <label>Product Name
+            <span ng-show="productRequired" class="input-required">Required</span>
           </label>
           <input class="form-control" name="name" ng-model="name" placeholder="ex. Atlantic Cod" disabled>
           <small class="text-muted">The product name cannot be changed due to traceability reasons.</small>
@@ -112,7 +112,7 @@
                 <tr ng-repeat="finishedProduct in finishedProducts track by $index">
                   <td data-label="Name">&nbsp; {{finishedProducts[$index].name}}</td>
                   <td>
-                    <button class="btn-table-danger alignright" ng-click="removeFinishedProduct(finishedProducts[$index]._id)"><i class="fa fa-minus"></i></button><a class='table-edit align-right' ng-click="editFinishedProduct(finishedProducts[$index]._id)" href="javascript:void(0)">Edit &nbsp; &nbsp;</a></td>
+                    <button class="btn-table-danger alignright" ng-click="removeFinishedProduct(finishedProducts[$index]._id)"><i class="fa fa-minus"></i></button><a class='table-edit align-right' ng-click="editFinishedProduct(finishedProducts[$index]._id)" href="javascript:void(0)">EDIT &nbsp; &nbsp;</a></td>
                 </tr>
                 <tr>
                   <td>&nbsp;</td>
@@ -152,8 +152,8 @@
     <form name="addProductForm" ng-init="item=0">
       <fieldset class="form-group">
         <div class="col-lg-12">
-          <label>Product Name &nbsp;
-            <span ng-show="productRequired" class="input-required"> * Required</span>
+          <label>Product Name <span class="section-required" ng-hide="productRequired">*</span>
+            <span ng-show="productRequired" class="input-required">Required</span>
           </label>
           <input class="form-control" name="name" ng-model="name" placeholder="ex. Coho Salmon Filleted" required='true'>
           <small class="text-muted">Please enter the full finished good type name.</small>

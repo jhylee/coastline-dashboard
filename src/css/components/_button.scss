@@ -7,7 +7,7 @@
 .btn {
   background-image: linear-gradient(#fcfcfc, #eee);
   border: 1px solid #d5d5d5;
-  border-radius: 2px;
+  border-radius: 1px;
   &:active {
     background-image: linear-gradient(#eee, #fcfcfc);
     outline: none;
@@ -17,7 +17,7 @@
   }
 }
 .btn-status-default {
-  @include border-radius(2px);
+  @include border-radius(1px);
   color: $secondary-background-color;
   border-style: none;
   background-color: $btn-default-color;
@@ -29,6 +29,8 @@
   padding-bottom: 8px;
   outline: none;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  font-weight: 300;
+  letter-spacing: 0.02em;
 }
 .btn-status-default:hover,
 .btn-status-default:focus,
@@ -52,7 +54,7 @@
 .btn-status-default[disabled]:active {
   color: #fff;
   background-color: $btn-default-color;
-  @include border-radius(2px);
+  @include border-radius(1px);
   opacity: 0.6;
   outline: none;
 }
@@ -62,7 +64,7 @@ a.btn-status-default:focus {
   text-decoration: none;
 }
 .btn-status-danger {
-  @include border-radius(2px);
+  @include border-radius(1px);
   color: $secondary-background-color;
   border-style: none;
   background-color: $btn-danger-color;
@@ -74,7 +76,8 @@ a.btn-status-default:focus {
   padding-bottom: 8px;
   outline: none;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-
+  font-weight: 300;
+  letter-spacing: 0.02em;
 }
 .btn-status-danger:hover,
 .btn-status-danger:focus,
@@ -82,7 +85,7 @@ a.btn-status-default:focus {
 .btn-status-danger:active,
 .btn-status-danger.active,
 .open > .dropdown-toggle.btn-status-danger {
-  @include border-radius(2px);
+  @include border-radius(1px);
   color: $secondary-background-color;
   background-color: $btn-danger-hover-color;
   border-color: $btn-danger-hover-color;
@@ -92,7 +95,7 @@ a.btn-status-default:focus {
 .btn-status-danger[disabled]:hover,
 .btn-status-danger[disabled]:focus,
 .btn-status-danger[disabled]:active {
-  @include border-radius(2px);
+  @include border-radius(1px);
   color: $secondary-background-color;
   background-color: $btn-danger-color;
   border-color: $btn-danger-color;
@@ -100,7 +103,7 @@ a.btn-status-default:focus {
   outline: none;
 }
 .btn-status-success {
-  @include border-radius(2px);
+  @include border-radius(1px);
   color: $secondary-background-color;
   border-style: none;
   background-color: $btn-success-color;
@@ -112,7 +115,8 @@ a.btn-status-default:focus {
   padding-bottom: 8px;
   outline: none;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-
+  font-weight: 300;
+  letter-spacing: 0.02em;
 }
 .btn-status-success:hover,
 .btn-status-success:focus,
@@ -120,7 +124,7 @@ a.btn-status-default:focus {
 .btn-status-success:active,
 .btn-status-success.active,
 .open > .dropdown-toggle.btn-status-success {
-  @include border-radius(2px);
+  @include border-radius(1px);
   color: $secondary-background-color;
   background-color: $btn-success-hover-color;
   border-color: $btn-success-hover-color;
@@ -130,7 +134,7 @@ a.btn-status-default:focus {
 .btn-status-success[disabled]:hover,
 .btn-status-success[disabled]:focus,
 .btn-status-success[disabled]:active {
-  border-radius: 2px;
+  border-radius: 1px;
   color: #fff;
   background-color: $btn-success-color;
   opacity: 0.6;
@@ -150,7 +154,7 @@ a.btn-size-large:focus {
   text-decoration: none;
 }
 .btn-table-success {
-  @include border-radius(2px);
+  @include border-radius(1px);
   color: $secondary-background-color;
   border-style: none;
   background-color: $btn-success-color;
@@ -172,7 +176,7 @@ a.btn-size-large:focus {
 }
 
 .btn-table-danger {
-  @include border-radius(2px);
+  @include border-radius(1px);
   color: $secondary-background-color;
   border-style: none;
   background-color: $btn-danger-color;
@@ -189,7 +193,7 @@ a.btn-size-large:focus {
 
 }
 .btn-table-default {
-  @include border-radius(2px);
+  @include border-radius(1px);
   color: $secondary-background-color;
   border-style: none;
   background-color: $btn-default-color;

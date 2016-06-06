@@ -101,4 +101,13 @@ table.table-button-wrapper td {
 
 .table-edit {
   float:right;
+  a, a:hover, a:active, a:focus, a:visited {
+    text-decoration: none;
+    outline: none;
+    font-weight: 500;
+  }
+}
+a.table-edit {
+  font-weight: 500;
+  color: #01579B;
 }
