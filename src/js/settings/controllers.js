@@ -200,8 +200,8 @@ app.controller('UserSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryS
 ]);
 
 
-app.controller('SecuritySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'SettingsService',
-   function($scope, AuthService, $state, FisheryService, $uibModal, SettingsService) {
+app.controller('SecuritySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'SettingsService', '$window',
+   function($scope, AuthService, $state, FisheryService, $uibModal, SettingsService, $window) {
 
       $scope.formData = {};
       $scope.isDisabled = true;
@@ -218,9 +218,24 @@ app.controller('SecuritySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fish
          if (formValid) {
             SettingsService.changePassword($scope.formData).then(function(data) {
                $scope.isDisabled = false;
+               if (data.success) {
+                  $window.alert("Password changed.");
+
+               } else {
+                  $window.alert("Incorrect old password!");
+                  
+               }
+               console.log("password changed");
+            }).catch(function (err) {
+               console.log("password not changed - invalid old pw");
+
             });
          } else {
             // TODO validation pls
+            $window.alert("Please fill in all the required fields correctly.");
+            console.log("password bad form");
+
+
          }
       };
    }
