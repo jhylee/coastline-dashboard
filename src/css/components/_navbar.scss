@@ -106,6 +106,17 @@
   border-radius: 2px;
 }
 
+@media screen and (max-width: 768px) {
+  .nav-tabs>li>a,
+  .nav-tabs>li>a:focus,
+  .nav-tabs>li>a:hover,
+  .nav-tabs>li>a:visited{
+    font-size: 12px;
+    padding-left: 5px;
+    padding-right: 0px;
+  }
+}
+
 .nav-tabs>li, .nav-tabs>li:active, .nav-tabs>li:hover {
   border-radius: 2px;
   a {

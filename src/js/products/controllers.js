@@ -12,8 +12,11 @@ app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'Au
       $scope.selectedProduct = 0;
 
       var updateProductData = function() {
-         ProductData.getSourcedProductData(function(sourcedProducts) {
-            $scope.sourcedProducts = sourcedProducts;
+         ProductData.getSourcedProductData(function(data) {
+            $scope.sourcedProducts = data;
+            if ($scope.sourcedProducts.length > 0) {
+               $scope.selectedProduct = $scope.sourcedProducts[0];
+            }
          }, function(err) {
             console.log(err);
          });
@@ -422,7 +425,6 @@ app.controller('EditFinishedProductCtrl', ['$scope', 'ProductData', 'Upload', 'A
          } else {
             $uibModalInstance.close(data);
          };
-
       };
 
       // tied to cancel button

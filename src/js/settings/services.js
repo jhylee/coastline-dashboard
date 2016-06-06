@@ -45,6 +45,14 @@ angular.module('coastlineWebApp.settings.services', ['coastlineWebApp.common.ser
                     console.log(err);
                 })
         },
+        changePassword: function (data) {
+            return $http.post(baseUrl + '/api/user/password/change', data)
+                .then(function (res) {
+                    return res.data;
+                }).catch(function (err) {
+                    console.log(err);
+                })
+        },
         inviteUser: function (data) {
             return $http.post(baseUrl + '/api/invite', data)
                 .then(function (res) {
