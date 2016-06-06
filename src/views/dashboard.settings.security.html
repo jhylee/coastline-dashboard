@@ -2,29 +2,28 @@
   <div class="col-lg-10 main">
     <div class="card-panel">
       <div class="card-panel-header">
-        <h2>Security Settings</h2>
+        <h2>Change Your Password</h2>
       </div>
       <div class="panel-body">
 
-      <div class="panel-setting">
-        <form>
-          <div class="row">
-            <div class="col-lg-6">
-              <fieldset class="form-group">
-                <div class="row">
+        <div class="panel-setting">
+          <form>
+            <div class="row">
+              <div class="col-lg-6">
+                <fieldset class="form-group">
                   <div class="col-lg-3">
-                    <label>Password Change</label>
+                    <label>Old Password</label>
                   </div>
                   <div class="col-lg-9">
                     <input class="form-control" ng-model="formData.password" type="password" placeholder="Old password"></input>
                     <small class="text-muted">Enter your old password.</small>
                   </div>
-                </div>
-              </fieldset>
+                </fieldset>
+              </div>
 
 
-              <fieldset class="form-group">
-                <div class="row">
+              <div class="col-lg-6">
+                <fieldset class="form-group">
                   <div class="col-lg-3">
                     <label>New Password</label>
                   </div>
@@ -32,34 +31,44 @@
                     <input class="form-control" ng-disabled="isLoading" ng-model="formData.newPassword" type="password" placeholder="New password"></input>
                     <small class="text-muted">Enter your new password.</small>
                   </div>
-                </div>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <div class="row">
-                 <div class="col-lg-3">
-                    <label>New Password Again</label>
-                 </div>
-                 <div class="col-lg-9">
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset class="form-group">
+                  <div class="col-lg-3">
+                    <label></label>
+                  </div>
+                  <div class="col-lg-9">
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset class="form-group">
+                  <div class="col-lg-3">
+                    <label>Confirm New Password</label>
+                  </div>
+                  <div class="col-lg-9">
                     <input class="form-control" ng-disabled="isLoading" ng-model="formData.newPasswordAgain" type="password" placeholder="New password"></input>
                     <small class="text-muted">Enter your new password again.</small>
-                 </div>
-                </div>
-              </fieldset>
-            </div>
+                  </div>
+                </fieldset>
+              </div>
 
-          </div>
-          <div align="right" class="panel-setting">
+            </div>
+        </div>
+        <div align="right" class="panel-setting">
           <button ng-disabled="isSubmitButtonDisabled()" ng-click="saveChanges()" class="btn-status-success">Save Changes</button>
         </div>
         </form>
       </div>
-    </div>
+
     </div>
   </div>
+</div>
+</div>
 
 
-  <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header light-text">General Settings</h2>
     <div class="row placeholders">
       <div class="col-lg-8">
