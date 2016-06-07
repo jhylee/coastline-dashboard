@@ -802,20 +802,6 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'SupplyChainService
                 date: $scope.date
             };
 
-            if (angular.isUndefined(data.customerName) ||
-                angular.isUndefined(data.invoiceNumber) ||
-                angular.isUndefined(data.paymentMethod) ||
-                angular.isUndefined(data.status) ||
-                angular.isUndefined(data.customerName) ||
-                angular.isUndefined(data.creditTerms)) {
-                ngNotify.set('Please fill out all mandatory invoice fields.', {
-                    sticky: false,
-                    button: false,
-                    type: 'error',
-                    duration: 1500,
-                    position: 'top'
-                })
-            }
 
             OrderData.editOrder(OrderData.getSelectedOrder()._id, data).then(function(res) {
                 $uibModalInstance.close(res);
