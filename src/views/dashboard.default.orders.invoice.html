@@ -24,7 +24,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="order in orders track by $index">
+                    <tr ng-repeat="order in orders track by $index" ng-click="$parent.addFilter()">
                       <td data-label="Select">
                         <input type="radio" ng-model="$parent.selectedOrder" ng-value="$parent.orders[$index]">
                       </td>

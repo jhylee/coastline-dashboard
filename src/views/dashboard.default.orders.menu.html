@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="table-responsive table-card-responsive">
-        <table class="table ">
+        <table class="table table-hover">
           <thead>
             <tr>
               <th>Select</th>
@@ -30,7 +30,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="order in orders track by $index">
+            <tr ng-repeat="order in orders track by $index" ng-click="$parent.selectedOrder = $parent.orders[$index]">
               <td data-label="Select">
                 <input type="radio" ng-model="$parent.selectedOrder" ng-value="$parent.orders[$index]">
               </td>
@@ -497,11 +497,7 @@
             <input class="form-control" type="number" min="0" max="99999" ng-model="deliveryChargeTaxRate" placeholder="ex. 10">
           </div>
         </fieldset>
-
       </div>
-
-
-
     </form>
   </div>
   </form>
@@ -603,7 +599,7 @@
   <div class="modal-body">
     <div class="panel-scroll">
       <div class="table-responsive">
-        <table class="table">
+        <table class="table table-hover">
           <thead>
             <tr>
               <th>Select</th>
@@ -614,14 +610,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="customer in customers track by $index">
+            <tr ng-repeat="customer in customers track by $index" ng-click="$parent.selectedCustomer = $parent.customers[$index]">
               <td data-label="Select">
                 <input type="radio" ng-model="$parent.selectedCustomer" ng-value="$parent.customers[$index]">
               </td>
-              <td data-label="Name">&nbsp; {{customers[$index].name}}</td>
-              <td data-label="Company">&nbsp; {{customers[$index].company}}</td>
-              <td data-label="Email">&nbsp; {{customers[$index].email}}</td>
-              <td data-label="Phone">&nbsp; {{customers[$index].phone}}</td>
+              <td data-label="Name">&nbsp; {{customers[$index].name != NULL? customers[$index].name : "Not Specified"}}</td>
+              <td data-label="Company">&nbsp; {{customers[$index].company != NULL? customers[$index].company : "Not Specified"}}</td>
+              <td data-label="Email">&nbsp; {{customers[$index].email != NULL? customers[$index].email : "Not Specified"}}</td>
+              <td data-label="Phone">&nbsp; {{customers[$index].phone != NULL? customers[$index].phone : "Not Specified"}}</td>
             </tr>
           </tbody>
         </table>

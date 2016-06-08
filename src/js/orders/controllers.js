@@ -951,17 +951,19 @@ app.controller('OrderExportCtrl', ['$scope', 'FisheryService', 'OrderData', 'Pro
 app.controller('LoadCustomerCtrl', ['$scope', 'FisheryService', 'OrderData', 'CustomerService', 'AuthService', '$state', '$uibModalInstance', '$http',
     function($scope, FisheryService, OrderData, CustomerService, AuthService, $state, $uibModalInstance, $http) {
 
-        $scope.selectedCustomer = 0;
+        // $scope.selectedCustomer = 0;
+        // $scope.customers = customers;
+        // if ($scope.customers.length > 0) {
+        //     $scope.selectedCustomer = $scope.customers[0];
+        // }
 
         CustomerService.getCustomers().then(function(data) {
             $scope.customers = data;
             console.log(data);
+            if ($scope.customers.length > 0) {
+                $scope.selectedCustomer = $scope.customers[0];
+            }
         });
-
-        $scope.rowClick = function() {
-            //TODO
-        }
-
 
         // tied to ok button
         $scope.ok = function() {
