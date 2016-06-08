@@ -43,6 +43,8 @@
             <th>Quantity</th>
             <th>Batch #</th>
             <th>Inventory Input Date</th>
+            <th>Catch Date</th>
+
           </tr>
         </thead>
         <tbody ng-repeat="block in blocks track by $index" ng-click="$parent.selectedBlock = $parent.blocks[$index]">
@@ -53,7 +55,8 @@
             <td data-label="Product">{{getProductDisplay(block)}}</td>
             <td data-label="Quantity">{{block.quantity + " " + block.units}}</td>
             <td data-label="Batch #">{{block.blockNumber || "N/A"}}</td>
-            <td data-label="Add Date">{{block.dateCreated | date: 'short'}}</td>
+            <td data-label="Add Date">{{block.dateCreated | date: 'M/d/y'}}</td>
+            <td data-label="Add Date">{{block.catchDate | date: 'M/d/y'}}</td>
           </tr>
         </tbody>
       </table>
