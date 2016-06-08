@@ -149,7 +149,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="item in order.items track by $index">
-            <td data-label="Product">{{item.block.finishedProduct ? item.block.finishedProduct : item.block.sourcedProduct}}</td>
+            <td data-label="Product">{{item.product.name}}</td>
             <td data-label="Unit Price">${{item.unitPrice}}/{{item.units}}</td>
             <td data-label="Quantity">{{item.quantity}} {{item.units}}</td>
             <td data-label="Subtotal">{{item.unitPrice * item.quantity}}</td>
