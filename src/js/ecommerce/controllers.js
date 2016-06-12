@@ -95,6 +95,7 @@ app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'Fis
          $scope.imageUrl = $scope.selectedBlock.finishedProduct ? $scope.selectedBlock.finishedProduct.imageUrl : $scope.selectedBlock.sourcedProduct.imageUrl;
          $scope.file.name = $scope.selectedBlock.finishedProduct ? $scope.selectedBlock.finishedProduct.imageName : $scope.selectedBlock.sourcedProduct.imageName;
          $scope.units = $scope.selectedBlock.units;
+         $scope.tax = $scope.selectedBlock.tax;
       });
 
 
@@ -138,7 +139,8 @@ app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'Fis
             units: $scope.selectedBlock.units,
             imageUrl: $scope.imageUrl,
             imageName: $scope.imageName,
-            description: $scope.description
+            description: $scope.description,
+            tax: $scope.tax
          };
          EcommerceService.addBlockToEcommerce(data, $scope.selectedBlock._id).then(function() {
             $uibModalInstance.close();
