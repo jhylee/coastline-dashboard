@@ -65,16 +65,21 @@
             </div>
             <div class="row">
               <fieldset class="form-group">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                   <label>Postal/Zip Code</label>
                   <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="postalCode" type="text" placeholder="i.e. N6G 1N1 or 48120"></input>
                   <small class="text-muted">Change the address of your fishery.</small>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                   <label>Fishery Logo</label>
                   <input class="form-control" type="file" ngf-select ng-model="file" name="file">
                   <small class="text-muted">PNG and JPG files only</small>
                   <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 100, height: 100}"></div>
+                </div>
+                <div class="col-lg-4">
+                  <label>Shop Web URL</label>
+                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="shopName" type="text" placeholder="i.e. myshop (lower case)"></input>
+                  <small class="text-muted">This is the url for your shop. Example: "myshop" will result in "myshop.coastlinemarket.com"</small>
                 </div>
               </fieldset>
             </div>
