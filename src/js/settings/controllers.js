@@ -89,6 +89,7 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
          $scope.salesPhone = data.salesPhone;
          $scope.faxPhone = data.faxPhone;
          $scope.disclaimer = data.disclaimer;
+         $scope.shopName = data.shopName;
 
          $scope.isLoading = false;
 
@@ -121,6 +122,7 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
             salesPhone: $scope.salesPhone,
             faxPhone: $scope.faxPhone,
             taxNumber: $scope.taxNumber,
+            shopName: $scope.shopName,
             disclaimer: $scope.disclaimer
          };
 
@@ -140,6 +142,7 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
             $scope.salesPhone = data.fishery.salesPhone;
             $scope.faxPhone = data.fishery.faxPhone;
             $scope.taxNumber = data.fishery.taxNumber;
+            $scope.shopName = data.fishery.shopName;
             $scope.disclaimer = data.fishery.disclaimer;
 
             console.log(data);
@@ -223,7 +226,7 @@ app.controller('SecuritySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fish
 
                } else {
                   $window.alert("Incorrect old password!");
-                  
+
                }
                console.log("password changed");
             }).catch(function (err) {
