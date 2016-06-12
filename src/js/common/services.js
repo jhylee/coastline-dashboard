@@ -535,8 +535,10 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
             return data;
         },
 
-        fetchBlocksBySelectedStage: function () {
-            return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/' + _selectedStageId + '/blocks/nonzero')
+        fetchBlocksBySelectedStage: function (isNotEcommerce) {
+           var url = baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/' + _selectedStageId + '/blocks/nonzero';
+           if (isNotEcommerce == true) url +=  '?isNotEcommerce=true';
+            return $http.get(url)
                 .then(function (res) {
                     return res.data;
                 })

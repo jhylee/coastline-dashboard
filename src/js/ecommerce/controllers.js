@@ -80,11 +80,12 @@ app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'Fis
 
       $scope.$watch('selectedStage', function() {
          SupplyChainService.setSelectedStageId($scope.selectedStage.self._id);
-         SupplyChainService.fetchBlocksBySelectedStage().then(function(data) {
+         SupplyChainService.fetchBlocksBySelectedStage(true).then(function(data) {
             for (var i = 0; i < data.length; i ++) {
                var date = new Date(data[i].catchDate);
-               data[i].displayName = date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear() + ", " + (data[i].finishedProduct ? data[i].finishedProduct.name : data[i].sourcedProduct.name);
+               data[i].displayName =  (data[i].finishedProduct ? data[i].finishedProduct.name : data[i].sourcedProduct.name) + ", Caught " + date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
             }
+            console.log(data);
             $scope.blocks = data;
          });
       });
