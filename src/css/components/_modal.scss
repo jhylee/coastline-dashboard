@@ -34,6 +34,14 @@ div.modal-content {
   color: #FFF;
   font-weight: 200;
 }
+@media (max-width: 800px) {
+   .modal-title {
+    font-size: 18px;
+  }
+  .card-panel-options {
+     margin-top: -20px;
+  }
+}
 .modal-body {
   margin-left: 15px;
   margin-right: 15px;

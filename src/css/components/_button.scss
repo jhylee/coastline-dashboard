@@ -215,14 +215,14 @@ a.btn-size-large:focus {
   text-decoration: none;
 }
 
-@media screen and (max-width: 1008px) {
+@media screen and (max-width: 1100px) {
   .btn-status-danger, .btn-status-success, .btn-status-default {
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: 2px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    font-size: 11px;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin: 1px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 12px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
 }
