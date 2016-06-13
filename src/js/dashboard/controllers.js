@@ -21,4 +21,5 @@ app.controller('NavTopCtrl', ['$scope', 'AuthService', '$state', 'FisheryService
             });
         };
     }
+
 ]);

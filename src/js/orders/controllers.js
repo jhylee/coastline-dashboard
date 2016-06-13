@@ -18,6 +18,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         // }
         //
 
+
         OrderData.getOrdersLength().then(function(data) {
             $scope.numberOfCustomers = data.length;
             var length = Math.ceil(data.length / 10)
@@ -366,8 +367,8 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 ]);
 
 
-app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
-    function($scope, FisheryService, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
+app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'FieldSelectorService', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
+    function($scope, FisheryService, FieldSelectorService, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
 
         $scope.invoiceNumber;
         $scope.paymentMethod;
@@ -716,12 +717,12 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 
         };
 
-
-
         // tied to cancel button
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
+
+
     }
 ]);
 
