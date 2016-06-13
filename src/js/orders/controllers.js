@@ -3,6 +3,7 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
     'coastlineWebApp.orders.services',
     'coastlineWebApp.customers.services',
     'coastlineWebApp.products.services',
+    'coastlineConstants',
     'ui.router',
     'ngNotify'
 ]);
@@ -367,8 +368,8 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 ]);
 
 
-app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'FieldSelectorService', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
-    function($scope, FisheryService, FieldSelectorService, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
+app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'coastlineConstants', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
+    function($scope, FisheryService, coastlineConstants, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
 
         $scope.invoiceNumber;
         $scope.paymentMethod;
@@ -380,6 +381,9 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'FieldSelectorServic
         $scope.phone;
         $scope.deliveryCharge;
         $scope.items = [];
+        var countryListing = COUNTRIES;
+        var stateListing = STATES;
+        console.log(stateListing);
 
         var refreshCustomerData = function() {
             if (OrderData.getSelectedCustomerId()) {
