@@ -68,15 +68,15 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
         // TODO - deprecated
         setSupplyChain: function(newSupplyChain) {
             stages = [];
-                supplyChain = newSupplyChain;
+            supplyChain = newSupplyChain;
         },
 
-        fetchSupplyChain: function (supplyChainId) {
+        fetchSupplyChain: function(supplyChainId) {
             // $localStorage.selectedSupplyChainId;
-                $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + supplyChainId)
+            $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + supplyChainId)
                 .then(function(res) {
-                        supplyChain = res.data;
-                        return supplyChain;
+                    supplyChain = res.data;
+                    return supplyChain;
                 }).catch(function(err) {
                     console.log(err);
                 })
@@ -90,12 +90,12 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
             })
         },
 
-        fetchSelectedSupplyChain: function () {
+        fetchSelectedSupplyChain: function() {
             // $localStorage.selectedSupplyChainId;
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId)
                 .then(function(res) {
-                        supplyChain = res.data;
-                        return supplyChain;
+                    supplyChain = res.data;
+                    return supplyChain;
                 }).catch(function(err) {
                     console.log(err);
                 })
@@ -111,7 +111,9 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
         },
 
         deleteSelectedSupplyChain: function() {
-            return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId, {isDeleted: true})
+            return $http.put(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/supplychains/' + $localStorage.selectedSupplyChainId, {
+                    isDeleted: true
+                })
                 .then(function(res) {
                     return res.data;
                 }).catch(function(err) {
@@ -248,82 +250,82 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
         },
 
         addStage: function(success, name, prev, isSellingPoint, sellingTargets) {
-                var id = Date.now();
-                var x;
-                refreshStageFurthestRight();
+            var id = Date.now();
+            var x;
+            refreshStageFurthestRight();
 
-                if (furthestRight == null) x = 0;
-                else x = furthestRight + 150;
+            if (furthestRight == null) x = 0;
+            else x = furthestRight + 150;
 
 
-                var stageData = {
-                    name: name,
-                    isSellingPoint: isSellingPoint
+            var stageData = {
+                name: name,
+                isSellingPoint: isSellingPoint
                     // sellingTargets: sellingTargets || []
-                };
-                $http.post(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages', stageData).success(
-                    function(stage) {
+            };
+            $http.post(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages', stageData).success(
+                function(stage) {
 
-                        // TODO check prev and next for all nodes when adding, etc
+                    // TODO check prev and next for all nodes when adding, etc
 
-                        var y = 0;
+                    var y = 0;
 
-                        var lowestX = null;
-                        var lowestY = null;
+                    var lowestX = null;
+                    var lowestY = null;
 
 
-                        if (prev) {
-                            var prevStage = stages[findStage(prev._id)];
+                    if (prev) {
+                        var prevStage = stages[findStage(prev._id)];
 
-                            for (var i = 0; i < prevStage.next.length; i++) {
-                                var nextStage = stages[findStage(prevStage.next[i])];
+                        for (var i = 0; i < prevStage.next.length; i++) {
+                            var nextStage = stages[findStage(prevStage.next[i])];
 
-                                if (lowestY == null || nextStage.y > lowestY) {
-                                    lowestY = nextStage.y;
-                                    lowestX = nextStage.x;
-                                }
-
-                                // x = nextStage.x;
-                                // y = nextStage.y - 75;
+                            if (lowestY == null || nextStage.y > lowestY) {
+                                lowestY = nextStage.y;
+                                lowestX = nextStage.x;
                             }
+
+                            // x = nextStage.x;
+                            // y = nextStage.y - 75;
                         }
+                    }
 
-                        if (lowestX != null) x = lowestX;
-                        if (lowestY != null) y = lowestY + 75;
-
-
-
-
-
-
-                            var supplyChainStage = {};
-
-                            supplyChainStage.self = stage;
-                            supplyChainStage.x = x;
-                            supplyChainStage.y = y;
-                            supplyChainStage.prev = [];
-                        if (prev) {
-                            // TODO - prev is an object here, whereas in getDisplayData it is treated as a string
-                                supplyChainStage.prev.push(prev._id);
-                        }
-                            supplyChainStage.next = [];
-                                supplyChainStage.isHead = (supplyChainStage.prev.length == 0);
-                                supplyChainStage.isTail = (supplyChainStage.next.length == 0);
-                            stages.push(supplyChainStage);
-
-
-                        if (prev) {
-                                stages[findStage(prev._id)].next.push(supplyChainStage.self._id)
-
-                        }
+                    if (lowestX != null) x = lowestX;
+                    if (lowestY != null) y = lowestY + 75;
 
 
 
 
-                        success();
-                    }).error(function(error) {
-                    console.log(err);
-                });
+
+
+                    var supplyChainStage = {};
+
+                    supplyChainStage.self = stage;
+                    supplyChainStage.x = x;
+                    supplyChainStage.y = y;
+                    supplyChainStage.prev = [];
+                    if (prev) {
+                        // TODO - prev is an object here, whereas in getDisplayData it is treated as a string
+                        supplyChainStage.prev.push(prev._id);
+                    }
+                    supplyChainStage.next = [];
+                    supplyChainStage.isHead = (supplyChainStage.prev.length == 0);
+                    supplyChainStage.isTail = (supplyChainStage.next.length == 0);
+                    stages.push(supplyChainStage);
+
+
+                    if (prev) {
+                        stages[findStage(prev._id)].next.push(supplyChainStage.self._id)
+
+                    }
+
+
+
+
+                    success();
+                }).error(function(error) {
+                console.log(err);
+            });
             // }
         },
 
@@ -433,17 +435,17 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
 
         getSellingPoints: function() {
             if (supplyChain) {
-                    return supplyChain.sellingPoints;
+                return supplyChain.sellingPoints;
             }
         },
 
         // BLOCK MANAGEMENT
 
-        getSelectedBlockId: function () {
+        getSelectedBlockId: function() {
             return _selectedBlockId;
         },
 
-        setSelectedBlockId: function (selectedBlockId) {
+        setSelectedBlockId: function(selectedBlockId) {
             _selectedBlockId = selectedBlockId;
         },
 
@@ -454,7 +456,7 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
                 });
         },
 
-        fetchSelectedBlock: function () {
+        fetchSelectedBlock: function() {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/blocks/' + _selectedBlockId)
                 .then(function(res) {
                     return res.data;
@@ -535,11 +537,11 @@ app.factory('SupplyChainService', ['$http', 'apiUrl', '$localStorage', 'FisheryS
             return data;
         },
 
-        fetchBlocksBySelectedStage: function (isNotEcommerce) {
-           var url = baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/' + _selectedStageId + '/blocks/nonzero';
-           if (isNotEcommerce == true) url +=  '?isNotEcommerce=true';
+        fetchBlocksBySelectedStage: function(isNotEcommerce) {
+            var url = baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/stages/' + _selectedStageId + '/blocks/nonzero';
+            if (isNotEcommerce == true) url += '?isNotEcommerce=true';
             return $http.get(url)
-                .then(function (res) {
+                .then(function(res) {
                     return res.data;
                 })
         }

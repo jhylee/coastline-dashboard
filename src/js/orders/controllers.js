@@ -3,6 +3,7 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
     'coastlineWebApp.orders.services',
     'coastlineWebApp.customers.services',
     'coastlineWebApp.products.services',
+    'coastlineConstants',
     'ui.router',
     'ngNotify'
 ]);
@@ -17,6 +18,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
         //   $state.go('dashboard.default.orders.invoice');
         // }
         //
+
 
         OrderData.getOrdersLength().then(function(data) {
             $scope.numberOfCustomers = data.length;
@@ -366,8 +368,8 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 ]);
 
 
-app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
-    function($scope, FisheryService, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
+app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'countries', 'states', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
+    function($scope, FisheryService, countries, states, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
 
         $scope.invoiceNumber;
         $scope.paymentMethod;
@@ -379,6 +381,13 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
         $scope.phone;
         $scope.deliveryCharge;
         $scope.items = [];
+
+        $scope.countries = countries.COUNTRIES;
+        $scope.states = states.STATES;
+        console.log($scope.countries);
+
+
+
 
         var refreshCustomerData = function() {
             if (OrderData.getSelectedCustomerId()) {
@@ -716,12 +725,12 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 
         };
 
-
-
         // tied to cancel button
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
+
+
     }
 ]);
 
@@ -742,8 +751,8 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produc
 //       }
 // }]);
 
-app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'SupplyChainService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryService, SupplyChainService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
+app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'countries', 'states', 'SupplyChainService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, countries, states, SupplyChainService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
 
         var order = OrderData.getSelectedOrder($scope.selectedOrder);
         console.log(order);
@@ -770,6 +779,8 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'SupplyChainService
         $scope.currency = order.currency;
         $scope.deliveryCharge = order.deliveryCharge;
         $scope.deliveryChargeTaxRate = order.deliveryChargeTax / order.deliveryCharge * 100;
+        $scope.countries = countries.COUNTRIES;
+        $scope.states = states.STATES;
 
 
         if (typeof order.date == "string") {

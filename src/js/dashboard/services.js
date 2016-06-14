@@ -9,4 +9,4 @@ angular.module('coastlineWebApp.dashboard.services', ['ngStorage'])
             $http.get(baseUrl + '/api/fisheries').success(success).error(error);
         }
     }
-}])
+}]);

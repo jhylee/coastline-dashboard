@@ -2,11 +2,12 @@ var app = angular.module('coastlineWebApp.settings.controllers', ['ui.bootstrap'
    'coastlineWebApp.settings.services',
    'coastlineWebApp.auth.services',
    'coastlineWebApp.common.services',
+   'coastlineConstants',
    'ui.router'
 ]);
 
 app.controller('MobileNavCtrl', ['$scope', 'AuthService', '$state', '$window', 'FisheryService', 'SettingsService',
-   function($scope, AuthService, $state, $window, FisheryService, SettingsService) {
+   function($scope, AuthService, $state,  $window, FisheryService, SettingsService) {
 
       $scope.window = $window;
 
@@ -74,10 +75,12 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 ]);
 
 
-app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService', 'Upload',
-   function($scope, AuthService, $state, FisheryService, SettingsService, Upload) {
+app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'states', 'countries', 'FisheryService', 'SettingsService', 'Upload',
+   function($scope, AuthService, $state, states, countries, FisheryService, SettingsService, Upload) {
 
       $scope.isLoading = true;
+      $scope.countries = countries.COUNTRIES;
+      $scope.states = states.STATES;
 
       SettingsService.fetchFishery().then(function(data) {
          $scope.name = data.name;
@@ -90,7 +93,6 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
          $scope.faxPhone = data.faxPhone;
          $scope.disclaimer = data.disclaimer;
          $scope.shopName = data.shopName;
-
          $scope.isLoading = false;
 
       });
