@@ -91,6 +91,10 @@
               <span ng-show="sourcedProductRequired" class="input-required">Required</span>
             </label>
             <select class="form-control" name="selectedSourcedProduct" ng-model="selectedSourcedProduct" ng-options="sourcedProduct.name for sourcedProduct in sourcedProducts" required></select>
+            <!-- <select class="form-control" name="selectedSourcedProduct" ng-model="selectedSourcedProduct" required>
+               <option value="">-- Select Product Type --</option>
+               <option ng-repeat="sourcedProduct in sourcedProducts" value="{{sourcedProduct.name}}">{{sourcedProduct.name}}</option>
+            </select> -->
             <small class="text-muted">Item must be listed within the Products tab.</small>
           </div>
           <div class="col-lg-6">
