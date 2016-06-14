@@ -368,8 +368,8 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 ]);
 
 
-app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'coastlineConstants', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
-    function($scope, FisheryService, coastlineConstants, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
+app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'countries', 'states', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
+    function($scope, FisheryService, countries, states, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
 
         $scope.invoiceNumber;
         $scope.paymentMethod;
@@ -381,9 +381,13 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'coastlineConstants'
         $scope.phone;
         $scope.deliveryCharge;
         $scope.items = [];
-        var countryListing = COUNTRIES;
-        var stateListing = STATES;
-        console.log(stateListing);
+
+        $scope.countries = countries.COUNTRIES;
+        $scope.states = states.STATES;
+        console.log($scope.countries);
+
+
+
 
         var refreshCustomerData = function() {
             if (OrderData.getSelectedCustomerId()) {
@@ -747,8 +751,8 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'coastlineConstants'
 //       }
 // }]);
 
-app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'SupplyChainService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryService, SupplyChainService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
+app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'countries', 'states', 'SupplyChainService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, countries, states, SupplyChainService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
 
         var order = OrderData.getSelectedOrder($scope.selectedOrder);
         console.log(order);
@@ -775,6 +779,8 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'SupplyChainService
         $scope.currency = order.currency;
         $scope.deliveryCharge = order.deliveryCharge;
         $scope.deliveryChargeTaxRate = order.deliveryChargeTax / order.deliveryCharge * 100;
+        $scope.countries = countries.COUNTRIES;
+        $scope.states = states.STATES;
 
 
         if (typeof order.date == "string") {

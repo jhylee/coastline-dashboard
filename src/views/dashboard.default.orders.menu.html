@@ -34,7 +34,7 @@
                      <td data-label="Select">
                         <input type="radio" ng-model="$parent.selectedOrder" ng-value="$parent.orders[$index]">
                      </td>
-                     <td data-label="Invoice">&nbsp; {{order.invoiceNumber}}</td>
+                     <td data-label="Invoice">&nbsp; {{order.invoiceNumber || "Not Specified"}}</td>
                      <td data-label="Name">{{order.customerName}}</td>
                      <td data-label="Status">&nbsp;{{order.status}}</td>
                      <td data-label="Date">{{order.date | date:'M/d/yyyy'}}</td>
@@ -175,7 +175,7 @@
                   <label>State/Province &nbsp;
                      <span ng-show="stateRequired" class="input-required">Required</span>
                   </label>
-                  <select class="form-control" name="country" ng-model="state" required>
+                  <select class="form-control" name="state" ng-model="state" required>
                      <option value="">-- Select a State --</option>
                      <option ng-repeat="state in states" value={{state.abbreviation}}>{{state.name}}</option>
                   </select>

@@ -1,0 +1,22 @@
+{
+    "__v": 0,
+    "invoiceNumber": 124124,
+    "status": "pending",
+    "creditTerms": 12,
+    "customerName": "Joseph",
+    "date": "2016-06-13T04:00:00.000Z",
+    "phone": "379878912",
+    "deliveryCharge": 0,
+    "deliveryChargeTax": 0,
+    "_id": "575f77934168feafc7d1a6af",
+    "items": [{
+        "quantity": 21,
+        "unitPrice": 12,
+        "units": "half lbs",
+        "block": "575d7e8dfcd412888436c171",
+        "fishery": "575d7e39fcd412888436c16c",
+        "product": "575d7e57fcd412888436c16e",
+        "taxRate": 0,
+        "_id": "575f77934168feafc7d1a6b0"
+    }]
+}

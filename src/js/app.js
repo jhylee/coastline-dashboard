@@ -284,7 +284,7 @@ angular.module('coastlineConstants', [])
         ADD_PRODUCT: 3,
         ORDER_DETAIL: 4
     })
-    .constant('countries', {
+    .constant('states', {
         STATES: [{
                 name: 'Not Applicable',
                 abbreviation: 'N/A'
@@ -510,7 +510,7 @@ angular.module('coastlineConstants', [])
     })
 
 
-.constant('states', {
+.constant('countries', {
     COUNTRIES: [{
         name: 'Argentina',
         code: 'AR'
