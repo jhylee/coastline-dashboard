@@ -9,84 +9,66 @@
           <form>
             <div class="row" style="margin-top: -20px;">
               <fieldset class="form-group">
-                <div class="col-lg-6">
-                  <label>Name</label>
+                <div class="col-lg-4">
+                  <label>Fishery Name</label>
                   <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="name" type="text"></input>
-                  <small class="text-muted">Change the name of your fishery.</small>
                 </div>
-                <div class="col-lg-6">
-                  <label>City/Town</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="city" type="text" placeholder="New York"></input>
-                  <small class="text-muted">Change the city/town of your fishery.</small>
+                <div class="col-lg-4">
+                 <label>Fishery Logo</label>
+                 <input class="form-control" type="file" ngf-select ng-model="file" name="file">
+                 <small class="text-muted">PNG and JPG files only</small>
+                 <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 100, height: 100}"></div>
                 </div>
-              </fieldset>
-            </div>
-            <div class="row">
-              <fieldset class="form-group">
-                <div class="col-lg-6">
-                  <label>Main Phone</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="phone" placeholder="555-555-5555" type="text"></input>
-                  <small class="text-muted">Change the main phone number of your fishery.</small>
-                </div>
-                <div class="col-lg-6">
-                  <label>Fax</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="faxPhone" placeholder="555-555-5555" type="text"></input>
-                  <small class="text-muted">Change the fax number of your fishery.</small>
-                </div>
-              </fieldset>
-            </div>
-            <div class="row">
-              <fieldset class="form-group">
-                <div class="col-lg-6">
-                  <label>Sales Phone</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="salesPhone" placeholder="555-555-5555" type="text"></input>
-                  <small class="text-muted">Change the sales phone number of your fishery.</small>
-                </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                   <label>Tax Number (i.e. HST #)</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" placeholder="896437985" ng-model="taxNumber" type="text"></input>
-                  <small class="text-muted">Change the tax redemption number that appears on your invoices.</small>
-                </div>
-              </fieldset>
-            </div>
-            <div class="row">
-              <fieldset class="form-group">
-                <div class="col-lg-6">
-                  <label>Business Address</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="address" type="text" placeholder="80 Whycliff Road"></input>
-                  <small class="text-muted">Change the address of your fishery.</small>
-                </div>
-                <div class="col-lg-6">
-                  <label>State/Province</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="state" type="text" placeholder="i.e. Maine"></input>
-                  <small class="text-muted">Change the state/province of your fishery.</small>
+                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" placeholder="ex. 896437985" ng-model="taxNumber" type="text"></input>
                 </div>
               </fieldset>
             </div>
             <div class="row">
               <fieldset class="form-group">
                 <div class="col-lg-4">
-                  <label>Postal/Zip Code</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="postalCode" type="text" placeholder="i.e. N6G 1N1 or 48120"></input>
-                  <small class="text-muted">Change the address of your fishery.</small>
+                  <label>Main Phone</label>
+                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="phone" placeholder="ex. 7789183040" type="number"></input>
                 </div>
                 <div class="col-lg-4">
-                  <label>Fishery Logo</label>
-                  <input class="form-control" type="file" ngf-select ng-model="file" name="file">
-                  <small class="text-muted">PNG and JPG files only</small>
-                  <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 100, height: 100}"></div>
+                  <label>Fax</label>
+                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="faxPhone" placeholder="ex. 7789183040" type="number"></input>
                 </div>
                 <div class="col-lg-4">
-                  <label>Shop Web URL</label>
-                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="shopName" type="text" placeholder="i.e. myshop (lower case)"></input>
-                  <small class="text-muted">This is the url for your shop. Example: "myshop" will result in "myshop.coastlinemarket.com"</small>
+                  <label>Sales Phone</label>
+                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="salesPhone" placeholder="ex. 7789183040" type="number"></input>
                 </div>
               </fieldset>
             </div>
 
             <div class="row">
               <fieldset class="form-group">
-                <div class="col-lg-12">
+                <div class="col-lg-4">
+                  <label>Business Address</label>
+                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="address" type="text" placeholder="ex. 80 Whycliff Road"></input>
+                </div>
+                <div class="col-lg-4">
+                  <label>Postal/Zip Code</label>
+                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="postalCode" type="text" placeholder="ex. N6G 1N1 or 48120"></input>
+                </div>
+                <div class="col-lg-4">
+                  <label>State/Province</label>
+                  <select class="form-control" name="state" ng-model="state"  ng-disabled="(isLoading || isDisabled)">
+                     <option value="">-- Select a State --</option>
+                     <option ng-repeat="state in states" value={{state.abbreviation}}>{{state.name}}</option>
+                  </select>
+                </div>
+              </fieldset>
+            </div>
+            <div class="row">
+              <fieldset class="form-group">
+                <div class="col-lg-4">
+                  <label>Shop Web URL</label>
+                  <input class="form-control" ng-disabled="(isLoading || isDisabled)" ng-model="shopName" type="text" placeholder="ex. myshop (lower case)"></input>
+                  <small class="text-muted">This is the url for your shop. Example: "myshop" will result in "myshop.coastlinemarket.com"</small>
+                </div>
+                <div class="col-lg-8">
                   <label>Invoice Purchase Disclaimer</label>
                   <textarea ng-disabled="(isLoading || isDisabled)" class="form-control" type="text" name="disclaimer" ng-model="disclaimer" placeholder="ex. TERMS: Due to the nature of seafood, please check your order immediately.
       1. All quality problems must be reported to your sales rep within 12 hours.
@@ -94,10 +76,10 @@
       3. Any shrink or mortality in excess of allowable amounts must be reported within 12 hours.
       4. Do not dispose of disputed stock without written approval of sales rep.
       5. Interest will be charged on past due invoices at the rate of 2% per month (24% per year)."></textarea>
-                  <small class="text-muted">Please enter the disclaimer to be displayed on your invoice</small>
-              </fieldset>
               </div>
+              </fieldset>
             </div>
+
             <button ng-disabled="isSubmitButtonDisabled() || isDisabled" ng-click="saveChanges()" class="btn-status-success alignright">Save Changes</button>
           </form>
         </div>
