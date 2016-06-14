@@ -2,6 +2,7 @@ var app = angular.module('coastlineWebApp.customers.controllers', ['ui.bootstrap
     'coastlineWebApp.customers.services',
     'coastlineWebApp.auth.services',
     'coastlineWebApp.common.services',
+    'coastlineConstants',
     'ui.router'
 ]);
 
@@ -109,8 +110,11 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 ]);
 
 
-app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'CustomerService',
-    function($scope, AuthService, $state, FisheryService, $uibModalInstance, CustomerService) {
+app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'countries', 'states', 'FisheryService', '$uibModalInstance', 'CustomerService',
+    function($scope, AuthService, $state, countries, states, FisheryService, $uibModalInstance, CustomerService) {
+      $scope.countries = countries.COUNTRIES;
+      $scope.states = states.STATES;
+
         $scope.ok = function() {
 
             var formValid = true;
@@ -157,8 +161,10 @@ app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisherySe
 ]);
 
 
-app.controller('EditCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'CustomerService',
-    function($scope, AuthService, $state, FisheryService, $uibModalInstance, CustomerService) {
+app.controller('EditCustomerCtrl', ['$scope', 'AuthService', '$state', 'states', 'countries', 'FisheryService', '$uibModalInstance', 'CustomerService',
+    function($scope, AuthService, $state, states, countries, FisheryService, $uibModalInstance, CustomerService) {
+      $scope.countries = countries.COUNTRIES;
+      $scope.states = states.STATES;
 
         CustomerService.getSelectedCustomer().then(function(data) {
             $scope.name = data.name;
@@ -182,6 +188,7 @@ app.controller('EditCustomerCtrl', ['$scope', 'AuthService', '$state', 'FisheryS
                 address: $scope.address,
                 city: $scope.city,
                 postalCode: $scope.postalCode,
+                state: $scope.state,
                 country: $scope.country,
                 notes: $scope.notes
             }).then(function(data) {

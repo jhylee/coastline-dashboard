@@ -32,7 +32,7 @@
               <td data-label="Company">&nbsp;{{customer.company || "Not Specified"}}</td>
               <td data-label="Email">&nbsp;{{customer.email || "Not Specified"}}</td>
               <td data-label="Phone">&nbsp;{{customer.phone || "Not Specified"}}</td>
-              <td data-label="Country">&nbsp;{{customer.city || "Not Specified"}}</td>
+              <td data-label="City">&nbsp;{{customer.city || "Not Specified"}}</td>
               <td data-label="Country">&nbsp;{{customer.country || "Not Specified"}}</td>
             </tr>
           </tbody>
@@ -93,26 +93,26 @@
           <input class="form-control" name="city"  type="text" ng-model="city" placeholder="ex. Surrey" required>
         </div>
         <div class="col-lg-2">
-          <label>State/Province <span class="section-required" ng-hide="stateRequired">*</span>
-            <span ng-show="stateRequired" class="input-required">Required</span></label>
-          <input class="form-control" name="state"  type="text" ng-model="state" placeholder="ex. Michigan" required>
-        </div>
-        <div class="col-lg-2">
           <label>Zip Code <span class="section-required" ng-hide="postalCodeRequired">*</span>
             <span ng-show="postalCodeRequired" class="input-required">Required</span></label>
           <input class="form-control" name="postalCode"  ng-model="postalCode" type="text" maxlength="6" placeholder="ex. V3N1V4" required>
         </div>
+        <div class="col-lg-2">
+          <label>State/Province <span class="section-required" ng-hide="stateRequired">*</span>
+            <span ng-show="stateRequired" class="input-required">Required</span></label>
+            <select class="form-control" name="state" ng-model="state" required>
+               <option value="">-- Select a State --</option>
+               <option ng-repeat="state in states" value={{state.abbreviation}}>{{state.name}}</option>
+            </select>
+        </div>
         <div class="col-lg-3">
           <label>Country <span class="section-required" ng-hide="nameRequired">*</span>
             <span ng-show="countryRequired" class="input-required">Required</span></label>
-          <select class="form-control" name="country" type="text" ng-model="country" placeholder="ex. 14484 123 Ave Surrey" required>
-            <option value="CAN">Canada</option>
-            <option value="US">United States</option>
-            <option value="CHN">China</option>
-            <option value="JPN">Japan</option>
-            <option value="KOR">South Korea</option>
-            <option value="AUS">Australia</option>
-          </select>
+            <select class="form-control" name="country" ng-model="country" required>
+               <option value="">-- Select a Country --</option>
+               <option ng-repeat="country in countries" value={{country.code}}>{{country.name}}</option>
+            </select>
+
         </div>
       </fieldset>
       <fieldset>
