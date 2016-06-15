@@ -134,17 +134,41 @@ app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'Fis
 
 
       $scope.ok = function() {
-         var data = {
-            unitPrice: $scope.unitPrice,
-            units: $scope.selectedBlock.units,
-            imageUrl: $scope.imageUrl,
-            imageName: $scope.imageName,
-            description: $scope.description,
-            tax: $scope.tax
-         };
-         EcommerceService.addBlockToEcommerce(data, $scope.selectedBlock._id).then(function() {
-            $uibModalInstance.close();
-         });
+
+         var formValid = true;
+         // console.log(formValid);
+         console.log('here joe')
+         // $scope.stageRequired = $scope.addEcommerceForm.selectedStage.$error.required;
+         //
+         // $scope.stageRequired = !$scope.addEcommerceForm.selectedStage;
+         // $scope.batchRequired = !$scope.addEcommerceForm.selectedBlock;
+         // $scope.unitPriceRequired = !$scope.addEcommerceForm.unitPrice;
+         // $scope.supplyChainRequired = !$scope.addEcommerceForm.selectedSupplyChain;
+
+
+         if (!$scope.selectedSupplyChain || !$scope.selectedStage || !$scope.selectedBlock || !$scope.unitPrice) {
+            console.log("here");
+            formValid = false;
+         }
+         if (formValid){
+            var data = {
+               unitPrice: $scope.unitPrice,
+               units: $scope.selectedBlock.units,
+               imageUrl: $scope.imageUrl,
+               imageName: $scope.imageName,
+               description: $scope.description,
+               tax: $scope.tax
+            };
+            EcommerceService.addBlockToEcommerce(data, $scope.selectedBlock._id).then(function() {
+               $uibModalInstance.close();
+            });
+         }
+         else {
+            $scope.stageRequired = $scope.addEcommerceForm.selectedStage.$error.required;
+            $scope.batchRequired = $scope.addEcommerceForm.selectedBlock.$error.required;
+            $scope.unitPriceRequired = $scope.addEcommerceForm.unitPrice.$error.required;
+            $scope.supplyChainRequired = $scope.addEcommerceForm.selectedSupplyChain.$error.required;
+         }
       };
 
       $scope.cancel = function() {

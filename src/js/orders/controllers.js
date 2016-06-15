@@ -694,8 +694,6 @@ app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'countries', 'states
             $scope.dateRequired = $scope.addOrderForm.date.$error.required;
             $scope.creditRequired = $scope.addOrderForm.credit.$error.required;
             $scope.phoneRequired = $scope.addOrderForm.phone.$error.required;
-            // $scope.sourcedProductRequired = $scope.addOrderForm.selectedSourcedProduct.$error.required;
-            // $scope.batchRequired = $scope.addOrderForm.selectedBlock.$error.required;
 
 
 
