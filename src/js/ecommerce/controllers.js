@@ -32,6 +32,9 @@ app.controller('EcommerceCtrl', ['$scope', 'AuthService', '$state', '$uibModal',
             function() {
                EcommerceService.getEcommerceBlocks().then(function(data) {
                   $scope.blocks = data;
+                  if ($scope.blocks.length > 0) {
+                     $scope.selectedBlock = $scope.blocks[0];
+                  }
                });
             },
             function() {});
@@ -51,6 +54,9 @@ app.controller('EcommerceCtrl', ['$scope', 'AuthService', '$state', '$uibModal',
             function() {
                EcommerceService.getEcommerceBlocks().then(function(data) {
                   $scope.blocks = data;
+                  if ($scope.blocks.length > 0) {
+                     $scope.selectedBlock = $scope.blocks[0];
+                  }
                });
             },
             function() {});
@@ -151,17 +157,71 @@ app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'Fis
             formValid = false;
          }
          if (formValid){
-            var data = {
-               unitPrice: $scope.unitPrice,
-               units: $scope.selectedBlock.units,
-               imageUrl: $scope.imageUrl,
-               imageName: $scope.imageName,
-               description: $scope.description,
-               tax: $scope.tax
-            };
-            EcommerceService.addBlockToEcommerce(data, $scope.selectedBlock._id).then(function() {
-               $uibModalInstance.close();
-            });
+            $scope.allDisabled = true;
+
+            var bool;
+            if ($scope.file) {
+               if ($scope.file.size) {
+                  bool = true
+               }
+            }
+
+            if (bool) {
+               var data = {
+                  fileName: $scope.file.name,
+                  fileType: $scope.file.type,
+                  fileSize: $scope.file.size
+               };
+
+               console.log(data);
+
+               EcommerceService.uploadImage(data).then(function(data) {
+                  var payload = {
+                     url: data.signedUrl,
+                     data: $scope.file,
+                     headers: {
+                        'Content-Type': $scope.file.type,
+                        'x-amz-acl': 'public-read',
+                     },
+                     ignoreInterceptor: true,
+                     method: "PUT"
+                  };
+                  Upload.http(payload).then(function() {
+                     $scope.allDisabled = false;
+                     $scope.imageUrl = data.imageUrl;
+                     $scope.imageName = $scope.file.name;
+                     console.log($scope.imageUrl);
+                     console.log($scope.imageName);
+                     var formData = {
+                        unitPrice: $scope.unitPrice,
+                        units: $scope.selectedBlock.units,
+                        imageUrl: $scope.imageUrl,
+                        imageName: $scope.imageName,
+                        description: $scope.description,
+                        tax: $scope.tax
+                     };
+                     EcommerceService.addBlockToEcommerce(formData, $scope.selectedBlock._id).then(function() {
+                        $uibModalInstance.close();
+                     });
+
+                  });
+
+               });
+            } else {
+               var formData = {
+                  unitPrice: $scope.unitPrice,
+                  units: $scope.selectedBlock.units,
+                  imageUrl: $scope.imageUrl,
+                  imageName: $scope.imageName,
+                  description: $scope.description,
+                  tax: $scope.tax
+               };
+               EcommerceService.addBlockToEcommerce(formData, $scope.selectedBlock._id).then(function() {
+                  $uibModalInstance.close();
+               });
+            }
+
+
          }
          else {
             $scope.stageRequired = $scope.addEcommerceForm.selectedStage.$error.required;
