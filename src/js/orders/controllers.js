@@ -228,7 +228,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
                     $scope.isLoading = false;
 
-                    $uibModalInstance.close();
+                  //   $uibModalInstance.close();
 
                 })
         };
