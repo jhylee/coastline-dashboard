@@ -8,10 +8,12 @@ var app = angular.module('coastlineWebApp.overview.controllers', ['ui.bootstrap'
    'ui.router'
 ]);
 
-
-
 app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'OverviewService', 'OrderData', '$uibModal', 'ProductData',
    function($scope, AuthService, $state, FisheryService, OverviewService, OrderData, $uibModal, ProductData) {
+
+      $scope.test1 = {
+         fetch: OverviewService.fetchAnalytics,
+      };
 
       OverviewService.fetchUpcomingOrders().then(function(data) {
          $scope.upcomingOrders = data;
@@ -52,7 +54,7 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
          }
 
          $scope.totals = [];
-         // 
+         //
          // for (var i = 0; i < $scope.overdueOrders.length; i++) {
          //    for (var j = 0; j < $scope.overdueOrders[i].items.length; j++) {
          //       if ($scope.overdueOrders[i].items[j].block.finishedProduct) {
@@ -91,6 +93,5 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
             },
             function() {});
       };
-
    }
 ]);
