@@ -151,7 +151,7 @@
                      <span class="section-required" ng-hide="phoneRequired">*</span>
                      <span class="input-required" ng-show="phoneRequired">Required</span>
                   </label>
-                  <input class="form-control" maxlength="10" ng-model="phone" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 7789195029" name="phone" required>
+                  <input class="form-control" maxlength="10" ng-model="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 7789195029" name="phone" required>
                </div>
 
                <div class="col-lg-4">
@@ -399,7 +399,7 @@
                   <label>Phone Number &nbsp;
                      <span class="input-required" ng-show="phoneRequired"> * Required</span>
                   </label>
-                  <input class="form-control" maxlength="10" ng-model="phone" type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 7789195029" name="phone" required>
+                  <input class="form-control" maxlength="10" ng-model="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 7789195029" name="phone" required>
                   <small class="text-muted">No spaces or dashes</small>
                </div>
 
@@ -445,6 +445,38 @@
                   <textarea class="form-control" ng-model="notes" type="text" placeholder="ex. Deliver to back door" name="notes"></textarea>
                </div>
             </fieldset>
+            <hr class="short">
+            <div class="table-responsive table-card-responsive">
+               <table class="table ">
+                  <thead>
+                     <tr>
+                        <th>Product
+                        </th>
+                        <th>Finished Good</th>
+                        <th>Batch
+                        </th>
+                        <th>Unit Price
+                           <br>($/{{selectedBlock.units}})
+                        </th>
+                        <th>Quantity
+                           <br>[Max: {{selectedBlock.quantity + " " + selectedBlock.units}}]
+                        </th>
+                        <th>Tax Rate (%)</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="item in items track by $index">
+                        <td data-label="Product">{{item.product.name}}</td>
+                        <td>&nbsp;{{item.finishedProduct.name}}</td>
+                        <td data-label="Data">{{item.block.catchDate | date: "M/d/y"}}, {{item.block.stage.name}}</td>
+                        <td data-label="Unit Price $">{{item.unitPrice}}</td>
+                        <td data-label="Quantity">{{item.quantity}}</td>
+                        <td data-label="Tax Rate">{{item.taxRate}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+               <h3 class="text-right">Total: ${{total}}</h3>
+            </div>
          </div>
 
 
@@ -512,7 +544,24 @@
                   <input class="form-control" type="number" min="0" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="deliveryChargeTaxRate" placeholder="ex. 10">
                </div>
             </fieldset>
+
+         <div ng-show="stripeDetails.token">
+            <hr class="short">
+
+            <fieldset class="form-group">
+               <div class="col-lg-4">
+                  <button type="submit" class="btn-status-default">Charged: {{stripeDetails.charged}}</button>
+               </div>
+               <div class="col-lg-4">
+                  <button class="btn-status-default" type="button" ng-disabled='stripeDetails.charged' ng-click="chargeCustomer()">{{stripeDetails.charged ? "Customer Charged." : "Charge Customer"}}</button>
+               </div>
+            </fieldset>
          </div>
+
+         </div>
+
+
+
       </form>
    </div>
    </form>
@@ -583,6 +632,7 @@
                <small class="text-muted">Please enter in YYYY-MM-DD format</small>
             </div>
          </fieldset>
+
 
       </form>
    </div>
