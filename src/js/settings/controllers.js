@@ -3,7 +3,8 @@ var app = angular.module('coastlineWebApp.settings.controllers', ['ui.bootstrap'
    'coastlineWebApp.auth.services',
    'coastlineWebApp.common.services',
    'coastlineConstants',
-   'ui.router'
+   'ui.router',
+   'ngNotify'
 ]);
 
 app.controller('MobileNavCtrl', ['$scope', 'AuthService', '$state', '$window', 'FisheryService', 'SettingsService',
@@ -74,12 +75,28 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
    }
 ]);
 
-app.controller('EcommerceSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService',
-   function($scope, AuthService, $state, FisheryService, SettingsService) {
+app.controller('EcommerceSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService', '$location', 'ngNotify',
+   function($scope, AuthService, $state, FisheryService, SettingsService, $location, ngNotify) {
+
+      var url = $location.absUrl();
+      console.log(url);
+      // isStripeValid = $scope.isStripeValid;
 
       var checkStripeIntegration = function () {
          SettingsService.fetchStripeIntegration().then(function(data) {
             console.log(data);
+
+            if (url.includes("true")) {
+               console.log('failure');
+               $scope.isStripeValid = 0;
+            }
+            else if (url.includes("false")) {
+               console.log('success');
+               $scope.isStripeValid = 1;
+            }
+            else {
+               $scope.isStripeValid = 2;
+            }
          });
       };
 
@@ -88,6 +105,17 @@ app.controller('EcommerceSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fis
       $scope.remove = function () {
          SettingsService.removeStripeIntegration().then(function (data) {
             console.log(data);
+            if (data.error == "No Stripe Integration found.") {
+               $scope.stripeRemoved = 0;
+            }
+            else if (data.msg == "Successfully deleted stripeIntegration.") {
+               $scope.stripeRemoved = 1;
+            }
+            else {
+               $scope.stripeRemoved = 2;
+            }
+
+
             checkStripeIntegration();
 
          });
