@@ -146,6 +146,13 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
             })
 
         },
+        chargeCustomer: function() {
+            return $http.put(baseUrl + '/api/orders/' + selectedOrder._id + "/charge").then(function(res) {
+                return res.data;
+            }).catch(function(err) {
+                return err;
+            })
+        },
         deleteOrder: function(orderId) {
             return $http.delete(baseUrl + '/api/orders/' + orderId).then(function(res) {
                 return res.data;
@@ -157,6 +164,14 @@ app.factory('OrderData', ['$http', '$window', '$localStorage', 'apiUrl', functio
         },
         getSelectedOrder: function() {
             return selectedOrder;
+        },
+        fetchSelectedOrder: function() {
+            return $http.get(baseUrl + '/api/orders/' + selectedOrder._id).then(function(res) {
+                return res.data;
+            }).catch(function(err) {
+                return err;
+            })
+
         },
         setSelectedOrder: function(order) {
             selectedOrder = order;
