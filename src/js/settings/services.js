@@ -13,6 +13,22 @@ angular.module('coastlineWebApp.settings.services', ['coastlineWebApp.common.ser
                     console.log(err);
                 })
         },
+        fetchStripeIntegration: function () {
+            return $http.get(baseUrl + '/api/stripeIntegration')
+                .then(function (res) {
+                    return res.data;
+                }).catch(function (err) {
+                    console.log(err);
+                })
+        },
+        removeStripeIntegration: function () {
+            return $http.delete(baseUrl + '/api/stripeIntegration')
+                .then(function (res) {
+                    return res.data;
+                }).catch(function (err) {
+                    console.log(err);
+                })
+        },
         fetchUsers: function () {
             return $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/users')
                 .then(function (res) {

@@ -127,6 +127,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/dashboard.settings.security.html'
     })
 
+    .state('dashboard.settings.ecommerce', {
+        url: '/settings.ecommerce',
+        templateUrl: '/views/dashboard.settings.ecommerce.html'
+    })
+
 
     .state('dashboard.default', {
         url: '/home',
