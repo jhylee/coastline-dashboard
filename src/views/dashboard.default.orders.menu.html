@@ -357,10 +357,13 @@
    </div>
 </script>
 
-<!-- MANUAL ORDER INPUT MODAL-->
+<!-- EDIT ORDER INPUT MODAL-->
 <script type="text/ng-template" id="editOrderModal.html">
    <div class="modal-header">
-      <h3 class="modal-title">Edit Invoice</h3>
+      <h3 class="modal-title">View/Edit Invoice</h3>
+      <div class="card-panel-options">
+         <a ng-show="stripeDetails.token" class="btn-status-success" href="javascript:void(0)" type="button" ng-disabled='stripeDetails.charged' ng-click="chargeCustomer()">{{stripeDetails.charged ? "Payment Charged With Stripe" : "Accept Payment With Stripe"}}</a>
+      </div>
    </div>
    <div class="modal-body">
       <ul class="nav nav-tabs">
@@ -544,24 +547,7 @@
                   <input class="form-control" type="number" min="0" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="deliveryChargeTaxRate" placeholder="ex. 10">
                </div>
             </fieldset>
-
-         <div ng-show="stripeDetails.token">
-            <hr class="short">
-
-            <fieldset class="form-group">
-               <div class="col-lg-4">
-                  <button type="submit" class="btn-status-default">Charged: {{stripeDetails.charged}}</button>
-               </div>
-               <div class="col-lg-4">
-                  <button class="btn-status-default" type="button" ng-disabled='stripeDetails.charged' ng-click="chargeCustomer()">{{stripeDetails.charged ? "Customer Charged." : "Charge Customer"}}</button>
-               </div>
-            </fieldset>
          </div>
-
-         </div>
-
-
-
       </form>
    </div>
    </form>

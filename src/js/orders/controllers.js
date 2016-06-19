@@ -777,6 +777,13 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'countries', 'state
             $scope.countries = countries.COUNTRIES;
             $scope.states = states.STATES;
 
+            // if (stripeDetails.charged)
+            console.log($scope.stripeDetails.charged);
+            if ($scope.stripeDetails.charged == true) {
+               $scope.paymentMethod = "Credit";
+               $scope.status = "paid";
+            }
+
             var totalPrice = 0;
             var deliveryCharge = $scope.deliveryCharge || 0;
             var deliveryChargeTax;
