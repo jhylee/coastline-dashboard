@@ -74,6 +74,27 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
    }
 ]);
 
+app.controller('EcommerceSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService',
+   function($scope, AuthService, $state, FisheryService, SettingsService) {
+
+      var checkStripeIntegration = function () {
+         SettingsService.fetchStripeIntegration().then(function(data) {
+            console.log(data);
+         });
+      };
+
+      checkStripeIntegration();
+
+      $scope.remove = function () {
+         SettingsService.removeStripeIntegration().then(function (data) {
+            console.log(data);
+            checkStripeIntegration();
+
+         });
+      };
+
+   }
+]);
 
 app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'states', 'countries', 'FisheryService', 'SettingsService', 'Upload',
    function($scope, AuthService, $state, states, countries, FisheryService, SettingsService, Upload) {

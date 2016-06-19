@@ -104,9 +104,7 @@ app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthS
 
         $scope.setPageIndex = function(index) {
             $scope.pageIndex = index;
-
             updateOrders(index * 10, (index + 1) * 10);
-
         };
 
         $scope.setPageIndex(0);

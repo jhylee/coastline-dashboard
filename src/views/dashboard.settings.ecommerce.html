@@ -1,4 +1,4 @@
-<div ng-controller="GeneralSettingsCtrl">
+<div ng-controller="EcommerceSettingsCtrl">
   <div class="col-lg-10 main">
     <div class="card-panel">
       <div class="card-panel-header">
@@ -9,6 +9,7 @@
       <div class="panel-setting">
 
          <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_8eoc6dk608vyD1XQrSe6WuABhoncKnLj&scope=read_write" class="stripe-connect"><span>Connect with Stripe</span></a>
+         <a href="javascript:void(0)" ng-click="remove()" class="stripe-connect"><span>Remove Stripe</span></a>
 
 
         <!-- <form>
