@@ -4,6 +4,7 @@
     <li><a ng-class="{activeTab: state.includes('dashboard.settings.fishery')}" ui-sref=".fishery">Fishery</a></li>
     <li><a ng-class="{activeTab: state.includes('dashboard.settings.users')}" ui-sref=".users">Users</a></li>
     <li><a ui-sref=".security" ng-class="{activeTab: state.includes('dashboard.settings.security')}">Security</a></li>
+    <li><a ui-sref=".ecommerce" ng-class="{activeTab: state.includes('dashboard.settings.ecommerce')}">Ecommerce</a></li>
 
   </ul>
 </div>
@@ -15,6 +16,7 @@
     <a ui-sref=".fishery" ng-disabled="isInviteDisabled" class="btn-status-default">Fishery</a>
     <a ui-sref=".users" ng-disabled="isInviteDisabled" class="btn-status-default">Users</a>
     <a ui-sref=".security" ng-disabled="isInviteDisabled" class="btn-status-default">Security</a>
+    <a ui-sref=".ecommerce" ng-disabled="isInviteDisabled" class="btn-status-default">Ecommerce</a>
   </div>
 </div>
 

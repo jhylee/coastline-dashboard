@@ -1,0 +1,153 @@
+<div ng-controller="GeneralSettingsCtrl">
+  <div class="col-lg-10 main">
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h2>Ecommerce Settings</h2>
+      </div>
+      <div class="panel-body">
+
+      <div class="panel-setting">
+
+         <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_8eoc6dk608vyD1XQrSe6WuABhoncKnLj&scope=read_write" class="stripe-connect"><span>Connect with Stripe</span></a>
+
+
+        <!-- <form>
+          <div class="row">
+            <div class="col-lg-6">
+              <fieldset class="form-group">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label>Username</label>
+                  </div>
+                  <div class="col-lg-9">
+                    <input class="form-control" ng-model="username" type="text" disabled></input>
+                    <small class="text-muted">Your username is for logging in and can't be changed.</small>
+                  </div>
+                </div>
+              </fieldset>
+
+
+              <fieldset class="form-group">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label>Account Email Address</label>
+                  </div>
+                  <div class="col-lg-9">
+                    <input class="form-control" ng-model="email" type="email" placeholder="No email registered." disabled></input>
+                    <small class="text-muted">For security reasons, please contact us to change your email.</small>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="col-lg-6">
+              <fieldset class="form-group">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label>Full Name</label>
+                  </div>
+                  <div class="col-lg-9">
+                    <input class="form-control" ng-disabled="isLoading" ng-model="name" type="text" placeholder="No name registered." ng-disabled="isSaving"></input>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="form-group">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <label>Phone Number</label>
+                  </div>
+                  <div class="col-lg-9">
+                    <input class="form-control" ng-disabled="isLoading" maxlength="10" ng-model="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="No phone number registered." ng-disabled="isSaving"></input>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+          <div align="right" class="panel-setting">
+          <button ng-disabled="isSubmitButtonDisabled()" ng-click="saveChanges()" class="btn-status-success">Save Changes</button>
+        </div>
+        </form> -->
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+  <!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header light-text">General Settings</h2>
+    <div class="row placeholders">
+      <div class="col-lg-8">
+        <div class="container">
+          <div class="panel-container">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="panel-setting">
+                  <form>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <fieldset class="form-group">
+                          <div class="row">
+                            <div class="col-lg-3">
+                              <label>Username</label>
+                            </div>
+                            <div class="col-lg-9">
+                              <input class="form-control" ng-model="username" type="text" disabled></input>
+                              <small class="text-muted">Your username is for logging in and can't be changed.</small>
+                            </div>
+                          </div>
+                        </fieldset>
+
+
+                        <fieldset class="form-group">
+                          <div class="row">
+                            <div class="col-lg-3">
+                              <label>Account Email Address</label>
+                            </div>
+                            <div class="col-lg-9">
+                              <input class="form-control" ng-disabled="isLoading" ng-model="email" type="email" placeholder="No email registered." disabled></input>
+                              <small class="text-muted">For security reasons, please contact us to change your email.</small>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+
+                      <div class="col-lg-6">
+                        <fieldset class="form-group">
+                          <div class="row">
+                            <div class="col-lg-3">
+                              <label>Full Name</label>
+                            </div>
+                            <div class="col-lg-9">
+                              <input class="form-control" ng-disabled="isLoading" ng-model="name" type="text" placeholder="No name registered." ng-disabled="isSaving"></input>
+                              <small class="text-muted">Please enter your new password.</small>
+                            </div>
+                          </div>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                          <div class="row">
+                            <div class="col-lg-3">
+                              <label>Phone Number</label>
+                            </div>
+                            <div class="col-lg-9">
+                              <input class="form-control" ng-disabled="isLoading" maxlength="10" ng-model="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="No phone number registered." ng-disabled="isSaving"></input>
+                              <small class="text-muted">Please enter only numbers.</small>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+                    </div>
+                    <div align="right" class="panel-setting">
+                    <button ng-disabled="isSubmitButtonDisabled()" ng-click="saveChanges()" class="btn-status-success">Save Changes</button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
