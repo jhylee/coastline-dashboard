@@ -5,15 +5,25 @@ var app = angular.module('coastlineWebApp.overview.controllers', ['ui.bootstrap'
    'coastlineWebApp.orders.services',
    'coastlineWebApp.common.services',
    'coastlineWebApp.products.services',
-   'ui.router'
+   'ui.router',
+   'chart.js'
 ]);
 
 app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'OverviewService', 'OrderData', '$uibModal', 'ProductData',
    function($scope, AuthService, $state, FisheryService, OverviewService, OrderData, $uibModal, ProductData) {
 
-      $scope.test1 = {
-         fetch: OverviewService.fetchAnalytics,
-      };
+      $scope.labels = [];
+      $scope.data = [];
+
+      OverviewService.fetchAnalytics().then(function(data) {
+         $scope.data = data.data;
+
+         data.labels.map(function(item) {
+            $scope.labels.push(item);
+         });
+
+         console.log(data);
+      });
 
       OverviewService.fetchUpcomingOrders().then(function(data) {
          $scope.upcomingOrders = data;
