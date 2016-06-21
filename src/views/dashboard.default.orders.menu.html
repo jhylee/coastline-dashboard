@@ -14,7 +14,6 @@
                <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Filter</button>
                <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Clear Filter</button>
                <button ng-click="deleteOrder()" class="btn-status-danger"><i class="fa fa-trash"></i> Delete</button>
-
             </div>
          </div>
          <div class="table-responsive table-card-responsive">
@@ -362,7 +361,7 @@
    <div class="modal-header">
       <h3 class="modal-title">View/Edit Invoice</h3>
       <div class="card-panel-options">
-         <a ng-show="stripeDetails.token" class="btn-status-success" href="javascript:void(0)" type="button" ng-disabled='stripeDetails.charged' ng-click="chargeCustomer()">{{stripeDetails.charged ? "Payment Charged With Stripe" : "Accept Payment With Stripe"}}</a>
+         <a ng-show="stripeDetails.token" class="btn-status-success" href="javascript:void(0)" type="button" ng-disabled='stripeDetails.charged' ng-click="chargeCustomer()">{{stripeDetails.charged ? "Payment Charged With" : "Accept Payment With"}}</a>
       </div>
    </div>
    <div class="modal-body">
