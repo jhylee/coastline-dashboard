@@ -361,7 +361,7 @@
    <div class="modal-header">
       <h3 class="modal-title">View/Edit Invoice</h3>
       <div class="card-panel-options">
-         <a ng-show="stripeDetails.token" class="btn-status-success" href="javascript:void(0)" type="button" ng-disabled='stripeDetails.charged' ng-click="chargeCustomer()">{{stripeDetails.charged ? "Payment Charged With" : "Accept Payment With"}}</a>
+         <a ng-show="stripeDetails.token" class="btn-status-success" href="javascript:void(0)" type="button" ng-disabled='stripeDetails.charged' ng-click="chargeCustomer()">{{stripeDetails.charged ? "Payment Charged With Stripe" : "Accept Payment With Stripe"}}</a>
       </div>
    </div>
    <div class="modal-body">
