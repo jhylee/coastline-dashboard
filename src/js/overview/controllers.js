@@ -12,17 +12,26 @@ var app = angular.module('coastlineWebApp.overview.controllers', ['ui.bootstrap'
 app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'OverviewService', 'OrderData', '$uibModal', 'ProductData',
    function($scope, AuthService, $state, FisheryService, OverviewService, OrderData, $uibModal, ProductData) {
 
-      $scope.labels = [];
-      $scope.data = [];
+      $scope.bar_labels = [];
+      $scope.bar_data = [];
 
-      OverviewService.fetchAnalytics().then(function(data) {
-         $scope.data = data.data;
+      $scope.line_labels = [];
+      $scope.line_data = [];
+
+      OverviewService.fetchRevenueByProduct().then(function(data) {
+         $scope.bar_data = data.data;
 
          data.labels.map(function(item) {
-            $scope.labels.push(item);
+            $scope.bar_labels.push(item);
          });
+      });
 
-         console.log(data);
+      OverviewService.fetchRevenueByMonth().then(function(data) {
+         $scope.line_data = data.data;
+
+         data.labels.map(function(item) {
+            $scope.line_labels.push(item);
+         });
       });
 
       OverviewService.fetchUpcomingOrders().then(function(data) {

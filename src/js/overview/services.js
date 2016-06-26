@@ -21,8 +21,16 @@ angular.module('coastlineWebApp.overview.services', ['coastlineWebApp.common.ser
                     console.log(err);
                 })
         },
-        fetchAnalytics: function() {
-           return $http.post(baseUrl + '/api/analytics/test', {blockId:"57659f5c6ceb36e99d163c7f"})
+        fetchRevenueByProduct: function() {
+           return $http.post(baseUrl + '/api/analytics/revenuePerProduct')
+               .then(function (res) {
+                   return res.data;
+               }).catch(function (err) {
+                   console.log(err);
+               })
+        },
+        fetchRevenueByMonth: function() {
+           return $http.post(baseUrl + '/api/analytics/revenuePerMonth')
                .then(function (res) {
                    return res.data;
                }).catch(function (err) {
