@@ -112,5 +112,73 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
             },
             function() {});
       };
+
+      $scope.addFilter = function() {
+          var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'views/modals/filterAnalytics.html',
+            controller: 'AddFilterCtrl',
+            size: 'md',
+            resolve: {}
+          });
+      };
    }
+]);
+
+
+
+app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
+
+        // var order = OrderData.getSelectedOrder();
+        $scope.dateEnd = new Date();
+        $scope.dateEnd.setHours(23);
+        $scope.dateEnd.setMinutes(59);
+        $scope.dateEnd.setSeconds(59);
+
+        $scope.isFilterDisabled = function() {
+            if (!$scope.product &&
+                !$scope.dateStart) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        // tied to ok button
+        $scope.ok = function() {
+            var filter = {};
+
+            if ($scope.product) filter.product = $scope.product;
+
+            if ($scope.dateStart) {
+                console.log($scope.dateStart);
+                filter.dateStart = $scope.dateStart;
+            }
+
+            if ($scope.dateEnd) {
+                console.log(new Date($scope.dateEnd.getFullYear(),
+                    $scope.dateEnd.getMonth(),
+                    $scope.dateEnd.getDate(),
+                    23, 59, 59, 59, 0));
+                filter.dateEnd = new Date($scope.dateEnd.getFullYear(),
+                    $scope.dateEnd.getMonth(),
+                    $scope.dateEnd.getDate(),
+                    23, 59, 59, 59, 0)
+            }
+
+            OrderData.setFilter(filter);
+
+            $uibModalInstance.close();
+
+
+        };
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+
+    }
 ]);
