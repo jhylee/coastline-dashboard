@@ -17,6 +17,9 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
 
       $scope.line_labels = [];
       $scope.line_data = [];
+      $scope.line_options = {
+         lineTension: 0,
+      };
 
       OverviewService.fetchRevenueByProduct().then(function(data) {
          $scope.bar_data = data.data;
