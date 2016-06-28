@@ -17,25 +17,39 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
 
       $scope.line_labels = [];
       $scope.line_data = [];
-      $scope.line_options = {
-         lineTension: 0,
+
+      $scope.updateRevenueByProduct = function(filter) {
+         console.log("PRODUCT FILTER", filter);
+
+         OverviewService.fetchRevenueByProduct(filter || {}).then(function(data) {
+            $scope.bar_labels = [];
+            $scope.bar_data = data.data;
+
+            console.log("PRODUCT DATA", data);
+
+            data.labels.map(function(item) {
+               $scope.bar_labels.push(item);
+            });
+         });
+      }
+
+      $scope.updateRevenueByMonth = function(filter) {
+         console.log("MONTH FILTER", filter);
+
+         OverviewService.fetchRevenueByMonth(filter || {}).then(function(data) {
+            $scope.line_labels = [];
+            $scope.line_data = data.data;
+
+            console.log("MONTH DATA", data);
+
+            data.labels.map(function(item) {
+               $scope.line_labels.push(item);
+            });
+         });
       };
 
-      OverviewService.fetchRevenueByProduct().then(function(data) {
-         $scope.bar_data = data.data;
-
-         data.labels.map(function(item) {
-            $scope.bar_labels.push(item);
-         });
-      });
-
-      OverviewService.fetchRevenueByMonth().then(function(data) {
-         $scope.line_data = data.data;
-
-         data.labels.map(function(item) {
-            $scope.line_labels.push(item);
-         });
-      });
+      $scope.updateRevenueByProduct();
+      $scope.updateRevenueByMonth();
 
       OverviewService.fetchUpcomingOrders().then(function(data) {
          $scope.upcomingOrders = data;
@@ -119,10 +133,10 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
       $scope.addFilter = function() {
           var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: 'views/modals/filterAnalytics.html',
+            templateUrl: 'views/modals/analytics-filter.html',
             controller: 'AddFilterCtrl',
             size: 'md',
-            resolve: {}
+            scope: $scope,
           });
       };
    }
@@ -130,14 +144,11 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
 
 
 
-app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
-    function($scope, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
+app.controller('AddFilterCtrl', ['$scope', 'OverviewService', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, OverviewService, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
 
-        // var order = OrderData.getSelectedOrder();
         $scope.dateEnd = new Date();
-        $scope.dateEnd.setHours(23);
-        $scope.dateEnd.setMinutes(59);
-        $scope.dateEnd.setSeconds(59);
+        $scope.dateEnd.setHours(23, 59, 59, 999);
 
         $scope.isFilterDisabled = function() {
             if (!$scope.product &&
@@ -152,36 +163,30 @@ app.controller('AddFilterCtrl', ['$scope', 'FisheryService', 'OrderData', 'Produ
         $scope.ok = function() {
             var filter = {};
 
-            if ($scope.product) filter.product = $scope.product;
+            if ($scope.productName) filter.productName = $scope.productName;
 
             if ($scope.dateStart) {
-                console.log($scope.dateStart);
                 filter.dateStart = $scope.dateStart;
             }
 
             if ($scope.dateEnd) {
-                console.log(new Date($scope.dateEnd.getFullYear(),
-                    $scope.dateEnd.getMonth(),
-                    $scope.dateEnd.getDate(),
-                    23, 59, 59, 59, 0));
                 filter.dateEnd = new Date($scope.dateEnd.getFullYear(),
                     $scope.dateEnd.getMonth(),
                     $scope.dateEnd.getDate(),
                     23, 59, 59, 59, 0)
             }
 
-            OrderData.setFilter(filter);
+            $scope.updateRevenueByProduct(filter);
+            $scope.updateRevenueByMonth(filter);
 
             $uibModalInstance.close();
-
-
         };
+
+
 
         // tied to cancel button
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
-
-
     }
 ]);
