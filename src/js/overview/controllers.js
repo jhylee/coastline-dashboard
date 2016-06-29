@@ -18,14 +18,25 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
       $scope.line_labels = [];
       $scope.line_data = [];
 
-      $scope.updateRevenueByProduct = function(filter) {
-         console.log("PRODUCT FILTER", filter);
+      $scope.products = [];
 
+      OverviewService.getProductData(function(data) {
+         for (var i = 0; i < data.length; ++i) {
+            $scope.products.push(data[i]);
+            for (var j = 0; j < data[i].finishedProducts.length; ++j) {
+               $scope.products.push(data[i].finishedProducts[j]);
+            }
+         }
+
+         console.log($scope.products);
+      }, function(err) {
+         console.log(err);
+      });
+
+      $scope.updateRevenueByProduct = function(filter) {
          OverviewService.fetchRevenueByProduct(filter || {}).then(function(data) {
             $scope.bar_labels = [];
             $scope.bar_data = data.data;
-
-            console.log("PRODUCT DATA", data);
 
             data.labels.map(function(item) {
                $scope.bar_labels.push(item);
@@ -34,13 +45,9 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
       }
 
       $scope.updateRevenueByMonth = function(filter) {
-         console.log("MONTH FILTER", filter);
-
          OverviewService.fetchRevenueByMonth(filter || {}).then(function(data) {
             $scope.line_labels = [];
             $scope.line_data = data.data;
-
-            console.log("MONTH DATA", data);
 
             data.labels.map(function(item) {
                $scope.line_labels.push(item);
@@ -53,7 +60,7 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
 
       OverviewService.fetchUpcomingOrders().then(function(data) {
          $scope.upcomingOrders = data;
-         console.log(data);
+
          if ($scope.upcomingOrders.length > 0) {
             $scope.selectedOrder = $scope.upcomingOrders[0];
          }
@@ -83,7 +90,6 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
 
       OverviewService.fetchOverdueOrders().then(function(data) {
          $scope.overdueOrders = data;
-         console.log(data);
 
          if ($scope.overdueOrders.length > 0) {
             $scope.selectedOrder = $scope.overdueOrders[0];

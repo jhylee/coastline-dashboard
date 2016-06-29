@@ -8,8 +8,9 @@
          <fieldset class="form-group">
            <div class="col-lg-6">
              <label>Product Name</label>
-             <input class="form-control" type="text" ng-model="productName" placeholder="">
-             <small class="text-muted">[Optional] Maximum 30 characters</small>
+             <select ng-model="productName" class="form-control">
+               <option ng-repeat="product in products track by $index" value="{{product.name}}">{{product.name}}</option>
+             </select>
            </div>
          </fieldset>
         <fieldset class="form-group">

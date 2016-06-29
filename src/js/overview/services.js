@@ -5,6 +5,11 @@ angular.module('coastlineWebApp.overview.services', ['coastlineWebApp.common.ser
     var baseUrl = apiUrl;
 
     return {
+         getProductData: function(success, error) {
+             $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/sourcedProducts').success(function(res) {
+                success(res);
+             }).error(error);
+         },
         fetchOverdueOrders: function () {
             return $http.get(baseUrl + '/api/orders/overdue')
                 .then(function (res) {
