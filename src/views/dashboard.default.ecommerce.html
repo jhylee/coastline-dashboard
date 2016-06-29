@@ -27,7 +27,7 @@
                      </td>
                      <td data-label="Product">&nbsp;{{block.finishedProduct ? block.finishedProduct.name: block.sourcedProduct.name}}</td>
                      <td data-label="Quantity">&nbsp;{{block.quantity}}</td>
-                     <td data-label="Number">&nbsp;{{block.blockNumber}}</td>
+                     <td data-label="Number">&nbsp;{{block.blockNumber || "Not Specified"}}</td>
                      <td data-label="Date">&nbsp;{{block.catchDate | date: "M/d/y"}}</td>
                   </tr>
                </tbody>

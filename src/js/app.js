@@ -100,6 +100,12 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
             templateUrl: '/views/dashboard.help.catch-history.html'
         })
 
+        .state('dashboard.help.ecommerce', {
+           url: '/ecommerce',
+           templateUrl: '/views/dashboard.help.ecommerce.html'
+        })
+
+
 
 
     .state('dashboard.settings', {
