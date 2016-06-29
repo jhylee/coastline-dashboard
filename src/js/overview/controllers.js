@@ -170,44 +170,29 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
 
 app.controller('AddFilterCtrl', ['$scope', 'OverviewService', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
     function($scope, OverviewService, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
-
-        $scope.dateEnd = new Date();
-        $scope.dateEnd.setHours(23, 59, 59, 999);
-
         $scope.isFilterDisabled = function() {
-            if (!$scope.product &&
-                !$scope.dateStart) {
-                return true;
-            } else {
-                return false;
-            }
+           return false;
         };
 
         // tied to ok button
         $scope.ok = function() {
             var filter = {};
 
-            if ($scope.productName) filter.productName = $scope.productName;
+            if ($scope.productName)
+               filter.productName = $scope.productName;
 
-            if ($scope.dateStart) {
-                filter.dateStart = $scope.dateStart;
-            }
+            if ($scope.dateStart)
+               filter.dateStart = $scope.dateStart;
 
-            if ($scope.dateEnd) {
-                filter.dateEnd = new Date($scope.dateEnd.getFullYear(),
-                    $scope.dateEnd.getMonth(),
-                    $scope.dateEnd.getDate(),
-                    23, 59, 59, 59, 0)
-            }
+            if ($scope.dateEnd)
+               filter.dateEnd = $scope.dateEnd;
 
             $scope.updateRevenueByProduct(filter);
             $scope.updateRevenueByMonth(filter);
 
             $uibModalInstance.close();
         };
-
-
-
+        
         // tied to cancel button
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
