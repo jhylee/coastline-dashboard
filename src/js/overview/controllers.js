@@ -171,7 +171,13 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
 app.controller('AddFilterCtrl', ['$scope', 'OverviewService', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
     function($scope, OverviewService, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
         $scope.isFilterDisabled = function() {
-           return false;
+           console.log("DATE", typeof $scope.dateStart);
+           if (typeof $scope.productName === "undefined" || typeof $scope.dateStart === "undefined") {
+             return true;
+           }
+           else {
+             return false;
+           }
         };
 
         // tied to ok button
@@ -192,7 +198,7 @@ app.controller('AddFilterCtrl', ['$scope', 'OverviewService', 'FisheryService', 
 
             $uibModalInstance.close();
         };
-        
+
         // tied to cancel button
         $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
