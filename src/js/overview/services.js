@@ -21,5 +21,29 @@ angular.module('coastlineWebApp.overview.services', ['coastlineWebApp.common.ser
                     console.log(err);
                 })
         },
+        fetchRevenueByProduct: function(filter) {
+            return $http({
+               "Content-Type": "application/x-www-form-urlencoded",
+               url: baseUrl + '/api/analytics/revenuePerProduct',
+               method: "POST",
+               data: filter || {},
+            }).then(function(res) {
+               return res.data;
+            }).catch(function(err) {
+               console.log(err);
+            });
+        },
+        fetchRevenueByMonth: function(filter) {
+           return $http({
+             "Content-Type": "application/x-www-form-urlencoded",
+             url: baseUrl + '/api/analytics/revenuePerMonth',
+             method: "POST",
+             data: filter || {},
+           }).then(function(res) {
+             return res.data;
+           }).catch(function(err) {
+             console.log(err);
+           });
+        },
     }
 }])

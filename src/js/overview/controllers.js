@@ -5,13 +5,51 @@ var app = angular.module('coastlineWebApp.overview.controllers', ['ui.bootstrap'
    'coastlineWebApp.orders.services',
    'coastlineWebApp.common.services',
    'coastlineWebApp.products.services',
-   'ui.router'
+   'ui.router',
+   'chart.js'
 ]);
-
-
 
 app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'OverviewService', 'OrderData', '$uibModal', 'ProductData',
    function($scope, AuthService, $state, FisheryService, OverviewService, OrderData, $uibModal, ProductData) {
+
+      $scope.bar_labels = [];
+      $scope.bar_data = [];
+
+      $scope.line_labels = [];
+      $scope.line_data = [];
+
+      $scope.updateRevenueByProduct = function(filter) {
+         console.log("PRODUCT FILTER", filter);
+
+         OverviewService.fetchRevenueByProduct(filter || {}).then(function(data) {
+            $scope.bar_labels = [];
+            $scope.bar_data = data.data;
+
+            console.log("PRODUCT DATA", data);
+
+            data.labels.map(function(item) {
+               $scope.bar_labels.push(item);
+            });
+         });
+      }
+
+      $scope.updateRevenueByMonth = function(filter) {
+         console.log("MONTH FILTER", filter);
+
+         OverviewService.fetchRevenueByMonth(filter || {}).then(function(data) {
+            $scope.line_labels = [];
+            $scope.line_data = data.data;
+
+            console.log("MONTH DATA", data);
+
+            data.labels.map(function(item) {
+               $scope.line_labels.push(item);
+            });
+         });
+      };
+
+      $scope.updateRevenueByProduct();
+      $scope.updateRevenueByMonth();
 
       OverviewService.fetchUpcomingOrders().then(function(data) {
          $scope.upcomingOrders = data;
@@ -52,7 +90,7 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
          }
 
          $scope.totals = [];
-         // 
+         //
          // for (var i = 0; i < $scope.overdueOrders.length; i++) {
          //    for (var j = 0; j < $scope.overdueOrders[i].items.length; j++) {
          //       if ($scope.overdueOrders[i].items[j].block.finishedProduct) {
@@ -92,5 +130,63 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
             function() {});
       };
 
+      $scope.addFilter = function() {
+          var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'views/modals/analytics-filter.html',
+            controller: 'AddFilterCtrl',
+            size: 'md',
+            scope: $scope,
+          });
+      };
    }
+]);
+
+
+
+app.controller('AddFilterCtrl', ['$scope', 'OverviewService', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
+    function($scope, OverviewService, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
+
+        $scope.dateEnd = new Date();
+        $scope.dateEnd.setHours(23, 59, 59, 999);
+
+        $scope.isFilterDisabled = function() {
+            if (!$scope.product &&
+                !$scope.dateStart) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        // tied to ok button
+        $scope.ok = function() {
+            var filter = {};
+
+            if ($scope.productName) filter.productName = $scope.productName;
+
+            if ($scope.dateStart) {
+                filter.dateStart = $scope.dateStart;
+            }
+
+            if ($scope.dateEnd) {
+                filter.dateEnd = new Date($scope.dateEnd.getFullYear(),
+                    $scope.dateEnd.getMonth(),
+                    $scope.dateEnd.getDate(),
+                    23, 59, 59, 59, 0)
+            }
+
+            $scope.updateRevenueByProduct(filter);
+            $scope.updateRevenueByMonth(filter);
+
+            $uibModalInstance.close();
+        };
+
+
+
+        // tied to cancel button
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+    }
 ]);
