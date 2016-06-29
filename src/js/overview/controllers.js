@@ -11,6 +11,7 @@ var app = angular.module('coastlineWebApp.overview.controllers', ['ui.bootstrap'
 
 app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'OverviewService', 'OrderData', '$uibModal', 'ProductData',
    function($scope, AuthService, $state, FisheryService, OverviewService, OrderData, $uibModal, ProductData) {
+      $scope.isFilterCleared = true;
 
       $scope.bar_labels = [];
       $scope.bar_data = [];
@@ -115,6 +116,11 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
          console.log(err);
       });
 
+      $scope.clearFilter = function() {
+         $scope.isFilterCleared = true;
+         $scope.updateRevenueByProduct();
+         $scope.updateRevenueByMonth();
+      };
 
 
       $scope.viewOrderDetail = function(order) {
@@ -174,7 +180,8 @@ app.controller('AddFilterCtrl', ['$scope', 'OverviewService', 'FisheryService', 
       $scope.dateEnd.setHours(23);
       $scope.dateEnd.setMinutes(59);
       $scope.dateEnd.setSeconds(59);
-      
+      console.log($scope.isFilterCleared);
+
         $scope.isFilterDisabled = function() {
            console.log("DATE", typeof $scope.dateStart);
            if (typeof $scope.productName === "undefined" && typeof $scope.dateStart === "undefined") {
@@ -200,6 +207,8 @@ app.controller('AddFilterCtrl', ['$scope', 'OverviewService', 'FisheryService', 
 
             $scope.updateRevenueByProduct(filter);
             $scope.updateRevenueByMonth(filter);
+            $scope.isFilterCleared = false;
+            console.log($scope.isFilterCleared)
 
             $uibModalInstance.close();
         };
