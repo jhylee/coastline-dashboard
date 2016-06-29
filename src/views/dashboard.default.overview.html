@@ -8,14 +8,14 @@
              <button ng-show="getFilter() == false" ng-click="addFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Filter</button>
              <button ng-show="getFilter()" ng-click="clearFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Clear Filter</button>          </div>
          </div>
-         <div class="table-responsive table-card-responsive">
+         <div class="panel-body">
           <!-- I hard coded straight lines into src/lib/angular-chart.js -->
           <div class="col-lg-6">
-              <center><h3>Revenue Per Product</h3><p></p></center>
+              <h4 class="text-center">Revenue Per Product ($)</h4>
               <canvas id="bar" class="chart chart-bar" chart-data="bar_data" chart-labels="bar_labels"></canvas>
           </div>
           <div class="col-lg-6">
-            <center><h3>Revenue Per Month</h3><p></p></center>
+            <h4 class="text-center">Revenue Per Month ($)</h4>
           <canvas id="line" class="chart chart-line" chart-data="line_data" chart-labels="line_labels"></canvas>
           </div>
          </div>

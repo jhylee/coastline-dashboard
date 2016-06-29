@@ -118,12 +118,13 @@
 .panel-body {
   padding: none;
   margin-left: 0;
-  background-color: $secondary-background-color;
+  background-color: $primary-background-color;
   border-color: $primary-border-color;
   border-radius: 3px;
   h4 {
     font-weight: 300;
   }
+
   li {
      padding: 5px;
      font-size: 15px;
