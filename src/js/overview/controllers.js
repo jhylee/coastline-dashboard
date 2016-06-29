@@ -170,9 +170,14 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
 
 app.controller('AddFilterCtrl', ['$scope', 'OverviewService', 'FisheryService', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModalInstance', '$http',
     function($scope, OverviewService, FisheryService, OrderData, ProductData, AuthService, $state, $uibModalInstance, $http) {
+      $scope.dateEnd = new Date();
+      $scope.dateEnd.setHours(23);
+      $scope.dateEnd.setMinutes(59);
+      $scope.dateEnd.setSeconds(59);
+      
         $scope.isFilterDisabled = function() {
            console.log("DATE", typeof $scope.dateStart);
-           if (typeof $scope.productName === "undefined" || typeof $scope.dateStart === "undefined") {
+           if (typeof $scope.productName === "undefined" && typeof $scope.dateStart === "undefined") {
              return true;
            }
            else {
