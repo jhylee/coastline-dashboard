@@ -5,8 +5,8 @@
          <div class="card-panel-header">
           <h2>Analytics</h2>
           <div class="card-panel-options">
-             <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Filter</button>
-             <button ng-show="isFilterCleared" ng-click="clearFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Clear Filter</button>          </div>
+             <button ng-show="getFilter() == false" ng-click="addFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Filter</button>
+             <button ng-show="getFilter()" ng-click="clearFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Clear Filter</button>          </div>
          </div>
          <div class="table-responsive table-card-responsive">
           <!-- I hard coded straight lines into src/lib/angular-chart.js -->

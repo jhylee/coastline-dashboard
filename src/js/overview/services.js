@@ -3,12 +3,20 @@ angular.module('coastlineWebApp.overview.services', ['coastlineWebApp.common.ser
 .factory('OverviewService', ['$http', 'apiUrl', 'FisheryService', function($http, apiUrl, FisheryService) {
 
     var baseUrl = apiUrl;
+    var _filter = false;
 
     return {
          getProductData: function(success, error) {
              $http.get(baseUrl + '/api/fisheries/' + FisheryService.getFisheryId() + '/sourcedProducts').success(function(res) {
                 success(res);
              }).error(error);
+         },
+         swapFilter: function() {
+            _filter = _filter == false;
+            return _filter;
+         },
+         getFilter: function() {
+            return _filter;
          },
         fetchOverdueOrders: function () {
             return $http.get(baseUrl + '/api/orders/overdue')
