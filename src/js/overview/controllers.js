@@ -136,14 +136,32 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
             function() {});
       };
 
+      // $scope.addFilter = function() {
+      //     var modalInstance = $uibModal.open({
+      //       animation: true,
+      //       templateUrl: 'views/modals/analytics-filter.html',
+      //       controller: 'AddFilterCtrl',
+      //       size: 'md',
+      //       scope: $scope,
+      //     });
+      // };
+
       $scope.addFilter = function() {
-          var modalInstance = $uibModal.open({
+         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: 'views/modals/analytics-filter.html',
+            templateUrl: 'views/modals/filterAnalytics.html',
             controller: 'AddFilterCtrl',
             size: 'md',
             scope: $scope,
-          });
+            resolve: {}
+         });
+
+         modalInstance.result.then(
+            function() {
+
+            },
+            function() {});
+
       };
    }
 ]);

@@ -80,7 +80,6 @@
       </div>
     </div>
   </div>
-</div>
 
 
 <!-- FILTER ORDERS MODAL-->
@@ -91,23 +90,25 @@
    <div class="modal-body">
       <form>
          <fieldset class="form-group">
-            <div class="col-lg-12">
-               <label>Product Name</label>
-               <input class="form-control" type="text" ng-model="product" placeholder="ex. John Doe">
-            </div>
+           <div class="col-lg-6">
+            <label>Product Name</label>
+            <select ng-model="productName" class="form-control">
+               <option ng-repeat="product in products track by $index" value="{{product.name}}">{{product.name}}</option>
+            </select>
+           </div>
          </fieldset>
-
-         <fieldset class="form-group">
+       <fieldset class="form-group">
             <div class="col-lg-6">
-               <label>Date Range - From:</label>
-               <input class="form-control" type="date" ng-model="dateStart" placeholder="2016-01-12">
-            </div>
-            <div class="col-lg-6">
-               <label>Date Range - To:</label>
-               <input class="form-control" type="date" ng-model="dateEnd" placeholder="2016-01-14">
-            </div>
-         </fieldset>
-
+            <label>Date Range - From:</label>
+            <input class="form-control" type="date" ng-model="dateStart" placeholder="2016-01-12">
+            <small class="text-muted">Filter Range (Beginning Date)</small>
+          </div>
+          <div class="col-lg-6">
+            <label>Date Range - To:</label>
+            <input class="form-control" type="date" ng-model="dateEnd" placeholder="2016-01-14">
+            <small class="text-muted">Filter Range (End Date)</small>
+          </div>
+       </fieldset>
       </form>
    </div>
    <div class="modal-footer">
@@ -223,3 +224,4 @@
     <button class="btn-status-danger" type="button" ng-click="dismiss()">Close</button>
   </div>
 </script>
+</div>
