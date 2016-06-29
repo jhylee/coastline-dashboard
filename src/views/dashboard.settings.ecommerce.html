@@ -1,0 +1,38 @@
+<div ng-controller="EcommerceSettingsCtrl">
+   <div class="col-lg-10 main">
+      <div class="card-panel">
+         <div class="card-panel-header">
+            <h2>E-commerce Settings</h2>
+            <div class="card-panel-options">
+               <div class="col-lg-12 invisible-block">Invisible</div>
+
+               <button type="button" onclick="location.href='https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_8eocgbf3pNfeBaTRXxOwkAunUa7fNmUV&scope=read_write';" class="btn-status-default">
+                  Connect with Stripe
+               </button>
+               <button href="javascript:void(0)" ng-click="remove()" class="btn-status-danger">
+                  Remove Stripe
+               </button>
+            </div>
+         </div>
+         <div class="panel-body">
+            <div class="col-lg-12" ng-switch on="stripeRemoved">
+               <p class="stripe-fail" ng-switch-when="0">No Stripe Integration Found.</p>
+               <p class="stripe-success" ng-switch-when="1">Stripe Integration Removed.</p>
+               <p ng-swith-default></p>
+            </div>
+            <div class="col-lg-12" ng-switch on="isStripeValid">
+               <p class="stripe-fail" ng-switch-when="1">Stripe authentication failed.</p>
+               <p class="stripe-success" ng-switch-when="0">Stripe successfully authenticated.</p>
+               <p ng-switch-default></p>
+            </div>
+            <div class="col-lg-12">
+               <ul>
+                  <li>To accept credit card payments on Coastline E-commerce, you must authorize Stripe to accept payments.</li>
+                  <li>Please click <b>"Connect with Stripe"</b> to start accepting customer payments with Stripe.</li>
+                  <li>To disable Stripe from your account, please click <b>"Remove Stripe"</b> and follow the instructions provided.</li>
+               </ul>
+            </div>
+         </div>
+         </div>
+      </div>
+   </div>
