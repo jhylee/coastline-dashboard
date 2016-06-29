@@ -778,8 +778,8 @@ app.controller('EditOrderCtrl', ['$scope', 'FisheryService', 'countries', 'state
             $scope.states = states.STATES;
 
             // if (stripeDetails.charged)
-            console.log($scope.stripeDetails.charged);
-            if ($scope.stripeDetails.charged == true) {
+            //console.log();
+            if ($scope.stripeDetails && $scope.stripeDetails.charged == true) {
                $scope.paymentMethod = "Credit";
                $scope.status = "paid";
             }
