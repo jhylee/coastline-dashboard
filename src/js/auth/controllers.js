@@ -21,13 +21,17 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
 
    $scope.$storage = $localStorage;
 
-   $scope.signUp = function() {
+   $scope.signUp = function(isTrial) {
 
       var formData = {
          username: $scope.username,
          password: $scope.password,
          email: $scope.email,
-         accountType: 'admin'
+         accountType: 'admin',
+         trial: isTrial ? {
+            companyName: $scope.companyName,
+            annualSeafoodVolume: $scope.annualSeafoodVolume,
+         } : false,
       };
 
       var formValid = true;
