@@ -1,42 +1,45 @@
 #tutorial-bar {
-   text-align:center;
-   width: 55%;
-   height: 50px;
+   position: absolute;
+   left: 22%;
+   bottom: -1px;
+
+   width: 56%;
+   min-height: 50px;
    line-height: 50px;
 
-   position: fixed;
-   left: calc(50% - 350px);
-   bottom: 0px;
-   padding: 0px 20px 0px 20px;
-
-   border-top-left-radius: 2px;
-   border-top-right-radius: 2px;
-
-   color: #fff;
+   text-align:center;
    font-weight: 300;
 
+   border: 1px solid $navbar-color;
+   border-radius: 2px;
+   border-bottom: none;
+
+   background: #fff;
+
+   box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.30);
+}
+
+#tutorial-back { float: left; }
+#tutorial-forward { float: right; }
+
+.tutorial-button {
+   height: 100%;
+   vertical-align: center;
    background-color: $navbar-color;
+   padding: 0px 20px 0px 20px;
+   color: #fff;
+   font-weight: 100;
 
-   #back {
-      float: left;
-   }
+   // no select
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 
-   #forward {
-      float: right;
-   }
-
-   a {
-      color: #fff;
-      font-weight: 300;
-      // no select
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-   }
-   a:hover {
+   &:hover {
+      background-color: $btn-default-hover-color;
       cursor: pointer;
    }
 }

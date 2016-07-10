@@ -830,11 +830,11 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
    function pointer(string, type) {
       if (string == steps[localState.step.ref].dialog[localState.step.dialog].pointer) {
          switch (type) {
-            case "bottom": return "tutorial-pointer-bottom";
-            case "left": return "tutorial-pointer-left";
-            case "right": return "tutorial-pointer-right";
-            case "up": return "tutorial-pointer-up";
-            default: return "tutorial-pointer-right";
+            case "bottom":    return "tutorial-pointer-bottom";
+            case "left":      return "tutorial-pointer-left";
+            case "right":     return "tutorial-pointer-right";
+            case "up":        return "tutorial-pointer-up";
+            default:          return "tutorial-pointer-right";
          }
       }
       else {

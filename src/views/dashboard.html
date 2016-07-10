@@ -33,8 +33,8 @@
 <div ui-view></div>
 <div ng-controller="NavTopCtrl">
    <div id="tutorial-bar">
-      <span id="back"><a ng-click="tutorial.back()">Previous Step</a></span>
+      <span id="tutorial-back" class="tutorial-button" ng-click="tutorial.back()"><</span>
       <span class="">{{tutorial.state.dialog}}</span>
-      <span id="forward"><a ng-click="tutorial.forward()">Next Step</a></span>
+      <span id="tutorial-forward" class="tutorial-button" ng-click="tutorial.forward()">></span>
    </div>
 </div>
