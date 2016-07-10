@@ -31,3 +31,10 @@
   </nav>
 </div>
 <div ui-view></div>
+<div ng-controller="NavTopCtrl">
+   <div id="tutorial-bar">
+      <span id="back"><a ng-click="tutorial.back()">Previous Step</a></span>
+      <span class="">{{tutorial.state.dialog}}</span>
+      <span id="forward"><a ng-click="tutorial.forward()">Next Step</a></span>
+   </div>
+</div>

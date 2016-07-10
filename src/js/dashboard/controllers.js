@@ -7,8 +7,8 @@ var app = angular.module('coastlineWebApp.dashboard.controllers', ['ui.bootstrap
 
 
 
-app.controller('NavTopCtrl', ['$scope', 'AuthService', '$state', 'FisheryService',
-    function($scope, AuthService, $state, FisheryService) {
+app.controller('NavTopCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'TutorialService',
+    function($scope, AuthService, $state, FisheryService, TutorialService) {
         $scope.fisheryName = "";
 
         $scope.fisheryName = FisheryService.getFisheryName();
@@ -20,6 +20,8 @@ app.controller('NavTopCtrl', ['$scope', 'AuthService', '$state', 'FisheryService
                 $state.go('login');
             });
         };
+
+        $scope.tutorial = TutorialService;
     }
 
 ]);

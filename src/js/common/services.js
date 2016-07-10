@@ -626,3 +626,219 @@ app.factory('VisDataSet', ['$http', 'apiUrl', function($http, apiUrl) {
         return new vis.DataSet(data, options);
     };
 }]);
+
+// managing tutorial steps
+app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'FisheryService', function($http, $state, apiUrl, $localStorage, FisheryService) {
+   var steps = [
+      {
+         name: "introduction",
+         description: "Introduction",
+         state: "dashboard.default.overview",
+         dialog: [
+            { text: "Welcome to your new Coastline account!" },
+            { text: "First thing to do is setup your account in \"Settings\"",
+              pointer: "settings" },
+         ],
+      },
+      {
+         name: "general",
+         description: "General",
+         state: "dashboard.settings.general",
+         dialog: [
+            { text: "Fill in your name and phone number (optional)." },
+         ],
+      },
+      {
+         name: "fishery",
+         description: "Fishery",
+         state: "dashboard.settings.fishery",
+         dialog: [
+            { text: "Information here, and logo will appear on the invoices and orders." },
+            { text: "You can also customize your web URL for your online seafood shop." },
+         ],
+      },
+      {
+         name: "users",
+         description: "Users",
+         state: "dashboard.settings.users",
+         dialog: [
+            { text: "Add users to your fishery as admin or staff." },
+         ],
+      },
+      {
+         name: "security",
+         description: "Security",
+         state: "dashboard.settings.security",
+         dialog: [
+            { text: "Change password here." },
+         ],
+      },
+      {
+         name: "ecommerce",
+         description: "E-Commerce",
+         state: "dashboard.settings.ecommerce",
+         dialog: [
+            { text: "Set up Stripe to enable credit card payment on your E-commerce platform." },
+            { text: "Now that your account is set up, let's explore the platform." },
+         ],
+      },
+      {
+         name: "products",
+         description: "Products",
+         state: "dashboard.default.products",
+         dialog: [
+            { text: "Create and edit the seafood products that you offer.",
+              pointer: "products" },
+         ],
+      },
+      {
+         name: "supplyChain",
+         description: "Supply Chain",
+         state: "dashboard.default.supply-chain.menu",
+         dialog: [
+            { text: "Set up your own supply chain here to reflect your business operations.",
+              pointer: "supply-chain" },
+         ],
+      },
+      {
+         name: "inventory",
+         description: "Inventory",
+         state: "dashboard.default.inventory.menu",
+         dialog: [
+            { text: "Add or move your inventory in your created supply chains.",
+              pointer: "inventory" },
+            { text: "Before you add an order, it's convenient to add preset customers.",
+              pointer: "customers" },
+         ],
+      },
+      {
+         name: "customers",
+         description: "Customers",
+         state: "dashboard.default.customers.menu",
+         dialog: [
+            { text: "Create customer accounts to document their contact information.",
+              pointer: "customers" },
+         ],
+      },
+      {
+         name: "orders",
+         description: "Orders",
+         state: "dashboard.default.orders.menu",
+         dialog: [
+            { text: "Create order invoices.",
+              pointer: "orders" },
+            { text: "Search for specific invoices using the filter option.",
+              pointer: "orders" },
+            { text: "Generate PDF and excel documents.",
+              pointer: "orders" },
+         ],
+      },
+      {
+         name: "ecommerce2",
+         description: "E-Commerce",
+         state: "dashboard.default.ecommerce",
+         dialog: [
+            { text: "Add products that you want to sell on your E-commerce platform.",
+              pointer: "ecommerce" },
+         ],
+      },
+      {
+         name: "overview",
+         description: "Overview",
+         state: "dashboard.default.overview",
+         dialog: [
+            { text: "Review the revenue per product and month.",
+              pointer: "overview" },
+            { text: "Also review the upcoming and overdue payments.",
+              pointer: "overview" },
+            { text: "Analytics will appear blank when there aren't any orders.",
+              pointer: "overview" },
+            { text: "Filter lets you choose a product, and/or a period of time.",
+              pointer: "overview" },
+         ],
+      },
+      {
+         name: "finished",
+         description: "Finished",
+         state: "dashboard.default.overview",
+         dialog: [
+            { text: "Tutorial is over. " },
+         ],
+      },
+   ];
+
+   var localState = {
+      step: {
+         ref: 0,
+         dialog: 0,
+      },
+      history: [],
+   };
+
+   var state = {
+      description: "",
+      dialog: "",
+   };
+
+   updateState();
+
+   return {
+      state: state,
+      back: back,
+      forward: forward,
+      pointer: pointer,
+   };
+
+   function back() {
+      if (--localState.step.dialog < 0) {
+         if (--localState.step.ref < 0) {
+            localState.step.ref = 0;
+            localState.step.dialog = 0;
+         }
+         else {
+            localState.step.dialog = steps[localState.step.ref].dialog.length - 1;
+         }
+      }
+
+      updateState();
+      $state.go(steps[localState.step.ref].state);
+   }
+
+   function forward() {
+      if (++localState.step.dialog > steps[localState.step.ref].dialog.length - 1) {
+         if (++localState.step.ref > steps.length - 1) {
+            localState.step.ref = steps.length - 1;
+            localState.step.dialog = steps[localState.step.ref].dialog.length - 1;
+         }
+         else {
+            localState.step.dialog = 0;
+         }
+      }
+
+      updateState();
+      $state.go(steps[localState.step.ref].state);
+   }
+
+   function updateState() {
+      var step = steps[localState.step.ref];
+      state.description = step.description;
+      state.dialog = step.dialog[localState.step.dialog].text;
+
+      // TODO: send update to server
+   }
+
+   function pointer(string, type) {
+      if (string == steps[localState.step.ref].dialog[localState.step.dialog].pointer) {
+         switch (type) {
+            case "bottom": return "tutorial-pointer-bottom";
+            case "left": return "tutorial-pointer-left";
+            case "right": return "tutorial-pointer-right";
+            case "up": return "tutorial-pointer-up";
+            default: return "tutorial-pointer-right";
+         }
+      }
+      else {
+         return "";
+      }
+   }
+}]);
