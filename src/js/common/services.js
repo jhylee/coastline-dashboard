@@ -812,7 +812,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
    function updateState() {
       if (AuthService.user && AuthService.user.trial.state == "cancelled") {
          localState.cancelled = false;
-         state.dialog = "Your trial has expired. To continue you must set up a shop. Logout if you have.";
+         state.dialog = "Your trial has expired. To continue you must set up a shop then re-login.";
       }
       else {
          $http
