@@ -22,6 +22,7 @@ app.controller('NavTopCtrl', ['$scope', 'AuthService', '$state', 'FisheryService
         };
 
         $scope.tutorial = TutorialService;
+        //TutorialService.update();
     }
 
 ]);

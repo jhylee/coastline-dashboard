@@ -186,12 +186,12 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
       if (formValid) {
          var loginPromise = AuthService.login(formData);
          loginPromise.then(function(res) {
-            if (res.data && res.data.error == "Trial ended.") {
-               $scope.trialExpired = true;
-            }
-            else if (res.statusText === "Unauthorized" || res.statusText === "Not Found") {
+            if (res.statusText === "Unauthorized" || res.statusText === "Not Found") {
                $scope.usernameRequired = true;
                $scope.passwordRequired = true;
+            }
+            else {
+               AuthService.user = res.user;
             }
          });
       }

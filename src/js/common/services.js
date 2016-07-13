@@ -628,7 +628,7 @@ app.factory('VisDataSet', ['$http', 'apiUrl', function($http, apiUrl) {
 }]);
 
 // managing tutorial steps
-app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'FisheryService', function($http, $state, apiUrl, $localStorage, FisheryService) {
+app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'FisheryService', 'AuthService', function($http, $state, apiUrl, $localStorage, FisheryService, AuthService) {
    var steps = [
       {
          name: "introduction",
@@ -637,7 +637,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          dialog: [
             { text: "Welcome to your new Coastline account!" },
             { text: "First thing to do is setup your account in \"Settings\"",
-              pointer: "settings" },
+              pointer: "null" },
          ],
       },
       {
@@ -687,8 +687,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Products",
          state: "dashboard.default.products",
          dialog: [
-            { text: "Create and edit the seafood products that you offer.",
-              pointer: "products" },
+            { text: "Create and edit the seafood products that you offer." },
          ],
       },
       {
@@ -696,8 +695,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Supply Chain",
          state: "dashboard.default.supply-chain.menu",
          dialog: [
-            { text: "Set up your own supply chain here to reflect your business operations.",
-              pointer: "supply-chain" },
+            { text: "Set up your own supply chain here to reflect your business operations." },
          ],
       },
       {
@@ -705,10 +703,8 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Inventory",
          state: "dashboard.default.inventory.menu",
          dialog: [
-            { text: "Add or move your inventory in your created supply chains.",
-              pointer: "inventory" },
-            { text: "Before you add an order, it's convenient to add preset customers.",
-              pointer: "customers" },
+            { text: "Add or move your inventory in your created supply chains." },
+            { text: "Before you add an order, it's convenient to add preset customers." },
          ],
       },
       {
@@ -716,8 +712,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Customers",
          state: "dashboard.default.customers.menu",
          dialog: [
-            { text: "Create customer accounts to document their contact information.",
-              pointer: "customers" },
+            { text: "Create customer accounts to document their contact information." },
          ],
       },
       {
@@ -725,12 +720,9 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Orders",
          state: "dashboard.default.orders.menu",
          dialog: [
-            { text: "Create order invoices.",
-              pointer: "orders" },
-            { text: "Search for specific invoices using the filter option.",
-              pointer: "orders" },
-            { text: "Generate PDF and excel documents.",
-              pointer: "orders" },
+            { text: "Create order invoices." },
+            { text: "Search for specific invoices using the filter option." },
+            { text: "Generate PDF and excel documents." },
          ],
       },
       {
@@ -738,8 +730,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "E-Commerce",
          state: "dashboard.default.ecommerce",
          dialog: [
-            { text: "Add products that you want to sell on your E-commerce platform.",
-              pointer: "ecommerce" },
+            { text: "Add products that you want to sell on your E-commerce platform." },
          ],
       },
       {
@@ -747,14 +738,10 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Overview",
          state: "dashboard.default.overview",
          dialog: [
-            { text: "Review the revenue per product and month.",
-              pointer: "overview" },
-            { text: "Also review the upcoming and overdue payments.",
-              pointer: "overview" },
-            { text: "Analytics will appear blank when there aren't any orders.",
-              pointer: "overview" },
-            { text: "Filter lets you choose a product, and/or a period of time.",
-              pointer: "overview" },
+            { text: "Review the revenue per product and month." },
+            { text: "Also review the upcoming and overdue payments." },
+            { text: "Analytics will appear blank when there aren't any orders." },
+            { text: "Filter lets you choose a product, and/or a period of time." },
          ],
       },
       {
@@ -773,6 +760,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          dialog: 0,
       },
       history: [],
+      cancelled: true,
    };
 
    var state = {
@@ -787,6 +775,8 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
       back: back,
       forward: forward,
       pointer: pointer,
+      update: updateState,
+      show: show,
    };
 
    function back() {
@@ -801,7 +791,6 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
       }
 
       updateState();
-      $state.go(steps[localState.step.ref].state);
    }
 
    function forward() {
@@ -809,6 +798,8 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          if (++localState.step.ref > steps.length - 1) {
             localState.step.ref = steps.length - 1;
             localState.step.dialog = steps[localState.step.ref].dialog.length - 1;
+
+            cancel();
          }
          else {
             localState.step.dialog = 0;
@@ -816,29 +807,43 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
       }
 
       updateState();
-      $state.go(steps[localState.step.ref].state);
    }
 
    function updateState() {
-      var step = steps[localState.step.ref];
-      state.description = step.description;
-      state.dialog = step.dialog[localState.step.dialog].text;
-
-      // TODO: send update to server
-   }
-
-   function pointer(string, type) {
-      if (string == steps[localState.step.ref].dialog[localState.step.dialog].pointer) {
-         switch (type) {
-            case "bottom":    return "tutorial-pointer-bottom";
-            case "left":      return "tutorial-pointer-left";
-            case "right":     return "tutorial-pointer-right";
-            case "up":        return "tutorial-pointer-up";
-            default:          return "tutorial-pointer-right";
-         }
+      if (AuthService.user && AuthService.user.trial.state == "cancelled") {
+         localState.cancelled = false;
+         state.dialog = "Your trial has expired. To continue you must set up a shop. Logout if you have.";
       }
       else {
-         return "";
+         $http
+         .post(apiUrl + '/api/trial/tutorial', { step: localState.step.ref })
+         .success(function(response) {
+            if (response.step == -1) {
+               localState.cancelled = true;
+            }
+            else {
+               localState.cancelled = false;
+               localState.step.ref = response.step;
+
+               var step = steps[localState.step.ref];
+               state.description = step.description;
+               state.dialog = step.dialog[localState.step.dialog].text;
+               $state.go(step.state);
+            }
+         });
       }
+   }
+
+   function pointer(string) {
+      return string == steps[localState.step.ref].dialog[localState.step.dialog].pointer;
+   }
+
+   function cancel() {
+      localState.cancelled = true;
+      localState.step.ref = -1;
+   }
+
+   function show() {
+      return localState.cancelled == false;
    }
 }]);

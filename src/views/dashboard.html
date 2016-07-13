@@ -31,10 +31,10 @@
   </nav>
 </div>
 <div ui-view></div>
-<div ng-controller="NavTopCtrl">
+<div ng-controller="NavTopCtrl" ng-show="tutorial.show()">
    <div id="tutorial-bar">
-      <span id="tutorial-back" class="tutorial-button" ng-click="tutorial.back()"><</span>
-      <span class="">{{tutorial.state.dialog}}</span>
-      <span id="tutorial-forward" class="tutorial-button" ng-click="tutorial.forward()">></span>
+      <span id="tutorial-back" class="tutorial-button" ng-click="tutorial.back()">Previous Step</span>
+      <span>{{tutorial.state.dialog}}</span>
+      <span id="tutorial-forward" class="tutorial-button" ng-click="tutorial.forward()">Next Step</span>
    </div>
 </div>
