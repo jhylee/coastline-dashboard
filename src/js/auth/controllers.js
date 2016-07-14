@@ -29,7 +29,7 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
          email: $scope.email,
          accountType: 'admin',
          trial: isTrial ? {
-            companyName: $scope.companyName,
+            company: $scope.companyName,
             annualSeafoodVolume: $scope.annualSeafoodVolume,
          } : false,
       };
