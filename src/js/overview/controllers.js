@@ -9,8 +9,9 @@ var app = angular.module('coastlineWebApp.overview.controllers', ['ui.bootstrap'
    'chart.js'
 ]);
 
-app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'OverviewService', 'OrderData', '$uibModal', 'ProductData',
-   function($scope, AuthService, $state, FisheryService, OverviewService, OrderData, $uibModal, ProductData) {
+app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'OverviewService', 'OrderData', '$uibModal', 'ProductData', 'TutorialService',
+   function($scope, AuthService, $state, FisheryService, OverviewService, OrderData, $uibModal, ProductData, TutorialService) {
+     $scope.tutorial = TutorialService;
       $scope.bar_labels = [];
       $scope.bar_data = [];
 

@@ -7,9 +7,10 @@ var app = angular.module('coastlineWebApp.products.controllers', ['ui.bootstrap'
 ]);
 
 
-app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'AuthService', 'ngNotify', '$state', '$uibModal',
-   function($scope, $rootScope, ProductData, AuthService, ngNotify, $state, $uibModal) {
+app.controller('ProductDisplayCtrl', ['$scope', '$rootScope', 'ProductData', 'AuthService', 'ngNotify', '$state', '$uibModal', 'TutorialService',
+   function($scope, $rootScope, ProductData, AuthService, ngNotify, $state, $uibModal, TutorialService) {
       $scope.selectedProduct = 0;
+      $scope.tutorial = TutorialService;
 
       var updateProductData = function() {
          ProductData.getSourcedProductData(function(data) {

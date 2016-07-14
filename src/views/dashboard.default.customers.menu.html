@@ -5,9 +5,9 @@
         <h2>Customer Management</h2>
         <div class="card-panel-options">
           <div class="col-lg-12 invisible-block">Invisible</div>
-          <button ng-click="add()" class="btn-status-success"><i class="fa fa-plus"></i> Add</button>
-          <button ng-click="editCustomer()" class="btn-status-default"><i class="fa fa-pencil"></i> Edit</button>
-          <button ng-click="delete()" class="btn-status-danger"><i class="fa fa-trash"></i> Delete</button>
+          <button ng-click="add()" class="{{tutorial.pointer('add') ? 'btn-tutorial-success' : 'btn-status-success'}}"><i class="fa fa-plus"></i> Add</button>
+          <button ng-click="editCustomer()" class="{{tutorial.pointer('edit') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-pencil"></i> View/Edit</button>
+          <button ng-click="delete()" class="{{tutorial.pointer('delete') ? 'btn-tutorial-danger' : 'btn-status-danger'}}"><i class="fa fa-trash"></i> Delete</button>
         </div>
       </div>
       <div class="table-responsive table-card-responsive">

@@ -8,8 +8,10 @@ var app = angular.module('coastlineWebApp.customers.controllers', ['ui.bootstrap
 
 
 
-app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'CustomerService',
-    function($scope, AuthService, $state, FisheryService, $uibModal, CustomerService) {
+app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'CustomerService', 'TutorialService',
+    function($scope, AuthService, $state, FisheryService, $uibModal, CustomerService, TutorialService) {
+      $scope.tutorial = TutorialService;
+
         var refreshCustomers = function(startIndex, endIndex) {
             CustomerService.getCustomersLength().then(function(data) {
                 $scope.numberOfCustomers = data.length;

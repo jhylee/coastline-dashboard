@@ -32,10 +32,11 @@ app.controller('MobileNavCtrl', ['$scope', 'AuthService', '$state', '$window', '
    }
 ]);
 
-app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService',
-   function($scope, AuthService, $state, FisheryService, SettingsService) {
+app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService', 'TutorialService',
+   function($scope, AuthService, $state, FisheryService, SettingsService, TutorialService) {
 
       $scope.isLoading = true;
+      $scope.tutorial = TutorialService;
 
       SettingsService.fetchUser().then(function(data) {
          $scope.username = data.username;
@@ -75,8 +76,9 @@ app.controller('GeneralSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fishe
    }
 ]);
 
-app.controller('EcommerceSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService', '$location', 'ngNotify',
-   function($scope, AuthService, $state, FisheryService, SettingsService, $location, ngNotify) {
+app.controller('EcommerceSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', 'SettingsService', '$location', 'ngNotify', 'TutorialService',
+   function($scope, AuthService, $state, FisheryService, SettingsService, $location, ngNotify, TutorialService) {
+     $scope.tutorial = TutorialService;
 
       var url = $location.absUrl();
       console.log(url);
@@ -124,12 +126,14 @@ app.controller('EcommerceSettingsCtrl', ['$scope', 'AuthService', '$state', 'Fis
    }
 ]);
 
-app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'states', 'countries', 'FisheryService', 'SettingsService', 'Upload',
-   function($scope, AuthService, $state, states, countries, FisheryService, SettingsService, Upload) {
+app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'states', 'countries', 'FisheryService', 'SettingsService', 'TutorialService', 'Upload',
+   function($scope, AuthService, $state, states, countries, FisheryService, SettingsService, TutorialService, Upload) {
 
       $scope.isLoading = true;
       $scope.countries = countries.COUNTRIES;
       $scope.states = states.STATES;
+      $scope.tutorial = TutorialService;
+
 
       SettingsService.fetchFishery().then(function(data) {
          $scope.name = data.name;
@@ -220,8 +224,9 @@ app.controller('FisherySettingsCtrl', ['$scope', 'AuthService', '$state', 'state
 ]);
 
 
-app.controller('UserSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'SettingsService',
-   function($scope, AuthService, $state, FisheryService, $uibModal, SettingsService) {
+app.controller('UserSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'SettingsService', 'TutorialService',
+   function($scope, AuthService, $state, FisheryService, $uibModal, SettingsService, TutorialService) {
+     $scope.tutorial = TutorialService;
 
       SettingsService.fetchUsers().then(function(data) {
          $scope.users = data;
@@ -254,8 +259,9 @@ app.controller('UserSettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryS
 ]);
 
 
-app.controller('SecuritySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'SettingsService', '$window',
-   function($scope, AuthService, $state, FisheryService, $uibModal, SettingsService, $window) {
+app.controller('SecuritySettingsCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModal', 'SettingsService', '$window', 'TutorialService',
+   function($scope, AuthService, $state, FisheryService, $uibModal, SettingsService, $window, TutorialService) {
+     $scope.tutorial = TutorialService;
 
       $scope.formData = {};
       $scope.isDisabled = true;

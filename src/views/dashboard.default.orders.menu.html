@@ -5,14 +5,14 @@
             <h2>Manage Orders</h2>
             <div class="card-panel-options">
                <div class="col-lg-12 invisible-block">&nbsp;</div>
-               <button ng-click="addOrder()" class="btn-status-success"><i class="fa fa-plus"></i> Add</button>
-               <button ng-click="editOrder()" class="btn-status-default"><i class="fa fa-search"></i> View/Edit</button>
-               <button ng-hide="isLoadingPDF" ng-click="viewOrderDetail(selectedOrder)" class="btn-status-default"><i class="fa fa-file-pdf-o"></i> PDF</button>
-               <button ng-show="isLoadingPDF" class="btn-status-success">Loading...</button>
-               <button ng-click="exportOrders()" ng-hide="isLoading" class="btn-status-default"><i class="fa fa-file-excel-o"></i> Excel</button>
-               <button ng-show="isLoading" class="btn-status-success" type="button">Loading...</button>
-               <button ng-show="isFilterCleared" ng-click="addFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Filter</button>
-               <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Clear Filter</button>
+               <button ng-click="addOrder()" class="{{tutorial.pointer('add') ? 'btn-tutorial-success' : 'btn-status-success'}}"><i class="fa fa-plus"></i> Add</button>
+               <button ng-click="editOrder()" class="{{tutorial.pointer('edit') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-search"></i> View/Edit</button>
+               <button ng-hide="isLoadingPDF" ng-click="viewOrderDetail(selectedOrder)" class="{{tutorial.pointer('pdf') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-file-pdf-o"></i> PDF</button>
+               <button ng-show="isLoadingPDF" class="{{tutorial.pointer('pdf') ? 'btn-tutorial-success' : 'btn-status-success'}}">Loading...</button>
+               <button ng-click="exportOrders()" ng-hide="isLoading" class="{{tutorial.pointer('excel') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-file-excel-o"></i> Excel</button>
+               <button ng-show="isLoading" class="{{tutorial.pointer('excel') ? 'btn-tutorial-success' : 'btn-status-success'}}" type="button">Loading...</button>
+               <button ng-show="isFilterCleared" ng-click="addFilter()" class="{{tutorial.pointer('filter') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-filter"></i> Filter</button>
+               <button ng-show="!isFilterCleared" ng-click="clearFilter()" class="{{tutorial.pointer('filter') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-filter"></i> Clear Filter</button>
                <button ng-click="deleteOrder()" class="btn-status-danger"><i class="fa fa-trash"></i> Delete</button>
             </div>
          </div>

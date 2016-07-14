@@ -11,8 +11,9 @@ var app = angular.module('coastlineWebApp.inventory.controllers', ['ui.bootstrap
 
 
 
-app.controller('TrackInventoryMenuCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', 'AuthService', '$state', '$uibModal',
-   function($scope, TrackInventoryManager, InventoryData, SupplyChainService, AuthService, $state, $uibModal) {
+app.controller('TrackInventoryMenuCtrl', ['$scope', 'TrackInventoryManager', 'InventoryData', 'SupplyChainService', 'AuthService', '$state', '$uibModal', 'TutorialService',
+   function($scope, TrackInventoryManager, InventoryData, SupplyChainService, AuthService, $state, $uibModal, TutorialService) {
+     $scope.tutorial = TutorialService;
 
       var getSupplyChains = function() {
          TrackInventoryManager.getSupplyChains(function(res) {

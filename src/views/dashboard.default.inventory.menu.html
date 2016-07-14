@@ -17,7 +17,7 @@
             <td data-label="Name">{{supplyChain.name}}</td>
             <td data-label="Date Created">{{supplyChain.dateCreated | date: 'short'}}</td>
             <td data-label="Details">
-                <button ng-click="setSupplyChain(supplyChain)" class="btn-status-default"><i class="fa fa-search"></i> View/Edit</button>
+                <button ng-click="setSupplyChain(supplyChain)" class="{{tutorial.pointer('inventory') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-search"></i> View/Edit</button>
             </td>
           </tr>
         </tbody>

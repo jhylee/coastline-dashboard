@@ -9,9 +9,11 @@ var app = angular.module('coastlineWebApp.orders.controllers', ['ui.bootstrap', 
 ]);
 
 
-app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModal', '$window',
-   function($scope, OrderData, ProductData, AuthService, $state, $uibModal, $window) {
+app.controller('OrderDisplayCtrl', ['$scope', 'OrderData', 'ProductData', 'AuthService', '$state', '$uibModal', '$window', 'TutorialService',
+   function($scope, OrderData, ProductData, AuthService, $state, $uibModal, $window, TutorialService) {
       $scope.fisheryName = "";
+      $scope.tutorial = TutorialService;
+
 
       //TODO - change this
       // $scope.addInvoice = function(){

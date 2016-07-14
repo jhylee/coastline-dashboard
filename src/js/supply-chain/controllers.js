@@ -6,8 +6,9 @@ var app = angular.module('coastlineWebApp.supplyChain.controllers', ['ui.bootstr
 
 // SUPPLY CHAINS TAB
 
-app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService', 'FisheryService', '$uibModal', '$rootScope',
-    function($scope, $state, SupplyChainService, FisheryService, $uibModal, $rootScope) {
+app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService', 'FisheryService', '$uibModal', '$rootScope', 'TutorialService',
+    function($scope, $state, SupplyChainService, FisheryService, $uibModal, $rootScope, TutorialService) {
+      $scope.tutorial = TutorialService;
 
         var getSupplyChains = function() {
             // Fishery.getFishery(function (fishery) {

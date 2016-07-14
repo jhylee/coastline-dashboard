@@ -636,8 +636,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          state: "dashboard.default.overview",
          dialog: [
             { text: "Welcome to your new Coastline account!" },
-            { text: "First thing to do is setup your account in \"Settings\"",
-              pointer: "null" },
+            { text: "Let's get your account set up through the \"Settings\" tab!" },
          ],
       },
       {
@@ -645,7 +644,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "General",
          state: "dashboard.settings.general",
          dialog: [
-            { text: "Fill in your name and phone number (optional)." },
+            { text: "Fill in your name and phone # (optional)." , pointer: "inputs"},
          ],
       },
       {
@@ -653,8 +652,8 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Fishery",
          state: "dashboard.settings.fishery",
          dialog: [
-            { text: "Information here, and logo will appear on the invoices and orders." },
-            { text: "You can also customize your web URL for your online seafood shop." },
+            { text: "Here is your Fishery settings page. Add your invoice logo, disclaimer, tax #, etc." , pointer: "logo"},
+            { text: "You can also customize your web URL for your online seafood shop." , pointer: "url"},
          ],
       },
       {
@@ -662,7 +661,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Users",
          state: "dashboard.settings.users",
          dialog: [
-            { text: "Add users to your fishery as admin or staff." },
+            { text: "From the users settings page, add admin/staff users to your fishery.", pointer: "invite" },
          ],
       },
       {
@@ -670,7 +669,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Security",
          state: "dashboard.settings.security",
          dialog: [
-            { text: "Change password here." },
+            { text: "From the security page, you can change your account password." , pointer: "password" },
          ],
       },
       {
@@ -678,7 +677,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "E-Commerce",
          state: "dashboard.settings.ecommerce",
          dialog: [
-            { text: "Set up Stripe to enable credit card payment on your E-commerce platform." },
+            { text: "Set up Stripe to enable credit card payments on your E-commerce platform.", pointer: "stripe" },
             { text: "Now that your account is set up, let's explore the platform." },
          ],
       },
@@ -687,7 +686,11 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Products",
          state: "dashboard.default.products",
          dialog: [
-            { text: "Create and edit the seafood products that you offer." },
+           { text: "This is your Products page!" },
+            { text: "Click Add to create the products you offer.", pointer: "add" },
+            { text: "Click Edit to edit the products you offer.", pointer: "edit" },
+            { text: "Click Delete to delete any products you no longer offer.", pointer: "delete" },
+
          ],
       },
       {
@@ -695,7 +698,11 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Supply Chain",
          state: "dashboard.default.supply-chain.menu",
          dialog: [
-            { text: "Set up your own supply chain here to reflect your business operations." },
+           { text: "This is your Supply Chain page!" },
+            { text: "Click Add to set up your custom business supply chain." , pointer: "add"},
+            { text: "Click Edit to edit your existing supply chain." , pointer: "edit"},
+            { text: "Click Delete to delete a specific supply chain." , pointer: "delete"},
+
          ],
       },
       {
@@ -703,8 +710,11 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Inventory",
          state: "dashboard.default.inventory.menu",
          dialog: [
-            { text: "Add or move your inventory in your created supply chains." },
-            { text: "Before you add an order, it's convenient to add preset customers." },
+           { text: "This is your Inventory page!" },
+           { text: "You must first add a supply chain to view your inventory." },
+           { text: "Click View Details for the supply chain you would like to monitor." , pointer: "inventory" },
+           { text: "Here, you can add or move your inventory in your supply chain." },
+           { text: "You can also view traceability info and manage inventory data." }
          ],
       },
       {
@@ -712,7 +722,11 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Customers",
          state: "dashboard.default.customers.menu",
          dialog: [
-            { text: "Create customer accounts to document their contact information." },
+           { text: "This is your Customers page!" },
+           { text: "Click Add to create a customer profile and store their information."  , pointer: "add" },
+           { text: "Click Edit to review or edit an existing customer profile."  , pointer: "edit" },
+           { text: "Click Delete to delete an existing customer profile."  , pointer: "delete" },
+
          ],
       },
       {
@@ -720,9 +734,14 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Orders",
          state: "dashboard.default.orders.menu",
          dialog: [
-            { text: "Create order invoices." },
-            { text: "Search for specific invoices using the filter option." },
-            { text: "Generate PDF and excel documents." },
+            { text: "This is your Orders page!" },
+            { text: "Click Add to create a manual order."  , pointer: "add" },
+            { text: "It's handy to have a few customer profiles set before making an order." },
+            { text: "Within Add Orders, choose Existing Customers to pull up customer profiles."},
+            { text: "Click View/Edit to review or edit an existing order." , pointer: "edit" },
+            { text: "Click PDF to print a specific order."  , pointer: "pdf" },
+            { text: "Click Filter to search for specific invoices.", pointer: "filter" },
+            { text: "Click Excel to export the orders currently displayed on your screen.", pointer: "excel" },
          ],
       },
       {
@@ -730,7 +749,10 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "E-Commerce",
          state: "dashboard.default.ecommerce",
          dialog: [
-            { text: "Add products that you want to sell on your E-commerce platform." },
+           { text: "This is your E-Commerce page!" },
+            { text: "Click Add to list products on your E-commerce shop.", pointer: "add" },
+            { text: "Click Delete to unlist specific products from your E-commerce shop.", pointer: "delete" },
+            { text: "Remember to set your desired Shop URL in your Fishery settings!"},
          ],
       },
       {
@@ -738,10 +760,12 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Overview",
          state: "dashboard.default.overview",
          dialog: [
-            { text: "Review the revenue per product and month." },
-            { text: "Also review the upcoming and overdue payments." },
-            { text: "Analytics will appear blank when there aren't any orders." },
-            { text: "Filter lets you choose a product, and/or a period of time." },
+           { text: "Last but not least, this is your Overview page!" },
+            { text: "Here, you can review the revenue per product and month." },
+            { text: "Click Filter to get analytics by product or by specific periods.", pointer: "filter" },
+            { text: "Keep in mind that analytics will appear blank when there aren't any orders." },
+            { text: "From this page, you can also review upcoming and overdue payments.", pointer: "view-details"},
+
          ],
       },
       {
@@ -749,7 +773,11 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Finished",
          state: "dashboard.default.overview",
          dialog: [
-            { text: "Tutorial is over. " },
+            { text: "You've succesfully completed the Coastline tutorial! " },
+            { text: "Click the Help button on the top-right of your more tutorials." },
+            { text: "If you have any questions or need help, contact us at hello@coastlinemarket.com!" },
+
+
          ],
       },
    ];
