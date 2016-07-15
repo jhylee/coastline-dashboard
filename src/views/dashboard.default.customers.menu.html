@@ -5,9 +5,9 @@
         <h2>Customer Management</h2>
         <div class="card-panel-options">
           <div class="col-lg-12 invisible-block">Invisible</div>
-          <button ng-click="add()" class="btn-status-success"><i class="fa fa-plus"></i> Add</button>
-          <button ng-click="editCustomer()" class="btn-status-default"><i class="fa fa-pencil"></i> Edit</button>
-          <button ng-click="delete()" class="btn-status-danger"><i class="fa fa-trash"></i> Delete</button>
+          <button ng-click="add()" class="{{tutorial.pointer('add') ? 'btn-tutorial-success' : 'btn-status-success'}}"><i class="fa fa-plus"></i> Add</button>
+          <button ng-click="editCustomer()" class="{{tutorial.pointer('edit') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-pencil"></i> View/Edit</button>
+          <button ng-click="delete()" class="{{tutorial.pointer('delete') ? 'btn-tutorial-danger' : 'btn-status-danger'}}"><i class="fa fa-trash"></i> Delete</button>
         </div>
       </div>
       <div class="table-responsive table-card-responsive">
@@ -60,7 +60,7 @@
         <div class="col-lg-6">
           <label>Name <span class="section-required" ng-hide="nameRequired">*</span>
             <span ng-show="nameRequired" class="input-required">Required</span></label>
-          <input class="form-control" type="text" ng-model="name" name="name" placeholder="ex. John Doe" required>
+          <input class="{{tutorial.pointer('submit') ? 'tutorial-input' : 'form-control'}}" type="text" ng-model="name" name="name" placeholder="ex. John Doe" required>
         </div>
         <div class="col-lg-6">
           <label>Email
@@ -127,7 +127,7 @@
   </div>
   <div class="modal-footer">
     <div class="alignright">
-      <button type="submit" ng-disabled="isSubmitButtonDisabled()" class="btn-status-success" ng-click="ok()">Submit</button>
+      <button type="submit" ng-disabled="isSubmitButtonDisabled()" class="{{tutorial.pointer('submit') ? 'btn-tutorial-success' : 'btn-status-success'}}" ng-click="ok()">Submit</button>
       <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
     </div>
   </div>

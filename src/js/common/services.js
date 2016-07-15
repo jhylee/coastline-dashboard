@@ -626,3 +626,294 @@ app.factory('VisDataSet', ['$http', 'apiUrl', function($http, apiUrl) {
         return new vis.DataSet(data, options);
     };
 }]);
+
+// managing tutorial steps
+app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'FisheryService', 'AuthService', function($http, $state, apiUrl, $localStorage, FisheryService, AuthService) {
+   var steps = [
+      {
+         name: "introduction",
+         description: "Introduction",
+         state: "dashboard.default.overview",
+         dialog: [
+            { text: "Welcome to your new Coastline account!" },
+            { text: "Let's get your account set up through the \"Settings\" tab!" },
+         ],
+      },
+      {
+         name: "general",
+         description: "General",
+         state: "dashboard.settings.general",
+         dialog: [
+            { text: "Fill in your name and phone # (optional)." , pointer: "inputs"},
+         ],
+      },
+      {
+         name: "fishery",
+         description: "Fishery",
+         state: "dashboard.settings.fishery",
+         dialog: [
+            { text: "Here is your Fishery settings page. Add your invoice logo, disclaimer, tax #, etc." , pointer: "logo"},
+            { text: "You can also customize your web URL for your online seafood shop." , pointer: "url"},
+         ],
+      },
+      {
+         name: "users",
+         description: "Users",
+         state: "dashboard.settings.users",
+         dialog: [
+            { text: "From the users settings page, add admin/staff users to your fishery.", pointer: "invite" },
+         ],
+      },
+      {
+         name: "security",
+         description: "Security",
+         state: "dashboard.settings.security",
+         dialog: [
+            { text: "From the security page, you can change your account password." , pointer: "password" },
+         ],
+      },
+      {
+         name: "ecommerce",
+         description: "E-Commerce",
+         state: "dashboard.settings.ecommerce",
+         dialog: [
+            { text: "Set up Stripe to enable credit card payments on your E-commerce platform.", pointer: "stripe" },
+            { text: "Now that your account is set up, let's explore the platform." },
+         ],
+      },
+      {
+         name: "products",
+         description: "Products",
+         state: "dashboard.default.products",
+         dialog: [
+           { text: "This is your Products page!" },
+            { text: "Click Add to create the products you offer.", pointer: "add" },
+            { text: "Click Edit to edit the products you offer.", pointer: "edit" },
+            { text: "Click Delete to delete any products you no longer offer.", pointer: "delete" },
+
+         ],
+      },
+      {
+         name: "supplyChain",
+         description: "Supply Chain",
+         state: "dashboard.default.supply-chain.menu",
+         dialog: [
+           { text: "This is your Supply Chain page!" },
+            { text: "Click Add to set up your custom business supply chain." , pointer: "add"},
+            { text: "Click Edit to edit your existing supply chain." , pointer: "edit"},
+            { text: "Click Delete to delete a specific supply chain." , pointer: "delete"},
+            { text: "Now let's add a supply chain." , pointer: "add"},
+         ],
+      },
+      {
+         name: "supplyChain2",
+         description: "Supply Chain Add",
+         state: "dashboard.default.supply-chain.create",
+         dialog: [
+           { text: "Give your supply chain a name and click Submit." , pointer: "name"},
+         ],
+      },
+      {
+         name: "supplyChain3",
+         description: "Supply Chain Add",
+         state: "dashboard.default.supply-chain.builder",
+         dialog: [
+           { text: "Click Add to set up your stages." , pointer: "add"},
+           { text: "In the Add popup, fill in the name and previous stage and Submit." , pointer: "add-modal"},
+           { text: "Click a specific stage and click Edit to change the stage." , pointer: "edit"},
+           { text: "Click Link/Unlink to remove lines between stages." , pointer: "link"},
+           { text: "Click a specific stage and click Delete to change the stage." , pointer: "delete"},
+         ],
+      },
+      {
+         name: "inventory",
+         description: "Inventory",
+         state: "dashboard.default.inventory.menu",
+         dialog: [
+           { text: "This is your Inventory page!" },
+           { text: "You must first add a supply chain to view your inventory." },
+           { text: "Click View Details for the supply chain you would like to monitor." , pointer: "inventory" },
+         ],
+      },
+      {
+         name: "inventory2",
+         description: "Inventory2",
+         state: "dashboard.default.inventory.track",
+         dialog: [
+           { text: "Click a specific stage and click View/Edit Inventory to track and move inventory.", pointer:"view" },
+                 { text: "Click Add to create an inventory batch from the products you offer.", pointer:"add" },
+                 { text: "Click a line item and click Batch Detail to review the batch history.", pointer:"review" },
+                 { text: "Click Move to move the batch across your supply chain stages.", pointer:"move" },
+                 { text: "Click Close to dismiss the modal.", pointer:"close" },
+         ],
+      },
+
+      {
+         name: "customers",
+         description: "Customers",
+         state: "dashboard.default.customers.menu",
+         dialog: [
+           { text: "This is your Customers page!" },
+           { text: "Click Add to create a customer profile and store their information."  , pointer: "add" },
+           { text: "Fill in all required information and click Submit."  , pointer: "submit" },
+           { text: "Click View/Edit to review or edit an existing customer profile."  , pointer: "edit" },
+           { text: "Click Delete to delete an existing customer profile."  , pointer: "delete" },
+         ],
+      },
+      {
+         name: "orders",
+         description: "Orders",
+         state: "dashboard.default.orders.menu",
+         dialog: [
+            { text: "This is your Orders page!" },
+            { text: "Click Add to create a manual order."  , pointer: "add" },
+            { text: "It's handy to have a few customer profiles set before making an order." },
+            { text: "Within Add Orders, choose Existing Customers to pull up customer profiles.", pointer:"profiles"},
+            { text: "Choose an existing customer, submit and the order will populate.", pointer:"customer-chosen"},
+            { text: "Remember to fill out the Payment Info tab!", pointer:"customer-pay"},
+            { text: "Click Submit, Cancel (bottom of form) or outside the popup to close the modal.", pointer:"close"},
+
+
+            { text: "Click View/Edit to review or edit an existing order." , pointer: "edit" },
+            { text: "Click PDF to print a specific order."  , pointer: "pdf" },
+            { text: "Click Filter to search for specific invoices.", pointer: "filter" },
+            { text: "Click Excel to export the orders currently displayed on your screen.", pointer: "excel" },
+         ],
+      },
+      {
+         name: "ecommerce2",
+         description: "E-Commerce",
+         state: "dashboard.default.ecommerce",
+         dialog: [
+           { text: "This is your E-Commerce page!" },
+            { text: "Click Add to list products on your E-commerce shop.", pointer: "add" },
+            { text: "First enter the supply chain and stage you want to sell from."},
+            { text: "Next choose your desired batch to sell along with a picture and logo."},
+            { text: "Click Submit to upload it to your e-commerce site.", pointer: "submit"},
+            { text: "This product is now available for purchase at the URL you defined in settings!"},
+
+
+            { text: "Click Delete to unlist specific products from your E-commerce shop.", pointer: "delete" },
+            { text: "Remember to set your desired Shop URL in your Fishery settings!"},
+         ],
+      },
+      {
+         name: "overview",
+         description: "Overview",
+         state: "dashboard.default.overview",
+         dialog: [
+           { text: "Last but not least, this is your Overview page!" },
+            { text: "Here, you can review the revenue per product and month." },
+            { text: "Click Filter to get analytics by product or by specific periods.", pointer: "filter" },
+            { text: "Keep in mind that analytics will appear blank when there aren't any orders." },
+            { text: "From this page, you can also review upcoming and overdue payments.", pointer: "view-details"},
+
+         ],
+      },
+      {
+         name: "finished",
+         description: "Finished",
+         state: "dashboard.default.overview",
+         dialog: [
+            { text: "You've succesfully completed the Coastline tutorial! " },
+            { text: "Click the Help button on the top-right of your more tutorials." },
+            { text: "If you have any questions or need help, contact us at hello@coastlinemarket.com!" },
+
+
+         ],
+      },
+   ];
+
+   var localState = {
+      step: {
+         ref: 0,
+         dialog: 0,
+      },
+      history: [],
+      cancelled: true,
+   };
+
+   var state = {
+      description: "",
+      dialog: "",
+   };
+
+   updateState();
+
+   return {
+      state: state,
+      back: back,
+      forward: forward,
+      pointer: pointer,
+      update: updateState,
+      show: show,
+   };
+
+   function back() {
+      if (--localState.step.dialog < 0) {
+         if (--localState.step.ref < 0) {
+            localState.step.ref = 0;
+            localState.step.dialog = 0;
+         }
+         else {
+            localState.step.dialog = steps[localState.step.ref].dialog.length - 1;
+         }
+      }
+
+      updateState();
+   }
+
+   function forward() {
+      if (++localState.step.dialog > steps[localState.step.ref].dialog.length - 1) {
+         if (++localState.step.ref > steps.length - 1) {
+            localState.step.ref = steps.length - 1;
+            localState.step.dialog = steps[localState.step.ref].dialog.length - 1;
+
+            cancel();
+         }
+         else {
+            localState.step.dialog = 0;
+         }
+      }
+
+      updateState();
+   }
+
+   function updateState() {
+      if (AuthService.user && AuthService.user.trial.state == "cancelled") {
+         localState.cancelled = false;
+         state.dialog = "Your trial has expired. To continue you must set up a shop then re-login.";
+      }
+      else {
+         $http
+         .post(apiUrl + '/api/trial/tutorial', { step: localState.step.ref })
+         .success(function(response) {
+            if (response.step == -1) {
+               localState.cancelled = true;
+            }
+            else {
+               localState.cancelled = false;
+               localState.step.ref = response.step;
+
+               var step = steps[localState.step.ref];
+               state.description = step.description;
+               state.dialog = step.dialog[localState.step.dialog].text;
+               $state.go(step.state);
+            }
+         });
+      }
+   }
+
+   function pointer(string) {
+      return string == steps[localState.step.ref].dialog[localState.step.dialog].pointer;
+   }
+
+   function cancel() {
+      localState.cancelled = true;
+      localState.step.ref = -1;
+   }
+
+   function show() {
+      return localState.cancelled == false;
+   }
+}]);

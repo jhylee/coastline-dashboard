@@ -60,6 +60,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/sign-up-code.html'
     })
 
+    .state('sign-up-trial', {
+        url: '/sign-up-trial',
+        templateUrl: '/views/sign-up-trial.html'
+    })
+
     .state('dashboard', {
         url: '/auth',
         templateUrl: '/views/dashboard.html'
@@ -260,6 +265,8 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
                 return;
             } else if (toState.name === 'sign-up-code') {
                 RedirectService.setRedirectState("sign-up-code");
+            } else if (toState.name === 'sign-up-trial') {
+                RedirectService.setRedirectState("sign-up-trial");
             } else {
                 RedirectService.setRedirectState("login");
             }
@@ -275,6 +282,15 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
 
         // authenticated (previously) comming not to root main
         if (AuthService.isAuthenticated()) {
+           if (AuthService.user && AuthService.user.trial.state == "cancelled") {
+             if (toState.name != "dashboard.settings.ecommerce") {
+                event.preventDefault();
+                $state.go("dashboard.settings.ecommerce");
+                //return;
+             }
+           }
+           else {
+
             // var shouldGoToMain = fromState.name === "" && toState.name !== "dashboard";
             var goToDashboard = (toState.name == "redirect");
 
@@ -282,6 +298,7 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
                 RedirectService.setRedirectState("dashboard.default.overview");
             }
             return;
+         }
         }
     });
 });

@@ -9,12 +9,12 @@
           <br>
           <div class="col-lg-8 col-lg-offset-2">
             <label>Name of Supply Chain</label>
-            <input class="form-control" ng-model="name" placeholder="ex. Joseph's Supply Chain">
+            <input class="{{tutorial.pointer('name') ? 'tutorial-input' : 'form-control'}}" ng-model="name" placeholder="ex. Joseph's Supply Chain">
             <small class="text-muted">Maximum 30 characters.</small>
           </div>
         </fieldset>
         <div class="text-center">
-        <button ng-disabled="isSubmitButtonDisabled()" type="submit" class="btn-status-success">Submit</button>
+        <button ng-disabled="isSubmitButtonDisabled()" type="submit" class="{{tutorial.pointer('name') ? 'btn-tutorial-success' : 'btn-status-success'}}">Submit</button>
         <button ui-sref="dashboard.default.supply-chain.menu" type="submit" class="btn-status-danger">Cancel</button>
       </div>
       </form>

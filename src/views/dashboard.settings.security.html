@@ -15,7 +15,7 @@
                     <label>Old Password</label>
                   </div>
                   <div class="col-lg-9">
-                    <input class="form-control" ng-model="formData.password" type="password" placeholder="Old password"></input>
+                    <input class="{{tutorial.pointer('password') ? 'tutorial-input' : 'form-control'}}" ng-model="formData.password" type="password" placeholder="Old password"></input>
                     <small class="text-muted">Enter your old password.</small>
                   </div>
                 </fieldset>
@@ -28,7 +28,7 @@
                     <label>New Password</label>
                   </div>
                   <div class="col-lg-9">
-                    <input class="form-control" ng-disabled="isLoading" ng-model="formData.newPassword" type="password" placeholder="New password"></input>
+                    <input class="{{tutorial.pointer('password') ? 'tutorial-input' : 'form-control'}}" ng-disabled="isLoading" ng-model="formData.newPassword" type="password" placeholder="New password"></input>
                     <small class="text-muted">Enter your new password.</small>
                   </div>
                 </fieldset>
@@ -48,7 +48,7 @@
                     <label>Confirm New Password</label>
                   </div>
                   <div class="col-lg-9">
-                    <input class="form-control" ng-disabled="isLoading" ng-model="formData.newPasswordAgain" type="password" placeholder="New password"></input>
+                    <input class="{{tutorial.pointer('password') ? 'tutorial-input' : 'form-control'}}" ng-disabled="isLoading" ng-model="formData.newPasswordAgain" type="password" placeholder="New password"></input>
                     <small class="text-muted">Enter your new password again.</small>
                   </div>
                 </fieldset>
