@@ -66,9 +66,10 @@ app.controller('EcommerceCtrl', ['$scope', 'AuthService', '$state', '$uibModal',
    }
 ]);
 
-app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'SupplyChainService', 'EcommerceService', 'Upload',
-   function($scope, AuthService, $state, FisheryService, $uibModalInstance, SupplyChainService, EcommerceService, Upload) {
+app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'SupplyChainService', 'EcommerceService', 'Upload', 'TutorialService',
+   function($scope, AuthService, $state, FisheryService, $uibModalInstance, SupplyChainService, EcommerceService, Upload, TutorialService) {
 
+     $scope.tutorial = TutorialService;
 
       SupplyChainService.fetchSupplyChains().then(function(data) {
          console.log(data);

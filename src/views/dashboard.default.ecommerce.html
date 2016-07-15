@@ -122,7 +122,7 @@
       </form>
 
       <div class="modal-footer">
-         <button ng-disabled="isSubmitButtonDisabled()" class="btn-status-success" type="button" ng-disabled="allDisabled" ng-click="ok()">Submit</button>
+         <button ng-disabled="isSubmitButtonDisabled()" class="{{tutorial.pointer('submit') ? 'btn-tutorial-success' : 'btn-status-success'}}" type="button" ng-disabled="allDisabled" ng-click="ok()">Submit</button>
          <button class="btn-status-danger" type="button" ng-disabled="allDisabled" ng-click="cancel()">Cancel</button>
       </div>
       </fieldset>

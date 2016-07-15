@@ -35,8 +35,10 @@ app.controller('TrackInventoryMenuCtrl', ['$scope', 'TrackInventoryManager', 'In
 ]);
 
 
-app.controller('TrackInventoryInterfaceCtrl', ['$scope', 'TrackInventoryManager', 'AuthService', '$state', '$uibModal',
-   function($scope, TrackInventoryManager, AuthService, $state, $uibModal) {
+app.controller('TrackInventoryInterfaceCtrl', ['$scope', 'TrackInventoryManager', 'AuthService', '$state', '$uibModal', 'TutorialService',
+   function($scope, TrackInventoryManager, AuthService, $state, $uibModal, TutorialService) {
+     $scope.tutorial = TutorialService;
+
       $scope.setSupplyChain = function(supplyChain) {
          TrackInventoryManager.setSupplyChain(supplyChain);
          $state.go('dashboard.default.inventory.track');
@@ -47,8 +49,9 @@ app.controller('TrackInventoryInterfaceCtrl', ['$scope', 'TrackInventoryManager'
 
 
 
-app.controller('InventoryCtrl', ['$scope', '$rootScope', 'InventoryData', 'SupplyChainService', '$state', '$uibModal',
-   function($scope, $rootScope, InventoryData, SupplyChainService, $state, $uibModal) {
+app.controller('InventoryCtrl', ['$scope', '$rootScope', 'InventoryData', 'SupplyChainService', '$state', '$uibModal', 'TutorialService',
+   function($scope, $rootScope, InventoryData, SupplyChainService, $state, $uibModal, TutorialService) {
+     $scope.tutorial = TutorialService;
       $scope.viewBlocks = function() {
          $rootScope.$broadcast("refreshStageEdit");
 
@@ -73,9 +76,10 @@ app.controller('InventoryCtrl', ['$scope', '$rootScope', 'InventoryData', 'Suppl
    }
 ]);
 
-app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'InventoryData', 'SupplyChainService', '$state', '$uibModalInstance', '$uibModal',
-   function($scope, $rootScope, InventoryData, SupplyChainService, $state, $uibModalInstance, $uibModal) {
+app.controller('ViewBlocksCtrl', ['$scope', '$rootScope', 'InventoryData', 'SupplyChainService', '$state', '$uibModalInstance', '$uibModal', 'TutorialService',
+   function($scope, $rootScope, InventoryData, SupplyChainService, $state, $uibModalInstance, $uibModal, TutorialService) {
 
+     $scope.tutorial = TutorialService;
       // For when this controller is reused
       $rootScope.$on("refreshStageEdit", function() {
          SupplyChainService.fetchSelectedStage()

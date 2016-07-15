@@ -702,7 +702,27 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
             { text: "Click Add to set up your custom business supply chain." , pointer: "add"},
             { text: "Click Edit to edit your existing supply chain." , pointer: "edit"},
             { text: "Click Delete to delete a specific supply chain." , pointer: "delete"},
-
+            { text: "Now let's add a supply chain." , pointer: "add"},
+         ],
+      },
+      {
+         name: "supplyChain2",
+         description: "Supply Chain Add",
+         state: "dashboard.default.supply-chain.create",
+         dialog: [
+           { text: "Give your supply chain a name and click Submit." , pointer: "name"},
+         ],
+      },
+      {
+         name: "supplyChain3",
+         description: "Supply Chain Add",
+         state: "dashboard.default.supply-chain.builder",
+         dialog: [
+           { text: "Click Add to set up your stages." , pointer: "add"},
+           { text: "In the Add popup, fill in the name and previous stage and Submit." , pointer: "add-modal"},
+           { text: "Click a specific stage and click Edit to change the stage." , pointer: "edit"},
+           { text: "Click Link/Unlink to remove lines between stages." , pointer: "link"},
+           { text: "Click a specific stage and click Delete to change the stage." , pointer: "delete"},
          ],
       },
       {
@@ -713,10 +733,21 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
            { text: "This is your Inventory page!" },
            { text: "You must first add a supply chain to view your inventory." },
            { text: "Click View Details for the supply chain you would like to monitor." , pointer: "inventory" },
-           { text: "Here, you can add or move your inventory in your supply chain." },
-           { text: "You can also view traceability info and manage inventory data." }
          ],
       },
+      {
+         name: "inventory2",
+         description: "Inventory2",
+         state: "dashboard.default.inventory.track",
+         dialog: [
+           { text: "Click a specific stage and click View/Edit Inventory to track and move inventory.", pointer:"view" },
+                 { text: "Click Add to create an inventory batch from the products you offer.", pointer:"add" },
+                 { text: "Click a line item and click Batch Detail to review the batch history.", pointer:"review" },
+                 { text: "Click Move to move the batch across your supply chain stages.", pointer:"move" },
+                 { text: "Click Close to dismiss the modal.", pointer:"close" },
+         ],
+      },
+
       {
          name: "customers",
          description: "Customers",
@@ -724,9 +755,9 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          dialog: [
            { text: "This is your Customers page!" },
            { text: "Click Add to create a customer profile and store their information."  , pointer: "add" },
-           { text: "Click Edit to review or edit an existing customer profile."  , pointer: "edit" },
+           { text: "Fill in all required information and click Submit."  , pointer: "submit" },
+           { text: "Click View/Edit to review or edit an existing customer profile."  , pointer: "edit" },
            { text: "Click Delete to delete an existing customer profile."  , pointer: "delete" },
-
          ],
       },
       {
@@ -737,7 +768,12 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
             { text: "This is your Orders page!" },
             { text: "Click Add to create a manual order."  , pointer: "add" },
             { text: "It's handy to have a few customer profiles set before making an order." },
-            { text: "Within Add Orders, choose Existing Customers to pull up customer profiles."},
+            { text: "Within Add Orders, choose Existing Customers to pull up customer profiles.", pointer:"profiles"},
+            { text: "Choose an existing customer, submit and the order will populate.", pointer:"customer-chosen"},
+            { text: "Remember to fill out the Payment Info tab!", pointer:"customer-pay"},
+            { text: "Click Submit, Cancel (bottom of form) or outside the popup to close the modal.", pointer:"close"},
+
+
             { text: "Click View/Edit to review or edit an existing order." , pointer: "edit" },
             { text: "Click PDF to print a specific order."  , pointer: "pdf" },
             { text: "Click Filter to search for specific invoices.", pointer: "filter" },
@@ -751,6 +787,12 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          dialog: [
            { text: "This is your E-Commerce page!" },
             { text: "Click Add to list products on your E-commerce shop.", pointer: "add" },
+            { text: "First enter the supply chain and stage you want to sell from."},
+            { text: "Next choose your desired batch to sell along with a picture and logo."},
+            { text: "Click Submit to upload it to your e-commerce site.", pointer: "submit"},
+            { text: "This product is now available for purchase at the URL you defined in settings!"},
+
+
             { text: "Click Delete to unlist specific products from your E-commerce shop.", pointer: "delete" },
             { text: "Remember to set your desired Shop URL in your Fishery settings!"},
          ],

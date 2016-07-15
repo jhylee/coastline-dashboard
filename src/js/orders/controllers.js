@@ -368,9 +368,10 @@ app.controller('ViewOrderDetailCtrl', ['$scope', '$window', 'OrderData', 'Produc
 ]);
 
 
-app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'countries', 'states', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService',
-   function($scope, FisheryService, countries, states, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService) {
+app.controller('AddOrderCtrl', ['$scope', 'FisheryService', 'countries', 'states', 'OrderData', 'ProductData', 'SupplyChainService', '$uibModal', 'ngNotify', '$state', '$uibModalInstance', '$http', 'CustomerService', 'TutorialService',
+   function($scope, FisheryService, countries, states, OrderData, ProductData, SupplyChainService, $uibModal, ngNotify, $state, $uibModalInstance, $http, CustomerService, TutorialService) {
 
+     $scope.tutorial = TutorialService;
       $scope.invoiceNumber;
       $scope.paymentMethod;
       $scope.status;

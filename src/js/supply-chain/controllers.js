@@ -104,8 +104,9 @@ app.controller('SupplyChainMenuCtrl', ['$scope', '$state', 'SupplyChainService',
 ]);
 
 
-app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainService', 'FisheryService', '$localStorage', '$rootScope',
-    function($scope, $state, VisDataSet, SupplyChainService, FisheryService, $localStorage, $rootScope) {
+app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'SupplyChainService', 'FisheryService', '$localStorage', '$rootScope', 'TutorialService',
+    function($scope, $state, VisDataSet, SupplyChainService, FisheryService, $localStorage, $rootScope, TutorialService) {
+      $scope.tutorial = TutorialService;
 
         $scope.isSubmitButtonDisabled = function() {
             if (!$scope.name) {
@@ -137,8 +138,9 @@ app.controller('SupplyChainCreateCtrl', ['$scope', '$state', 'VisDataSet', 'Supp
 ]);
 
 
-app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$uibModal', 'VisDataSet', 'SupplyChainService',
-    function($scope, $state, $rootScope, $uibModal, VisDataSet, SupplyChainService) {
+app.controller('SupplyChainDisplayCtrl', ['$scope', '$state', '$rootScope', '$uibModal', 'VisDataSet', 'SupplyChainService', 'TutorialService',
+    function($scope, $state, $rootScope, $uibModal, VisDataSet, SupplyChainService, TutorialService) {
+      $scope.tutorial = TutorialService;
 
         $rootScope.$on('leaving-supply-chain-builder', function() {
 
@@ -470,9 +472,10 @@ app.controller('SaveChangesCtrl', ['$scope', 'VisDataSet', 'SupplyChainService',
     }
 ]);
 
-app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance',
-    function($scope, VisDataSet, SupplyChainService, $uibModalInstance) {
+app.controller('AddStageCtrl', ['$scope', 'VisDataSet', 'SupplyChainService', '$uibModalInstance', 'TutorialService',
+    function($scope, VisDataSet, SupplyChainService, $uibModalInstance, TutorialService) {
 
+      $scope.tutorial = TutorialService;
         // var prev = SupplyChainService.getSelectedStage();
 
         // get stages - for option display

@@ -112,10 +112,12 @@ app.controller('CustomerDisplayCtrl', ['$scope', 'AuthService', '$state', 'Fishe
 ]);
 
 
-app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'countries', 'states', 'FisheryService', '$uibModalInstance', 'CustomerService',
-    function($scope, AuthService, $state, countries, states, FisheryService, $uibModalInstance, CustomerService) {
+app.controller('AddCustomerCtrl', ['$scope', 'AuthService', '$state', 'countries', 'states', 'FisheryService', '$uibModalInstance', 'CustomerService', 'TutorialService',
+    function($scope, AuthService, $state, countries, states, FisheryService, $uibModalInstance, CustomerService, TutorialService) {
       $scope.countries = countries.COUNTRIES;
       $scope.states = states.STATES;
+      $scope.tutorial = TutorialService;
+
 
         $scope.ok = function() {
 

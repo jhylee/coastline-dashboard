@@ -109,7 +109,7 @@
    <div class="modal-header">
       <h3 class="modal-title">Add Invoice</h3>
       <div class="card-panel-options">
-         <a class="btn-status-default" ng-href="javascript:void(0)" type="button" ng-click="loadCustomer()">Use Existing Customer</a>
+         <a class="{{tutorial.pointer('profiles') ? 'btn-tutorial-default' : 'btn-status-default'}}" ng-href="javascript:void(0)" type="button" ng-click="loadCustomer()">Use Existing Customer</a>
       </div>
    </div>
    <div class="modal-body">
@@ -117,7 +117,7 @@
          <li ng-class="{active:item==1}"><a data-toggle="tab" ng-click="item=1" ng-href="">Customer Info &nbsp;
         <span class="section-required" ng-show="nameRequired || emailRequired || phoneRequired"> * </span></a></li>
          <li ng-class="{active:item==2}"><a data-toggle="tab" ng-click="item=2" ng-href="">Payment Info &nbsp;
-        <span class="section-required" ng-show="invoiceRequired || statusRequired || dateRequired || creditRequired"> * </span></a></li>
+        <span class="section-required" ng-show="invoiceRequired || statusRequired || dateRequired || creditRequired || tutorial.pointer('customer-pay')"> * </span></a></li>
       </ul>
       <br>
       <form name="addOrderForm" ng-init="item=1">
@@ -350,8 +350,8 @@
    </form>
    <div class="modal-footer">
       <div class="alignright">
-         <button type="submit" class="btn-status-success" ng-click="ok()">Submit</button>
-         <button class="btn-status-danger" type="button" ng-click="cancel()">Cancel</button>
+         <button type="submit" class="{{tutorial.pointer('close') ? 'btn-tutorial-success' : 'btn-status-success'}}" ng-click="ok()">Submit</button>
+         <button class="{{tutorial.pointer('close') ? 'btn-tutorial-danger' : 'btn-status-danger'}}" type="button" ng-click="cancel()">Cancel</button>
       </div>
    </div>
 </script>
