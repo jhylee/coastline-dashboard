@@ -275,6 +275,15 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
 
         // authenticated (previously) comming not to root main
         if (AuthService.isAuthenticated()) {
+           // THIS CODE FORCES THE USER TO SIGN UP FOR STRIPE IF THEIR TRIAL HAS EXPIRED
+           /*if (AuthService.user && AuthService.user.trial.state == "cancelled") {
+             if (toState.name != "dashboard.settings.ecommerce") {
+                event.preventDefault();
+                $state.go("dashboard.settings.ecommerce");
+                //return;
+             }
+           }
+           else {*/
             // var shouldGoToMain = fromState.name === "" && toState.name !== "dashboard";
             var goToDashboard = (toState.name == "redirect");
 
@@ -282,6 +291,7 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
                 RedirectService.setRedirectState("dashboard.default.overview");
             }
             return;
+         //}
         }
     });
 });
