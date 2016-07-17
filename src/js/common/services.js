@@ -747,7 +747,6 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
                  { text: "Click Close to dismiss the modal.", pointer:"close" },
          ],
       },
-
       {
          name: "customers",
          description: "Customers",
@@ -831,6 +830,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
       },
       history: [],
       cancelled: true,
+      action: false,
    };
 
    var state = {
@@ -845,6 +845,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
       back: back,
       forward: forward,
       pointer: pointer,
+      action: action,
       update: updateState,
       show: show,
    };
@@ -902,10 +903,22 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
             }
          });
       }
+
+      localState.action = false;
    }
 
    function pointer(string) {
       return string == steps[localState.step.ref].dialog[localState.step.dialog].pointer;
+   }
+
+   function action(string, func, params) {
+      if (string == steps[localState.step.ref].dialog[localState.step.dialog].action && localState.action == false) {
+         localState.action = true;
+         return func(params || undefined);
+      }
+      else {
+         return undefined;
+      }
    }
 
    function cancel() {
