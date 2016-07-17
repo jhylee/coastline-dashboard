@@ -766,9 +766,9 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          dialog: [
             { text: "This is your Orders page!" },
             { text: "Click Add to create a manual order."  , pointer: "add" },
-            { text: "It's handy to have a few customer profiles set before making an order." },
+            { text: "It's handy to have a few customer profiles set before making an order.", action: "add-orders" },
             { text: "Within Add Orders, choose Existing Customers to pull up customer profiles.", pointer:"profiles"},
-            { text: "Choose an existing customer, submit and the order will populate.", pointer:"customer-chosen"},
+            { text: "Choose an existing customer, submit and the order will populate.", pointer:"customer-chosen", action: "choose-customer"},
             { text: "Remember to fill out the Payment Info tab!", pointer:"customer-pay"},
             { text: "Click Submit, Cancel (bottom of form) or outside the popup to close the modal.", pointer:"close"},
 
