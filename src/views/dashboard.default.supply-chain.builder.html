@@ -5,6 +5,8 @@
         <h2>Supply Chain Builder</h2>
         <div class="card-panel-options">
           <div class="col-lg-12 invisible-block">Invisible</div>
+          <!-- kinda sketchy -->
+          <div ng-class="tutorial.action('add-modal', addStage)"></div>
           <button ng-click="addStage()" class="{{tutorial.pointer('add') ? 'btn-tutorial-success' : 'btn-status-success'}}"><i class="fa fa-plus"></i> Add</button>
           <button ng-click="editStage()" class="{{tutorial.pointer('edit') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-pencil"></i> Edit</button>
           <button ng-click="linkStages()" class="{{tutorial.pointer('link') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-link"></i> Link</button>

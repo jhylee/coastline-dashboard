@@ -661,7 +661,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          description: "Users",
          state: "dashboard.settings.users",
          dialog: [
-            { text: "From the users settings page, add admin/staff users to your fishery.", pointer: "invite" },
+            { text: "From the users settings page, optionally add admin/staff users to your fishery.", pointer: "invite" },
          ],
       },
       {
@@ -688,6 +688,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          dialog: [
            { text: "This is your Products page!" },
             { text: "Click Add to create the products you offer.", pointer: "add" },
+            { text: "Fill in product details then click Submit.", action: "add-product" },
             { text: "Click Edit to edit the products you offer.", pointer: "edit" },
             { text: "Click Delete to delete any products you no longer offer.", pointer: "delete" },
 
@@ -719,7 +720,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          state: "dashboard.default.supply-chain.builder",
          dialog: [
            { text: "Click Add to set up your stages." , pointer: "add"},
-           { text: "In the Add popup, fill in the name and previous stage and Submit." , pointer: "add-modal"},
+           { text: "In the Add popup, fill in the name and previous stage and Submit." , pointer: "add-modal", action: "add-modal"},
            { text: "Click a specific stage and click Edit to change the stage." , pointer: "edit"},
            { text: "Click Link/Unlink to remove lines between stages." , pointer: "link"},
            { text: "Click a specific stage and click Delete to change the stage." , pointer: "delete"},
@@ -754,7 +755,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          dialog: [
            { text: "This is your Customers page!" },
            { text: "Click Add to create a customer profile and store their information."  , pointer: "add" },
-           { text: "Fill in all required information and click Submit."  , pointer: "submit" },
+           //{ text: "Fill in all required information and click Submit."  , pointer: "submit" },
            { text: "Click View/Edit to review or edit an existing customer profile."  , pointer: "edit" },
            { text: "Click Delete to delete an existing customer profile."  , pointer: "delete" },
          ],
@@ -882,13 +883,14 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
 
    function updateState() {
       if (AuthService.user && AuthService.user.trial.state == "cancelled") {
-         localState.cancelled = false;
+         //localState.cancelled = false;
          state.dialog = "Your trial has expired. To continue you must set up a shop then re-login.";
       }
       else {
          $http
          .post(apiUrl + '/api/trial/tutorial', { step: localState.step.ref })
          .success(function(response) {
+            console.log("step", response.step);
             if (response.step == -1) {
                localState.cancelled = true;
             }

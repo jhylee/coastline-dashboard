@@ -4,6 +4,8 @@
       <div class="card-panel-header">
         <h2>Products</h2>
         <div class="card-panel-options">
+           <!-- kinda sketchy but little alternatives -->
+          <div ng-class="tutorial.action('add-product', addProduct)"></div>
           <button class="{{tutorial.pointer('add') ? 'btn-tutorial-success' : 'btn-status-success'}}" ng-click="addProduct()"><i class="fa fa-plus"></i> Add</button>
           <button class="{{tutorial.pointer('edit') ? 'btn-tutorial-default' : 'btn-status-default'}}" ng-click="editProduct()"><i class="fa fa-pencil"></i> Edit</button>
           <button class="{{tutorial.pointer('delete') ? 'btn-tutorial-danger' : 'btn-status-danger'}}" ng-click="deleteProduct(sourcedProduct._id)"><i class="fa fa-trash"></i> Delete</button>
