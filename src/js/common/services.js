@@ -700,10 +700,9 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          state: "dashboard.default.supply-chain.menu",
          dialog: [
            { text: "This is your Supply Chain page!" },
-            { text: "Click Add to set up your custom business supply chain." , pointer: "add"},
             { text: "Click Edit to edit your existing supply chain." , pointer: "edit"},
             { text: "Click Delete to delete a specific supply chain." , pointer: "delete"},
-            { text: "Now let's add a supply chain." , pointer: "add"},
+            { text: "Now let's click Add to set up your custom business supply chain." , pointer: "add"},
          ],
       },
       {
@@ -720,7 +719,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          state: "dashboard.default.supply-chain.builder",
          dialog: [
            { text: "Click Add to set up your stages." , pointer: "add"},
-           { text: "In the Add popup, fill in the name and previous stage and Submit." , pointer: "add-modal", action: "add-modal"},
+           { text: "In the Add popup, fill in the name and previous stage and click Ok." , pointer: "add-modal", action: "add-modal"},
            { text: "Click a specific stage and click Edit to change the stage." , pointer: "edit"},
            { text: "Click Link/Unlink to remove lines between stages." , pointer: "link"},
            { text: "Click a specific stage and click Delete to change the stage." , pointer: "delete"},
