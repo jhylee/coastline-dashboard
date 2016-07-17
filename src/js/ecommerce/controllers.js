@@ -9,8 +9,9 @@ var app = angular.module('coastlineWebApp.ecommerce.controllers', ['ui.bootstrap
 
 
 
-app.controller('EcommerceCtrl', ['$scope', 'AuthService', '$state', '$uibModal', 'EcommerceService',
-   function($scope, AuthService, $state, $uibModal, EcommerceService) {
+app.controller('EcommerceCtrl', ['$scope', 'AuthService', '$state', '$uibModal', 'EcommerceService', 'TutorialService',
+   function($scope, AuthService, $state, $uibModal, EcommerceService, TutorialService) {
+     $scope.tutorial = TutorialService;
 
       EcommerceService.getEcommerceBlocks().then(function(data) {
          $scope.blocks = data;
@@ -65,9 +66,10 @@ app.controller('EcommerceCtrl', ['$scope', 'AuthService', '$state', '$uibModal',
    }
 ]);
 
-app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'SupplyChainService', 'EcommerceService', 'Upload',
-   function($scope, AuthService, $state, FisheryService, $uibModalInstance, SupplyChainService, EcommerceService, Upload) {
+app.controller('AddEcommerceBlockCtrl', ['$scope', 'AuthService', '$state', 'FisheryService', '$uibModalInstance', 'SupplyChainService', 'EcommerceService', 'Upload', 'TutorialService',
+   function($scope, AuthService, $state, FisheryService, $uibModalInstance, SupplyChainService, EcommerceService, Upload, TutorialService) {
 
+     $scope.tutorial = TutorialService;
 
       SupplyChainService.fetchSupplyChains().then(function(data) {
          console.log(data);

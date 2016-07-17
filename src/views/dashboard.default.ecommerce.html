@@ -5,8 +5,8 @@
             <h2>E-commerce Management</h2>
             <div class="card-panel-options">
                <div class="col-lg-12 invisible-block">Invisible</div>
-               <button ng-click="add()" class="btn-status-success"><i class="fa fa-plus"></i> Add</button>
-               <button ng-click="remove(selectedBlock._id)" class="btn-status-danger"><i class="fa fa-trash"></i> Remove</button>
+               <button ng-click="add()" class="{{tutorial.pointer('add') ? 'btn-tutorial-success' : 'btn-status-success'}}"><i class="fa fa-plus"></i> Add</button>
+               <button ng-click="remove(selectedBlock._id)" class="{{tutorial.pointer('delete') ? 'btn-tutorial-danger' : 'btn-status-danger'}}"><i class="fa fa-trash"></i> Remove</button>
             </div>
          </div>
          <div class="table-responsive table-card-responsive">
@@ -122,7 +122,7 @@
       </form>
 
       <div class="modal-footer">
-         <button ng-disabled="isSubmitButtonDisabled()" class="btn-status-success" type="button" ng-disabled="allDisabled" ng-click="ok()">Submit</button>
+         <button ng-disabled="isSubmitButtonDisabled()" class="{{tutorial.pointer('submit') ? 'btn-tutorial-success' : 'btn-status-success'}}" type="button" ng-disabled="allDisabled" ng-click="ok()">Submit</button>
          <button class="btn-status-danger" type="button" ng-disabled="allDisabled" ng-click="cancel()">Cancel</button>
       </div>
       </fieldset>

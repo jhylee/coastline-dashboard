@@ -18,10 +18,9 @@
           <li class="hide"><a ui-sref=".default.products">Products</a></li>
           <li class="hide"><a ui-sref=".default.supply-chain.menu">Supply Chain</a></li>
           <li class="hide"><a ui-sref=".default.inventory.menu">Inventory</a></li>
-          <li class="hide"><a ui-sref=".default.ecommerce.track">Sales</a></li>
+          <li class="hide"><a ui-sref=".default.ecommerce">Sales</a></li>
           <li class="hide"><a ui-sref=".default.orders.menu">Orders</a></li>
           <li class="hide"><a ui-sref=".default.customers.menu">Customers</a></li>
-
           <li><a ui-sref=".settings.general"><i class="fa fa-gear"></i> Settings</a></li>
           <li><a ui-sref=".help.overview"><i class="fa fa-question"></i> Help</a></li>
           <li><a ng-click="logout()" href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
@@ -31,3 +30,10 @@
   </nav>
 </div>
 <div ui-view></div>
+<div ng-controller="NavTopCtrl" ng-show="tutorial.show()">
+   <div id="tutorial-bar">
+      <span id="tutorial-back" class="tutorial-button" ng-click="tutorial.back()">Previous Step</span>
+      <span>{{tutorial.state.dialog}}</span>
+      <span id="tutorial-forward" class="tutorial-button" ng-click="tutorial.forward()">Next Step</span>
+   </div>
+</div>

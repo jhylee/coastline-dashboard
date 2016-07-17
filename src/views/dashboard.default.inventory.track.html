@@ -3,7 +3,7 @@
     <div class="card-panel-header">
       <h2>Track Inventory</h2>
       <div class="card-panel-options">
-        <button ng-click="viewBlocks()" ng-controller="InventoryCtrl" class="btn-status-default"><i class="fa fa-search"></i> View/Edit Inventory</button>
+        <button ng-click="viewBlocks()" ng-controller="InventoryCtrl" class="{{tutorial.pointer('view') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-search"></i> View/Edit Inventory</button>
       </div>
     </div>
     <div ng-controller="SupplyChainDisplayCtrl" class="panel panel-default">
@@ -24,10 +24,10 @@
     <div class="row">
     <div class="col-lg-12">
       <div class="alignright">
-      <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="moveBlock()"><i class="fa fa-truck"></i> Move</button>
-      <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="viewDetails()"><i class="fa fa-book"></i> Batch Detail</button>
-      <button class="btn-status-default" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()"><i class="fa fa-pencil"></i> Edit</button>
-      <button class="btn-status-success" type="button" ng-click="addBlock()"><i class="fa fa-plus"></i> Add</button>
+      <button class="{{tutorial.pointer('move') ? 'btn-tutorial-default' : 'btn-status-default'}}" type="button" ng-disabled="blocks.length==0" ng-click="moveBlock()"><i class="fa fa-truck"></i> Move</button>
+      <button class="{{tutorial.pointer('review') ? 'btn-tutorial-default' : 'btn-status-default'}}" type="button" ng-disabled="blocks.length==0" ng-click="viewDetails()"><i class="fa fa-book"></i> Batch Detail</button>
+      <button class="{{tutorial.pointer('edit') ? 'btn-tutorial-default' : 'btn-status-default'}}" type="button" ng-disabled="blocks.length==0" ng-click="editBlock()"><i class="fa fa-pencil"></i> Edit</button>
+      <button class="{{tutorial.pointer('add') ? 'btn-tutorial-success' : 'btn-status-success'}}" type="button" ng-click="addBlock()"><i class="fa fa-plus"></i> Add</button>
       <button class="btn-status-danger" type="button" ng-disabled="blocks.length==0" ng-click="deleteBlock()"><i class="fa fa-trash"></i> Delete</button>
     </div>
   </div>
@@ -66,7 +66,7 @@
 </div>
 
   <div class="modal-footer">
-    <button class="btn-status-default" type="button" ng-click="ok()">Close</button>
+    <button class="{{tutorial.pointer('close') ? 'btn-tutorial-default' : 'btn-status-default'}}" type="button" ng-click="ok()">Close</button>
   </div>
 </script>
 

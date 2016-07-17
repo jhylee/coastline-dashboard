@@ -60,6 +60,11 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/sign-up-code.html'
     })
 
+    .state('sign-up-trial', {
+        url: '/sign-up-trial',
+        templateUrl: '/views/sign-up-trial.html'
+    })
+
     .state('dashboard', {
         url: '/auth',
         templateUrl: '/views/dashboard.html'
@@ -260,6 +265,8 @@ app.run(function($rootScope, $state, $location, AuthService, RedirectService, Su
                 return;
             } else if (toState.name === 'sign-up-code') {
                 RedirectService.setRedirectState("sign-up-code");
+            } else if (toState.name === 'sign-up-trial') {
+                RedirectService.setRedirectState("sign-up-trial");
             } else {
                 RedirectService.setRedirectState("login");
             }

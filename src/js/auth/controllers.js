@@ -21,13 +21,17 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
 
    $scope.$storage = $localStorage;
 
-   $scope.signUp = function() {
+   $scope.signUp = function(isTrial) {
 
       var formData = {
          username: $scope.username,
          password: $scope.password,
          email: $scope.email,
-         accountType: 'admin'
+         accountType: 'admin',
+         trial: isTrial ? {
+            company: $scope.companyName,
+            annualSeafoodVolume: $scope.annualSeafoodVolume,
+         } : false,
       };
 
       var formValid = true;
@@ -182,10 +186,12 @@ angular.module('coastlineWebApp.auth.controllers', ['ui.router', 'ngStorage', 'n
       if (formValid) {
          var loginPromise = AuthService.login(formData);
          loginPromise.then(function(res) {
-
             if (res.statusText === "Unauthorized" || res.statusText === "Not Found") {
                $scope.usernameRequired = true;
                $scope.passwordRequired = true;
+            }
+            else {
+               AuthService.user = res.user;
             }
          });
       }

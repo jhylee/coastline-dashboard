@@ -97,7 +97,7 @@ angular.module('coastlineWebApp.auth.services', ['ngStorage', 'coastlineConstant
         setToken: function(newToken) {
             token = newToken;
         },
-
+        user: $localStorage.user,
 
     };
 }])

@@ -5,8 +5,8 @@
          <div class="card-panel-header">
           <h2>Analytics</h2>
           <div class="card-panel-options">
-             <button ng-show="getFilter() == false" ng-click="addFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Filter</button>
-             <button ng-show="getFilter()" ng-click="clearFilter()" class="btn-status-default"><i class="fa fa-filter"></i> Clear Filter</button>          </div>
+             <button ng-show="getFilter() == false" ng-click="addFilter()" class="{{tutorial.pointer('filter') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-filter"></i> Filter</button>
+             <button ng-show="getFilter()" ng-click="clearFilter()" class="{{tutorial.pointer('filter') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-filter"></i> Clear Filter</button>          </div>
          </div>
          <div class="panel-body">
           <!-- I hard coded straight lines into src/lib/angular-chart.js -->
@@ -42,7 +42,7 @@
                 <td data-label="Pay Method">{{order.paymentMethod != NULL? order.paymentMethod : "Not Specified"}}</td>
                 <td data-label="Date">{{order.date | date:'M/d/yyyy' || "Not Specified"}}</td>
                 <td data-label="Details">
-                  <button ng-click="viewOrderDetail(order)" class="btn-status-default"><i class="fa fa-search"></i> View Details</button>
+                  <button ng-click="viewOrderDetail(order)" class="{{tutorial.pointer('view-details') ? 'btn-tutorial-default' : 'btn-status-default'}}"><i class="fa fa-search"></i> View Details</button>
                 </td>
               </tr>
             </tbody>

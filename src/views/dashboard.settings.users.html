@@ -4,7 +4,7 @@
       <div class="card-panel-header">
         <h2>User Settings</h2>
         <div class="card-panel-options">
-          <button ng-disabled="isInviteDisabled" ng-click="inviteUser()" class="btn-status-success"><i class="fa fa-plus"></i> Invite New User</button>
+          <button ng-disabled="isInviteDisabled" ng-click="inviteUser()" class="{{tutorial.pointer('invite') ? 'btn-tutorial-success' : 'btn-status-success'}}"><i class="fa fa-plus"></i> Invite New User</button>
         </div>
       </div>
       <div class="table-responsive table-card-responsive">
