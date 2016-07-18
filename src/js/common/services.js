@@ -909,7 +909,10 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
    }
 
    function pointer(string) {
-      return string == steps[localState.step.ref].dialog[localState.step.dialog].pointer;
+      if (localState.step.ref >= 0 && localState.step.ref < steps.length)
+         return string == steps[localState.step.ref].dialog[localState.step.dialog].pointer;
+      else
+         return false;
    }
 
    function action(string, func, params) {

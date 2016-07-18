@@ -50,8 +50,8 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/forgot-password.html'
     })
 
-    .state('sign-up', {
-        url: '/sign-up',
+    .state('sign-up-nontrial', {
+        url: '/sign-up-nontrial',
         templateUrl: '/views/sign-up.html'
     })
 
@@ -60,8 +60,8 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider, $http
         templateUrl: '/views/sign-up-code.html'
     })
 
-    .state('sign-up-trial', {
-        url: '/sign-up-trial',
+    .state('sign-up', {
+        url: '/sign-up',
         templateUrl: '/views/sign-up-trial.html'
     })
 
