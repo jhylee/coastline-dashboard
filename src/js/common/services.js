@@ -825,7 +825,7 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
 
    var localState = {
       step: {
-         ref: 0,
+         ref: undefined,
          dialog: 0,
       },
       history: [],
@@ -886,10 +886,11 @@ app.factory('TutorialService', ['$http', '$state', 'apiUrl', '$localStorage', 'F
          state.dialog = "Your trial has expired. To continue you must set up a shop then re-login.";
       }
       else {
+         console.log("step 1", localState.step);
          $http
          .post(apiUrl + '/api/trial/tutorial', { step: localState.step.ref })
          .success(function(response) {
-            console.log("step", response.step);
+            console.log("step 2", response.step, localState.step.dialog);
             if (response.step == -1) {
                localState.cancelled = true;
             }
