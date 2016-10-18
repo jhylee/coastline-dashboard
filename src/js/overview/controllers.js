@@ -60,62 +60,74 @@ app.controller('OverviewCtrl', ['$scope', 'AuthService', '$state', 'FisheryServi
       $scope.updateRevenueByProduct();
       $scope.updateRevenueByMonth();
 
-      OverviewService.fetchUpcomingOrders().then(function(data) {
-         $scope.upcomingOrders = data;
-
-         if ($scope.upcomingOrders.length > 0) {
-            $scope.selectedOrder = $scope.upcomingOrders[0];
-         }
-
-         $scope.totals = [];
-
-         ProductData.getProductData(function(products) {
-            for (var i = 0; i < $scope.upcomingOrders.length; i++) {
-               var total = 0;
-
-               for (var j = 0; j < $scope.upcomingOrders[i].items.length; j++) {
-                  for (var k = 0; k < products.length; k++) {
-                     if ($scope.upcomingOrders[i].items[j].product == products[k]._id) {
-                        $scope.upcomingOrders[i].items[j].product = products[k];
-                        total += Math.round($scope.upcomingOrders[i].items[j].unitPrice * $scope.upcomingOrders[i].items[j].quantity * 100) / 100
-                     }
-                  }
+       OverviewService.fetchUpcomingOrders().then(function(data) {
+           var dataToPost = new Array();
+           for (var i = 0; i < data.length; i++){
+               if (data[i].status == "pending"){
+                   dataToPost.push(data[i]);
                }
+           }
+           $scope.upcomingOrders = dataToPost;
 
-               $scope.totals.push(total);
-            }
-         }, function(err) {
-            console.log(err);
-         });
+           if ($scope.upcomingOrders.length > 0) {
+               $scope.selectedOrder = $scope.upcomingOrders[0];
+           }
 
-      });
+           $scope.totals = [];
 
-      OverviewService.fetchOverdueOrders().then(function(data) {
-         $scope.overdueOrders = data;
+           ProductData.getProductData(function(products) {
+               for (var i = 0; i < $scope.upcomingOrders.length; i++) {
+                   var total = 0;
 
-         if ($scope.overdueOrders.length > 0) {
-            $scope.selectedOrder = $scope.overdueOrders[0];
-         }
+                   for (var j = 0; j < $scope.upcomingOrders[i].items.length; j++) {
+                       for (var k = 0; k < products.length; k++) {
+                           if ($scope.upcomingOrders[i].items[j].product == products[k]._id) {
+                               $scope.upcomingOrders[i].items[j].product = products[k];
+                               total += Math.round($scope.upcomingOrders[i].items[j].unitPrice * $scope.upcomingOrders[i].items[j].quantity * 100) / 100
+                           }
+                       }
+                   }
 
-         $scope.totals = [];
-         //
-         // for (var i = 0; i < $scope.overdueOrders.length; i++) {
-         //    for (var j = 0; j < $scope.overdueOrders[i].items.length; j++) {
-         //       if ($scope.overdueOrders[i].items[j].block.finishedProduct) {
-         //          ProductData.getFinishedProductData($scope.overdueOrders[i].items[j].block.finishedProduct).then(function(data) {
-         //             $scope.overdueOrders[i].items[j].block.finishedProduct = data;
-         //          });
-         //       } else {
-         //          ProductData.getSourcedProductData($scope.overdueOrders[i].items[j].block.sourcedProduct).then(function(data) {
-         //             $scope.overdueOrders[i].items[j].block.sourcedProduct = data;
-         //          });
-         //       }
-         //    }
-         // };
+                   $scope.totals.push(total);
+               }
+           }, function(err) {
+               console.log(err);
+           });
 
-      }, function(err) {
-         console.log(err);
-      });
+       });
+
+       OverviewService.fetchOverdueOrders().then(function(data) {
+           var dataToPost = new Array();
+           for (var i = 0; i < data.length; i++){
+               if (data[i].status == "pending"){
+                   dataToPost.push(data[i]);
+               }
+           }
+           $scope.overdueOrders = dataToPost;
+
+           if ($scope.overdueOrders.length > 0) {
+               $scope.selectedOrder = $scope.overdueOrders[0];
+           }
+
+           $scope.totals = [];
+           //
+           // for (var i = 0; i < $scope.overdueOrders.length; i++) {
+           //    for (var j = 0; j < $scope.overdueOrders[i].items.length; j++) {
+           //       if ($scope.overdueOrders[i].items[j].block.finishedProduct) {
+           //          ProductData.getFinishedProductData($scope.overdueOrders[i].items[j].block.finishedProduct).then(function(data) {
+           //             $scope.overdueOrders[i].items[j].block.finishedProduct = data;
+           //          });
+           //       } else {
+           //          ProductData.getSourcedProductData($scope.overdueOrders[i].items[j].block.sourcedProduct).then(function(data) {
+           //             $scope.overdueOrders[i].items[j].block.sourcedProduct = data;
+           //          });
+           //       }
+           //    }
+           // };
+
+       }, function(err) {
+           console.log(err);
+       });
 
       $scope.clearFilter = function() {
          OverviewService.swapFilter();
