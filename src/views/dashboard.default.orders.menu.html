@@ -152,7 +152,7 @@
                      <span class="section-required" ng-hide="phoneRequired">*</span>
                      <span class="input-required" ng-show="phoneRequired">Required</span>
                   </label>
-                  <input class="form-control" maxlength="10" ng-model="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 7789195029" name="phone" required>
+                  <input class="form-control" ng-model="phone" type="text" placeholder="ex. 7789195029" name="phone" required>
                </div>
 
                <div class="col-lg-4">
@@ -161,7 +161,7 @@
                </div>
                <div class="col-lg-4">
                   <label>Postal/ZIP Code</label>
-                  <input class="form-control" ng-model="postalCode" type="text" placeholder="ex. V3R13R" name="postalCode" maxlength="6">
+                  <input class="form-control" ng-model="postalCode" type="text" placeholder="ex. V3R13R" name="postalCode">
                </div>
             </fieldset>
 
@@ -227,9 +227,9 @@
                   <select ng-model="status" class="form-control" name="status" required>
                      <option value="">-- Select a Status --</option>
                      <option value="pending">Pending</option>
-                     <option value="delivered">Delivered</option>
+                     <!-- <option value="delivered">Delivered</option> -->
                      <option value="paid">Paid</option>
-                     <option value="cancelled">Cancelled</option>
+                     <!-- <option value="cancelled">Cancelled</option> -->
                      <option value="refunded">Refunded</option>
                   </select>
                </div>
@@ -403,7 +403,7 @@
                   <label>Phone Number &nbsp;
                      <span class="input-required" ng-show="phoneRequired"> * Required</span>
                   </label>
-                  <input class="form-control" maxlength="10" ng-model="phone" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="ex. 7789195029" name="phone" required>
+                  <input class="form-control" ng-model="phone" type="text" placeholder="ex. 7789195029" name="phone" required>
                   <small class="text-muted">No spaces or dashes</small>
                </div>
 
@@ -508,9 +508,9 @@
                   </label>
                   <select ng-model="status" class="form-control" name="status" required>
                      <option value="pending">Pending</option>
-                     <option value="delivered">Delivered</option>
+                     <!-- <option value="delivered">Delivered</option> -->
                      <option value="paid">Paid</option>
-                     <option value="cancelled">Cancelled</option>
+                     <!-- <option value="cancelled">Cancelled</option> -->
                      <option value="refunded">Refunded</option>
                   </select>
                </div>
@@ -599,9 +599,9 @@
                <select ng-model="status" class="form-control">
                   <option value="">-- Select Status --</option>
                   <option value="pending">Pending</option>
-                  <option value="delivered">Delivered</option>
+                  <!-- <option value="delivered">Delivered</option> -->
                   <option value="paid">Paid</option>
-                  <option value="cancelled">Cancelled</option>
+                  <!-- <option value="cancelled">Cancelled</option> -->
                   <option value="refunded">Refunded</option>
                </select>
             </div>
